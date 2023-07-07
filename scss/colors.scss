@@ -1,0 +1,211 @@
+/*-----------------------------------------------------
+Table of Contents
+
+- # color #000
+- # background #000
+- # background #212121
+- # color #222
+- # background #333
+- # color #555
+- # color #666
+- # background #eee
+- # background #f1f1f1
+- # background #f8f8f8
+- # color #fff
+- # background #fff
+- # color #ff0000
+- # background #ff0000
+- # background #0602e8
+- # color #ff0000
+
+------------------------------------------------------*/
+
+/*-----------------------------------------------------
+# color #000
+------------------------------------------------------*/
+
+.navigation ul li a,
+.full-screen-nav a,
+.entry-category,
+.entry-title a,
+.blog-item .read-more,
+.footer-extended .info ul li:first-child,
+.share-links a,
+.about-author .follow-links li a,
+.comment .reply,
+.contact-form input::placeholder,
+.next-project h1 a,
+.contact-info li:first-child,
+.cta-link,
+.portfolio-item-title,
+.follow-us-links li a,
+.interactive-links a {
+	color: #000;
+}
+
+/*-----------------------------------------------------
+# background #000
+------------------------------------------------------*/
+
+.nav-open i,
+.nav-open i:before,
+.nav-open i:after,
+.full-screen-nav .coll-nav-sub-item a:after,
+.contact-form input[type=submit],
+.project-description h2 span:after,
+.btn:hover {
+	background: #000;
+}
+
+/*-----------------------------------------------------
+# background #212121
+------------------------------------------------------*/ 
+
+.agency-modern .about .info,
+.cta_01,
+.footer-inverse {
+	background: #212121;
+}
+
+/*-----------------------------------------------------
+# color #222
+------------------------------------------------------*/
+
+.blog-item p {
+	color: #222;
+}
+
+/*-----------------------------------------------------
+# background #333
+------------------------------------------------------*/
+
+.contact-form textarea::-webkit-scrollbar-thumb {
+	background: #333;
+}
+
+
+/*-----------------------------------------------------
+# color #555
+------------------------------------------------------*/
+
+.footer-extended .info ul li,
+.footer-extended .info ul li a,
+.comment p,
+.cta_02 p,
+.about-me p,
+.about-me li  {
+	color: #555;
+}
+
+/*-----------------------------------------------------
+# color #666
+------------------------------------------------------*/
+
+.entry-header .entry-category,
+.entry-header .posted-on,
+.comment .publication-date,
+.single-project .details li span,
+.contact-info li,
+.portfolio-item-category,
+.personal-portfolio .hero p {
+	color: #666;
+}
+
+/*-----------------------------------------------------
+# background #eee
+------------------------------------------------------*/
+
+.contact-form textarea::-webkit-scrollbar-track {
+	background: #eee;
+}
+
+/*-----------------------------------------------------
+# background #f1f1f1
+------------------------------------------------------*/ 
+
+.share-links li {
+	background: #f1f1f1;
+}
+
+/*-----------------------------------------------------
+# background #f8f8f8
+------------------------------------------------------*/
+
+.footer-bg-grey,
+.contact-form input,
+.contact-form textarea,
+.next-project,
+.cta_02 {
+	background: #f8f8f8;
+}
+
+/*-----------------------------------------------------
+# color #fff
+------------------------------------------------------*/
+
+.sub-nav li:hover a,
+.tag-links a:hover,
+.share-links li:hover a,
+.contact-form input[type=submit],
+.btn,
+.agency-modern .about .info .content,
+.cta_01 h2,
+.footer-inverse,
+.footer-inverse .follow-us-links li a,
+.btn:hover {
+	color: #fff;
+}
+
+/*-----------------------------------------------------
+# background #fff
+------------------------------------------------------*/
+
+.sub-nav,
+.full-screen-nav,
+.team-member .overlay,
+.portfolio-item-overlay,
+.cta_01 .btn:hover {
+	background: #fff;
+}
+
+/*-----------------------------------------------------
+# color #ff0000
+------------------------------------------------------*/
+
+.navigation > ul > li > a:hover,
+.entry-category:hover,
+.entry-title a:hover,
+.footer-extended .info ul li a:hover,
+.tag-links a,
+.about-author .follow-links li a:hover,
+.comment .reply:hover,
+.mail-link,
+.follow-us-links li a:hover,
+.agency-minimal .intro h2,
+.cta_01 .btn:hover {
+	color: #ff0000;
+}
+
+/*-----------------------------------------------------
+# background #ff0000
+------------------------------------------------------*/
+
+.blog-item .read-more:before,
+.sub-nav li:hover,
+.tag-links a:hover,
+.share-links li:hover,
+.contact-form input[type=submit]:hover,
+.cta_02 .cta-link:before,
+.personal-portfolio .hero .cta-link:before,
+.btn,
+.mail-link:after {
+	background: #ff0000;
+}
+
+/*-----------------------------------------------------
+# color #ff0000
+------------------------------------------------------*/
+
+.agency-modern .about .info .content h3 {
+	color: #ff0000;
+}
