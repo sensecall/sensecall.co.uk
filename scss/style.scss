@@ -9,12 +9,13 @@ $font-family-base: 'Lora', serif;
 
 $font-size-base: 1.1875rem;
 
-$primary: #6a1058;
+$primary: #243e64;
 $link-color: $primary;
 
 // $link-color: #1c62d4;
 
-// $body-color: #34393a;
+$body-color: #384042;
+$dark: #1e2223;
 
 // $primary: #FFC300;
 // $primary: #ffef16;
@@ -39,4 +40,14 @@ $btn-border-radius: 50px !important;
 
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
 
-::selection { background: #801f7b7c; color: black; }
+::selection {
+    background: #801f7b7c;
+    color: black;
+}
+
+body {
+    background-image: url('../images/path.svg');
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-size: 50%;
+}

@@ -20,7 +20,7 @@ collections: ["post"]
 </head>
 
 <body id="home">
-    <nav class="py-3">
+    <nav class="py-3 mt-3">
         <div class="container d-flex flex-wrap">
             <ul class="nav nav-underline me-auto">
                 <li class="nav-item me-3"><a href="#" class="nav-link p-0 active" aria-current="page">Home</a></li>
@@ -32,16 +32,16 @@ collections: ["post"]
     </nav>
 
     <main>
-        <section class="bg-white py-5 container mb-0" id="introduction">
+        <section class="bg-transparent py-lg-4 py-0 container" id="introduction">
             <div class="row">
-                <div class="col col-lg-6 py-md-5 pt-5">
-                    <p class="fs-3 text-primary mb-1 fst-italic">Hi! I’m Dan Sensecall.</p>
-                    <h1 class="fs-1 mb-4 lh-1">
+                <div class="col-xl-7 col-md-9 col-lg-8 col-xxl-6 py-md-5 pt-5">
+                    <p class="fs-3 text-secondary mb-1 fst-italic">Hi! I’m Dan Sensecall.</p>
+                    <h1 class="fs-1 mb-4 lh-1 text-dark">
                         I'm a service designer and user experience consultant from the UK.
                     </h1>
                     <p>
-                        I help organisations solve complex problems by designing services that meet the needs of
-                        their users while also achieving business goals.
+                        I help organisations solve complex problems by designing services that meet the users' needs
+                        while also meeting the organisation's goals.
                     </p>
                     <p>
                         Typically, I help with things like:
@@ -54,54 +54,12 @@ collections: ["post"]
                         <li>content design</li>
                     </ul>
                 </div>
-
-                <!-- <div class="col offset-lg-1 col-lg-5 py-md-5 pt-5 mt-5">
-                    <div class="align-items-center justify-content-start text-center d-flex flex-row flex-wrap">
-                        {% for logo in collections.logos %}
-                        <div class="mx-xxl-3 mx-lg-4 mx-md-4 mx-sm-3 mx-2 my-lg-4 my-md-2 my-sm-3 my-3 w-25"
-                            style="max-width: 150px;">
-                            <img src="../images/clients/{{ logo.image }}" alt="{{ logo.name }} logo" class="w-100"
-                                style="-webkit-filter: grayscale(100%); filter: grayscale(100%);">
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div> -->
             </div>
         </section>
 
-        <section id="clients" class="bg-light pt-5">
-            <div class="container pt-3 pb-5">
-                <div class="row">
-                    <div class="col-xl-8 col-md-9 col-xxl-7">
-                        <h2 class="mb-3">Who I work with</h2>
-
-                        <p class="mb-">
-                            Over the past 15 years I've worked with a range of clients, from startups to government
-                            departments, to improve their products and services.
-                        </p>
-                        <p class="mb-5">
-                            Since 2018, I've worked exclusively with Public Sector organisations to design services for
-                            citizens and internal users.
-                        </p>
-                    </div>
-
-                    <div class="col-xl-9 col-md-10 col-xxl-8">
-                        <div class="align-items-center justify-content-md-start justify-content-center text-center d-flex flex-row flex-wrap">
-                            {% for logo in collections.logos %}
-                            <div class="me-xxl-5 me-lg-4 me-md-4 me-sm-3 me-0 mx-4 mx-sm-0 my-lg-4 my-md-2 my-sm-3 my-3 w-25"
-                                style="max-width: 160px;">
-                                <img src="../images/clients/{{ logo.image }}" alt="{{ logo.name }} logo" class="w-100">
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="services" class="bg-white pt-3 mt-5">
+        <section id="services" class="bg-white pt-3">
             <div class="container pt-5 pb-3">
-                <h2 class="fs-2 lh-1 mb-5">
+                <h2 class="fs-2 lh-1 mb-4">
                     What I do
                 </h2>
 
@@ -172,7 +130,38 @@ collections: ["post"]
                 </div>
         </section>
 
-        <section class="py-5 mt-5 bg-light" id="#work-with-me">
+        <section id="clients" class="bg-white pt-5">
+            <div class="container pt-3 pb-5">
+                <div class="row">
+                    <div class="col-xl-8 col-md-9 col-xxl-7">
+                        <h2 class="mb-3">Who I work with</h2>
+
+                        <p class="mb-">
+                            Over the past 15 years I've worked with a range of clients, from startups to government
+                            departments, to improve their products and services.
+                        </p>
+                        <p class="mb-5">
+                            Since 2018, I've worked exclusively with Public Sector organisations to design services for
+                            citizens and internal users.
+                        </p>
+                    </div>
+
+                    <div class="col-xl-9 col-md-10 col-xxl-8">
+                        <div
+                            class="align-items-center justify-content-md-start justify-content-center text-center d-flex flex-row flex-wrap">
+                            {% for logo in collections.logos %}
+                            <div class="me-xxl-5 me-lg-4 me-md-4 me-sm-3 me-0 mx-4 mx-sm-0 my-lg-4 my-md-2 my-sm-3 my-3 w-25"
+                                style="max-width: 160px;">
+                                <img src="../images/clients/{{ logo.image }}" alt="{{ logo.name }} logo" class="w-100">
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-5 mt-5 bg-white" id="#work-with-me">
             <div class="container mt-5">
                 <div class="row">
                     <div class="col-md-8 col-lg-6">
@@ -202,18 +191,24 @@ collections: ["post"]
                             I'm used to working with clients' existing tools and processes, particularly in the Public
                             Sector where security is a priority.
                         </p>
+                    </div>
 
-                        <p>
-                            Unfortunately, I'm not currently available for full-time employment. However, I'm happy to
-                            discuss short-term contracts.
-                        </p>
-
-                        <div class="p-5 mt-5 bg-primary text-white border-radius-5">
+                    <div class="col-lg-5 ms-auto">
+                        <div class="p-5 bg-primary text-white border-radius-5">
                             <h2 class="mb-3">Contact me</h2>
                             <p>
                                 If you want to discuss a project, or if you're a recruiter looking for a contractor, you
                                 can email me at <a href="mailto:dan@sensecall.co.uk"
                                     class="text-white">dan@sensecall.co.uk</a>
+                            </p>
+
+                            <h3 class="mt-5 mb-3 fs-5">Recruiters</h3>
+                            <p class="small">
+                                If you'd want a copy of my CV, contact me and I'll happily send you a copy.
+                            </p>
+                            <p class="small">
+                                Unfortunately, I'm not currently available for full-time employment. However, I'm happy to
+                                discuss short-term contracts.
                             </p>
                         </div>
                     </div>
@@ -222,11 +217,11 @@ collections: ["post"]
         </section>
     </main>
 
-    <div class="bg-dark">
+    <div class="bg-light mt-5">
         <footer class="py-5 text-white d-flex justify-content-md-between flex-no-wrap container-lg">
             <img src="../images/ccs-supplier-logo.svg" alt="" class="mb-3 mb-md-0 me-5 flex-grow" width="100px">
 
-            <p class="text-end text-secondary small w-auto flex-shrink-1 ms-5">
+            <p class="text-end text-muted small w-auto flex-shrink-1 ms-5">
                 UI UX Ltd is a company registered in England and Wales. Company number 09513057.<br>
                 &copy; UI UX Ltd 2015&thinsp;&ndash;&thinsp;{% year %}
             </p>
