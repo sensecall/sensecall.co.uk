@@ -1,0 +1,42 @@
+// Fira Sans font
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,200;0,400;0,700;0,800;1,200;1,400;1,700;1,800&display=swap');
+
+// Lora font
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+// $font-family-base: 'Fira Sans', sans-serif;
+$font-family-base: 'Lora', serif;
+
+$font-size-base: 1.1875rem;
+
+$primary: #6a1058;
+$link-color: $primary;
+
+// $link-color: #1c62d4;
+
+// $body-color: #34393a;
+
+// $primary: #FFC300;
+// $primary: #ffef16;
+// $primary: #FFE0F3;
+
+// $light: rgb(243,244,246);
+// $light: rgb(232,230,233);
+
+// $text-muted: #667072;
+
+// $headings-margin-bottom: $spacer;
+$headings-font-weight: 800;
+// $headings-color: #1a1a1a;
+
+$btn-border-radius: 50px !important;
+
+// $hr-border-color: rgba($black, .1) !default;
+// $hr-border-width: $border-width * 2;
+
+// $paragraph-margin-bottom: 1em;
+// $lead-font-size: $font-size-base * 1.5;
+
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+
+::selection { background: #801f7b7c; color: black; }
