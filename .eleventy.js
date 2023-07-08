@@ -1,3 +1,5 @@
+let Nunjucks = require("nunjucks");
+
 module.exports = function (eleventyConfig) {
   // Watch CSS files for changes
   eleventyConfig.setBrowserSyncConfig({
@@ -8,6 +10,18 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("fonts");
   eleventyConfig.addPassthroughCopy("images");
   eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
+
+  // // set nunjucks environment options
+  // eleventyConfig.setNunjucksEnvironmentOptions({
+  //   throwOnUndefined: true,
+  // });
+
+
+  let nunjucksEnvironment = new Nunjucks.Environment(
+    new Nunjucks.FileSystemLoader("_includes")
+  );
+
+  eleventyConfig.setLibrary("njk", nunjucksEnvironment);
 
   eleventyConfig.addCollection("logos", function (collectionApi) {
     let logos = [
@@ -54,7 +68,8 @@ module.exports = function (eleventyConfig) {
       input: ".",
       includes: "_includes",
       data: "_data",
-      output: "_site"
+      output: "_site",
+      layouts: "_layouts"
     }
   };
 };
