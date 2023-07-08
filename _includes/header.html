@@ -1,0 +1,15 @@
+<nav class="py-3 mt-3 {{navClasses}}">
+    <div class="container d-flex flex-wrap">
+        <ul class="nav nav-underline me-auto">
+            <li class="nav-item me-3">
+                <a href="/" class="nav-link p-0 {{'active' if page.url == '/'}}">Home</a>
+            </li>
+            <li class="nav-item me-3">
+                <a href="/about" class="nav-link p-0 {{'active' if '/about' in page.url}}">About</a>
+            </li>
+            <li class="nav-item me-3">
+                <del><a href="#" class="nav-link disabled p-0 {{'active' if 'blog' in page.url}}">Blog</a></del>
+            </li>
+        </ul>
+    </div>
+</nav>
