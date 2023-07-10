@@ -11,11 +11,14 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("images");
   eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
 
-  // // set nunjucks environment options
-  // eleventyConfig.setNunjucksEnvironmentOptions({
-  //   throwOnUndefined: true,
-  // });
-
+  // add nunjucks filter for showing the date in a nice format
+  eleventyConfig.addFilter("niceDate", function (date) {
+    return new Date(date).toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  });
 
   let nunjucksEnvironment = new Nunjucks.Environment(
     new Nunjucks.FileSystemLoader("_includes")

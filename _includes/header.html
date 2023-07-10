@@ -1,14 +1,18 @@
-<nav class="py-3 mt-3 {{navClasses}}">
+<nav class="py-3 my-3 {{navClasses}}">
     <div class="container d-flex flex-wrap">
-        <ul class="nav nav-underline me-auto">
+        <ul class="nav nav-underline me-auto d-flex align-items-center">
+            <a class="navbar-brand me-2 d-flex align-items-center" href="/">
+                <img src="/images/dan-sensecall.jpg" alt="Dan Sensecall" width="30" height="30" class="d-inline-block rounded-circle">
+            </a>
+
             <li class="nav-item me-3">
                 <a href="/" class="nav-link p-0 {{'active' if page.url == '/'}}">Home</a>
             </li>
             <li class="nav-item me-3">
-                <a href="/about" class="nav-link p-0 {{'active' if '/about' in page.url}}">About</a>
+                <a href="/about" class="nav-link p-0 {{'active' if '/about' in page.url}}">About <span class="visually-hidden">&nbsp;Dan Sensecall</span></a>
             </li>
             <li class="nav-item me-3">
-                <del><a href="#" class="nav-link disabled p-0 {{'active' if 'blog' in page.url}}">Blog</a></del>
+                <a href="/writing" class="nav-link p-0 {{'active' if 'writing' in page.url}}">Writing</a>
             </li>
         </ul>
     </div>
