@@ -59,6 +59,14 @@ module.exports = function (eleventyConfig) {
       {
         'name': 'Education and Skills Funding Agency',
         'image': 'education-and-skills-funding-agency-logo.svg'
+      },
+      {
+        'name': 'HM Prison & Probation Service',
+        'image': 'hmpps-logo.svg'
+      },
+      {
+        'name': 'npower',
+        'image': 'npower-logo.svg'
       }
     ];
 
