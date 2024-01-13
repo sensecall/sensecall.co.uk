@@ -67,6 +67,10 @@ module.exports = function (eleventyConfig) {
       {
         'name': 'npower',
         'image': 'npower-logo.svg'
+      },
+      {
+        'name': 'National Crime Agency',
+        'image': 'nca-logo.svg'
       }
     ];
 
