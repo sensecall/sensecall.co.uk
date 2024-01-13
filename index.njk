@@ -126,10 +126,11 @@ bodyClasses: bg-secondary homePage
                     <div class="align-items-center justify-content-md-start justify-content-center text-center d-flex flex-row flex-wrap">
                         {% for logo in collections.logos %}
                             <div class="me-xxl-5 me-md-4 me-sm-3 me-2 ms-2 mx-2 mx-sm-0 my-lg-4 my-md-2 my-sm-3 my-3 w-25"
-                                 style="max-width: 160px;">
+                                 style="max-width: 160px">
                                 <img src="../images/clients/{{ logo.image }}"
                                      alt="{{ logo.name }} logo"
-                                     class="w-100" style="max-height: 100px;"/>
+                                     class="w-100"
+                                     style="max-height: 100px" />
                             </div>
                         {% endfor %}
                     </div>
@@ -138,6 +139,34 @@ bodyClasses: bg-secondary homePage
         </div>
     </section>
     <section class="py-5 bg-white" id="#work-with-me">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-8 col-lg-6 mb-5">
+                    <h2 class="mb-3">Things I've done</h2>
+                    <p>
+                        I've provided design services on a wide range of projects, from small websites to large-scale digital transformation programmes.
+                    </p>
+                    <p>
+                        Projects have ranged from greenfield projects, where I've been involved from the very start, to others where I've been parachuted in to help with a specific problem. I've also worked on projects that have involved replacing legacy systems with new services.
+                    </p>
+                    <p>There are too many to list here, but here are a few examples:</p>
+                    <ul class="mb-0">
+                        <li>
+                            Designed a new service to make it simpler for further education providers to provide learner data to the Education and Skills Funding Agency (ESFA)
+                        </li>
+                        <li>
+                            Redesigned the Police National Computer (PNC) to make it easier for police officers to manage stolen property records
+                        </li>
+                        <li>
+                            Designed a service to replace for the National Offender Management Service (NOMIS), allowing prison staff to manage prisoner activities
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 pt-3 bg-white" id="#work-with-me">
         <div class="container mt-5">
             <div class="row">
                 <div class="col-md-8 col-lg-6 mb-5">
