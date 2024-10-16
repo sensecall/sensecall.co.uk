@@ -21,9 +21,14 @@
             </li>
         </ul>
 
-        <a href="https://car.sensecall.co.uk" class="nav-link p-0" title="Car cost calculator" onclick="animateCar(event)">
-            <span class="fs-4" style="display: inline-block; transform: scaleX(-1);">🚗</span>
-        </a>
+        <div class="d-flex justify-content-end">
+            <a href="https://football.sensecall.co.uk" class="nav-link p-0 me-3" title="Football score keeper">
+                <span class="fs-4">⚽</span>
+            </a>
+            <a href="https://car.sensecall.co.uk" class="nav-link p-0" title="Car cost calculator" onclick="animateCar(event)">
+                <span class="fs-4" style="display: inline-block; transform: scaleX(-1);">🚗</span>
+            </a>
+        </div>
         <script>
         function animateCar(event) {
             event.preventDefault();
@@ -40,6 +45,29 @@
                 car.style.transition = 'none';
                 car.style.transform = 'scaleX(-1)';
             }, 1000);
+        }
+        function animateFootball(event) {
+            event.preventDefault();
+            const link = event.currentTarget;
+            const football = link.querySelector('span');
+            
+            const viewportWidth = window.innerWidth;
+            const keyframes = [
+                { transform: 'translateX(0px) translateY(0px) rotate(0deg)', offset: 0 },
+                { transform: `translateX(${-0.33 * viewportWidth}px) translateY(-30px) rotate(180deg)`, offset: 0.25 },
+                { transform: `translateX(${-0.66 * viewportWidth}px) translateY(0px) rotate(360deg)`, offset: 0.5 },
+                { transform: `translateX(${-0.80 * viewportWidth}px) translateY(-15px) rotate(540deg)`, offset: 0.75 },
+                { transform: `translateX(${-viewportWidth}px) translateY(0px) rotate(720deg)`, offset: 1 }
+            ];
+
+            const animation = football.animate(keyframes, {
+                duration: 1000,
+                easing: 'ease-in-out'
+            });
+
+            animation.onfinish = () => {
+                window.location.href = link.href;
+            };
         }
         </script>
     </div>
