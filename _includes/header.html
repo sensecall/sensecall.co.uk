@@ -1,5 +1,5 @@
 <nav class="py-3 my-3 {{navClasses}}">
-    <div class="container d-flex flex-wrap align-items-center">
+    <div class="container d-flex flex-wrap align-items-center justify-content-between">
         <a class="navbar-brand me-4 d-flex align-items-center" href="/">
             <img src="/images/dan-sensecall.jpg" alt="Dan Sensecall" width="30" height="30"
                 class="d-inline-block rounded-circle">
@@ -20,5 +20,27 @@
                 <a href="/writing" class="nav-link p-0 {{'active' if 'writing' in page.url}}">Writing</a>
             </li>
         </ul>
+
+        <a href="https://car.sensecall.co.uk" class="nav-link p-0" title="Car cost calculator" onclick="animateCar(event)">
+            <span class="fs-4" style="display: inline-block; transform: scaleX(-1);">🚗</span>
+        </a>
+        <script>
+        function animateCar(event) {
+            event.preventDefault();
+            const link = event.currentTarget;
+            const car = link.querySelector('span');
+            car.style.transition = 'transform 1s ease-in';
+            car.style.transform = 'scaleX(-1) translateX(-100vw)';
+            setTimeout(() => {
+                window.location.href = link.href;
+            }, 500);
+            
+            // Reset the car after it disappears
+            setTimeout(() => {
+                car.style.transition = 'none';
+                car.style.transform = 'scaleX(-1)';
+            }, 1000);
+        }
+        </script>
     </div>
 </nav>
