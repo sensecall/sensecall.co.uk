@@ -1,74 +1,21 @@
 <nav class="py-3 my-3 {{navClasses}}">
-    <div class="container d-flex flex-wrap align-items-center justify-content-between">
-        <a class="navbar-brand me-4 d-flex align-items-center" href="/">
-            <img src="/images/dan-sensecall.jpg" alt="Dan Sensecall" width="30" height="30"
-                class="d-inline-block rounded-circle">
-        </a>
-
-        <ul class="nav nav-underline me-auto">
-            <li class="nav-item me-3">
-                <a href="/" class="nav-link p-0 {{'active' if page.url == '/'}}">Home</a>
+    <div class="container">
+        <ul class="nav nav-underline d-flex">
+            <li class="nav-item me-2 me-lg-4">
+                <a href="/" class="nav-link {{'active' if page.url == '/'}}">Home</a>
             </li>
-            <li class="nav-item me-3">
-                <a href="/about" class="nav-link p-0 {{'active' if '/about' in page.url}}">About <span
-                        class="visually-hidden">&nbsp;Dan Sensecall</span></a>
+            <li class="nav-item me-1 me-lg-4">
+                <a href="/about" class="nav-link {{'active' if '/about' in page.url}}">About <span class="visually-hidden">Dan Sensecall</span></a>
             </li>
-            <li class="nav-item me-3">
-                <a href="/projects" class="nav-link p-0 {{'active' if 'projects' in page.url}}">Projects</a>
+            <li class="nav-item me-1 me-lg-4">
+                <a href="/projects" class="nav-link {{'active' if 'projects' in page.url}}">Projects</a>
             </li>
-            <li class="nav-item me-3">
-                <a href="/writing" class="nav-link p-0 {{'active' if 'writing' in page.url}}">Writing</a>
+            <li class="nav-item me-1 me-lg-4">
+                <a href="/writing" class="nav-link {{'active' if 'writing' in page.url}}">Writing</a>
+            </li>
+            <li class="nav-item ms-auto">
+                <a href="#experimentsSection" class="nav-link" id="experimentsToggle" data-bs-toggle="collapse" data-bs-target="#experimentsSection" aria-expanded="false" aria-controls="experimentsSection" title="Experiments">🧪 <span class="visually-hidden">Experiments</span></a>
             </li>
         </ul>
-
-        <div class="d-flex justify-content-end">
-            <a href="https://football.sensecall.co.uk" class="nav-link p-0 me-3" title="Football score keeper">
-                <span class="fs-4">⚽</span>
-            </a>
-            <a href="https://car.sensecall.co.uk" class="nav-link p-0" title="Car cost calculator" onclick="animateCar(event)">
-                <span class="fs-4" style="display: inline-block; transform: scaleX(-1);">🚗</span>
-            </a>
-        </div>
-        <script>
-        function animateCar(event) {
-            event.preventDefault();
-            const link = event.currentTarget;
-            const car = link.querySelector('span');
-            car.style.transition = 'transform 1s ease-in';
-            car.style.transform = 'scaleX(-1) translateX(-100vw)';
-            setTimeout(() => {
-                window.location.href = link.href;
-            }, 500);
-            
-            // Reset the car after it disappears
-            setTimeout(() => {
-                car.style.transition = 'none';
-                car.style.transform = 'scaleX(-1)';
-            }, 1000);
-        }
-        function animateFootball(event) {
-            event.preventDefault();
-            const link = event.currentTarget;
-            const football = link.querySelector('span');
-            
-            const viewportWidth = window.innerWidth;
-            const keyframes = [
-                { transform: 'translateX(0px) translateY(0px) rotate(0deg)', offset: 0 },
-                { transform: `translateX(${-0.33 * viewportWidth}px) translateY(-30px) rotate(180deg)`, offset: 0.25 },
-                { transform: `translateX(${-0.66 * viewportWidth}px) translateY(0px) rotate(360deg)`, offset: 0.5 },
-                { transform: `translateX(${-0.80 * viewportWidth}px) translateY(-15px) rotate(540deg)`, offset: 0.75 },
-                { transform: `translateX(${-viewportWidth}px) translateY(0px) rotate(720deg)`, offset: 1 }
-            ];
-
-            const animation = football.animate(keyframes, {
-                duration: 1000,
-                easing: 'ease-in-out'
-            });
-
-            animation.onfinish = () => {
-                window.location.href = link.href;
-            };
-        }
-        </script>
     </div>
 </nav>
