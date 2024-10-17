@@ -11,3 +11,57 @@
         </p> 
     </footer>
 </div>
+
+<div id="experimentsSection" class="container py-3 border-bottom">
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <a href="https://football.sensecall.co.uk" class="text-decoration-none">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><span class="me-2" aria-hidden="true">⚽</span> Football score keeper</h5>
+                        <p class="card-text small">Keep track of football scores easily.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-6 mb-3">
+            <a href="https://car.sensecall.co.uk" class="text-decoration-none">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><span class="me-2" aria-hidden="true">🚗</span> Car cost calculator</h5>
+                        <p class="card-text small">Calculate and compare car ownership costs.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<a href="#top" id="back-to-top" class="btn btn-primary btn-sm position-fixed bottom-0 end-0 m-3 px-3" aria-label="Back to top">
+    Back to top
+</a>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const experimentsToggle = document.getElementById('experimentsToggle');
+        const experimentsSection = document.getElementById('experimentsSection');
+        const body = document.body;
+
+        // Move the experiments section to the top of the body
+        body.insertBefore(experimentsSection, body.firstChild);
+    
+        // Initially hide the experiments section
+        experimentsSection.style.display = 'none';
+    
+        experimentsToggle.addEventListener('click', function() {
+            const isExpanded = experimentsSection.style.display !== 'none';
+            experimentsSection.style.display = isExpanded ? 'none' : 'block';
+            experimentsToggle.setAttribute('aria-expanded', !isExpanded);
+            experimentsToggle.innerHTML = isExpanded ? '🧪 <span class="visually-hidden">Experiments</span>' : '🧪 <span class="visually-hidden">Hide experiments</span>';
+    
+            if (!isExpanded) {
+                experimentsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+</script>

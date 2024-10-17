@@ -4,7 +4,6 @@
 // Lora font
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
-// $font-family-base: 'Fira Sans', sans-serif;
 $font-family-base: 'Lora', serif;
 
 $font-size-base: 1.1875rem;
@@ -12,40 +11,15 @@ $font-size-base: 1.1875rem;
 $primary: #243e64;
 $link-color: $primary;
 
-// $link-color: #1c62d4;
-
 $body-color: #384042;
 $dark: #1e2223;
 $secondary: whitesmoke;
 
-// $primary: #FFC300;
-// $primary: #ffef16;
-// $primary: #FFE0F3;
-
-// $light: rgb(243,244,246);
-// $light: rgb(232,230,233);
-
-// $text-muted: #667072;
-
-// $headings-margin-bottom: $spacer;
 $headings-font-weight: 800;
-// $headings-color: #1a1a1a;
 
 $btn-border-radius: 50px !important;
 
-// $hr-border-color: rgba($black, .1) !default;
-// $hr-border-width: $border-width * 2;
-
-// $paragraph-margin-bottom: 1em;
-// $lead-font-size: $font-size-base * 1.5;
-
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
-
-// import bootstrap icons font
-// $bootstrap-icons-font-src: url("../node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2") format("woff2") url("../node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff") format("woff");
-
-// import bootstrap icons
-// @import "../node_modules/bootstrap-icons/font/bootstrap-icons.scss";
 
 ::selection {
     background: #801f7b7c;
@@ -57,4 +31,55 @@ body.homePage {
     background-repeat: no-repeat;
     background-position: top right;
     background-size: 50%;
+}
+
+// Navbar and dropdown styles
+.nav-link, .dropdown-toggle {
+    color: $body-color;
+    text-decoration: none;
+
+    &:hover, &:focus, &.active {
+        color: $primary;
+    }
+}
+
+.nav-item.dropdown {
+    .dropdown-toggle {
+        font-size: $font-size-base;
+        font-weight: $font-weight-normal;
+    }
+
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background-color: $white;
+        min-width: 200px;
+        box-shadow: 0 0.5rem 1rem rgba($black, 0.15);
+        border: 1px solid rgba($black, 0.15);
+        border-radius: $border-radius;
+        padding: 0.5rem 0;
+        z-index: 1000;
+
+        &.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            color: $body-color;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            font-size: $font-size-base;
+
+            &:hover, &:focus {
+                background-color: $light;
+                color: $primary;
+            }
+
+            span {
+                font-size: 1rem;
+            }
+        }
+    }
 }
