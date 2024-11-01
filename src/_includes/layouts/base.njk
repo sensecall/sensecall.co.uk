@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+    {% include "partials/head.njk" %}
+    <body class="{{ bodyClasses }}">
+        {% include "partials/header.njk" %}
+        <main>
+            {{ content | safe }}
+        </main>
+    </body>
+</html>

@@ -1,4 +1,5 @@
 let Nunjucks = require("nunjucks");
+const execSync = require('child_process').execSync;
 
 module.exports = function (eleventyConfig) {
   // Watch CSS files for changes
@@ -6,9 +7,21 @@ module.exports = function (eleventyConfig) {
     files: './_site/css/**/*.css'
   });
 
-  eleventyConfig.addPassthroughCopy("js");
+  // Add a before build step to compile SASS
+  eleventyConfig.on('beforeBuild', () => {
+    // Compile SASS to CSS
+    execSync('sass src/scss/main.scss:_site/css/styles.css');
+  });
+
+  // Add an after build step to process Tailwind
+  eleventyConfig.on('afterBuild', () => {
+    // Process Tailwind using the compiled CSS
+    execSync('npx tailwindcss -i _site/css/styles.css -o _site/css/styles.css --content "./_site/**/*.html"');
+  });
+
+  eleventyConfig.addPassthroughCopy({ "src/assets/js": "assets/js" });
   eleventyConfig.addPassthroughCopy("fonts");
-  eleventyConfig.addPassthroughCopy("images");
+  eleventyConfig.addPassthroughCopy({ "src/assets/images": "assets/images" });
   eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
 
   // add nunjucks filter for showing the date in a nice format
@@ -21,7 +34,7 @@ module.exports = function (eleventyConfig) {
   });
 
   let nunjucksEnvironment = new Nunjucks.Environment(
-    new Nunjucks.FileSystemLoader("_includes")
+    new Nunjucks.FileSystemLoader("src/_includes")
   );
 
   eleventyConfig.setLibrary("njk", nunjucksEnvironment);
@@ -73,18 +86,41 @@ module.exports = function (eleventyConfig) {
         'image': 'nca-logo.svg'
       }
     ];
-
     return logos;
   });
 
+  eleventyConfig.addCollection("experiments", function (collectionApi) {
+    let experiments = [
+      {
+        'title': 'Car cost comparison',
+        'description': 'A tool to help compare the cost of buying a new car against the cost of keeping your current car.',
+        'url': 'https://car.sensecall.co.uk',
+        'why': 'I built this to help me compare the cost of buying a new car against the cost of keeping my current car.'
+      },
+      {
+        'title': 'Football score keeper',
+        'description': 'A simple tool to help keep track of the score in a football match.',
+        'url': 'https://football.sensecall.co.uk',
+        'why': 'I built this to help me keep track of the score in my son\'s football matches.'
+      },
+      {
+        'title': 'Experiment 3',
+        'description': 'Description of experiment 3.',
+        'url': 'https://uk-renewable-energy-map.sensecall.co.uk',
+        'why': 'I built this to help me learn about current and planned renewable energy generation capacity in the UK.'
+      }
+    ];
+
+    return experiments;
+  });
+
   return {
-    // These are all optional (defaults are shown):
     dir: {
-      input: ".",
+      input: "src",
       includes: "_includes",
       data: "_data",
       output: "_site",
-      layouts: "_layouts"
+      layouts: "_includes/layouts"
     }
   };
 };

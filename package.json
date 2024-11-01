@@ -1,7 +1,9 @@
 {
   "devDependencies": {
     "@11ty/eleventy": "^1.0.1",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.80.5",
+    "tailwindcss": "^3.4.14"
   },
   "name": "ui-ux-ltd",
   "version": "1.0.0",
@@ -217,7 +219,6 @@
     "rx": "^4.1.0",
     "rxjs": "^5.5.12",
     "safer-buffer": "^2.1.2",
-    "sass": "^1.54.2",
     "section-matter": "^1.0.0",
     "semver": "^7.3.7",
     "semver-compare": "^1.0.0",
@@ -272,13 +273,12 @@
     "yargs-parser": "^21.1.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "watch:sass": "sass --watch scss:_site/css",
-    "build:sass": "sass scss:_site/css",
-    "watch:eleventy": "eleventy --serve",
-    "build:eleventy": "eleventy",
-    "start": "npm-run-all build:sass --parallel watch:*",
-    "build": "npm-run-all build:*"
+    "start": "npm-run-all -p dev:*",
+    "dev:11ty": "eleventy --serve",
+    "dev:css": "sass src/scss/main.scss:_site/css/styles.css --watch | npx tailwindcss -i _site/css/styles.css -o _site/css/styles.css --watch --content \"./src/**/*.{html,js,njk,md}\"",
+    "build": "npm-run-all build:*",
+    "build:11ty": "eleventy",
+    "build:css": "sass src/scss/main.scss:_site/css/styles.css --style=compressed && npx tailwindcss -i _site/css/styles.css -o _site/css/styles.css --minify --content \"./_site/**/*.html\""
   },
   "keywords": [],
   "author": "",
