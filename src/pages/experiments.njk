@@ -14,7 +14,7 @@ bodyClasses: bg-white dark:bg-gray-900
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
     {% for experiment in collections.experiments %}
-        <div class="border border-gray-200 dark:border-gray-700 p-4 rounded-lg">
+        <div class="border border-gray-200 dark:border-gray-700 p-6 md:p-8 rounded-lg">
             <h2 class="text-xl md:text-2xl mb-2 font-semibold"><a href="{{ experiment.url }}" class="underline text-blue-500 dark:text-blue-400" target="_blank">{{ experiment.title }}</a></h2>
             <p class="text-gray-700 dark:text-gray-300 mb-4">{{ experiment.description }}</p>
             <div class="text-gray-500 dark:text-gray-400 italic p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
