@@ -123,9 +123,12 @@ bodyClasses: bg-white dark:bg-gray-900 homePage
         <div class="lg:w-3/4 grid grid-cols-3 md:grid-cols-4 gap-x-0 gap-y-8 md:gap-y-10">
             {% for logo in collections.logos %}
                 <div class="flex items-center">
+                    <img src="/assets/images/clients/{{ logo.image | replace('.svg', '--dark.svg') if (logo.image.endsWith('.svg')) else logo.image }}"
+                         alt="{{ logo.name }} logo"
+                         class="hidden dark:block w-full max-w-[120px] md:max-w-[160px] h-auto object-contain" />
                     <img src="/assets/images/clients/{{ logo.image }}"
                          alt="{{ logo.name }} logo"
-                         class="w-full max-w-[120px] md:max-w-[160px] h-auto object-contain" />
+                         class="dark:hidden w-full max-w-[120px] md:max-w-[160px] h-auto object-contain" />
                 </div>
             {% endfor %}
         </div>

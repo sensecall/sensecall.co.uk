@@ -1,23 +1,18 @@
-// Check for saved dark mode preference
+// Add this script inline in your HTML <head> section before any content loads
+const savedDarkMode = localStorage.getItem('darkMode');
+const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+// Apply dark mode immediately
+if (savedDarkMode === 'true' || (savedDarkMode === null && prefersDarkMode)) {
+    document.documentElement.classList.add('dark');
+}
+
+// Rest of the code remains in the original file
 document.addEventListener('DOMContentLoaded', () => {
     const darkModeToggle = document.getElementById('dark-mode-toggle');
     
-    // Check for saved preference in local storage
-    const savedDarkMode = localStorage.getItem('darkMode');
-    
-    if (savedDarkMode === 'true') {
-        document.documentElement.classList.add('dark');
-        darkModeToggle.checked = true;
-    } else if (savedDarkMode === 'false') {
-        document.documentElement.classList.remove('dark');
-        darkModeToggle.checked = false;
-    } else {
-        // If no saved preference, use system preference and save it
-        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.classList.toggle('dark', prefersDarkMode);
-        darkModeToggle.checked = prefersDarkMode;
-        localStorage.setItem('darkMode', prefersDarkMode.toString());
-    }
+    // Set toggle state based on current mode
+    darkModeToggle.checked = document.documentElement.classList.contains('dark');
 
     // Toggle dark mode
     darkModeToggle.addEventListener('change', () => {
