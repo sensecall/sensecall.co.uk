@@ -1,0 +1,48 @@
+---
+layout: page.njk
+title: Projects – Dan Sensecall
+permalink: /projects/
+eleventyCollections:
+    collection: ["project"]
+---
+
+{% block content %}
+    <section class="bg-transparent py-lg-4 py-0 container" id="introduction">
+        <div class="row py-md-5 pt-5">
+            <div class="col-xl-7 col-md-9 col-lg-8 col-xxl-7">
+                <h1 class="fs-1 mb-4 lh-1 text-dark">Projects I've worked on</h1>
+                <p class="lead fst-italic mb-4">
+                    Over the years, I've enjoyed working with a wide range of clients, from small local businesses to large international companies.
+                </p>
+                <p>
+                    The most rewarding work I've done has been within the Public Sector, where I've been able to make a measurable difference to people's lives, and the important jobs done by the people who serve them.
+                </p>
+                <p>
+                    I have also worked in the private sector, where I've helped businesses including Sainsbury's and npower to meet organisational goals by improving customer experience and increasing conversion rates.
+                </p>
+
+                <figure class="figure mt-3 mb-4">
+                    <img src="/images/workshop.jpeg"
+                         class="figure-img img-fluid rounded"
+                         alt="A photo of a workshop with the digital team at the Apprenticeship Service. The team are sat around a table, with a whiteboard behind them, a laptop and post-it notes are on the table." width="50%">
+                    <figcaption class="figure-caption">
+                        A workshop with the team at the Apprenticeship Service
+                    </figcaption>
+                </figure>
+
+                <h2 class="fs-4 mb-4 mt-3 lh-1 text-dark">Case studies</h2>
+                <p>
+                    If you'd like to find out more about the type of work I've done, I've written up some short case studies:
+                </p>
+
+                <ul class="list-unstyled">
+                    {% for project in collections.project %}
+                        <li>
+                            <a href="{{ project.url }}">{{ project.data.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </section>
+{% endblock %}
