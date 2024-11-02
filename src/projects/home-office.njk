@@ -1,66 +1,36 @@
 ---
-layout: page.njk
+layout: project.njk
 title: Home Office (Police)
 tags: project
+services: ["Interaction Design", "Service Design"]
 eleventyCollections:
     collection: ["project"]
 ---
 
-{% block content %}
-    <section class="bg-transparent py-lg-4 py-0 container">
-        <a href="/projects" class="btn btn-outline-primary mb-4 btn-sm">&larr; Projects</a>
-        <div class="row py-md-5 pt-5">
-            <div class="col-xl-7 col-md-9 col-lg-8 col-xxl-7">
-                <span class="text-muted">Case study</span>
-                <h1 class="fs-1 mb-4 lh-1 text-dark">
-                    Home Office
-                </h2>
-                {# tags in a horizontal list #}
-                <ul class="list-inline">
-                    <li class="list-inline-item">
-                        <span class="badge bg-primary">Interaction Design</span>
-                    </li>
-                    <li class="list-inline-item">
-                        <span class="badge bg-primary">Service Design</span>
-                    </li>
-                </ul>
-                <h3 class="fs-5 mb-3 mt-4 lh-1 text-dark">About the project</h3>
-                <p>
-                    I worked with Kin+Carta to design the replacement service for the Police National Computer (PNC), which is used by police forces across the UK to record and share information about crimes and criminals.
-                </p>
-                <p>
-                    The project focused on the design of the LEDS (Law Enforcement Data Service) Property service, which is used by police officers to record information about property that has been stolen or recovered.
-                </p>
-                <h3 class="fs-5 mb-3 mt-4 lh-1 text-dark">What we did</h3>
-                <p>
-                    We spoke to police officers and staff from police forces across the UK to understand how they use the PNC and the local Record Management Systems (RMS) that are used to record crimes and criminals. We also spoke to staff from the Home Office and other government departments to understand the wider context of the project.
-                </p>
-                <p>
-                    One of the biggest challenges of the project was to design a service that would cater for the breadth of processes and workflows used by the 50+ police forces across the UK. As a result, we spent a lot of time speaking to users and mapping existing processes to understand the different workflows and to identify opportunities for improvement.
-                </p>
-                <p>
-                    We used the findings from our research, and research done by other teams, to create a representative service blueprint of the as-is user journey. This was used  by the team to identify opportunities for improvement and to prioritise the delivery of features in the new service.
-                </p>
-                <h3 class="fs-5 mb-3 mt-4 lh-1 text-dark">Designing the service</h3>
-                <p>
-                    Using the GOV.UK prototype kit, I created a prototype of the LEDS Property service, branded using the Home Office design system. This was tested with users to validate the design and to gather feedback for further iterations.
-                </p>
-                <p>
-                    One of the challenges of the project was to design a service that would work well for the devolved police forces across the UK. We worked closely with the Home Office to ensure that the service would meet the needs of all forces, and to ensure that the service would be compliant with the different laws and regulations in England, Wales, Scotland and Northern Ireland.
-                    <p>
-                        We held regular show and tells with stakeholders to share our progress and to gather feedback. Regular workshops also helped to keep stakeholders engaged and to ensure that the project was aligned with the wider programme.
-                    </p>
-                </div>
-                <div class="col-xl-5 col-md-3 col-lg-4 col-xxl-5 d-none d-md-block">
-                    <h2 class="fs-4 mb-4 lh-1 text-dark">Case studies</h2>
-                    <ul class="list-unstyled">
-                        {% for project in collections.project %}
-                            <li>
-                                <a href="{{ project.url }}">{{ project.data.title }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-        </section>
-    {% endblock %}
+<h2 class="text-xl md:text-2xl mb-3 font-semibold text-dark dark:text-white">About the project</h2>
+<p class="mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
+    I worked with Kin+Carta to design the <b class="text-gray-900 dark:text-gray-100">replacement service for the Police National Computer (PNC)</b>, which is used by police forces across the UK to record and share information about crimes and criminals.
+</p>
+<p class="mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
+    The project focused on the design of the <b class="text-gray-900 dark:text-gray-100">LEDS (Law Enforcement Data Service) Property service</b>, which is used by police officers to record information about property that has been stolen or recovered.
+</p>
+<h2 class="text-xl md:text-2xl mb-3 font-semibold text-dark dark:text-white mt-8">What we did</h2>
+<p class="mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
+    We conducted <b class="text-gray-900 dark:text-gray-100">extensive user research</b> with police officers and staff from forces across the UK to understand how they use the PNC and local Record Management Systems (RMS). We also engaged with Home Office staff and other government departments to grasp the wider context of the project.
+</p>
+<p class="mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
+    One of the biggest challenges was designing a service that would cater for the <b class="text-gray-900 dark:text-gray-100">diverse processes and workflows used by over 50 police forces</b> across the UK. We spent considerable time mapping existing processes to identify opportunities for improvement.
+</p>
+<p class="mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
+    Using our research findings, we created a <b class="text-gray-900 dark:text-gray-100">representative service blueprint</b> of the as-is user journey. This was instrumental in identifying improvement opportunities and prioritising feature delivery in the new service.
+</p>
+<h2 class="text-xl md:text-2xl mb-3 font-semibold text-dark dark:text-white mt-8">Designing the service</h2>
+<p class="mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
+    I created a prototype of the LEDS Property service using the <b class="text-gray-900 dark:text-gray-100">GOV.UK prototype kit</b>, branded with the Home Office design system. This prototype was tested with users to validate the design and gather feedback for iterations.
+</p>
+<p class="mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
+    A key challenge was designing a service that would work effectively for <b class="text-gray-900 dark:text-gray-100">devolved police forces across the UK</b>. We collaborated closely with the Home Office to ensure the service met the needs of all forces and complied with the different laws and regulations in England, Wales, Scotland and Northern Ireland.
+</p>
+<p class="mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
+    We held regular show and tells with stakeholders to share progress and gather feedback. Regular workshops helped keep stakeholders engaged and ensured the project aligned with the wider programme.
+</p>
