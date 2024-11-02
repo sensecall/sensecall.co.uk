@@ -2,51 +2,66 @@
 layout: page.njk
 title: HM Prison and Probation Service
 tags: project
+bodyClasses: bg-white dark:bg-gray-900
 ---
 
-{% block content %}
-    <section class="bg-transparent py-lg-4 py-0 container">
-        <a href="/projects"
-           class="btn btn-outline-primary mb-4 btn-sm">&larr; Projects</a>
-        <div class="row py-md-5 pt-5">
-            <div class="col-xl-7 col-md-9 col-lg-8 col-xxl-7">
-                <span class="text-muted">Case study</span>
-                <h1 class="fs-1 mb-4 lh-1 text-dark">HMPPS</h1>
-                {# tags in a horizontal list #}
-                <ul class="list-inline">
-                    <li class="list-inline-item">
-                        <span class="badge bg-primary">Interaction Design</span>
-                    </li>
-                </ul>
-                <h3 class="fs-5 mb-3 mt-4 lh-1 text-dark">About the project</h3>
-                <p>
-                    In 2022 I worked with Farsight to design a new digital service for HMPPS (Her Majesty's Prison and Probation Service) to plan, schedule and manage prisoners' education, training and activities.
-                </p>
-                <p>
-                    The service was designed to be used by prison staff, including prison officers, education staff and prison managers. The project formed part of a wider digital transformation programme within HMPPS to replace legacy systems with modern, user-centred services.
-                </p>
-                <h3 class="fs-5 mb-3 mt-4 lh-1 text-dark">What we did</h3>
-                <p>
-                    We carried out extensive user research in prisons, and remotely, to understand the needs of prison staff and the constraints of the prison environment. These user needs were used to inform the design of the service, which was iterated and tested with users throughout the project.
-                </p>
-                <p>
-                    As part of the user centred design process, I created a prototype of the service using the GOV.UK Prototype Kit. This was tested with users to validate the design and to gather feedback for further iterations.
-                </p>
-                <h3 class="fs-5 mb-3 mt-4 lh-1 text-dark">The outcome</h3>
-                <p>
-                    The project was delivered on time and within budget, and the service is now being rolled out to prisons across the UK. The service is expected to save prison staff time and improve the relevance and quality of education and training for prisoners.
-                </p>
-            </div>
-            <div class="col-xl-5 col-md-3 col-lg-4 col-xxl-5 d-none d-md-block">
-                <h2 class="fs-4 mb-4 lh-1 text-dark">Case studies</h2>
-                <ul class="list-unstyled">
-                    {% for project in collections.project %}
-                        <li>
-                            <a href="{{ project.url }}">{{ project.data.title }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
+<div class="container mx-auto px-4">
+    <div class="py-8 lg:py-12">
+        <div class="max-w-4xl">
+            <p class="mb-8 text-sm md:text-base">
+                <a href="/projects" class="text-blue-500 hover:text-primary dark:text-blue-400 dark:hover:text-blue-300">&larr; Back to Projects</a>
+            </p>
+
+            <span class="text-sm text-gray-600 dark:text-gray-400">Case study</span>
+            <h1 class="text-2xl md:text-5xl mb-4 leading-tight text-dark dark:text-white font-semibold">HMPPS</h1>
+            <h2 class="sr-only">Services provided:</h2>
+            <ul class="flex flex-wrap gap-2 mb-6">
+                <li><span class="inline-block px-2 py-1 text-sm font-semibold text-white bg-blue-500 rounded">Interaction Design</span></li>
+            </ul>
+
+            <h2 class="text-xl md:text-2xl mb-3 font-semibold text-dark dark:text-white">About the project</h2>
+            <p class="mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
+                In 2022 I worked with Farsight to design <b class="text-gray-900 dark:text-gray-100">a new digital service</b> for HMPPS (Her Majesty's Prison and Probation Service) to plan, schedule and manage prisoners' education, training and activities.
+            </p>
+            <p class="mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
+                The service was designed to be used by prison staff, including prison officers, education staff and prison managers. The project formed part of a wider <b class="text-gray-900 dark:text-gray-100">digital transformation programme</b> within HMPPS to replace legacy systems with modern, user-centred services.
+            </p>
+
+            <h2 class="text-xl md:text-2xl mb-3 font-semibold text-dark dark:text-white">What we did</h2>
+            <p class="mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
+                We carried out <b class="text-gray-900 dark:text-gray-100">extensive user research</b> in prisons, and remotely, to understand the needs of prison staff and the constraints of the prison environment. These user needs were used to inform the design of the service, which was iterated and tested with users throughout the project.
+            </p>
+            <p class="mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
+                As part of the user centred design process, I created a prototype of the service using the GOV.UK Prototype Kit. This was tested with users to validate the design and to gather feedback for further iterations.
+            </p>
+
+            <h2 class="text-xl md:text-2xl mb-3 font-semibold text-dark dark:text-white">The outcome</h2>
+            <p class="mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
+                The project was <b class="text-gray-900 dark:text-gray-100">delivered on time and within budget</b>, and the service is now being rolled out to prisons across the UK. The service is <b class="text-gray-900 dark:text-gray-100">expected to save prison staff time</b> and improve the relevance and quality of education and training for prisoners.
+            </p>
+
+            <div class="mt-12 flex justify-between items-center">
+                {% set previousPost = collections.project | getPreviousCollectionItem(page) %}
+                {% set nextPost = collections.project | getNextCollectionItem(page) %}
+
+                <div class="flex-1">
+                    {% if previousPost %}
+                        <span class="block text-sm text-gray-600 dark:text-gray-400">Previous case study</span>
+                        <a href="{{ previousPost.url }}" class="text-blue-500 hover:text-primary dark:text-blue-400 dark:hover:text-blue-300">
+                            &larr; {{ previousPost.data.title }}
+                        </a>
+                    {% endif %}
+                </div>
+
+                <div class="flex-1 text-right">
+                    {% if nextPost %}
+                        <span class="block text-sm text-gray-600 dark:text-gray-400">Next case study</span>
+                        <a href="{{ nextPost.url }}" class="text-blue-500 hover:text-primary dark:text-blue-400 dark:hover:text-blue-300">
+                            {{ nextPost.data.title }} &rarr;
+                        </a>
+                    {% endif %}
+                </div>
             </div>
         </div>
-    </section>
-{% endblock %}
+    </div>
+</div>

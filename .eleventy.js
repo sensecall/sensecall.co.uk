@@ -95,19 +95,19 @@ module.exports = function (eleventyConfig) {
         'title': 'Car cost comparison',
         'description': 'A tool to help compare the cost of buying a new car against the cost of keeping your current car.',
         'url': 'https://car.sensecall.co.uk',
-        'why': 'I built this to help me compare the cost of buying a new car against the cost of keeping my current car.'
+        'why': 'I couldn\'t find a tool or spreadsheet that did a decent job of helping me compare the cost of buying a new car against the cost of keeping my current car.'
       },
       {
         'title': 'Football score keeper',
         'description': 'A simple tool to help keep track of the score in a football match.',
         'url': 'https://football.sensecall.co.uk',
-        'why': 'I built this to help me keep track of the score in my son\'s football matches.'
+        'why': 'I was stood at my son\'s football match and got fed up of keeping score using the Notes app on my phone, so I built a simple tool to do it for me.'
       },
       {
-        'title': 'Experiment 3',
-        'description': 'Description of experiment 3.',
+        'title': 'UK Renewable Energy Map',
+        'description': 'A map of current and planned renewable energy generation capacity in the UK.',
         'url': 'https://uk-renewable-energy-map.sensecall.co.uk',
-        'why': 'I built this to help me learn about current and planned renewable energy generation capacity in the UK.'
+        'why': 'I was interested in seeing how much renewable energy generation capacity is planned or currently in operation in the UK, but I couldn\'t find a map that showed this information so I built my own.'
       }
     ];
 
