@@ -4,7 +4,9 @@ const execSync = require('child_process').execSync;
 module.exports = function (eleventyConfig) {
   // Watch CSS files for changes
   eleventyConfig.setBrowserSyncConfig({
-    files: './_site/css/**/*.css'
+    files: './_site/css/**/*.css',
+    // Add ignore patterns
+    ignore: ['**/styles.css']
   });
 
   // Add a before build step to compile SASS
@@ -15,8 +17,8 @@ module.exports = function (eleventyConfig) {
 
   // Add an after build step to process Tailwind
   eleventyConfig.on('afterBuild', () => {
-    // Process Tailwind using the compiled CSS
-    execSync('npx tailwindcss -i _site/css/styles.css -o _site/css/styles.css --content "./_site/**/*.html"');
+    // Process Tailwind using the compiled CSS with minification
+    execSync('npx tailwindcss -i _site/css/styles.css -o _site/css/styles.min.css --minify --content "./_site/**/*.html"');
   });
 
   eleventyConfig.addPassthroughCopy({ "src/assets/js": "assets/js" });
