@@ -15,7 +15,8 @@
                         <a href="{{ item.url }}" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light 
                             {{- ' text-primary dark:text-primary-light font-bold border-b-2 border-blue-500 dark:border-blue-400 pb-1' if (item.exact and page.url == item.url) or 
                                (not item.exact and item.url in page.url) -}}
-                            {{- ' experiments-link' if item.text == 'Experiments' -}}">
+                            {{- ' experiments-link' if item.text == 'Experiments' -}}
+                            {{- ' animate-bubbles' if item.text == 'Experiments' and page.url == '/experiments/' -}}">
                             {% if item.text == 'Experiments' %}
                                 <span class="bubble" aria-hidden="true"></span>
                                 <span class="bubble" aria-hidden="true"></span>
