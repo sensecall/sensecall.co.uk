@@ -2,8 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-// Import Lora font
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+// Import Lora font with display swap for better performance
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap&display=swap');
+
+// Add font-display settings
+@layer base {
+  @font-face {
+    font-family: 'Lora';
+    font-display: swap;
+  }
+}
 
 // Custom variables
 :root {
@@ -19,6 +27,8 @@
 body {
   font-family: 'Lora', serif;
   color: var(--body-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 // Selection styles
@@ -39,8 +49,10 @@ body.homePage {
 .nav-link {
   color: var(--body-color);
   text-decoration: none;
-  
-  &:hover, &:focus, &.active {
+
+  &:hover,
+  &:focus,
+  &.active {
     color: var(--primary);
   }
 }
@@ -51,13 +63,16 @@ body.homePage {
     transform: translateY(0) scale(1);
     opacity: 0.2;
   }
+
   5% {
     opacity: 0.3;
   }
+
   85% {
     transform: translateY(-20px) scale(1.2);
     opacity: 0.9;
   }
+
   100% {
     transform: translateY(-22px) scale(0);
     opacity: 0;
@@ -66,43 +81,103 @@ body.homePage {
 
 .experiments-link {
   position: relative;
-  
+
   &.animate-bubbles .bubble {
     animation: bubble 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
-  
+
   .bubble {
     position: absolute;
     border-radius: 50%;
     opacity: 0;
     top: 0;
     z-index: -1;
-    
+
     @media (prefers-color-scheme: dark) {
       background-color: rgba(59, 130, 246, 0.8);
     }
-    
+
     @media (prefers-color-scheme: light) {
       background-color: rgba(59, 130, 246, 0.4);
     }
-    
-    &:nth-child(1) { left: 0; width: 4px; height: 4px; animation-delay: 0s; }
-    &:nth-child(2) { left: 25%; width: 7px; height: 7px; animation-delay: 0.2s; }
-    &:nth-child(3) { left: 50%; width: 5px; height: 5px; animation-delay: 0.4s; }
-    &:nth-child(4) { left: 75%; width: 6px; height: 6px; animation-delay: 0.1s; }
-    &:nth-child(5) { right: 0; width: 4px; height: 4px; animation-delay: 0.3s; }
+
+    &:nth-child(1) {
+      left: 0;
+      width: 4px;
+      height: 4px;
+      animation-delay: 0s;
+    }
+
+    &:nth-child(2) {
+      left: 25%;
+      width: 7px;
+      height: 7px;
+      animation-delay: 0.2s;
+    }
+
+    &:nth-child(3) {
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      animation-delay: 0.4s;
+    }
+
+    &:nth-child(4) {
+      left: 75%;
+      width: 6px;
+      height: 6px;
+      animation-delay: 0.1s;
+    }
+
+    &:nth-child(5) {
+      right: 0;
+      width: 4px;
+      height: 4px;
+      animation-delay: 0.3s;
+    }
   }
 }
 
 @keyframes wave {
-  0% { transform-origin: bottom right; transform: rotate(0deg); }
-  10% { transform-origin: bottom right; transform: rotate(14deg); }
-  20% { transform-origin: bottom right; transform: rotate(-8deg); }
-  30% { transform-origin: bottom right; transform: rotate(14deg); }
-  40% { transform-origin: bottom right; transform: rotate(-4deg); }
-  50% { transform-origin: bottom right; transform: rotate(10deg); }
-  60% { transform-origin: bottom right; transform: rotate(0deg); }
-  100% { transform-origin: bottom right; transform: rotate(0deg); }
+  0% {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+  }
+
+  10% {
+    transform-origin: bottom right;
+    transform: rotate(14deg);
+  }
+
+  20% {
+    transform-origin: bottom right;
+    transform: rotate(-8deg);
+  }
+
+  30% {
+    transform-origin: bottom right;
+    transform: rotate(14deg);
+  }
+
+  40% {
+    transform-origin: bottom right;
+    transform: rotate(-4deg);
+  }
+
+  50% {
+    transform-origin: bottom right;
+    transform: rotate(10deg);
+  }
+
+  60% {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform-origin: bottom right;
+    transform: rotate(0deg);
+  }
 }
 
 .wave-animation {
