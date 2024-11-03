@@ -7,32 +7,32 @@ permalink: /
 bodyClasses: bg-white dark:bg-gray-900 homePage
 ---
 
-<section class="bg-gray-100 dark:bg-gray-800" id="introduction">
-    <div class="container mx-auto px-4">
-        <div class="py-8 lg:py-12">
-            <div class="max-w-4xl">
-                <p class="text-xl md:text-3xl text-gray-500 dark:text-gray-400 mb-3 italic flex items-center">
-                    <img src="/assets/images/dan-sensecall.jpg"
-                         alt="Dan Sensecall"
-                         class="rounded-full mr-2 lg:mr-3 shadow-sm w-12 h-12 md:w-16 md:h-16">
-                    Hi! I'm Dan Sensecall.
-                </p>
-                <h1 class="text-2xl md:text-5xl mb-4 leading-tight text-dark dark:text-white font-semibold">
-                    I'm a service designer and user experience consultant from the UK.
-                </h1>
-                <p class="mb-4 text-base md:text-xl text-gray-700 dark:text-gray-100">
-                    I help organisations solve complex problems by designing services that meet users' needs
-                    while also meeting organisational goals.
-                </p>
-                <p class="mb-2 text-base md:text-xl text-gray-700 dark:text-gray-100">Typically, I help with things like:</p>
-                <ul class="list-disc pl-5 text-base md:text-xl text-gray-700 dark:text-gray-100">
-                    <li>service design</li>
-                    <li>interaction design</li>
-                    <li>user research</li>
-                    <li>accessibility</li>
-                    <li>content design</li>
-                </ul>
-            </div>
+<section id="introduction">
+    <div class="container mx-auto px-4 py-8 lg:py-12">
+        <div class="max-w-4xl">
+            <p class="text-xl md:text-3xl text-gray-500 dark:text-gray-400 mb-3 flex items-center">
+                <img src="/assets/images/dan-sensecall.jpg"
+                     alt="Dan Sensecall"
+                     class="rounded-full mr-2 lg:mr-3 shadow-sm w-12 h-12 md:w-16 md:h-16"
+                     width="64"
+                     height="64">
+                <span class="wave-animation">👋</span> <span class="ml-2 italic">Hi! I'm Dan Sensecall.</span>
+            </p>
+            <h1 class="text-2xl md:text-5xl mb-6 leading-tight text-dark dark:text-white font-semibold">
+                I'm a service designer and user experience consultant from the UK.
+            </h1>
+            <p class="mb-4 text-base md:text-xl text-gray-700 dark:text-gray-100">
+                I help organisations solve complex problems by designing services that meet users' needs
+                while also meeting organisational goals.
+            </p>
+            <p class="mb-2 text-base md:text-xl text-gray-700 dark:text-gray-100">Typically, I help with things like:</p>
+            <ul class="list-disc pl-5 text-base md:text-xl text-gray-700 dark:text-gray-100">
+                <li>service design</li>
+                <li>interaction design</li>
+                <li>user research</li>
+                <li>accessibility</li>
+                <li>content design</li>
+            </ul>
         </div>
     </div>
 </section>
@@ -81,7 +81,7 @@ bodyClasses: bg-white dark:bg-gray-900 homePage
                 }
             }
         ] %}
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
             {% for service in services %}
                 <div class="mb-5">
                     <h2 class="text-lg md:text-xl mb-2 font-semibold text-dark dark:text-white">{{ service.title }}</h2>

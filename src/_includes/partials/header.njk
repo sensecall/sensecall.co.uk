@@ -14,7 +14,15 @@
                     <li>
                         <a href="{{ item.url }}" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light 
                             {{- ' text-primary dark:text-primary-light font-bold border-b-2 border-blue-500 dark:border-blue-400 pb-1' if (item.exact and page.url == item.url) or 
-                               (not item.exact and item.url in page.url) -}}">
+                               (not item.exact and item.url in page.url) -}}
+                            {{- ' experiments-link' if item.text == 'Experiments' -}}">
+                            {% if item.text == 'Experiments' %}
+                                <span class="bubble" aria-hidden="true"></span>
+                                <span class="bubble" aria-hidden="true"></span>
+                                <span class="bubble" aria-hidden="true"></span>
+                                <span class="bubble" aria-hidden="true"></span>
+                                <span class="bubble" aria-hidden="true"></span>
+                            {% endif %}
                             {{ item.text }}
                             {% if item.srOnly %}
                                 <span class="sr-only">{{ item.srOnly }}</span>
@@ -26,7 +34,7 @@
 
             <div class="relative inline-block hidden md:block">
                 <input type="checkbox" id="dark-mode-toggle" class="hidden peer">
-                <label for="dark-mode-toggle" class="cursor-pointer text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light">
+                <label for="dark-mode-toggle" class="cursor-pointer text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light" title="Toggle dark mode">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <!-- Moon icon (shows in light mode) -->
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />

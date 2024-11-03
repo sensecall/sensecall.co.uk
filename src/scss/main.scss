@@ -44,3 +44,68 @@ body.homePage {
     color: var(--primary);
   }
 }
+
+// Bubbles animation
+@keyframes bubble {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.2;
+  }
+  5% {
+    opacity: 0.3;
+  }
+  85% {
+    transform: translateY(-20px) scale(1.2);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-22px) scale(0);
+    opacity: 0;
+  }
+}
+
+.experiments-link {
+  position: relative;
+  
+  &:hover .bubble {
+    animation: bubble 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+    top: 0;
+    z-index: -1;
+    
+    @media (prefers-color-scheme: dark) {
+      background-color: rgba(59, 130, 246, 0.8);
+    }
+    
+    @media (prefers-color-scheme: light) {
+      background-color: rgba(59, 130, 246, 0.4);
+    }
+    
+    &:nth-child(1) { left: 0; width: 4px; height: 4px; animation-delay: 0s; }
+    &:nth-child(2) { left: 25%; width: 7px; height: 7px; animation-delay: 0.2s; }
+    &:nth-child(3) { left: 50%; width: 5px; height: 5px; animation-delay: 0.4s; }
+    &:nth-child(4) { left: 75%; width: 6px; height: 6px; animation-delay: 0.1s; }
+    &:nth-child(5) { right: 0; width: 4px; height: 4px; animation-delay: 0.3s; }
+  }
+}
+
+@keyframes wave {
+  0% { transform-origin: bottom right; transform: rotate(0deg); }
+  10% { transform-origin: bottom right; transform: rotate(14deg); }
+  20% { transform-origin: bottom right; transform: rotate(-8deg); }
+  30% { transform-origin: bottom right; transform: rotate(14deg); }
+  40% { transform-origin: bottom right; transform: rotate(-4deg); }
+  50% { transform-origin: bottom right; transform: rotate(10deg); }
+  60% { transform-origin: bottom right; transform: rotate(0deg); }
+  100% { transform-origin: bottom right; transform: rotate(0deg); }
+}
+
+.wave-animation {
+  display: inline-block;
+  animation: wave 2.5s ease-in-out 1;
+}
