@@ -1,14 +1,30 @@
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>
-        {{ title }}
-    </title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>{{ title }}</title>
     <meta name="description"
-        content="Freelance Service designer and UX designer from the UK. I help organisations solve complex problems by designing services that meet user needs." />
+          content="Freelance service designer and UX consultant helping UK organisations design user-centred digital services. Specialising in government and public sector projects.">
     <meta name="format-detection" content="telephone=no">
-    <meta name="theme-color" content="rgb(243,244,246)">
+    <meta name="theme-color"
+          content="rgb(243,244,246)"
+          media="(prefers-color-scheme: light)">
+    <meta name="theme-color"
+          content="rgb(17,24,39)"
+          media="(prefers-color-scheme: dark)">
     <link rel="stylesheet" href="/css/styles.min.css">
     <link rel="icon" href="images/favicon.ico">
     <script src="/assets/js/dark-mode.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GHPFLMRQ3T"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-GHPFLMRQ3T');
+    </script>
+    <link rel="canonical" href="https://sensecall.co.uk{{ page.url }}">
 </head>
