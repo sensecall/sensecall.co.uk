@@ -2,13 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-// Import Lora font with display swap for better performance
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap&display=swap');
+// Import JetBrains Mono font with display swap for better performance
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+
+// Import Rubik font with display swap for better performance
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 
 // Add font-display settings
 @layer base {
   @font-face {
-    font-family: 'Lora';
+    font-family: 'Rubik';
     font-display: swap;
   }
 }
@@ -25,15 +28,48 @@
 
 // Base styles
 body {
-  font-family: 'Lora', serif;
+  font-family: 'Rubik', sans-serif;
   color: var(--body-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+// Commented out old JetBrains Mono font import
+// @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+
+// Commented out old font-face for JetBrains Mono
+// @layer base {
+//   @font-face {
+//     font-family: 'JetBrains Mono';
+//     font-display: swap;
+//   }
+// }
+
+// Commented out old Source Code Pro font import
+// @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+
+// Commented out old font-face for Source Code Pro
+// @layer base {
+//   @font-face {
+//     font-family: 'Source Code Pro';
+//     font-display: swap;
+//   }
+// }
+
+// Commented out old Lora font import
+// @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap&display=swap');
+
+// Commented out old font-face for Lora
+// @layer base {
+//   @font-face {
+//     font-family: 'Lora';
+//     font-display: swap;
+//   }
+// }
+
 // Selection styles
 ::selection {
-  background: #801f7b7c;
+  background: #ffb3007c;
   color: black;
 }
 
