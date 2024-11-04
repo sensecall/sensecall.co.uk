@@ -7,231 +7,228 @@ permalink: /
 ---
 
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "Dan Sensecall - Service Design & UX Consultant",
-  "description": "Freelance service designer and UX consultant helping organisations solve complex problems through user-centred design.",
-  "url": "{{ site.url }}",
-  "areaServed": "United Kingdom",
-  "priceRange": "££££",
-  "knowsAbout": [
-    "Service Design",
-    "User Experience Design",
-    "Interaction Design",
-    "User Research",
-    "Accessibility",
-    "Content Design",
-    "Public Sector",
-    "Government"
-  ]
-}
+    {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Dan Sensecall - Service Design & UX Consultant",
+        "description": "Freelance service designer and UX consultant helping organisations solve complex problems through user-centred design.",
+        "url": "{{ site.url }}",
+        "areaServed": "United Kingdom",
+        "priceRange": "££££",
+        "knowsAbout": [
+            "Service Design",
+            "User Experience Design",
+            "Interaction Design",
+            "User Research",
+            "Accessibility",
+            "Content Design",
+            "Public Sector",
+            "Government"
+        ]
+    }
 </script>
-
-<section id="introduction" aria-labelledby="introduction-title">
-    <div class="container mx-auto px-4 py-8 lg:py-12">
-        <div class="max-w-4xl">
-            <p class="text-xl md:text-3xl text-gray-500 dark:text-gray-400 mb-4 flex items-center">
-                <img src="/assets/images/dan-sensecall.jpg"
-                     alt="Dan Sensecall"
-                     class="rounded-full mr-2 lg:mr-3 shadow-sm w-10 h-10 md:w-12 md:h-12"
-                     width="64"
-                     height="64">
-                <span class="wave-animation">👋</span> <span class="ml-2 font-light">Hi! I'm Dan Sensecall.</span>
-            </p>
-            <h1 id="introduction-title" class="text-2xl md:text-5xl mb-6 leading-tight text-dark dark:text-white font-semibold lg:w-4/5">
-                I'm a freelance service designer and user experience consultant from the UK.
-            </h1>
-            <p class="mb-4 text-lg md:text-2xl text-gray-700 dark:text-gray-300">
-                I help organisations solve complex problems by designing services that meet users' needs and organisational goals.
-            </p>
-            <p class="mb-2 text-base md:text-xl text-gray-700 dark:text-gray-300">Typically, I help with things like:</p>
-            <ul class="list-disc pl-5 text-base md:text-xl text-gray-700 dark:text-gray-300">
-                <li>service design</li>
-                <li>interaction design</li>
-                <li>user research</li>
-                <li>accessibility</li>
-                <li>content design</li>
-            </ul>
-        </div>
+<section id="introduction"
+         aria-labelledby="introduction-title"
+         class="py-8 lg:py-12 border-b border-gray-200 dark:border-gray-800">
+    <div class="max-w-4xl">
+        <p class="text-xl md:text-3xl text-gray-500 dark:text-gray-400 mb-4 flex items-center">
+            <img src="/assets/images/dan-sensecall.jpg"
+                 alt="Dan Sensecall"
+                 class="rounded-full mr-2 lg:mr-3 shadow-sm w-10 h-10 md:w-12 md:h-12"
+                 width="64"
+                 height="64">
+            <span class="wave-animation">👋</span> <span class="ml-2 font-light">Hi! I'm Dan Sensecall.</span>
+        </p>
+        <h1 id="introduction-title"
+            class="text-2xl md:text-5xl mb-6 leading-tight text-dark dark:text-white font-semibold lg:w-4/5">
+            I'm a freelance service designer and user experience consultant from the UK.
+        </h1>
+        <p class="mb-4 text-lg md:text-2xl text-gray-700 dark:text-gray-300">
+            I help organisations solve complex problems by designing services that meet users' needs and organisational goals.
+        </p>
+        <p class="mb-2 text-base md:text-xl text-gray-700 dark:text-gray-300">Typically, I help with things like:</p>
+        <ul class="list-disc pl-5 text-base md:text-xl text-gray-700 dark:text-gray-300">
+            <li>service design</li>
+            <li>interaction design</li>
+            <li>user research</li>
+            <li>accessibility</li>
+            <li>content design</li>
+        </ul>
     </div>
 </section>
-<section id="services" aria-labelledby="services-title" class="pt-3">
-    <div class="container py-8 mx-auto px-4">
-        <h2 id="services-title" class="text-2xl md:text-4xl mb-4 font-semibold text-dark dark:text-white">What I do</h2>
-        {% set services = [
-            {
-                "title": "Service design",
-                "description": "This means looking at users' end-to-end journeys, and thinking about how the different services, or parts of a service, work together.",
-                "link": {
-                    "url": "https://www.gov.uk/guidance/service-designer",
-                    "text": "Read more about service design"
-                }
-            },
-            {
-                "title": "Interaction design",
-                "description": "This involves designing the things that people interact with, and the way it responds. It's more detailed than service design, and often focuses on the user interface (UI) and the content (words and images).",
-                "link": {
-                    "url": "https://www.usability.gov/what-and-why/interaction-design.html",
-                    "text": "Read more about interaction design"
-                }
-            },
-            {
-                "title": "User research",
-                "description": "This means talking to people who use the service, and finding out what they need. It also means testing the service with people to see if it works for them.",
-                "link": {
-                    "url": "https://www.gov.uk/service-manual/user-research/how-user-research-improves-service-design",
-                    "text": "Read more about user research"
-                }
-            },
-            {
-                "title": "Accessibility",
-                "description": "This means making sure that the service works for people with disabilities, and that it meets the requirements of the law. It includes things like making sure that the service works with screen readers, or that it can be used by people with colour blindness.",
-                "link": {
-                    "url": "https://accessibility.blog.gov.uk/2016/05/16/what-we-mean-when-we-talk-about-accessibility-2/",
-                    "text": "Read more about accessibility"
-                }
-            },
-            {
-                "title": "Content design",
-                "description": "This involves making sure that the words used in a service are clear and easy to understand. It also means making sure that the structure of the content is logical, and that users can find what they need.",
-                "link": {
-                    "url": "https://www.gov.uk/guidance/content-design/what-is-content-design",
-                    "text": "Read more about content design"
-                }
+<section id="services" aria-labelledby="services-title" class="py-8">
+    <h2 id="services-title"
+        class="text-2xl md:text-4xl mb-4 font-semibold text-dark dark:text-white">What I do</h2>
+    {% set services = [
+        {
+            "title": "Service design",
+            "description": "This means looking at users' end-to-end journeys, and thinking about how the different services, or parts of a service, work together.",
+            "link": {
+                "url": "https://www.gov.uk/guidance/service-designer",
+                "text": "Read more about service design"
             }
-        ] %}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-            {% for service in services %}
-                <div class="mb-5">
-                    <h2 class="text-lg md:text-xl mb-2 font-semibold text-dark dark:text-white">{{ service.title }}</h2>
-                    <p class="text-base md:text-lg text-gray-700 dark:text-gray-300">{{ service.description }}</p>
-                    <p class="mt-2 text-sm md:text-base">
-                        <a href="{{ service.link.url }}"
-                           class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline inline-flex items-center gap-1"
-                           target="_blank"
-                           rel="noopener noreferrer">
-                            {{ service.link.text }}
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                 aria-label="Opens in new tab"
-                                 class="w-4 h-4"
-                                 fill="none"
-                                 viewBox="0 0 24 24"
-                                 stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                            </svg>
-                            <span class="sr-only">(opens in a new tab)</span>
-                        </a>
-                    </p>
-                </div>
-            {% endfor %}
-        </div>
+        },
+        {
+            "title": "Interaction design",
+            "description": "This involves designing the things that people interact with, and the way it responds. It's more detailed than service design, and often focuses on the user interface (UI) and the content (words and images).",
+            "link": {
+                "url": "https://www.usability.gov/what-and-why/interaction-design.html",
+                "text": "Read more about interaction design"
+            }
+        },
+        {
+            "title": "User research",
+            "description": "This means talking to people who use the service, and finding out what they need. It also means testing the service with people to see if it works for them.",
+            "link": {
+                "url": "https://www.gov.uk/service-manual/user-research/how-user-research-improves-service-design",
+                "text": "Read more about user research"
+            }
+        },
+        {
+            "title": "Accessibility",
+            "description": "This means making sure that the service works for people with disabilities, and that it meets the requirements of the law. It includes things like making sure that the service works with screen readers, or that it can be used by people with colour blindness.",
+            "link": {
+                "url": "https://accessibility.blog.gov.uk/2016/05/16/what-we-mean-when-we-talk-about-accessibility-2/",
+                "text": "Read more about accessibility"
+            }
+        },
+        {
+            "title": "Content design",
+            "description": "This involves making sure that the words used in a service are clear and easy to understand. It also means making sure that the structure of the content is logical, and that users can find what they need.",
+            "link": {
+                "url": "https://www.gov.uk/guidance/content-design/what-is-content-design",
+                "text": "Read more about content design"
+            }
+        }
+    ] %}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+        {% for service in services %}
+            <div class="mb-5">
+                <h2 class="text-lg md:text-xl mb-2 font-semibold text-dark dark:text-white">{{ service.title }}</h2>
+                <p class="text-base md:text-lg text-gray-700 dark:text-gray-300">{{ service.description }}</p>
+                <p class="mt-2 text-sm md:text-base">
+                    <a href="{{ service.link.url }}"
+                       class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline inline-flex items-center gap-1"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        {{ service.link.text }}
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             aria-label="Opens in new tab"
+                             class="w-4 h-4"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        <span class="sr-only">(opens in a new tab)</span>
+                    </a>
+                </p>
+            </div>
+        {% endfor %}
     </div>
 </section>
-<section id="clients" class="py-5">
-    <div class="container mx-auto px-4 py-8">
-        <div class="md:w-2/3">
-            <h2 class="text-2xl md:text-4xl font-bold mb-4 text-dark dark:text-white">Who I work with</h2>
-            <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
-                Over the past 15 years I've worked with a range of clients, from startups to government
-                departments, to improve their products and services.
-            </p>
-            <p class="mb-8 md:text-lg text-gray-700 dark:text-gray-300">
-                Since 2018, I've worked exclusively with Public Sector organisations to design services for
-                citizens and internal users.
-            </p>
-        </div>
-        <div class="lg:w-2/3 grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-x-2 gap-y-4 sm:gap-x-4 sm:gap-y-6 md:gap-y-8">
-            {% for logo in collections.logos %}
-                <div class="flex items-center justify-start" role="img" aria-label="{{ logo.name }}">
-                    <img src="/assets/images/clients/{{ logo.image | replace('.svg', '--dark.svg') if (logo.image.endsWith('.svg')) else logo.image }}"
-                         alt="{{ logo.name }} logo"
-                         width="100"
-                         height="50"
-                         class="hidden dark:block w-full max-w-[80px] sm:max-w-[100px] md:max-w-[120px] h-auto object-contain" />
-                    <img src="/assets/images/clients/{{ logo.image }}"
-                         alt="{{ logo.name }} logo" 
-                         width="100"
-                         height="50"
-                         class="dark:hidden w-full max-w-[80px] sm:max-w-[90px] md:max-w-[100px] h-auto object-contain" />
-                </div>
-            {% endfor %}
-        </div>
+<section id="clients" class="py-8">
+    <div class="md:w-2/3">
+        <h2 class="text-2xl md:text-4xl font-bold mb-4 text-dark dark:text-white">Who I work with</h2>
+        <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
+            Over the past 15 years I've worked with a range of clients, from startups to government
+            departments, to improve their products and services.
+        </p>
+        <p class="mb-8 md:text-lg text-gray-700 dark:text-gray-300">
+            Since 2018, I've worked exclusively with Public Sector organisations to design services for
+            citizens and internal users.
+        </p>
+    </div>
+    <div class="lg:w-2/3 grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-x-2 gap-y-4 sm:gap-x-4 sm:gap-y-6 md:gap-y-8">
+        {% for logo in collections.logos %}
+            <div class="flex items-center justify-start"
+                 role="img"
+                 aria-label="{{ logo.name }}">
+                <img src="/assets/images/clients/{{ logo.image | replace('.svg', '--dark.svg') if (logo.image.endsWith('.svg')) else logo.image }}"
+                     alt="{{ logo.name }} logo"
+                     width="100"
+                     height="50"
+                     class="hidden dark:block w-full max-w-[80px] sm:max-w-[100px] md:max-w-[120px] h-auto object-contain" />
+                <img src="/assets/images/clients/{{ logo.image }}"
+                     alt="{{ logo.name }} logo"
+                     width="100"
+                     height="50"
+                     class="dark:hidden w-full max-w-[80px] sm:max-w-[90px] md:max-w-[100px] h-auto object-contain" />
+            </div>
+        {% endfor %}
     </div>
 </section>
-
-<section id="things-ive-done" class="pt-5">
-    <div class="container mx-auto px-4 py-8">
-        <div class="md:w-2/3">
-            <h2 class="text-2xl md:text-4xl font-bold mb-4 text-dark dark:text-white">Things I've done</h2>
-            <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
-                I've provided design services on a wide range of projects, from small websites to large-scale digital transformation programmes.
-            </p>
-            <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
-                Projects have ranged from greenfield projects to others that have involved replacing legacy systems with new services. Ideally, I'm involved from the very start, but I'm used to being parachuted in to help with a specific problem.
-            </p>
-            <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
-                Typically, the projects I work on are used by thousands of people every day, from members of the public completing a task online, to civil servants using a system to manage their work.
-            </p>
-            <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">There are too many to list here, but here are a few examples:</p>
-            <ul class="mb-4 md:text-lg text-gray-700 dark:text-gray-300 list-disc list-outside pl-5">
-                <li class="mb-2">
-                    Designed a new service to make it simpler for further education providers to provide learner data to the Education and Skills Funding Agency (ESFA)
-                </li>
-                <li class="mb-2">
-                    <a href="projects/home-office" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline">Redesigned the Police National Computer (PNC)</a> to make it easier for police officers to manage stolen property records
-                </li>
-                <li class="mb-2">
-                    <a href="projects/hmpps" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline">Designed a service to replace the National Offender Management Service (NOMIS)</a>, allowing prison staff to manage prisoner activities
-                </li>
-                <li class="mb-2">
-                    Provided design support to the Apprenticeship Service, helping to improve the service for employers and training providers
-                </li>
-            </ul>
-            <p class="md:text-lg text-gray-700 dark:text-gray-300">
-                You can read more about <a href="/projects" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline">projects I've worked on</a> recently.
-            </p>
-        </div>
+<section id="things-ive-done" class="py-8">
+    <div class="md:w-2/3">
+        <h2 class="text-2xl md:text-4xl font-bold mb-4 text-dark dark:text-white">Things I've done</h2>
+        <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
+            I've provided design services on a wide range of projects, from small websites to large-scale digital transformation programmes.
+        </p>
+        <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
+            Projects have ranged from greenfield projects to others that have involved replacing legacy systems with new services. Ideally, I'm involved from the very start, but I'm used to being parachuted in to help with a specific problem.
+        </p>
+        <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
+            Typically, the projects I work on are used by thousands of people every day, from members of the public completing a task online, to civil servants using a system to manage their work.
+        </p>
+        <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
+            There are too many to list here, but here are a few examples:
+        </p>
+        <ul class="mb-4 md:text-lg text-gray-700 dark:text-gray-300 list-disc list-outside pl-5">
+            <li class="mb-2">
+                Designed a new service to make it simpler for further education providers to provide learner data to the Education and Skills Funding Agency (ESFA)
+            </li>
+            <li class="mb-2">
+                <a href="projects/home-office"
+                   class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline">Redesigned the Police National Computer (PNC)</a> to make it easier for police officers to manage stolen property records
+            </li>
+            <li class="mb-2">
+                <a href="projects/hmpps"
+                   class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline">Designed a service to replace the National Offender Management Service (NOMIS)</a>, allowing prison staff to manage prisoner activities
+            </li>
+            <li class="mb-2">
+                Provided design support to the Apprenticeship Service, helping to improve the service for employers and training providers
+            </li>
+        </ul>
+        <p class="md:text-lg text-gray-700 dark:text-gray-300">
+            You can read more about <a href="/projects"
+    class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline">projects I've worked on</a> recently.
+        </p>
     </div>
 </section>
-
-<section id="work-with-me" class="pt-5">
-    <div class="container mx-auto px-4 py-8">
-        <div class="md:w-2/3">
-            <h2 class="text-2xl md:text-4xl font-bold mb-4 text-dark dark:text-white">Work with me</h2>
-            <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
-                I'm willing to work with clients in a number of ways, depending on their needs. This can include working:
-            </p>
-            <ul class="mb-4 md:text-lg text-gray-700 dark:text-gray-300 list-disc list-outside pl-5">
-                <li class="mb-2">as part of an existing team</li>
-                <li class="mb-2">with a team of associates</li>
-                <li class="mb-2">with a partner agency</li>
-                <li class="mb-2">directly with the client</li>
-            </ul>
-            <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
-                Although I prefer to work remotely, I can travel to meet clients if needed. I'm conveniently based in the centre of the UK, and can easily travel to London, Birmingham, Manchester, and other major cities.
-            </p>
-            <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
-                I'm used to working with clients' existing tools and processes, particularly in the Public Sector where security is a priority.
-            </p>
-        </div>
+<section id="work-with-me" class="py-8">
+    <div class="md:w-2/3">
+        <h2 class="text-2xl md:text-4xl font-bold mb-4 text-dark dark:text-white">Work with me</h2>
+        <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
+            I'm willing to work with clients in a number of ways, depending on their needs. This can include working:
+        </p>
+        <ul class="mb-4 md:text-lg text-gray-700 dark:text-gray-300 list-disc list-outside pl-5">
+            <li class="mb-2">as part of an existing team</li>
+            <li class="mb-2">with a team of associates</li>
+            <li class="mb-2">with a partner agency</li>
+            <li class="mb-2">directly with the client</li>
+        </ul>
+        <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
+            Although I prefer to work remotely, I can travel to meet clients if needed. I'm conveniently based in the centre of the UK, and can easily travel to London, Birmingham, Manchester, and other major cities.
+        </p>
+        <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
+            I'm used to working with clients' existing tools and processes, particularly in the Public Sector where security is a priority.
+        </p>
     </div>
 </section>
-
-<section id="contact-me" class="bg-gray-100 dark:bg-gray-900 pt-5">
-    <div class="container mx-auto px-4 py-8 border-b border-gray-200 dark:border-gray-800">
-        <div class="md:w-2/3">
-            <h2 class="text-2xl md:text-4xl font-bold mb-4 text-dark dark:text-white">Contact me</h2>
-            <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
-                If you want to discuss a project, or if you're a recruiter looking for a contractor, you can email me at <a href="mailto:dan@sensecall.co.uk" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline">dan@sensecall.co.uk</a>
-            </p>
-            <h3 class="text-xl md:text-3xl font-bold mb-4 mt-8 text-dark dark:text-white">Recruiters</h3>
-            <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
-                If you want a copy of my CV, contact me and I'll happily share it with you.
-            </p>
-            <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
-                Unfortunately, I'm not currently available for full-time employment. However, I'm happy to discuss short-term contracts.
-            </p>
-        </div>
+<section id="contact-me" class="py-8">
+    <div class="md:w-2/3">
+        <h2 class="text-2xl md:text-4xl font-bold mb-4 text-dark dark:text-white">Contact me</h2>
+        <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
+            If you want to discuss a project, or if you're a recruiter looking for a contractor, you can email me at <a href="mailto:dan@sensecall.co.uk"
+    class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline">dan@sensecall.co.uk</a>
+        </p>
+        <h3 class="text-xl md:text-3xl font-bold mb-4 mt-8 text-dark dark:text-white">Recruiters</h3>
+        <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
+            If you want a copy of my CV, contact me and I'll happily share it with you.
+        </p>
+        <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
+            Unfortunately, I'm not currently available for full-time employment. However, I'm happy to discuss short-term contracts.
+        </p>
     </div>
+</div>
 </section>
