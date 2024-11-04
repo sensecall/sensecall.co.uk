@@ -31,23 +31,22 @@ permalink: /
 <section id="introduction" aria-labelledby="introduction-title">
     <div class="container mx-auto px-4 py-8 lg:py-12">
         <div class="max-w-4xl">
-            <p class="text-xl md:text-3xl text-gray-500 dark:text-gray-400 mb-3 flex items-center">
+            <p class="text-xl md:text-3xl text-gray-500 dark:text-gray-400 mb-4 flex items-center">
                 <img src="/assets/images/dan-sensecall.jpg"
                      alt="Dan Sensecall"
-                     class="rounded-full mr-2 lg:mr-3 shadow-sm w-12 h-12 md:w-16 md:h-16"
+                     class="rounded-full mr-2 lg:mr-3 shadow-sm w-10 h-10 md:w-12 md:h-12"
                      width="64"
                      height="64">
-                <span class="wave-animation">👋</span> <span class="ml-2 italic">Hi! I'm Dan Sensecall.</span>
+                <span class="wave-animation">👋</span> <span class="ml-2 font-light">Hi! I'm Dan Sensecall.</span>
             </p>
             <h1 id="introduction-title" class="text-2xl md:text-5xl mb-6 leading-tight text-dark dark:text-white font-semibold lg:w-4/5">
                 I'm a freelance service designer and user experience consultant from the UK.
             </h1>
-            <p class="mb-4 text-lg md:text-2xl text-gray-700 dark:text-gray-100">
-                I help organisations solve complex problems by designing services that meet users' needs
-                while also meeting organisational goals.
+            <p class="mb-4 text-lg md:text-2xl text-gray-700 dark:text-gray-300">
+                I help organisations solve complex problems by designing services that meet users' needs and organisational goals.
             </p>
-            <p class="mb-2 text-base md:text-xl text-gray-700 dark:text-gray-100">Typically, I help with things like:</p>
-            <ul class="list-disc pl-5 text-base md:text-xl text-gray-700 dark:text-gray-100">
+            <p class="mb-2 text-base md:text-xl text-gray-700 dark:text-gray-300">Typically, I help with things like:</p>
+            <ul class="list-disc pl-5 text-base md:text-xl text-gray-700 dark:text-gray-300">
                 <li>service design</li>
                 <li>interaction design</li>
                 <li>user research</li>
@@ -142,19 +141,19 @@ permalink: /
                 citizens and internal users.
             </p>
         </div>
-        <div class="lg:w-2/3 grid grid-cols-4 gap-x-2 gap-y-4 sm:gap-x-4 sm:gap-y-6 md:gap-y-8">
+        <div class="lg:w-2/3 grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-x-2 gap-y-4 sm:gap-x-4 sm:gap-y-6 md:gap-y-8">
             {% for logo in collections.logos %}
                 <div class="flex items-center justify-start" role="img" aria-label="{{ logo.name }}">
                     <img src="/assets/images/clients/{{ logo.image | replace('.svg', '--dark.svg') if (logo.image.endsWith('.svg')) else logo.image }}"
                          alt="{{ logo.name }} logo"
                          width="100"
                          height="50"
-                         class="hidden dark:block w-full max-w-[60px] sm:max-w-[70px] md:max-w-[120px] h-auto object-contain" />
+                         class="hidden dark:block w-full max-w-[80px] sm:max-w-[100px] md:max-w-[120px] h-auto object-contain" />
                     <img src="/assets/images/clients/{{ logo.image }}"
                          alt="{{ logo.name }} logo" 
                          width="100"
                          height="50"
-                         class="dark:hidden w-full max-w-[60px] sm:max-w-[70px] md:max-w-[100px] h-auto object-contain" />
+                         class="dark:hidden w-full max-w-[80px] sm:max-w-[90px] md:max-w-[100px] h-auto object-contain" />
                 </div>
             {% endfor %}
         </div>
