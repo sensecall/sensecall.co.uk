@@ -38,12 +38,23 @@
       <script type="application/ld+json">
           {
               "@context": "https://schema.org",
-              "@type": "ProfessionalService",
-              "name": "Dan Sensecall - Service Design & UX Consultant",
+              "@type": "Person",
+              "name": "Dan Sensecall",
+              "jobTitle": "Service Design & UX Consultant",
               "description": "Freelance service designer and UX consultant helping organisations solve complex problems through user-centred design.",
               "url": "https://sensecall.co.uk",
-              "areaServed": "United Kingdom",
-              "priceRange": "££££",
+              "worksFor": {
+                  "@type": "Organization",
+                  "name": "UI UX Ltd"
+              },
+              "makesOffer": {
+                  "@type": "Offer",
+                  "itemOffered": {
+                      "@type": "Service",
+                      "name": "Service Design & UX Consultancy",
+                      "areaServed": "United Kingdom"
+                  }
+              },
               "knowsAbout": [
                   "Service Design",
                   "User Experience Design",
