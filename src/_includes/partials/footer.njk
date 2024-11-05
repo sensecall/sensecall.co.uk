@@ -24,30 +24,3 @@
     </svg>
     <span class="sr-only">Back to top</span>
 </button>
-
-<script>
-const backToTop = document.getElementById('back-to-top');
-
-function toggleBackToTopVisibility() {
-    const isVisible = window.scrollY > 300;
-    backToTop.classList.toggle('opacity-0', !isVisible);
-    backToTop.classList.toggle('translate-y-10', !isVisible);
-    backToTop.classList.toggle('opacity-100', isVisible);
-    backToTop.classList.toggle('translate-y-0', isVisible);
-    backToTop.setAttribute('data-visible', isVisible.toString());
-    backToTop.setAttribute('aria-hidden', (!isVisible).toString());
-}
-
-window.addEventListener('scroll', toggleBackToTopVisibility);
-
-backToTop.addEventListener('click', (e) => {
-    e.preventDefault();
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-});
-
-// Ensure the button is hidden when the page loads
-toggleBackToTopVisibility();
-</script>
