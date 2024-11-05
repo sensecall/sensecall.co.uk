@@ -29,6 +29,9 @@ body {
   color: var(--body-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, rgba(36, 62, 100, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
 }
 
 // Selection styles
@@ -39,10 +42,11 @@ body {
 
 // Homepage specific styles
 body.homePage {
-  background-image: url('../images/path.svg');
-  background-repeat: no-repeat;
-  background-position: top right;
-  background-size: 50%;
+  background-image: url('../images/path.svg'), linear-gradient(135deg, rgba(36, 62, 100, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
+  background-repeat: no-repeat, no-repeat;
+  background-position: top right, center;
+  background-size: 50%, 100%;
+  background-attachment: scroll, fixed;
 }
 
 // Navigation styles
@@ -183,4 +187,14 @@ body.homePage {
 .wave-animation {
   display: inline-block;
   animation: wave 2.5s ease-in-out 1;
+}
+
+/* Hide JS-only elements when JS is disabled */
+.no-js .js-only {
+  display: none !important;
+}
+
+/* Show no-JS elements when JS is disabled */
+.js .no-js-fallback {
+  cursor: pointer;
 }
