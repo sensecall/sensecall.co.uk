@@ -1,127 +1,214 @@
-// Add this script inline in your HTML <head> section before any content loads
+// Dark mode initialization - keeps this outside as it needs to run immediately
 const savedDarkMode = localStorage.getItem('darkMode');
 const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-// Apply dark mode immediately
 if (savedDarkMode === 'true' || (savedDarkMode === null && prefersDarkMode)) {
     document.documentElement.classList.add('dark');
 }
 
-// Rest of the code remains in the original file
-document.addEventListener('DOMContentLoaded', () => {
-    const darkModeToggle = document.getElementById('dark-mode-toggle');
-
-    // Set toggle state based on current mode
-    darkModeToggle.checked = document.documentElement.classList.contains('dark');
-
-    // Toggle dark mode
-    darkModeToggle.addEventListener('change', () => {
-        const isDarkMode = darkModeToggle.checked;
-        document.documentElement.classList.toggle('dark', isDarkMode);
-        localStorage.setItem('darkMode', isDarkMode.toString());
-    });
-});
-
-// Fullscreen image functionality
-document.addEventListener('DOMContentLoaded', function () {
-    // Create modal element programmatically
-    const modal = document.createElement('div');
-    modal.className = 'fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center z-50';
-    modal.setAttribute('role', 'dialog');
-    modal.setAttribute('aria-modal', 'true');
-    modal.setAttribute('aria-hidden', 'true');
-    modal.id = 'fullscreen-modal';
-
-    const modalContent = document.createElement('div');
-    modalContent.className = 'max-w-4xl mx-auto p-4';
-
-    const fullscreenImage = document.createElement('img');
-    fullscreenImage.id = 'fullscreen-image';
-    fullscreenImage.className = 'max-w-full max-h-[90vh] object-contain';
-    fullscreenImage.setAttribute('width', '800');
-    fullscreenImage.setAttribute('height', '450');
-
-    modalContent.appendChild(fullscreenImage);
-    modal.appendChild(modalContent);
-    document.body.appendChild(modal);
-
-    // Find all images that should be enlargeable
-    const enlargeableImages = document.querySelectorAll('[data-enlargeable="true"]');
-
-    enlargeableImages.forEach(img => {
-        // Remove the no-JS fallback link if it exists
-        const fallbackLink = img.querySelector('a');
-        if (fallbackLink) {
-            fallbackLink.replaceWith(fallbackLink.firstElementChild);
+// Utility functions
+const throttle = (func, limit) => {
+    let inThrottle;
+    return function(...args) {
+        if (!inThrottle) {
+            func.apply(this, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
         }
-
-        // Add proper ARIA attributes and role
-        img.setAttribute('role', 'button');
-        img.setAttribute('aria-haspopup', 'dialog');
-        img.setAttribute('tabindex', '0');
-
-        // Handle both click and keyboard events
-        const showModal = function() {
-            // Use the same src for the fullscreen image
-            fullscreenImage.src = img.querySelector('img').src;
-            fullscreenImage.alt = img.querySelector('img').alt; // Preserve alt text
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            modal.setAttribute('aria-hidden', 'false');
-            
-            // Trap focus within modal
-            modal.focus();
-        };
-
-        img.addEventListener('click', showModal);
-        img.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                showModal();
-            }
-        });
-    });
-
-    // Close modal function
-    const closeModal = function() {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-        modal.setAttribute('aria-hidden', 'true');
     };
+};
 
-    // Close on click outside or Escape key
-    modal.addEventListener('click', closeModal);
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-            closeModal();
-        }
-    });
-});
+// Feature modules
+const darkMode = {
+    init(darkModeToggle) {
+        if (!darkModeToggle) return;
+        
+        darkModeToggle.checked = document.documentElement.classList.contains('dark');
+        darkModeToggle.addEventListener('change', () => {
+            const isDarkMode = darkModeToggle.checked;
+            document.documentElement.classList.toggle('dark', isDarkMode);
+            localStorage.setItem('darkMode', isDarkMode.toString());
+        });
+    }
+};
 
-// Add this after your existing DOMContentLoaded event listener
-document.addEventListener('DOMContentLoaded', () => {
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenuClose = document.getElementById('mobile-menu-close');
-    const mobileMenu = document.getElementById('mobile-menu');
+const fullscreenImage = {
+    init() {
+        this.createModal();
+        this.setupImageListeners();
+    },
 
-    if (mobileMenuButton && mobileMenu) {
-        const toggleMenu = (show) => {
-            mobileMenu.classList.toggle('translate-x-full', !show);
-            mobileMenu.setAttribute('aria-hidden', !show);
-            mobileMenuButton.setAttribute('aria-expanded', show);
-            
-            // Prevent body scroll when menu is open
-            document.body.style.overflow = show ? 'hidden' : '';
-        };
+    createModal() {
+        // Create modal element programmatically
+        const modal = document.createElement('div');
+        modal.className = 'fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center z-50';
+        modal.setAttribute('role', 'dialog');
+        modal.setAttribute('aria-modal', 'true');
+        modal.setAttribute('aria-hidden', 'true');
+        modal.id = 'fullscreen-modal';
 
-        mobileMenuButton.addEventListener('click', () => toggleMenu(true));
-        mobileMenuClose.addEventListener('click', () => toggleMenu(false));
+        const modalContent = document.createElement('div');
+        modalContent.className = 'max-w-4xl mx-auto p-4';
 
-        // Close menu on escape key
+        const fullscreenImage = document.createElement('img');
+        fullscreenImage.id = 'fullscreen-image';
+        fullscreenImage.className = 'max-w-full max-h-[90vh] object-contain';
+        fullscreenImage.setAttribute('width', '800');
+        fullscreenImage.setAttribute('height', '450');
+
+        modalContent.appendChild(fullscreenImage);
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+
+        this.modal = modal;
+        this.fullscreenImage = fullscreenImage;
+    },
+
+    closeModal() {
+        this.modal.classList.add('hidden');
+        this.modal.classList.remove('flex');
+        this.modal.setAttribute('aria-hidden', 'true');
+    },
+
+    setupImageListeners() {
+        const enlargeableImages = document.querySelectorAll('[data-enlargeable="true"]');
+        
+        enlargeableImages.forEach(img => {
+            // Remove the no-JS fallback link if it exists
+            const fallbackLink = img.querySelector('a');
+            if (fallbackLink) {
+                fallbackLink.replaceWith(fallbackLink.firstElementChild);
+            }
+
+            // Add proper ARIA attributes and role
+            img.setAttribute('role', 'button');
+            img.setAttribute('aria-haspopup', 'dialog');
+            img.setAttribute('tabindex', '0');
+
+            // Handle both click and keyboard events
+            const showModal = () => {
+                this.fullscreenImage.src = img.querySelector('img').src;
+                this.fullscreenImage.alt = img.querySelector('img').alt;
+                this.modal.classList.remove('hidden');
+                this.modal.classList.add('flex');
+                this.modal.setAttribute('aria-hidden', 'false');
+                
+                this.modal.focus();
+            };
+
+            img.addEventListener('click', showModal);
+            img.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    showModal();
+                }
+            });
+        });
+
+        this.modal.addEventListener('click', () => this.closeModal());
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && mobileMenu.getAttribute('aria-hidden') === 'false') {
-                toggleMenu(false);
+            if (e.key === 'Escape' && !this.modal.classList.contains('hidden')) {
+                this.closeModal();
             }
         });
+    }
+};
+
+const mobileMenu = {
+    init(button, closeButton, menu) {
+        if (!button || !menu || !closeButton) return;
+
+        this.button = button;
+        this.menu = menu;
+        this.closeButton = closeButton;
+        this.setupListeners();
+    },
+
+    toggleMenu(show) {
+        this.menu.classList.toggle('translate-x-full', !show);
+        this.menu.setAttribute('aria-hidden', !show);
+        this.button.setAttribute('aria-expanded', show);
+        document.body.style.overflow = show ? 'hidden' : '';
+    },
+
+    setupListeners() {
+        this.button.addEventListener('click', () => this.toggleMenu(true));
+        this.closeButton.addEventListener('click', () => this.toggleMenu(false));
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.menu.getAttribute('aria-hidden') === 'false') {
+                this.toggleMenu(false);
+            }
+        });
+    }
+};
+
+const scrollToSection = {
+    init() {
+        // Handle CTA button
+        const ctaButton = document.querySelector('a[href="#services"]');
+        if (ctaButton) {
+            this.addScrollListener(ctaButton, 'services');
+        }
+
+        // Handle back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+        if (backToTopButton) {
+            this.setupBackToTop(backToTopButton);
+        }
+    },
+
+    addScrollListener(element, targetId) {
+        element.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    },
+
+    setupBackToTop(button) {
+        // Handle visibility
+        const toggleVisibility = () => {
+            const isVisible = window.scrollY > 300;
+            button.classList.toggle('opacity-0', !isVisible);
+            button.classList.toggle('translate-y-10', !isVisible);
+            button.classList.toggle('opacity-100', isVisible);
+            button.classList.toggle('translate-y-0', isVisible);
+            button.setAttribute('data-visible', isVisible.toString());
+            button.setAttribute('aria-hidden', (!isVisible).toString());
+        };
+
+        // Add scroll listener with throttle
+        window.addEventListener('scroll', throttle(() => toggleVisibility(), 100));
+        
+        // Add click listener
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Set initial state
+        toggleVisibility();
+    }
+};
+
+// Initialize everything when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        darkMode.init(document.getElementById('dark-mode-toggle'));
+        fullscreenImage.init();
+        mobileMenu.init(
+            document.getElementById('mobile-menu-button'),
+            document.getElementById('mobile-menu-close'),
+            document.getElementById('mobile-menu')
+        );
+        scrollToSection.init();
+    } catch (error) {
+        console.error('Error initializing app:', error);
     }
 });
