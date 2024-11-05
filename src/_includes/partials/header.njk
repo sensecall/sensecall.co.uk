@@ -36,7 +36,7 @@
 
                     {% for item in navItems %}
                         <li class="w-full pt-4 md:pt-0 md:w-auto">
-                            <a href="{{ item.url }}" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light 
+                            <a href="{{ item.url }}" class="text-gray-700 dark:text-gray-300 hover:text-primary hover:text-opacity-80 dark:hover:text-primary-light dark:hover:text-opacity-80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-primary-light dark:focus:ring-offset-2 active:text-primary-dark dark:active:text-primary-light
                                 {{- ' text-primary dark:text-white font-bold border-b-2 border-blue-500 dark:border-blue-400 pb-1' if (item.exact and page.url == item.url) or 
                                    (not item.exact and item.url in page.url) -}}
                                 {{- ' experiments-link' if item.text == 'Experiments' -}}
