@@ -1,39 +1,64 @@
-<nav class="py-3 my-3">
+<nav class="py-3 my-3" aria-label="Main navigation">
     <div class="container mx-auto px-4">
         <div class="flex justify-between items-center">
-            <ul class="flex items-center space-x-4 md:space-x-8 text-sm md:text-lg">
-                {% set navItems = [
-                    { url: '/', text: 'Home', exact: true },
-                    { url: '/about', text: 'About', srOnly: 'Dan Sensecall' },
-                    { url: '/projects', text: 'Projects' },
-                    { url: '/writing', text: 'Writing' },
-                    { url: '/experiments', text: 'Experiments' }
-                ] %}
+            <button id="mobile-menu-button" 
+                    class="md:hidden p-2 text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light flex items-center"
+                    aria-expanded="false"
+                    aria-controls="mobile-menu"
+                    aria-label="Open menu">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <span>Menu</span>
+            </button>
 
-                {% for item in navItems %}
-                    <li>
-                        <a href="{{ item.url }}" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light 
-                            {{- ' text-primary dark:text-white font-bold border-b-2 border-blue-500 dark:border-blue-400 pb-1' if (item.exact and page.url == item.url) or 
-                               (not item.exact and item.url in page.url) -}}
-                            {{- ' experiments-link' if item.text == 'Experiments' -}}
-                            {{- ' animate-bubbles' if item.text == 'Experiments' and page.url == '/experiments/' -}}">
-                            {% if item.text == 'Experiments' %}
-                                <span class="bubble" aria-hidden="true"></span>
-                                <span class="bubble" aria-hidden="true"></span>
-                                <span class="bubble" aria-hidden="true"></span>
-                                <span class="bubble" aria-hidden="true"></span>
-                                <span class="bubble" aria-hidden="true"></span>
-                            {% endif %}
-                            {{ item.text }}
-                            {% if item.srOnly %}
-                                <span class="sr-only">{{ item.srOnly }}</span>
-                            {% endif %}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
+            <div id="mobile-menu" 
+                 class="fixed md:relative top-0 left-0 w-full h-full md:h-auto bg-white md:bg-transparent dark:bg-gray-900 md:dark:bg-transparent transform translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out md:transition-none z-50 md:z-auto"
+                 aria-hidden="true">
+                <button id="mobile-menu-close" 
+                        class="md:hidden absolute top-4 right-4 p-2 text-gray-700 dark:text-gray-300 flex items-center"
+                        aria-label="Close menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    <span>Close</span>
+                </button>
 
-            <div class="relative inline-block hidden md:block">
+                <ul class="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6 text-sm md:text-lg p-4 md:p-0 divide-y divide-gray-200 dark:divide-gray-800 md:divide-y-0 w-full mt-8 md:mt-0">
+                    {% set navItems = [
+                        { url: '/', text: 'Home', exact: true },
+                        { url: '/about', text: 'About', srOnly: 'Dan Sensecall' },
+                        { url: '/projects', text: 'Projects' },
+                        { url: '/contact', text: 'Contact' },
+                        { url: '/writing', text: 'Writing' },
+                        { url: '/experiments', text: 'Experiments' }
+                    ] %}
+
+                    {% for item in navItems %}
+                        <li class="w-full pt-4 md:pt-0 md:w-auto">
+                            <a href="{{ item.url }}" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light 
+                                {{- ' text-primary dark:text-white font-bold border-b-2 border-blue-500 dark:border-blue-400 pb-1' if (item.exact and page.url == item.url) or 
+                                   (not item.exact and item.url in page.url) -}}
+                                {{- ' experiments-link' if item.text == 'Experiments' -}}
+                                {{- ' animate-bubbles' if item.text == 'Experiments' and page.url == '/experiments/' -}}">
+                                {% if item.text == 'Experiments' %}
+                                    <span class="bubble" aria-hidden="true"></span>
+                                    <span class="bubble" aria-hidden="true"></span>
+                                    <span class="bubble" aria-hidden="true"></span>
+                                    <span class="bubble" aria-hidden="true"></span>
+                                    <span class="bubble" aria-hidden="true"></span>
+                                {% endif %}
+                                {{ item.text }}
+                                {% if item.srOnly %}
+                                    <span class="sr-only">{{ item.srOnly }}</span>
+                                {% endif %}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="relative inline-block">
                 <input type="checkbox" id="dark-mode-toggle" class="hidden peer">
                 <label for="dark-mode-toggle" class="cursor-pointer text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light" title="Toggle dark mode">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">

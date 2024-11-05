@@ -198,3 +198,28 @@ body.homePage {
 .js .no-js-fallback {
   cursor: pointer;
 }
+
+// Add to your existing styles
+.no-js {
+    #mobile-menu-button,
+    #mobile-menu-close {
+        display: none;
+    }
+
+    #mobile-menu {
+        position: static;
+        transform: none;
+        background: transparent;
+        display: block;
+        height: auto;
+        
+        ul {
+            display: flex;
+            flex-direction: column;
+            
+            @screen md {
+                flex-direction: row;
+            }
+        }
+    }
+}

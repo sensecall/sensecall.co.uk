@@ -97,3 +97,31 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+// Add this after your existing DOMContentLoaded event listener
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenuButton && mobileMenu) {
+        const toggleMenu = (show) => {
+            mobileMenu.classList.toggle('translate-x-full', !show);
+            mobileMenu.setAttribute('aria-hidden', !show);
+            mobileMenuButton.setAttribute('aria-expanded', show);
+            
+            // Prevent body scroll when menu is open
+            document.body.style.overflow = show ? 'hidden' : '';
+        };
+
+        mobileMenuButton.addEventListener('click', () => toggleMenu(true));
+        mobileMenuClose.addEventListener('click', () => toggleMenu(false));
+
+        // Close menu on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.getAttribute('aria-hidden') === 'false') {
+                toggleMenu(false);
+            }
+        });
+    }
+});
