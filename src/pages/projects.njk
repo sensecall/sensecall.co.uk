@@ -9,43 +9,66 @@ description: A selection of projects by Dan Sensecall, a freelance service desig
 
 <div class="py-8 lg:py-12">
     <div class="max-w-4xl">
-        <h1 class="text-2xl md:text-5xl mb-4 leading-tight text-dark dark:text-white font-semibold">Projects I've worked on</h1>
-        <p class="mb-4 text-base md:text-xl text-gray-600 dark:text-gray-100 italic">
-            Over the years, I've enjoyed working with a wide range of clients, from small local businesses to large international companies.
-        </p>
-        <p class="mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
-            The most rewarding work I've done has been within the Public Sector, where I've been able to make a measurable difference to people's lives, and the important jobs done by the people who serve them.
-        </p>
-        <p class="mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
-            I have also worked in the private sector, where I've helped businesses including Sainsbury's and npower to meet organisational goals by improving customer experience and increasing conversion rates.
-        </p>
-
-        <div class="md:flex md:justify-between md:items-start md:gap-8 mt-12">
-            <div class="md:w-1/2 pr-4">
-                <h2 class="text-xl md:text-3xl mb-4 font-semibold text-dark dark:text-white">Case studies</h2>
-                <p class="mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
-                    If you'd like to find out more about the type of work I've done, I've written up some short case studies:
-                </p>
-
-                <ul class="list-disc pl-5 text-base md:text-lg text-gray-700 dark:text-gray-300">
-                    {% for project in collections.project %}
-                        <li class="mb-2">
-                            <a href="{{ project.url }}" class="text-blue-500 hover:text-primary dark:text-blue-400 dark:hover:text-blue-300 underline">{{ project.data.title }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
+        <div class="mt-12">
+            <h1 class="text-2xl md:text-5xl mb-4 leading-tight text-dark dark:text-white font-semibold">
+                Projects I've worked on
+            </h1>
+            <p class="mb-4 text-base md:text-xl text-gray-600 dark:text-gray-100 italic">
+                Over the years, I've enjoyed working with a wide range of clients, from small local businesses to large international companies.
+            </p>
+            <div class="flex flex-col md:flex-row md:gap-8">
+                <div class="flex-1">
+                    <p class="mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
+                        The most rewarding work I've done has been within the Public Sector, where I've been able to make a measurable difference to people's lives, and the important jobs done by the people who serve them.
+                    </p>
+                    <p class="mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
+                        I have also worked in the private sector, where I've helped businesses including Sainsbury's and npower to meet organisational goals by improving customer experience and increasing conversion rates.
+                    </p>
+                </div>
+                <figure class="w-3/5 sm:w-2/5 lg:w-2/5 mt-2 md:ml-4 md:mt-0 flex-shrink-0">
+                    <img src="/assets/images/workshop.jpeg"
+                         class="rounded-lg shadow-md w-full"
+                         alt="A photo of a workshop with the digital team at the Apprenticeship Service. The team are sat around a table, with a whiteboard behind them, a laptop and post-it notes are on the table."
+                         width="800"
+                         height="600">
+                    <figcaption class="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-2">
+                        A workshop with the team at the Apprenticeship Service
+                    </figcaption>
+                </figure>
             </div>
-
-            <figure class="md:mt-0 mt-8 mb-8 w-full sm:w-2/3 md:w-1/2">
-                <img src="/assets/images/workshop.jpeg"
-                     class="rounded-lg shadow-md w-full"
-                     alt="A photo of a workshop with the digital team at the Apprenticeship Service. The team are sat around a table, with a whiteboard behind them, a laptop and post-it notes are on the table."
-                     width="800"
-                     height="600">
-                <figcaption class="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-2">
-                    A workshop with the team at the Apprenticeship Service
-                </figcaption>
-            </figure>
+        </div>
+        
+        <h2 class="text-2xl md:text-3xl mb-2 sm:mb-4 mt-12 font-semibold text-dark dark:text-white">Case studies</h2>
+        <p class="mb-4 sm:mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
+            If you're interested in the type of work I've done, I've written up some short case studies.
+        </p>
+        <div class="space-y-6 md:space-y-8 divide-y divide-gray-200 dark:divide-gray-800 mb-8">
+            {% for project in collections.project %}
+                <div class="pt-6 md:pt-8">
+                    <h3 class="text-xl md:text-2xl font-medium text-gray-900 dark:text-white mb-2">
+                        <a href="{{ project.url }}" class="hover:text-blue-600 dark:hover:text-blue-400">{{ project.data.title }}</a>
+                    </h3>
+                    {% if project.data.services %}
+                        <ul class="flex flex-wrap gap-2 mb-3">
+                            {% for service in project.data.services %}
+                                <li class="inline-flex px-1.5 md:px-2 py-0.5 md:py-1 text-xs md:text-sm text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded">
+                                    {{ service }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    <p class="text-base text-gray-600 dark:text-gray-300 mb-4">{{ project.data.description }}</p>
+                    <a href="{{ project.url }}" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline">
+                        Read case study
+                        <svg class="ml-2 w-4 h-4"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            {% endfor %}
         </div>
     </div>
 </div>
