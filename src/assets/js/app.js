@@ -197,6 +197,29 @@ const scrollToSection = {
     }
 };
 
+const copyEmail = () => {
+    navigator.clipboard.writeText('dan@sensecall.co.uk').then(() => {
+        const btn = document.getElementById('copyEmailBtn');
+        const btnText = document.getElementById('copyBtnText');
+        btnText.textContent = 'Copied!';
+        btn.setAttribute('aria-label', 'Email address copied to clipboard');
+        setTimeout(() => {
+            btnText.textContent = 'Copy';
+            btn.setAttribute('aria-label', 'Copy email address to clipboard');
+        }, 1000);
+    }, (err) => {
+        console.error('Could not copy text: ', err);
+    });
+};
+
+// Only initialize copyEmail button if it exists
+const initCopyEmail = () => {
+    const copyBtn = document.getElementById('copyEmailBtn');
+    if (copyBtn) {
+        copyBtn.addEventListener('click', copyEmail);
+    }
+}
+
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     try {
@@ -208,6 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('mobile-menu')
         );
         scrollToSection.init();
+        initCopyEmail();
     } catch (error) {
         console.error('Error initializing app:', error);
     }
