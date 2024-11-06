@@ -1,76 +1,84 @@
 <nav class="py-3 my-3" aria-label="Main navigation">
     <div class="container mx-auto px-4">
         <div class="flex justify-between items-center">
-            <button id="mobile-menu-button" 
-                    class="md:hidden p-2 text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light flex items-center"
-                    aria-expanded="false"
-                    aria-controls="mobile-menu"
-                    aria-label="Open menu">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-                <span>Menu</span>
-            </button>
+            <!-- Logo added to the left -->
+            <a href="/" class="flex items-center justify-center relative">
+                <img src="/assets/images/logo.svg" alt="UIUX logo" class="h-14 w-auto text-gray-900 dark:text-white dark:hidden">
+                <img src="/assets/images/logo--dark.svg" alt="UIUX logo" class="h-14 w-auto text-gray-900 dark:text-white hidden dark:block">
+            </a>
 
-            <div id="mobile-menu" 
-                 class="fixed md:relative top-0 left-0 w-full h-full md:h-auto bg-white md:bg-transparent dark:bg-gray-900 md:dark:bg-transparent transform translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out md:transition-none z-50 md:z-auto"
-                 aria-hidden="true">
-                <button id="mobile-menu-close" 
-                        class="md:hidden absolute top-4 right-4 p-2 text-gray-700 dark:text-gray-300 flex items-center"
-                        aria-label="Close menu">
+            <div class="flex items-center">
+                <button id="mobile-menu-button" 
+                        class="md:hidden p-2 text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light flex items-center"
+                        aria-expanded="false"
+                        aria-controls="mobile-menu"
+                        aria-label="Open menu">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
-                    <span>Close</span>
+                    <span>Menu</span>
                 </button>
 
-                <ul class="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6 text-sm md:text-lg p-4 md:p-0 divide-y divide-gray-200 dark:divide-gray-800 md:divide-y-0 w-full mt-8 md:mt-0">
-                    {% set navItems = [
-                        { url: '/', text: 'Home', exact: true },
-                        { url: '/about', text: 'About', srOnly: 'Dan Sensecall' },
-                        { url: '/projects', text: 'Projects' },
-                        { url: '/contact', text: 'Contact' },
-                        { url: '/writing', text: 'Writing' },
-                        { url: '/experiments', text: 'Experiments' }
-                    ] %}
+                <div id="mobile-menu" 
+                     class="fixed md:relative top-0 right-0 w-full md:w-auto h-full md:h-auto bg-white md:bg-transparent dark:bg-gray-900 md:dark:bg-transparent transform translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out md:transition-none z-50 md:z-auto"
+                     aria-hidden="true">
+                    <button id="mobile-menu-close" 
+                            class="md:hidden absolute top-4 right-4 p-2 text-gray-700 dark:text-gray-300 flex items-center"
+                            aria-label="Close menu">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                        <span>Close</span>
+                    </button>
 
-                    {% for item in navItems %}
-                        <li class="w-full pt-4 md:pt-0 md:w-auto">
-                            <a href="{{ item.url }}" class="text-gray-700 dark:text-gray-300 hover:text-primary hover:text-opacity-80 dark:hover:text-primary-light dark:hover:text-opacity-80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-primary-light dark:focus:ring-offset-2 active:text-primary-dark dark:active:text-primary-light
-                                {{- ' text-primary dark:text-white font-bold border-b-2 border-blue-500 dark:border-blue-400 pb-1' if (item.exact and page.url == item.url) or 
-                                   (not item.exact and item.url in page.url) -}}
-                                {{- ' experiments-link' if item.text == 'Experiments' -}}
-                                {{- ' animate-bubbles' if item.text == 'Experiments' and page.url == '/experiments/' -}}">
-                                {% if item.text == 'Experiments' %}
-                                    <span class="bubble" aria-hidden="true"></span>
-                                    <span class="bubble" aria-hidden="true"></span>
-                                    <span class="bubble" aria-hidden="true"></span>
-                                    <span class="bubble" aria-hidden="true"></span>
-                                    <span class="bubble" aria-hidden="true"></span>
-                                {% endif %}
-                                {{ item.text }}
-                                {% if item.srOnly %}
-                                    <span class="sr-only">{{ item.srOnly }}</span>
-                                {% endif %}
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
+                    <ul class="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6 text-sm md:text-lg p-4 md:p-0 divide-y divide-gray-200 dark:divide-gray-800 md:divide-y-0 w-full mt-8 md:mt-0">
+                        {% set navItems = [
+                            { url: '/', text: 'Home', exact: true },
+                            { url: '/about', text: 'About', srOnly: 'Dan Sensecall' },
+                            { url: '/projects', text: 'Projects' },
+                            { url: '/contact', text: 'Contact' },
+                            { url: '/writing', text: 'Writing' },
+                            { url: '/experiments', text: 'Experiments' }
+                        ] %}
 
-            <div class="relative inline-block">
-                <input type="checkbox" id="dark-mode-toggle" class="hidden peer">
-                <label for="dark-mode-toggle" class="cursor-pointer text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light" title="Toggle dark mode">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <!-- Moon icon (shows in light mode) -->
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <!-- Sun icon (shows in dark mode) -->
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                    <span class="sr-only">Toggle dark mode</span>
-                </label>
+                        {% for item in navItems %}
+                            <li class="w-full pt-4 md:pt-0 md:w-auto">
+                                <a href="{{ item.url }}" class="text-gray-700 dark:text-gray-300 hover:text-primary hover:text-opacity-80 dark:hover:text-primary-light dark:hover:text-opacity-80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-primary-light dark:focus:ring-offset-2 active:text-primary-dark dark:active:text-primary-light
+                                    {{- ' text-primary dark:text-white font-bold border-b-2 border-pink-500 dark:border-pink-400 pb-1' if (item.exact and page.url == item.url) or 
+                                       (not item.exact and item.url in page.url) -}}
+                                    {{- ' experiments-link' if item.text == 'Experiments' -}}
+                                    {{- ' animate-bubbles' if item.text == 'Experiments' and page.url == '/experiments/' -}}">
+                                    {% if item.text == 'Experiments' %}
+                                        <span class="bubble" aria-hidden="true"></span>
+                                        <span class="bubble" aria-hidden="true"></span>
+                                        <span class="bubble" aria-hidden="true"></span>
+                                        <span class="bubble" aria-hidden="true"></span>
+                                        <span class="bubble" aria-hidden="true"></span>
+                                    {% endif %}
+                                    {{ item.text }}
+                                    {% if item.srOnly %}
+                                        <span class="sr-only">{{ item.srOnly }}</span>
+                                    {% endif %}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="relative inline-block ml-4">
+                    <input type="checkbox" id="dark-mode-toggle" class="hidden peer">
+                    <label for="dark-mode-toggle" class="cursor-pointer text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light" title="Toggle dark mode">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <!-- Moon icon (shows in light mode) -->
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <!-- Sun icon (shows in dark mode) -->
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <span class="sr-only">Toggle dark mode</span>
+                    </label>
+                </div>
             </div>
         </div>
     </div>

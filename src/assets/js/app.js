@@ -28,6 +28,7 @@ const darkMode = {
             const isDarkMode = darkModeToggle.checked;
             document.documentElement.classList.toggle('dark', isDarkMode);
             localStorage.setItem('darkMode', isDarkMode.toString());
+            console.log('Dark mode is now:', isDarkMode ? 'on' : 'off');
         });
     }
 };

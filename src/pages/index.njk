@@ -2,62 +2,40 @@
 eleventyImport:
     collections: ["post"]
 layout: page.njk
-title: Freelance Service designer and UX designer, UK – Dan Sensecall
-description: Freelance service designer and UX consultant helping UK organisations design user-centred digital services. Specialising in government and public sector projects.
+title: Freelance Service designer and UX designer, UK – UI UX Ltd
+description: Digital service design agency helping organisations solve complex problems through user-centred design.
 permalink: /
 ---
 
 <section id="introduction"
          aria-labelledby="introduction-title"
-         class="pt-4 pb-10 lg:py-16 border-b border-gray-200 dark:border-gray-800">
-    <div class="max-w-4xl">
-        <p class="text-xl md:text-3xl text-gray-500 dark:text-gray-400 mb-4 flex items-center">
-            <img src="/assets/images/dan-sensecall.jpg"
-                 alt="Dan Sensecall"
-                 class="rounded-full mr-2 lg:mr-3 shadow-sm w-10 h-10 md:w-12 md:h-12"
-                 width="64"
-                 height="64">
-            <span class="wave-animation">👋</span> <span class="ml-2 font-light">Hi! I'm Dan Sensecall.</span>
-        </p>
-        <h1 id="introduction-title"
-            class="text-2xl md:text-5xl mb-6 leading-tight text-gray-900 dark:text-white font-semibold lg:w-4/5 drop-shadow-sm">
-            I'm a freelance service designer and user experience consultant from the UK.
+         class="pt-4 lg:pt-12">
+    <div class="max-w-4xl py-6">
+        <p class="text-2xl md:text-3xl text-gray-600 dark:text-gray-400 mb-2 font-extralight">Hello, we're UI UX</p>
+        <h1 id="introduction-title" class="text-5xl md:text-6xl mb-6 text-gray-900 dark:text-white font-black lg:w-4/5 drop-shadow-sm font-serif leading-none">
+            We're specialists in user-centred design and research for public sector organisations.
         </h1>
-        <p class="mb-4 text-lg md:text-2xl text-gray-700 dark:text-gray-300">
-            For almost 15 years, I've been helping organisations solve complex problems by designing services that meet users' needs and organisational goals.
+    </div>
+</section>
+<section id="services" aria-labelledby="services-title" class="">
+    <div class="w-full md:w-2/3 xl:w-1/2 text-lg md:text-xl text-gray-700 dark:text-gray-300">
+        <p class="mb-4">
+            At UIUX, we're <span class="highlight font-medium">passionate about making public services better for everyone</span>. Our team works with government and public sector organisations to design user-centred solutions to improve their digital services.
         </p>
-        <p class="mb-2 text-base md:text-xl text-gray-700 dark:text-gray-300">Typically, I help with things like:</p>
-        <ul class="list-disc pl-5 text-base md:text-xl text-gray-700 dark:text-gray-300">
+        <p class="mb-4">
+            We offer a range of services to help our clients develop and deliver better services for their users. From user experience (UX) research and design, to user testing and design sprints, we help our clients build services that are <span class="highlight font-medium">easy to use and understand</span>.
+        </p>
+        <p class="mb-4">
+            We specialise in helping organisations understand and design services that meet the needs of their users. We collaborate with teams to build customer journeys that are <span class="highlight font-medium">simple, efficient and effective</span>. Our team has expertise in:
+        </p>
+        <ul class="mb-10 list-disc list-inside">
             <li>service design</li>
             <li>interaction design</li>
             <li>user research</li>
+            <li>user experience</li>
             <li>accessibility</li>
-            <li>content design</li>
+            <li>content and product design</li>
         </ul>
-        <p class="mt-8 md:text-lg">
-            <a href="#services"
-               class="inline-flex items-center px-4 py-2 rounded-md bg-blue-50 hover:bg-blue-100 dark:bg-blue-900/20 dark:hover:bg-blue-900/30 text-blue-700 dark:text-indigo-200 transition-colors duration-200 group border border-blue-200 dark:border-blue-800 shadow-sm hover:shadow font-medium">
-                Learn more about how I can help
-                <svg xmlns="http://www.w3.org/2000/svg"
-                     class="h-4 w-4 ml-2 transform group-hover:translate-y-0.5 transition-transform duration-200"
-                     fill="none"
-                     viewBox="0 0 24 24"
-                     stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-            </a>
-        </p>
-    </div>
-</section>
-<section id="services" aria-labelledby="services-title" class="py-8 lg:py-16">
-    <div class="md:w-2/3">
-        <h2 id="services-title"
-            class="text-2xl md:text-4xl mb-4 font-semibold text-dark dark:text-white">
-            How I can help your organisation
-        </h2>
-        <p class="mb-10 text-lg md:text-2xl text-gray-700 dark:text-gray-300">
-            I offer a range of services, which can help <span class="font-medium text-gray-700 dark:text-white">improve your users' experience</span>, make your service and organisation <span class="font-medium text-gray-700 dark:text-white">more effective</span>, and deliver measurable <span class="font-medium text-gray-700 dark:text-white">return on investment</span>.
-        </p>
     </div>
     {% set services = [
             {
@@ -160,8 +138,8 @@ permalink: /
         {% endfor %}
     </div>
     <div class="mt-8 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-indigo-900 p-6 rounded-lg border border-blue-200 dark:border-indigo-700 shadow-md">
-        <h3 class="text-xl md:text-2xl lg:text-3xl font-semibold mb-3 text-gray-800 dark:text-white">Let's transform your digital services</h3>
-        <p class="text-gray-600 dark:text-gray-300 text-base md:text-lg lg:text-xl mb-4 md:mb-6 w-full md:w-3/4 lg:w-2/3">I'll help you understand your users' needs and design services that deliver <span class="font-medium text-gray-700 dark:text-white">measurable improvements</span> and <span class="font-medium text-gray-700 dark:text-white">return on investment</span>.</p>
+        <h3 class="text-xl md:text-2xl lg:text-3xl font-semibold mb-3 text-gray-800 dark:text-white font-serif">Let's transform your digital services</h3>
+        <p class="text-gray-600 dark:text-gray-300 text-base md:text-lg lg:text-xl mb-4 md:mb-6 w-full md:w-3/4 lg:w-2/3">We'll help you understand your users' needs and design services that deliver <span class="font-medium text-gray-700 dark:text-white">measurable improvements</span> and <span class="font-medium text-gray-700 dark:text-white">return on investment</span>.</p>
         <a href="/contact/"
            class="inline-flex items-center px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-300 dark:bg-blue-700 dark:hover:bg-blue-600 text-blue-800 dark:text-white transition-colors duration-200 group border border-blue-300 dark:border-blue-600 shadow-sm hover:shadow font-medium">
             Get in touch
@@ -177,13 +155,13 @@ permalink: /
 </section>
 <section id="clients" class="py-8 lg:py-16">
     <div class="md:w-2/3">
-        <h2 class="text-2xl md:text-4xl font-bold mb-4 text-dark dark:text-white">Who I work with</h2>
+        <h2 class="text-2xl md:text-4xl font-black mb-4 text-dark dark:text-white font-serif">Who we work with</h2>
         <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
-            Over the past 15 years I've worked with a range of clients, from startups to government
+            Over the past 15 years we've worked with a range of clients, from startups to government
             departments, to improve their products and services.
         </p>
         <p class="mb-8 md:text-lg text-gray-700 dark:text-gray-300">
-            Since 2018, I've worked exclusively with Public Sector organisations to design services for
+            Since 2018, we've worked exclusively with Public Sector organisations to design services for
             citizens and internal users.
         </p>
     </div>
@@ -208,18 +186,18 @@ permalink: /
 </section>
 <section id="things-ive-done" class="py-8 lg:py-16">
     <div class="md:w-2/3">
-        <h2 class="text-2xl md:text-4xl font-bold mb-4 text-dark dark:text-white">Things I've done</h2>
+        <h2 class="text-2xl md:text-4xl font-black mb-4 text-dark dark:text-white font-serif">Our work</h2>
         <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
-            I've provided design services on a wide range of projects, from small websites to large-scale digital transformation programmes.
+            We've provided design services on a wide range of projects, from small websites to large-scale digital transformation programmes.
         </p>
         <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
-            Projects have ranged from greenfield projects to others that have involved replacing legacy systems with new services. Ideally, I'm involved from the very start, but I'm used to being parachuted in to help with a specific problem.
+            Our projects have ranged from greenfield initiatives to replacing legacy systems with new services. Ideally, we're involved from the very start, but we're experienced in joining projects to help with specific challenges.
         </p>
         <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
-            Typically, the projects I work on are used by thousands of people every day, from members of the public completing a task online, to civil servants using a system to manage their work.
+            Typically, the projects we work on are used by thousands of people every day, from members of the public completing a task online, to civil servants using a system to manage their work.
         </p>
         <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
-            There are too many to list here, but here are a few examples:
+            Here are some examples of our work:
         </p>
         <ul class="mb-4 md:text-lg text-gray-700 dark:text-gray-300 list-disc list-outside pl-5">
             <li class="mb-2">
@@ -246,33 +224,33 @@ permalink: /
         </ul>
         <p class="md:text-lg text-gray-700 dark:text-gray-300">
             You can read more about <a href="/projects"
-    class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline">projects I've worked on</a> recently.
+    class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline">projects we've worked on</a> recently.
         </p>
     </div>
 </section>
 <section id="work-with-me" class="py-8 lg:py-16">
     <div class="md:w-2/3">
-        <h2 class="text-2xl md:text-4xl font-bold mb-4 text-dark dark:text-white">Work with me</h2>
+        <h2 class="text-2xl md:text-4xl font-black mb-4 text-dark dark:text-white font-serif">Work with us</h2>
         <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
-            I'm willing to work with clients in a number of ways, depending on their needs. This can include working:
+            We're flexible in how we work with clients, depending on their needs. This can include:
         </p>
         <ul class="mb-4 md:text-lg text-gray-700 dark:text-gray-300 list-disc list-outside pl-5">
-            <li class="mb-2">as part of an existing team</li>
-            <li class="mb-2">with a team of associates</li>
-            <li class="mb-2">with a partner agency</li>
-            <li class="mb-2">directly with the client</li>
+            <li class="mb-2">integrating with existing teams</li>
+            <li class="mb-2">providing a complete project team</li>
+            <li class="mb-2">collaborating with partner agencies</li>
+            <li class="mb-2">working directly with stakeholders</li>
         </ul>
         <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
-            Although I prefer to work remotely, I can travel to meet clients if needed. I'm conveniently based in the centre of the UK, and can easily travel to London, Birmingham, Manchester, and other major cities.
+            While we primarily work remotely, we can arrange face-to-face meetings when needed. Our central UK location allows us to easily reach London, Birmingham, Manchester, and other major cities.
         </p>
         <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
-            I'm used to working with clients' existing tools and processes, particularly in the Public Sector where security is a priority.
+            We're experienced in working with clients' existing tools and processes, particularly in the Public Sector where security is a priority.
         </p>
     </div>
 
     <div class="mt-8 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-indigo-900 p-6 rounded-lg border border-blue-200 dark:border-indigo-700 shadow-md">
-        <h3 class="text-xl md:text-2xl lg:text-3xl font-semibold mb-3 text-gray-800 dark:text-white">Let's discuss your project</h3>
-        <p class="text-gray-600 dark:text-gray-300 text-base md:text-lg lg:text-xl mb-4 md:mb-6 w-full md:w-3/4 lg:w-2/3">I'll help you understand your users' needs and design services that deliver <span class="font-medium text-gray-700 dark:text-white">measurable improvements</span> and <span class="font-medium text-gray-700 dark:text-white">return on investment</span>.</p>
+        <h3 class="text-xl md:text-2xl lg:text-3xl font-black mb-3 text-gray-800 dark:text-white font-serif">Let's discuss your project</h3>
+        <p class="text-gray-600 dark:text-gray-300 text-base md:text-lg lg:text-xl mb-4 md:mb-6 w-full md:w-3/4 lg:w-2/3">We'll help you understand your users' needs and design services that deliver <span class="font-medium text-gray-700 dark:text-white">measurable improvements</span> and <span class="font-medium text-gray-700 dark:text-white">return on investment</span>.</p>
         <a href="/contact" class="inline-flex items-center px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-300 dark:bg-blue-700 dark:hover:bg-blue-600 text-blue-800 dark:text-white transition-colors duration-200 group border border-blue-300 dark:border-blue-600 shadow-sm hover:shadow font-medium">
             Get in touch
             <svg xmlns="http://www.w3.org/2000/svg" 
