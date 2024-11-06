@@ -35,6 +35,11 @@ module.exports = function (eleventyConfig) {
     });
   });
 
+  // Add a filter to get the index of the current item in a collection
+  eleventyConfig.addFilter("getCollectionIndex", function(collection, page) {
+    return collection.findIndex(item => item.url === page.url) + 1;
+  });
+
   let nunjucksEnvironment = new Nunjucks.Environment(
     new Nunjucks.FileSystemLoader("src/_includes")
   );
