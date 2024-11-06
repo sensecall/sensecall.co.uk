@@ -1,0 +1,220 @@
+---
+layout: page.njk
+title: What is UX? – UI UX Ltd
+permalink: /what-is-ux/
+description: What is UX? A guide to user experience design and how it can help your organisation.
+---
+
+<div class="py-8 lg:py-12 max-w-7xl mx-auto">
+    <div class="flex flex-col lg:flex-row">
+        <div class="lg:w-2/3 lg:pr-8">
+            <h1 class="text-3xl md:text-5xl mb-6 leading-tight text-gray-900 dark:text-white font-black font-serif border-b-4 border-pink-500 pb-2 inline-block">
+                What is UX?
+            </h1>
+            <p class="text-xl md:text-3xl text-gray-700 dark:text-gray-200 italic font-serif mb-6">
+                User Experience (UX) design is about making things &ndash; often digital services, like websites and apps &ndash; work better for the people who use them.
+            </p>
+            <article class="prose prose-lg dark:prose-invert max-w-none">
+                <p class="text-gray-700 dark:text-gray-300 text-lg md:text-xl">
+                    Think about the last time you tried to book a flight or buy something online. Was it easy and straightforward, or did you feel frustrated? That's UX in action – or sometimes, the lack of it.
+                </p>
+                <section aria-labelledby="why-ux-matters">
+                    <h2 id="why-ux-matters"
+                        class="text-2xl md:text-3xl font-serif font-bold mt-12 mb-4 text-gray-900 dark:text-white">
+                        Why UX Matters
+                    </h2>
+                    <p class="text-gray-700 dark:text-gray-300 text-base md:text-lg">
+                        Good UX design means people can use your website, app or software without getting stuck or confused. It's about creating digital experiences that are both useful and enjoyable to use. When done well, most users won't even notice it – things just work as they should.
+                    </p>
+                </section>
+                <section aria-labelledby="ux-process" class="mt-16">
+                    <h2 id="ux-process"
+                        class="text-3xl md:text-4xl font-serif font-bold mb-8 text-gray-900 dark:text-white">
+                        Our UX Design Process
+                    </h2>
+                    <ol class="space-y-8">
+                        {% for step in [
+                            {
+                            "number": 1,
+                            "title": "Research",
+                            "description": "We start by understanding your users: who they are, what they need, and how they currently do things. This might involve interviews, surveys, and watching people use similar products."
+                            },
+                            {
+                            "number": 2,
+                            "title": "Planning",
+                            "description": "Using our research, we map out how people will move through your digital product. We create user journeys and site maps to make sure everything makes logical sense."
+                            },
+                            {
+                            "number": 3,
+                            "title": "Design",
+                            "description": "We sketch out ideas and create wireframes – simple layouts that show where everything will go. Then we design interactive prototypes that look and work like the final product."
+                            },
+                            {
+                            "number": 4,
+                            "title": "Testing",
+                            "description": "Real people try out our designs and tell us what works and what doesn't. We watch how they use it and make improvements based on what we learn."
+                            },
+                            {
+                            "number": 5,
+                            "title": "Implementation",
+                            "description": "We work with developers to build the final product, making sure it works just as well in reality as it did in testing."
+                            }
+                            ] %}
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 w-8 h-8 border-2 border-gray-900 dark:border-white rounded-full flex items-center justify-center mr-3 mt-1.5">
+                                    <span class="text-xl font-bold text-gray-900 dark:text-white">{{ step.number }}</span>
+                                </div>
+                                <div class="pt-1.5">
+                                    <h3 class="text-2xl font-bold mb-1 text-gray-800 dark:text-gray-200 flex items-center">
+                                        <span class="mr-2">{{ step.title }}</span>
+                                    </h3>
+                                    <p class="text-gray-700 dark:text-gray-300 text-lg">{{ step.description | safe }}</p>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ol>
+                </section>
+                <section aria-labelledby="more-than-just-making-things-look-nice">
+                    <h2 id="more-than-just-making-things-look-nice"
+                        class="text-3xl md:text-4xl font-serif font-bold mt-12 mb-6 text-gray-900 dark:text-white">
+                        UX design: More than just making things look nice
+                    </h2>
+                    <p class="text-gray-700 dark:text-gray-300 text-base md:text-lg mb-6">
+                        While visual design is important, UX goes much deeper. It's about understanding human behaviour and creating solutions that work for real people. This means considering things like:
+                    </p>
+                    <ul class="list-disc pl-6 space-y-2 text-gray-700 dark:text-gray-300 text-base md:text-lg">
+                        <li>
+                            <b>Accessibility</b> &ndash; making sure everyone can use your product, including people with disabilities
+                        </li>
+                        <li>
+                            <b>Performance</b> &ndash; ensuring everything loads quickly and works smoothly
+                        </li>
+                        <li>
+                            <b>Content</b> &ndash; writing clear, helpful text that guides users
+                        </li>
+                        <li>
+                            <b>Psychology</b> &ndash; understanding how people think and make decisions
+                        </li>
+                    </ul>
+                </section>
+                <section aria-labelledby="benefits"
+                         class="mt-12 bg-white dark:bg-gray-800 rounded-lg p-8 border border-gray-200 dark:border-gray-700">
+                    <h2 id="benefits"
+                        class="text-2xl md:text-3xl font-serif font-bold mb-6 text-gray-900 dark:text-white flex items-center">
+                        <svg class="h-8 w-8 mr-3 text-indigo-600 dark:text-indigo-400"
+                             fill="none"
+                             stroke="currentColor"
+                             viewBox="0 0 24 24"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z">
+                            </path>
+                        </svg>
+                        The Benefits of Good UX
+                    </h2>
+                    <ul class="space-y-4 text-gray-700 dark:text-gray-300 text-base md:text-lg"
+                        role="list">
+                        <li class="flex items-start">
+                            <svg class="h-6 w-6 text-green-500 dark:text-green-400 mr-3 flex-shrink-0 mt-1"
+                                 fill="none"
+                                 stroke="currentColor"
+                                 viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5">
+                                </path>
+                            </svg>
+                            <span>Increased customer satisfaction and loyalty</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-6 w-6 text-green-500 dark:text-green-400 mr-3 flex-shrink-0 mt-1"
+                                 fill="none"
+                                 stroke="currentColor"
+                                 viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z">
+                                </path>
+                            </svg>
+                            <span>Fewer support queries due to intuitive design</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-6 w-6 text-green-500 dark:text-green-400 mr-3 flex-shrink-0 mt-1"
+                                 fill="none"
+                                 stroke="currentColor"
+                                 viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                            <span>Higher conversion rates and sales</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-6 w-6 text-green-500 dark:text-green-400 mr-3 flex-shrink-0 mt-1"
+                                 fill="none"
+                                 stroke="currentColor"
+                                 viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                </path>
+                            </svg>
+                            <span>Lower long-term development costs</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-6 w-6 text-green-500 dark:text-green-400 mr-3 flex-shrink-0 mt-1"
+                                 fill="none"
+                                 stroke="currentColor"
+                                 viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z">
+                                </path>
+                            </svg>
+                            <span>Improved brand reputation</span>
+                        </li>
+                    </ul>
+                </section>
+                <section aria-labelledby="cta" class="mt-12">
+                    <h2 id="cta" class="text-2xl md:text-3xl font-serif font-bold mb-6">Ready to Improve Your UX?</h2>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        Whether you're building something new or improving an existing product, good UX design can make a huge difference to its success.
+                        <a href="/contact"
+                           class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 underline">
+                            Get in touch
+                        </a>
+                        to learn how we can help make your digital products work better for your users.
+                    </p>
+                </section>
+            </article>
+        </div>
+
+        <div class="lg:w-1/3 lg:pl-8">
+            <h2 class="text-2xl md:text-3xl font-serif font-bold mb-6 text-gray-900 dark:text-white">
+                Related Articles
+            </h2>
+            <ul class="space-y-4 text-gray-700 dark:text-gray-300 text-base md:text-lg">
+                <li>
+                    <a href="/ux-design-process" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 underline">
+                        The UX Design Process
+                    </a>
+                </li>
+                <li>
+                    <a href="/interactive-prototyping" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 underline">
+                        Interactive Prototyping
+                    </a>
+                </li>
+                <li>
+                    <a href="/ux-design-tools" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 underline">
+                        UX Design Tools
+                    </a>
+                </li>
+                <li>
+                    <a href="/user-research" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 underline">
+                        User Research
+                    </a>
+                </li>
+                <li>
+                    <a href="/accessibility" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 underline">
+                        Accessibility
+                    </a>
+                </li>
+                <li>
+                    <a href="/ux-audits" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 underline">
+                        UX Audits
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
