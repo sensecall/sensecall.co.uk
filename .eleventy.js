@@ -26,6 +26,15 @@ module.exports = function (eleventyConfig) {
     return collection.findIndex(item => item.url === page.url) + 1;
   });
 
+  // add a reading time filter for njk templates
+  eleventyConfig.addFilter("readingTime", function(content) {
+    const wordsPerMinute = 250;
+    const text = content.replace(/(<([^>]+)>)/gi, "");
+    console.log(text);
+    const wordCount = text.split(/\s+/g).length;
+    return Math.ceil(wordCount / wordsPerMinute);
+  });
+
   let nunjucksEnvironment = new Nunjucks.Environment(
     new Nunjucks.FileSystemLoader("src/_includes")
   );
