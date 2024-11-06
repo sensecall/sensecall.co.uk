@@ -11,7 +11,7 @@
   }
 
   :root[class~="dark"] {
-    --primary: #f43f5e;
+    --primary: #ff5773;
     --body-color: #e0e2e3;
     --dark: #f1f2f3;
     --secondary: #2c3e50;
@@ -22,6 +22,11 @@
     color: var(--body-color);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--primary) 50%, transparent);
+    color: white;
   }
 }
 
@@ -36,7 +41,7 @@
 
   .highlight {
     @apply relative inline;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M0,5 C20,3 40,7 60,5 S80,3 100,5' fill='none' stroke='%23FFD700' stroke-width='8.5' stroke-opacity='0.3' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M0,5 C20,3 40,7 60,5 S80,3 100,5' fill='none' stroke='%23e11d48' stroke-width='8.5' stroke-opacity='0.2' stroke-linecap='round'/%3E%3C/svg%3E");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: 0 100%;
@@ -46,7 +51,7 @@
 
   /* Dark mode version */
   .dark .highlight {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M0,5 C20,3 40,7 60,5 S80,3 100,5' fill='none' stroke='%23f43f5e' stroke-width='8.5' stroke-opacity='0.3' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M0,5 C20,3 40,7 60,5 S80,3 100,5' fill='none' stroke='%23ff5773' stroke-width='8.5' stroke-opacity='0.3' stroke-linecap='round'/%3E%3C/svg%3E");
   }
 }
 
