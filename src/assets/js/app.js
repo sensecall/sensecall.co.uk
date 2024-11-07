@@ -20,15 +20,20 @@ const throttle = (func, limit) => {
 
 // Feature modules
 const darkMode = {
-    init(darkModeToggle) {
-        if (!darkModeToggle) return;
+    init() {
+        const toggles = document.querySelectorAll('[data-dark-mode-toggle]');
+        if (!toggles.length) return;
         
-        darkModeToggle.checked = document.documentElement.classList.contains('dark');
-        darkModeToggle.addEventListener('change', () => {
-            const isDarkMode = darkModeToggle.checked;
-            document.documentElement.classList.toggle('dark', isDarkMode);
-            localStorage.setItem('darkMode', isDarkMode.toString());
-            console.log('Dark mode is now:', isDarkMode ? 'on' : 'off');
+        toggles.forEach(toggle => {
+            toggle.checked = document.documentElement.classList.contains('dark');
+            toggle.addEventListener('change', () => {
+                const isDarkMode = toggle.checked;
+                // Sync all toggles
+                toggles.forEach(t => t.checked = isDarkMode);
+                document.documentElement.classList.toggle('dark', isDarkMode);
+                localStorage.setItem('darkMode', isDarkMode.toString());
+                console.log('Dark mode is now:', isDarkMode ? 'on' : 'off');
+            });
         });
     }
 };
@@ -224,7 +229,7 @@ const initCopyEmail = () => {
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     try {
-        darkMode.init(document.getElementById('dark-mode-toggle'));
+        darkMode.init();
         fullscreenImage.init();
         mobileMenu.init(
             document.getElementById('mobile-menu-button'),

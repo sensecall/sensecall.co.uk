@@ -1,0 +1,70 @@
+{% macro serviceCard(params) %}
+  {% if params %}
+    <article class="bg-white dark:bg-gray-800 rounded-lg p-4 md:p-8 border border-gray-200 dark:border-gray-700 transition-colors duration-300 focus-within:ring-2 focus-within:ring-pink-500">
+      {% if params.title %}
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-start">
+          {% if params.icon %}
+            <svg class="h-6 w-6 mr-2 text-pink-600 dark:text-pink-400 mt-1 flex-shrink-0"
+                 fill="none"
+                 stroke="currentColor"
+                 viewBox="0 0 24 24"
+                 xmlns="http://www.w3.org/2000/svg"
+                 aria-hidden="true">
+              <path stroke-linecap="round" 
+                    stroke-linejoin="round" 
+                    stroke-width="2" 
+                    d="{{ params.icon }}">
+              </path>
+            </svg>
+          {% endif %}
+          <span>{{ params.title }}</span>
+        </h2>
+      {% endif %}
+
+      {% if params.price %}
+        <p class="text-xl font-semibold text-pink-600 dark:text-pink-400 mb-4">
+          {% if params.pricePrefix %}{{ params.pricePrefix }}: {% endif %}
+          {{ params.price }}
+        </p>
+      {% endif %}
+
+      {% if params.description %}
+        <p class="text-gray-600 dark:text-gray-300 mb-4">
+          {{ params.description }}
+        </p>
+      {% endif %}
+
+      {% if params.features and params.features.length > 0 %}
+        <ul class="space-y-3 mb-6">
+          {% for feature in params.features %}
+            <li class="flex items-start">
+              <svg class="h-6 w-6 text-green-500 dark:text-green-400 mr-2 flex-shrink-0"
+                   fill="none"
+                   stroke="currentColor"
+                   viewBox="0 0 24 24"
+                   aria-hidden="true">
+                <path stroke-linecap="round" 
+                      stroke-linejoin="round" 
+                      stroke-width="2" 
+                      d="M5 13l4 4L19 7">
+                </path>
+              </svg>
+              <span class="text-gray-700 dark:text-gray-300">{{ feature }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% if params.timeline %}
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-auto">{{ params.timeline }}</p>
+      {% endif %}
+
+      {% if params.buttonLink and params.buttonText %}
+        <a href="{{ params.buttonLink }}"
+           class="mt-4 inline-block px-6 py-2 bg-pink-600 text-white rounded-md hover:bg-pink-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500">
+          {{ params.buttonText }}
+        </a>
+      {% endif %}
+    </article>
+  {% endif %}
+{% endmacro %} 

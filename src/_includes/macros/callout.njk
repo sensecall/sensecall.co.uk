@@ -1,13 +1,13 @@
 {% macro contactCallout(title, description, buttonText = "Get in touch", buttonUrl = "/contact/", classes = "") %}
 <div class="mt-12 bg-gradient-to-br from-pink-50 to-pink-100 dark:bg-gradient-to-br dark:from-slate-600 dark:via-slate-800 dark:to-slate-950 p-5 lg:p-8 rounded-xl border-2 md:border-4 border-pink-500 dark:border-pink-400 shadow-lg {{ classes }}">
-    <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+    <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 md:mb-4 text-gray-900 dark:text-white">
         {{ title }}
     </h3>
-    <p class="text-gray-700 dark:text-gray-300 text-base md:text-lg lg:text-xl mb-6 max-w-3xl">
+    <p class="text-gray-700 dark:text-gray-300 text-base md:text-lg lg:text-xl mb-4 md:mb-6 max-w-3xl">
         {{ description }}
     </p>
     <a href="{{ buttonUrl }}"
-       class="inline-flex items-center px-5 py-2 rounded-md bg-pink-700 hover:bg-pink-800 text-white transition-colors duration-200 group border border-pink-800 shadow-sm hover:shadow-md font-bold text-base md:text-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 dark:focus:ring-offset-gray-800"
+       class="inline-flex items-center px-5 py-2 rounded-md bg-pink-700 hover:bg-pink-800 text-white transition-colors duration-200 group border border-pink-800 shadow-sm hover:shadow-md font-bold text-base md:text-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-700 dark:focus:ring-offset-gray-800 w-full md:w-auto justify-center md:justify-start"
        aria-label="{{ buttonText }}">
         {{ buttonText }}
         <svg xmlns="http://www.w3.org/2000/svg"
