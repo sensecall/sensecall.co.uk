@@ -1,6 +1,7 @@
 let Nunjucks = require("nunjucks");
 const execSync = require('child_process').execSync;
 const moment = require('moment');
+const HTMLMinifier = require('html-minifier');
 
 module.exports = function (eleventyConfig) {
   // Watch CSS files for changes
@@ -109,6 +110,16 @@ module.exports = function (eleventyConfig) {
       }
     ];
     return logos;
+  });
+
+  eleventyConfig.addTransform("htmlmin", function (content, outputPath) {
+    if (outputPath.endsWith(".html")) {
+      return HTMLMinifier.minify(content, {
+        useShortDoctype: true,
+        removeComments: true,
+        collapseWhitespace: true
+      });
+    }
   });
 
   return {

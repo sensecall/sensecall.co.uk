@@ -108,6 +108,7 @@
   100% { transform: rotate(0deg); }
 }
 
-.animate-wiggle {
+.animate-wiggle,
+.dark .animate-wiggle {
   animation: wiggle 1s ease-in-out;
 }
