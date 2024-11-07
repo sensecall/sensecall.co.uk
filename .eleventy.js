@@ -51,6 +51,16 @@ module.exports = function (eleventyConfig) {
     return collectionApi.getAll().filter(item => !item.data.draft);
   });
 
+  // collection for services and related articles
+  eleventyConfig.addCollection("services", function (collectionApi) {
+    // log the services collection to the console
+    let services = collectionApi.getAll().filter(item => item.data.service && !item.data.draft);
+    for (let service of services) {
+      console.log(service.data.title);
+    }
+    return services;
+  });
+
   eleventyConfig.addCollection("logos", function (collectionApi) {
     let logos = [
       {

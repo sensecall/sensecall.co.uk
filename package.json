@@ -11,7 +11,7 @@
   },
   "name": "ui-ux-ltd",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": ".eleventy.js",
   "optionalDependencies": {
     "fsevents": "^2.3.2"
   },

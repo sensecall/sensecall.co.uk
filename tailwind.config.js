@@ -15,9 +15,9 @@ module.exports = {
         css: {
           color: '#384042',
           a: {
-            color: '#e11d48',
+            color: '#1d4ed8', // Tailwind blue
             '&:hover': {
-              color: '#be123c',
+              color: '#1e40af', // Darker Tailwind blue
             },
           },
           'h1,h2,h3,h4': {
