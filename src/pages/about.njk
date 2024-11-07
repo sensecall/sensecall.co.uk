@@ -9,7 +9,7 @@ description: About UI UX Ltd, a digital service design agency helping organisati
     <h1 class="text-2xl md:text-5xl mb-6 leading-tight text-black dark:text-white font-black font-serif border-b-4 border-pink-500 pb-2 inline-block">
         About
     </h1>
-    <p class="mb-4 text-lg md:text-3xl text-gray-800 dark:text-gray-100 italic font-serif">
+    <p class="mb-6 text-xl md:text-3xl text-gray-800 dark:text-gray-100 italic font-serif">
         We believe that <span class="highlight font-medium">good design can solve almost any problem</span>, and we're passionate about using our expertise to help organisations achieve their goals.
     </p>
     <p class="mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
@@ -22,4 +22,11 @@ description: About UI UX Ltd, a digital service design agency helping organisati
     <p class="mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
         We take pride in our straightforward, collaborative approach. Whether working with large government departments or smaller organisations, we focus on delivering practical solutions that make a real difference to users and stakeholders alike.
     </p>
+    {% from 'macros/callout.njk' import contactCallout %}
+    {{ contactCallout(
+        'Wondering if we can help?',
+        "Let's start small and see if we can help solve your problem.",
+        'Book a free 30-minute chat',
+        '/contact/'
+    ) }}
 </div>

@@ -1,0 +1,236 @@
+---
+layout: page.njk
+title: Interactive Prototyping – UI UX Ltd
+permalink: /interactive-prototyping/
+description: Interactive prototypes bring designs to life before writing a single line of code.
+---
+
+<div class="py-8 lg:py-12 max-w-7xl mx-auto">
+    <div class="flex flex-col lg:flex-row">
+        <div class="lg:w-2/3 lg:pr-8">
+            <h1 class="text-3xl md:text-5xl mb-6 leading-tight text-gray-900 dark:text-white font-black font-serif border-b-4 border-pink-500 pb-2 inline-block">
+                Interactive Prototyping
+            </h1>
+            
+            <p class="text-2xl md:text-3xl text-gray-700 dark:text-gray-200 italic font-serif mb-10">
+                A bit like a concept car, interactive prototypes allow you to quickly test your ideas before investing time and money in development, helping catch problems early.
+            </p>
+            
+            <article class="prose prose-lg dark:prose-invert max-w-none">
+                <!-- What is section -->
+                <section aria-labelledby="what-is-prototyping">
+                    <h2 id="what-is-prototyping" class="text-2xl md:text-3xl font-serif font-bold mb-4 text-gray-900 dark:text-white">
+                        What is a prototype and how can they help?
+                    </h2>
+                    <p class="text-gray-700 dark:text-gray-300 text-lg md:text-xl mb-6">
+                        Think of it like <span class="highlight">a rough version of your final website or app that you can actually use</span>. Instead of just looking at pictures, you can click buttons, move between pages, and see how everything will work. It's like test-driving a car before buying it.
+                    </p>
+                
+                    <h3 class="text-xl md:text-2xl font-bold mb-3 text-gray-800 dark:text-gray-200">Spot problems early and save money</h3>
+                    <p class="text-gray-700 dark:text-gray-300 mb-4 text-lg md:text-lg">
+                        Prototypes help you find and fix issues before spending money on development. For example, one of our clients saved £20,000 by testing their checkout process in a prototype. We found it was confusing and fixed it before any coding began.
+                    </p>
+
+                    <h3 class="text-xl md:text-2xl font-bold mb-3 text-gray-800 dark:text-gray-200">Get everyone on the same page</h3>
+                    <p class="text-gray-700 dark:text-gray-300 mb-4 text-lg md:text-lg">
+                        Prototypes reduce misunderstandings about how things should work. Your whole team can try out the prototype and give feedback early. This means fewer surprises and changes later on, which can be costly and time-consuming.
+                    </p>
+
+                    <p class="text-gray-700 dark:text-gray-300 text-lg md:text-lg mb-4">
+                        By using prototypes, you can:
+                    </p>
+                    <ul class="space-y-2 sm:space-y-3 text-gray-700 dark:text-gray-300">
+                        {% for benefit in [
+                            "Test your ideas quickly and cheaply",
+                            "Get useful feedback from real users",
+                            "Make sure your design works before you build it",
+                            "Help your team and stakeholders understand the project better"
+                        ] %}
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 sm:h-6 sm:w-6 text-green-500 dark:text-green-400 mr-3 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-sm sm:text-base md:text-lg">{{ benefit }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </section>
+
+                <!-- Types section -->
+                <section aria-labelledby="prototype-types" class="mt-16">
+                    <h2 id="prototype-types" class="text-3xl md:text-4xl font-serif font-bold mb-6 text-gray-900 dark:text-white">
+                        Prototyping options
+                    </h2>
+                    <p class="text-gray-700 dark:text-gray-300 text-lg mb-6">
+                        We offer two main approaches to prototyping. The right choice depends on your project's needs and timeline, but both options benefit from early <a href="/user-research" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 underline">user research</a>.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="border border-gray-200 dark:border-gray-700 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                            <h3 class="text-xl md:text-2xl font-bold mb-3 text-gray-800 dark:text-gray-200">Quick and simple</h3>
+                            <p class="text-gray-700 dark:text-gray-300 mb-4">
+                                This option is best for testing ideas fast and early in the design process.
+                            </p>
+                            <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">What you get:</h4>
+                            <ul class="space-y-2 text-gray-700 dark:text-gray-300 mb-4">
+                                <li class="flex items-center">
+                                    <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Simple black and white layouts
+                                </li>
+                                <li class="flex items-center">
+                                    <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Working links between pages
+                                </li>
+                                <li class="flex items-center">
+                                    <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Basic interactions
+                                </li>
+                            </ul>
+                            <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">Benefits:</h4>
+                            <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                                <li class="flex items-center">
+                                    <svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    Test core ideas quickly
+                                </li>
+                                <li class="flex items-center">
+                                    <svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    Easy to make changes
+                                </li>
+                                <li class="flex items-center">
+                                    <svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    Ready in 2-3 days
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="border border-gray-200 dark:border-gray-700 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                            <h3 class="text-xl md:text-2xl font-bold mb-3 text-gray-800 dark:text-gray-200">Detailed and realistic</h3>
+                            <p class="text-gray-700 dark:text-gray-300 mb-4">
+                                This option creates a prototype that looks and feels like the final product.
+                            </p>
+                            <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">What you get:</h4>
+                            <ul class="space-y-2 text-gray-700 dark:text-gray-300 mb-4">
+                                <li class="flex items-center">
+                                    <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Full colour designs
+                                </li>
+                                <li class="flex items-center">
+                                    <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Working buttons and forms
+                                </li>
+                                <li class="flex items-center">
+                                    <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Smooth animations
+                                </li>
+                                <li class="flex items-center">
+                                    <svg class="w-4 h-4 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    Realistic interactions
+                                </li>
+                            </ul>
+                            <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">Benefits:</h4>
+                            <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                                <li class="flex items-center">
+                                    <svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    Get detailed user feedback
+                                </li>
+                                <li class="flex items-center">
+                                    <svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    Test the full user experience
+                                </li>
+                                <li class="flex items-center">
+                                    <svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    Spot any final issues before development
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-8 bg-gray-100 dark:bg-gray-800 p-6 rounded-lg">
+                        <h3 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">Which type is right for you?</h3>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            We'll help you choose the best approach based on your project's goals, timeline, and budget. Often, we start with a quick prototype and then move to a more detailed version as the design develops.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Process section -->
+                <section aria-labelledby="process" class="mt-16">
+                    <h2 id="process" class="text-2xl md:text-3xl font-serif font-bold mb-6 text-gray-900 dark:text-white">
+                        How we create your prototype
+                    </h2>
+                    <div class="space-y-6">
+                        <div class="border border-gray-200 dark:border-gray-700 p-6 rounded-lg">
+                            <h3 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">1. Start with the basics</h3>
+                            <p class="text-gray-700 dark:text-gray-300">We sketch out the main screens and make them clickable. This helps us test if the basic flow makes sense.</p>
+                        </div>
+                        <div class="border border-gray-200 dark:border-gray-700 p-6 rounded-lg">
+                            <h3 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">2. Make it look real</h3>
+                            <p class="text-gray-700 dark:text-gray-300">Once the structure works, we add your brand colours, images, and make everything look polished.</p>
+                        </div>
+                        <div class="border border-gray-200 dark:border-gray-700 p-6 rounded-lg">
+                            <h3 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">3. Get real feedback</h3>
+                            <p class="text-gray-700 dark:text-gray-300">We watch real people try the prototype and note where they get stuck or confused.</p>
+                        </div>
+                        <div class="border border-gray-200 dark:border-gray-700 p-6 rounded-lg">
+                            <h3 class="text-xl font-bold mb-3 text-gray-800 dark:text-gray-200">4. Make it better</h3>
+                            <p class="text-gray-700 dark:text-gray-300">We improve things based on the feedback, ensuring everything works smoothly before development begins.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Common questions -->
+                <section aria-labelledby="faq" class="mt-16">
+                    <h2 id="faq" class="text-2xl md:text-3xl font-serif font-bold mb-6 text-gray-900 dark:text-white">
+                        Common questions about prototyping
+                    </h2>
+
+                    <h3 class="text-xl font-bold mt-6 mb-2 text-gray-800 dark:text-gray-200">How long does prototyping take?</h3>
+                    <p class="text-gray-700 dark:text-gray-300 mb-4">
+                        The time needed depends on how complex your project is:
+                    </p>
+                    <ul class="list-disc pl-6 mb-4 text-gray-700 dark:text-gray-300">
+                        <li>A simple prototype with a few screens usually takes 2 to 3 days.</li>
+                        <li>More complex prototypes with many screens and interactions can take 1 to 2 weeks.</li>
+                    </ul>
+                    <p class="text-gray-700 dark:text-gray-300 mb-4">
+                        We'll give you a clear timeline estimate before we start.
+                    </p>
+
+                    <h3 class="text-xl font-bold mt-6 mb-2 text-gray-800 dark:text-gray-200">Is prototyping worth the investment?</h3>
+                    <p class="text-gray-700 dark:text-gray-300 mb-4">
+                        Yes, prototyping typically saves both time and money in the long run:
+                    </p>
+                    <ul class="list-disc pl-6 mb-4 text-gray-700 dark:text-gray-300">
+                        <li>Our clients usually save 3 to 4 times the cost of prototyping by avoiding expensive changes during development.</li>
+                        <li>You'll launch with confidence, knowing your product is easy to use.</li>
+                        <li>It's much cheaper to fix issues in a prototype than in a fully built product.</li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold mt-6 mb-2 text-gray-800 dark:text-gray-200">What do I get at the end of the prototyping process?</h3>
+                    <p class="text-gray-700 dark:text-gray-300 mb-4">
+                        At the end of the process, you'll receive:
+                    </p>
+                    <ul class="list-disc pl-6 mb-4 text-gray-700 dark:text-gray-300">
+                        <li>A working prototype you can test on your phone or computer</li>
+                        <li>Clear documentation for developers, showing how everything should work</li>
+                        <li>A video walkthrough of the prototype to share with your team or stakeholders</li>
+                        <li>We can also host the prototype on our secure servers so you can easily share it with clients or testers</li>
+                    </ul>
+                </section>
+
+                <!-- CTA Section -->
+                <section aria-labelledby="cta" class="mt-16">
+                    <h2 id="cta" class="text-2xl md:text-3xl font-serif font-bold mb-6 text-gray-900 dark:text-white">
+                        Thinking about getting a prototype?
+                    </h2>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        Let's start small and see if it's right for your project. 
+                        <a href="/contact" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 underline">
+                            Book a free 30-minute chat
+                        </a> 
+                        to discuss your ideas and see some example prototypes.
+                    </p>
+                </section>
+            </article>
+        </div>
+        
+        {% include 'partials/_related-articles.njk' %}
+    </div>
+</div>

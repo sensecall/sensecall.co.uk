@@ -1,0 +1,57 @@
+{% set articles = [
+    {
+        "title": "What is UX?",
+        "link": "/what-is-ux",
+        "linkText": "Learn more about UX"
+    },
+    {
+        "title": "The UX Design Process",
+        "link": "/services/ux-design-process",
+        "linkText": "Learn more about our UX design process"
+    },
+    {
+        "title": "Interactive Prototyping",
+        "link": "/interactive-prototyping",
+        "linkText": "Learn more about interactive prototyping"
+    },
+    {
+        "title": "UX Design Tools",
+        "link": "/ux-design-tools",
+        "linkText": "Explore UX design tools"
+    },
+    {
+        "title": "User Research",
+        "link": "/user-research",
+        "linkText": "Discover user research techniques"
+    },
+    {
+        "title": "Accessibility",
+        "link": "/accessibility",
+        "linkText": "Learn about accessibility in UX"
+    },
+    {
+        "title": "UX Audits",
+        "link": "/ux-audits",
+        "linkText": "Understand UX audits"
+    },
+    {
+        "title": "Designing for mobile devices",
+        "link": "/mobile-design",
+        "linkText": "Explore mobile design principles"
+    }
+] %}
+<div class="lg:w-1/3 lg:pl-8 lg:sticky lg:top-8 lg:self-start">
+    <h2 class="text-2xl md:text-3xl font-serif font-bold mb-6 text-gray-900 dark:text-white">Read more about UX</h2>
+    <ul class="space-y-4 text-gray-700 dark:text-gray-300 text-base md:text-lg">
+        {% for article in articles %}
+            {% if not article.link in page.url %}
+                <li>
+                    <a href="{{ article.link }}"
+                       class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 underline">
+                        {{ article.title }}
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
