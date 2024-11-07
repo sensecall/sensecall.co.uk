@@ -37,28 +37,33 @@ permalink: /
         <div class="lg:w-1/3 mt-0 sm:mt-4 mb-12 lg:m-0">
             <div class="flex flex-wrap justify-center items-center gap-5">
                 {% for logo in collections.logos %}
-                    <div class="{% if loop.index % 2 == 0 %}lg:mt-8{% else %}lg:mb-8{% endif %} mb-2 md:mb-4 lg:mb-0 mx-2 transform hover:scale-105 transition-transform duration-300 ease-in-out"
-                         role="img"
-                         aria-label="{{ logo.name }}">
-                        <img src="/assets/images/clients/{{ logo.image | replace('.svg', '--dark.svg') if (logo.image.endsWith('.svg')) else logo.image }}"
-                             alt="{{ logo.name }} logo"
-                             width="55"
-                             height="28"
-                             class="hidden dark:block w-auto h-7 md:h-8 lg:h-12 object-contain opacity-30 filter grayscale hover:grayscale-0 hover:opacity-90 transition-all duration-300" />
-                        <img src="/assets/images/clients/{{ logo.image }}"
-                             alt="{{ logo.name }} logo"
-                             width="55"
-                             height="28"
-                             class="dark:hidden w-auto h-7 md:h-8 lg:h-12 object-contain opacity-30 filter grayscale hover:grayscale-0 hover:opacity-90 transition-all duration-300" />
-                    </div>
-                {% endfor %}
-            </div>
+                    <div class="{% if loop.index % 2 == 0 %}lg:mt-8
+                    {% else %}
+                        lg:mb-8
+                    {% endif %}
+                    mb-2 md:mb-4 lg:mb-0 mx-2 transform hover:scale-105 transition-transform duration-300 ease-in-out" role="img" aria-label="{{ logo.name }}">
+                    <img src="/assets/images/clients/{{ logo.image | replace('.svg', '--dark.svg') if (logo.image.endsWith('.svg')) else logo.image }}"
+                         alt="{{ logo.name }} logo"
+                         width="55"
+                         height="28"
+                         class="hidden dark:block w-auto h-7 md:h-8 lg:h-12 object-contain opacity-30 filter grayscale hover:grayscale-0 hover:opacity-90 transition-all duration-300" />
+                    <img src="/assets/images/clients/{{ logo.image }}"
+                         alt="{{ logo.name }} logo"
+                         width="55"
+                         height="28"
+                         class="dark:hidden w-auto h-7 md:h-8 lg:h-12 object-contain opacity-30 filter grayscale hover:grayscale-0 hover:opacity-90 transition-all duration-300" />
+                </div>
+            {% endfor %}
         </div>
     </div>
+</div>
 </section>
 <section id="services" aria-labelledby="services-title" class="py-8 lg:py-16">
     <div class="md:w-2/3">
-        <h2 id="services-title" class="text-3xl md:text-5xl font-black mb-8 text-gray-900 dark:text-white font-serif inline-block border-b-4 border-pink-500 dark:border-pink-400 pb-2">What we do</h2>
+        <h2 id="services-title"
+            class="text-3xl md:text-5xl font-black mb-8 text-gray-900 dark:text-white font-serif inline-block border-b-4 border-pink-500 dark:border-pink-400 pb-2">
+            What we do
+        </h2>
         <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-12">
             We offer a range of services to help our clients understand their users and improve their services across the whole user journey. From user experience (UX) research and design, to user testing and design sprints, we help our clients build services that are <span class="highlight font-medium">easy to use and understand</span>.
         </p>
@@ -67,56 +72,56 @@ permalink: /
             {
                 "title": "Service design",
                 "description": "We help organisations understand and improve their users' end-to-end journeys. This means looking at how different parts of a service work together and identifying opportunities for improvement.",
-                "link": {
-                    "url": "/services/service-design",
-                    "text": "Learn about our service design approach"
-                },
-                "icon": '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" /></svg>'
+                "icon": '<svg xmlns="http://www.w3.org/2000/svg"
+         class="h-6 w-6"
+         fill="none"
+         viewBox="0 0 24 24"
+         stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" /></svg>'
             },
             {
                 "title": "Interaction design",
-                "description": "We design intuitive user interfaces that make complex tasks feel simple. Our focus is on creating clear, accessible interactions that help users achieve their goals efficiently.",
-                "link": {
-                    "url": "/services/interaction-design",
-                    "text": "Explore our interaction design work"
-                },
-                "icon": '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" /></svg>'
+                "description": 'We design intuitive user interfaces that make complex tasks feel simple. Our focus is on creating clear, accessible interactions that help users achieve their goals efficiently. We also create <a href="/services/interaction-design" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline">interactive prototypes</a> to quickly test and refine our designs.',
+                "icon": '<svg xmlns="http://www.w3.org/2000/svg"
+         class="h-6 w-6"
+         fill="none"
+         viewBox="0 0 24 24"
+         stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" /></svg>'
             },
             {
                 "title": "User research",
                 "description": "Through interviews, testing and analysis, we help you understand your users' needs, behaviours and pain points. This evidence-based approach ensures we build the right thing, in the right way.",
-                "link": {
-                    "url": "/services/user-research",
-                    "text": "See how we conduct user research"
-                },
-                "icon": '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>'
+                "icon": '<svg xmlns="http://www.w3.org/2000/svg"
+         class="h-6 w-6"
+         fill="none"
+         viewBox="0 0 24 24"
+         stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>'
             },
             {
                 "title": "Accessibility",
                 "description": "We ensure digital services work for everyone, including people with disabilities. Our expertise covers WCAG guidelines, assistive technologies, and inclusive design principles.",
-                "link": {
-                    "url": "/services/accessibility",
-                    "text": "Discover our accessibility expertise"
-                },
-                "icon": '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>'
+                "icon": '<svg xmlns="http://www.w3.org/2000/svg"
+         class="h-6 w-6"
+         fill="none"
+         viewBox="0 0 24 24"
+         stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>'
             },
             {
                 "title": "Content design",
-                "description": "We craft clear, purposeful content that guides users through their journey. Our content design ensures information is findable, understandable and actionable.",
-                "link": {
-                    "url": "/services/content-design",
-                    "text": "View our content design process"
-                },
-                "icon": '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>'
+                "description": "We craft clear, purposeful content that guides users through their journey. Our approach to content design and content strategy ensures the services we design are clear, understandable and actionable.",
+                "icon": '<svg xmlns="http://www.w3.org/2000/svg"
+         class="h-6 w-6"
+         fill="none"
+         viewBox="0 0 24 24"
+         stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>'
             },
             {
                 "title": "Product strategy",
                 "description": "Our experience working with government and commercial organisations means we understand the challenges of delivering digital services at scale.",
-                "link": {
-                    "url": "/services/product-strategy",
-                    "text": "Learn about our product strategy approach"
-                },
-                "icon": '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" /></svg>'
+                "icon": '<svg xmlns="http://www.w3.org/2000/svg"
+         class="h-6 w-6"
+         fill="none"
+         viewBox="0 0 24 24"
+         stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" /></svg>'
             }
         ] %}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
@@ -126,32 +131,33 @@ permalink: /
                     <span class="text-pink-500 dark:text-pink-400">{{ service.icon | safe }}</span>
                     {{ service.title }}
                 </h2>
-                <p class="text-base md:text-lg text-gray-700 dark:text-gray-300 mb-3">{{ service.description }}</p>
-                <a href="{{ service.link.url }}" 
-                   class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline inline-flex items-center gap-1">
-                    {{ service.link.text }}
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                         class="w-4 h-4"
-                         fill="none"
-                         viewBox="0 0 24 24"
-                         stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                    </svg>
-                </a>
+                <p class="text-base md:text-lg text-gray-700 dark:text-gray-300 mb-3">{{ service.description | safe }}</p>
+                {% if service.link %}
+                    <a href="{{ service.link.url }}"
+                       class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline inline-flex items-center gap-1">
+                        {{ service.link.text }}
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="w-4 h-4"
+                             fill="none"
+                             viewBox="0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                {% endif %}
             </div>
         {% endfor %}
     </div>
-
     {% from "macros/callout.njk" import contactCallout %}
-
-    {{ contactCallout(
-        title="Struggling with your digital offering?",
-        description="We can help make your digital services work better. We combine deep user understanding with practical solutions to transform your organisation."
-    ) }}
+    {{ contactCallout(title="Struggling with your digital offering?",
+        description="We can help make your digital services work better. We combine deep user understanding with practical solutions to transform your organisation.") }}
 </section>
 <section id="clients" class="py-8 lg:py-16">
     <div class="md:w-2/3">
-        <h2 id="clients-title" class="text-3xl md:text-5xl font-black mb-8 text-gray-900 dark:text-white font-serif inline-block border-b-4 border-pink-500 dark:border-pink-400 pb-2">Clients</h2>
+        <h2 id="clients-title"
+            class="text-3xl md:text-5xl font-black mb-8 text-gray-900 dark:text-white font-serif inline-block border-b-4 border-pink-500 dark:border-pink-400 pb-2">
+            Clients
+        </h2>
         <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
             Over the past 15 years we've worked with a range of clients, from startups to government
             departments, to improve their products and services.
@@ -182,7 +188,10 @@ permalink: /
 </section>
 <section id="our-work" class="py-8 lg:py-16" aria-labelledby="our-work-title">
     <div class="md:w-2/3">
-        <h2 id="our-work-title" class="text-2xl md:text-5xl font-black mb-6 text-gray-900 dark:text-white font-serif pb-2 inline-block border-b-4 border-pink-500 dark:border-pink-400">Our work</h2>
+        <h2 id="our-work-title"
+            class="text-2xl md:text-5xl font-black mb-6 text-gray-900 dark:text-white font-serif pb-2 inline-block border-b-4 border-pink-500 dark:border-pink-400">
+            Our work
+        </h2>
         <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
             We've provided design services on a wide range of projects, from small websites to large-scale digital transformation programmes.
         </p>
@@ -222,9 +231,14 @@ permalink: /
         </p>
     </div>
 </section>
-<section id="work-with-us" class="py-8 lg:py-16" aria-labelledby="work-with-us-title">
+<section id="work-with-us"
+         class="py-8 lg:py-16"
+         aria-labelledby="work-with-us-title">
     <div class="md:w-2/3">
-        <h2 id="work-with-us-title" class="text-2xl md:text-5xl font-black mb-6 text-gray-900 dark:text-white font-serif pb-2 inline-block border-b-4 border-pink-500 dark:border-pink-400">Work with us</h2>
+        <h2 id="work-with-us-title"
+            class="text-2xl md:text-5xl font-black mb-6 text-gray-900 dark:text-white font-serif pb-2 inline-block border-b-4 border-pink-500 dark:border-pink-400">
+            Work with us
+        </h2>
         <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
             We're flexible in how we work with clients, depending on their needs. This can include:
         </p>
@@ -241,11 +255,7 @@ permalink: /
             We're experienced in working with clients' existing tools and processes, particularly in the Public Sector where security is a priority.
         </p>
     </div>
-
     {% from "macros/callout.njk" import contactCallout %}
-
-    {{ contactCallout(
-        title="Let's talk about your project",
-        description="We'll help you understand your users' needs and design services that deliver measurable improvements and return on investment."
-    ) }}
+    {{ contactCallout(title="Let's talk about your project",
+        description="We'll help you understand your users' needs and design services that deliver measurable improvements and return on investment.") }}
 </section>
