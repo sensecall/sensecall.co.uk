@@ -113,7 +113,13 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addTransform("htmlmin", function (content, outputPath) {
-    if (outputPath.endsWith(".html")) {
+    // Skip sitemap.xml
+    if(outputPath && outputPath.endsWith("sitemap.xml")) {
+      return content;
+    }
+    
+    // Only process HTML files
+    if(outputPath && outputPath.endsWith(".html")) {
       return HTMLMinifier.minify(content, {
         useShortDoctype: true,
         removeComments: true,
@@ -122,6 +128,8 @@ module.exports = function (eleventyConfig) {
         minifyJS: true
       });
     }
+    
+    return content;
   });
 
   return {
