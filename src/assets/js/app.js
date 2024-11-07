@@ -199,7 +199,7 @@ const scrollToSection = {
 };
 
 const copyEmail = () => {
-    navigator.clipboard.writeText('dan@sensecall.co.uk').then(() => {
+    navigator.clipboard.writeText('contact@uiux.ltd').then(() => {
         const btn = document.getElementById('copyEmailBtn');
         const btnText = document.getElementById('copyBtnText');
         btnText.textContent = 'Copied!';
