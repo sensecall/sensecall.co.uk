@@ -1,5 +1,6 @@
 let Nunjucks = require("nunjucks");
 const execSync = require('child_process').execSync;
+const moment = require('moment');
 
 module.exports = function (eleventyConfig) {
   // Watch CSS files for changes
@@ -21,6 +22,11 @@ module.exports = function (eleventyConfig) {
     });
   });
 
+  // add nunjucks filter for formatting dates in a given format
+  eleventyConfig.addFilter("formatDate", function (date, format) {
+    return moment(date).format(format);
+  });
+
   // Add a filter to get the index of the current item in a collection
   eleventyConfig.addFilter("getCollectionIndex", function(collection, page) {
     return collection.findIndex(item => item.url === page.url) + 1;
@@ -40,6 +46,10 @@ module.exports = function (eleventyConfig) {
   );
 
   eleventyConfig.setLibrary("njk", nunjucksEnvironment);
+
+  eleventyConfig.addCollection("sitemap", function (collectionApi) {
+    return collectionApi.getAll().filter(item => !item.data.draft);
+  });
 
   eleventyConfig.addCollection("logos", function (collectionApi) {
     let logos = [
@@ -89,31 +99,6 @@ module.exports = function (eleventyConfig) {
       }
     ];
     return logos;
-  });
-
-  eleventyConfig.addCollection("experiments", function (collectionApi) {
-    let experiments = [
-      {
-        'title': 'Car cost comparison',
-        'description': 'A tool to help compare the cost of buying a new car against the cost of keeping your current car.',
-        'url': 'https://car.sensecall.co.uk',
-        'why': 'I couldn\'t find a tool or spreadsheet that did a decent job of helping me compare the cost of buying a new car against the cost of keeping my current car.'
-      },
-      {
-        'title': 'Football score keeper',
-        'description': 'A simple tool to help keep track of the score in a football match.',
-        'url': 'https://football.sensecall.co.uk',
-        'why': 'I was stood at my son\'s football match and got fed up of keeping score using the Notes app on my phone, so I built a simple tool to do it for me.'
-      },
-      {
-        'title': 'UK Renewable Energy Map',
-        'description': 'A map of current and planned renewable energy generation capacity in the UK.',
-        'url': 'https://uk-renewable-energy-map.sensecall.co.uk',
-        'why': 'I was interested in seeing how much renewable energy generation capacity is planned or currently in operation in the UK, but I couldn\'t find a map that showed this information so I built my own.'
-      }
-    ];
-
-    return experiments;
   });
 
   return {

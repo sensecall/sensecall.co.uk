@@ -44,12 +44,12 @@ permalink: /
                              alt="{{ logo.name }} logo"
                              width="55"
                              height="28"
-                             class="hidden dark:block w-auto h-7 md:h-8 lg:h-12 object-contain opacity-40 filter grayscale hover:grayscale-0 hover:opacity-80 transition-all duration-300" />
+                             class="hidden dark:block w-auto h-7 md:h-8 lg:h-12 object-contain opacity-30 filter grayscale hover:grayscale-0 hover:opacity-90 transition-all duration-300" />
                         <img src="/assets/images/clients/{{ logo.image }}"
                              alt="{{ logo.name }} logo"
                              width="55"
                              height="28"
-                             class="dark:hidden w-auto h-7 md:h-8 lg:h-12 object-contain opacity-40 filter grayscale hover:grayscale-0 hover:opacity-80 transition-all duration-300" />
+                             class="dark:hidden w-auto h-7 md:h-8 lg:h-12 object-contain opacity-30 filter grayscale hover:grayscale-0 hover:opacity-90 transition-all duration-300" />
                     </div>
                 {% endfor %}
             </div>
@@ -141,27 +141,13 @@ permalink: /
             </div>
         {% endfor %}
     </div>
-    <div class="mt-12 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-gray-800 dark:to-pink-900 p-5 lg:p-8 rounded-xl border-2 md:border-4 border-pink-500 dark:border-pink-400 shadow-lg">
-        <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
-            Struggling with your digital offering?
-        </h3>
-        <p class="text-gray-700 dark:text-gray-300 text-base md:text-lg lg:text-xl mb-6 max-w-3xl">
-            Let's make your digital services work better. We combine <span class="font-semibold text-gray-900 dark:text-white">deep user understanding</span> with <span class="font-semibold text-gray-900 dark:text-white">practical solutions</span> to transform your organisation.
-        </p>
-        <a href="/contact/"
-           class="inline-flex items-center px-5 py-2 rounded-md bg-pink-500 hover:bg-pink-600 text-white transition-colors duration-200 group border border-pink-600 shadow-sm hover:shadow-md font-bold text-base md:text-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 dark:focus:ring-offset-gray-800"
-           aria-label="Contact us to transform your digital services">
-            Get in touch
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 class="h-4 w-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-200"
-                 fill="none"
-                 viewBox="0 0 24 24"
-                 stroke="currentColor"
-                 aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-        </a>
-    </div>
+
+    {% from "macros/callout.njk" import contactCallout %}
+
+    {{ contactCallout(
+        title="Struggling with your digital offering?",
+        description="We can help make your digital services work better. We combine deep user understanding with practical solutions to transform your organisation."
+    ) }}
 </section>
 <section id="clients" class="py-8 lg:py-16">
     <div class="md:w-2/3">
@@ -194,9 +180,9 @@ permalink: /
         {% endfor %}
     </div>
 </section>
-<section id="things-ive-done" class="py-8 lg:py-16">
+<section id="our-work" class="py-8 lg:py-16" aria-labelledby="our-work-title">
     <div class="md:w-2/3">
-        <h2 class="text-2xl md:text-4xl font-black mb-4 text-dark dark:text-white font-serif">Our work</h2>
+        <h2 id="our-work-title" class="text-2xl md:text-5xl font-black mb-6 text-gray-900 dark:text-white font-serif pb-2 inline-block border-b-4 border-pink-500 dark:border-pink-400">Our work</h2>
         <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
             We've provided design services on a wide range of projects, from small websites to large-scale digital transformation programmes.
         </p>
@@ -236,9 +222,9 @@ permalink: /
         </p>
     </div>
 </section>
-<section id="work-with-me" class="py-8 lg:py-16">
+<section id="work-with-us" class="py-8 lg:py-16" aria-labelledby="work-with-us-title">
     <div class="md:w-2/3">
-        <h2 class="text-2xl md:text-4xl font-black mb-4 text-dark dark:text-white font-serif">Work with us</h2>
+        <h2 id="work-with-us-title" class="text-2xl md:text-5xl font-black mb-6 text-gray-900 dark:text-white font-serif pb-2 inline-block border-b-4 border-pink-500 dark:border-pink-400">Work with us</h2>
         <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
             We're flexible in how we work with clients, depending on their needs. This can include:
         </p>
@@ -255,11 +241,11 @@ permalink: /
             We're experienced in working with clients' existing tools and processes, particularly in the Public Sector where security is a priority.
         </p>
     </div>
-     {% from "macros/callout.njk" import contactCallout %}
 
-{# Basic usage #}
-{{ contactCallout(
-    title="Let's talk about your project",
-    description="We'll help you understand your users' needs and design services that deliver measurable improvements and return on investment."
-) }}
+    {% from "macros/callout.njk" import contactCallout %}
+
+    {{ contactCallout(
+        title="Let's talk about your project",
+        description="We'll help you understand your users' needs and design services that deliver measurable improvements and return on investment."
+    ) }}
 </section>

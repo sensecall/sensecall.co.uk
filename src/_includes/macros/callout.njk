@@ -1,5 +1,5 @@
-{% macro contactCallout(title, description, buttonText = "Get in touch", buttonUrl = "/contact/") %}
-<div class="mt-12 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-gray-800 dark:to-pink-900 p-5 lg:p-8 rounded-xl border-2 md:border-4 border-pink-500 dark:border-pink-400 shadow-lg">
+{% macro contactCallout(title, description, buttonText = "Get in touch", buttonUrl = "/contact/", classes = "") %}
+<div class="mt-12 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-gray-800 dark:to-pink-900 p-5 lg:p-8 rounded-xl border-2 md:border-4 border-pink-500 dark:border-pink-400 shadow-lg {{ classes }}">
     <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
         {{ title }}
     </h3>
