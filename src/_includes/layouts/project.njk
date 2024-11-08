@@ -5,7 +5,7 @@ layout: base.njk
 <div class="py-8 lg:py-12">
     <div class="max-w-4xl">
         <p class="mb-8 text-sm md:text-base">
-            <a href="/projects" class="text-blue-500 hover:text-primary dark:text-blue-400 dark:hover:text-blue-300 inline-flex items-center underline text-base md:text-lg">
+            <a href="/projects" class="text-blue-500 hover:text-primary dark:text-blue-400 dark:hover:text-blue-300 inline-flex items-center underline text-sm md:text-base">
                 <svg aria-hidden="true" class="w-4 h-4 md:w-5 md:h-5 mr-1 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
                 </svg>
@@ -16,7 +16,7 @@ layout: base.njk
         <p class="text-sm md:text-base text-gray-600 dark:text-slate-400 mb-2">
             Case study {{ collections.project | getCollectionIndex(page) }} of {{ collections.project.length }}
         </p>
-        <h1 class="text-2xl md:text-5xl mb-4 leading-tight text-dark dark:text-white font-semibold">{{ title }}</h1>
+        <h1 class="text-2xl md:text-5xl mb-4 leading-tight text-gray-900 dark:text-white font-serif font-black">{{ title }}</h1>
         
         {% if client %}
         <p class="font-medium text-sm md:text-lg text-gray-700 dark:text-slate-300 mb-4">Client: {{ client }}</p>
@@ -29,7 +29,7 @@ layout: base.njk
             {% endfor %}
         </ul>
 
-        <hr class="my-8 border-gray-200 dark:border-gray-800">
+        <hr class="my-8 border-gray-200 dark:border-slate-600">
 
         {{ content | safe }}
 
