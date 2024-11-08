@@ -7,13 +7,14 @@
                     <img src="/assets/images/logo--dark.svg" alt="UIUX logo" width="56" height="56" class="h-14 w-auto text-gray-900 dark:text-white hidden dark:block">
                 </a>
                 <a href="https://redirect.contractawardservice.crowncommercial.gov.uk/agreement/RM1043.8/lot/1/supplier-list" target="_blank" rel="noopener noreferrer">
-                    <img src="/assets/images/ccs-supplier-logo.svg" alt="Crown Commercial Service Supplier Logo" width="56" height="56" class="h-10 sm:h-12 xl:h-12 w-auto text-gray-900 dark:text-white dark:hidden">
+                    <img src="/assets/images/ccs-supplier-logo.svg" alt="Crown Commercial Service Supplier Logo" width="56" height="56" class="h-10 sm:h-12 xl:h-12 w-auto dark:hidden">
+                    <img src="/assets/images/ccs-supplier-logo--dark.svg" alt="Crown Commercial Service Supplier Logo" width="56" height="56" class="h-10 sm:h-12 xl:h-12 w-auto hidden dark:block">
                 </a>
             </div>
 
             <div class="flex items-center">
                 <button id="mobile-menu-button" 
-                        class="lg:hidden p-2 text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light flex items-center"
+                        class="lg:hidden p-2 text-gray-700 dark:text-slate-200 hover:text-primary dark:hover:text-primary-light flex items-center"
                         aria-expanded="false"
                         aria-controls="mobile-menu"
                         aria-label="Open menu">
@@ -29,7 +30,7 @@
                      tabindex="-1">
                     <div>
                         <button id="mobile-menu-close" 
-                                class="lg:hidden absolute top-4 right-4 p-2 text-gray-700 dark:text-gray-300 flex items-center"
+                                class="lg:hidden absolute top-4 right-4 p-2 text-gray-700 dark:text-slate-200 flex items-center"
                                 aria-label="Close menu"
                                 tabindex="-1">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -50,7 +51,7 @@
 
                             {% for item in navItems %}
                                 <li class="w-full pt-4 lg:pt-0 lg:w-auto">
-                                    <a href="{{ item.url }}" class="text-gray-600 dark:text-gray-300 hover:text-primary hover:text-opacity-80 dark:hover:text-primary-light dark:hover:text-opacity-80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-primary-light dark:focus:ring-offset-2 active:text-primary-dark dark:active:text-primary-light
+                                    <a href="{{ item.url }}" class="text-gray-600 dark:text-slate-200 hover:text-primary hover:text-opacity-80 dark:hover:text-primary-light dark:hover:text-opacity-80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-primary-light dark:focus:ring-offset-2 active:text-primary-dark dark:active:text-primary-light
                                         {{- ' text-gray-900 dark:text-white font-bold border-b-2 border-pink-500 dark:border-pink-400 pb-1' if (item.exact and page.url == item.url) or 
                                            (not item.exact and item.url in page.url) -}}
                                         {{- ' experiments-link' if item.text == 'Experiments' -}}
@@ -75,7 +76,7 @@
                     <div class="lg:hidden p-4 mt-auto">
                         <div class="relative inline-block">
                             <input type="checkbox" id="dark-mode-toggle-mobile" class="hidden peer" data-dark-mode-toggle>
-                            <label for="dark-mode-toggle-mobile" class="cursor-pointer text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light flex items-center" title="Toggle dark mode">
+                            <label for="dark-mode-toggle-mobile" class="cursor-pointer text-gray-700 dark:text-slate-200 hover:text-primary dark:hover:text-primary-light flex items-center" title="Toggle dark mode">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 block dark:hidden mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                                 </svg>
@@ -90,7 +91,7 @@
 
                 <div class="relative inline-block ml-8 hidden lg:block">
                     <input type="checkbox" id="dark-mode-toggle" class="hidden peer" data-dark-mode-toggle>
-                    <label for="dark-mode-toggle" class="cursor-pointer text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light" title="Toggle dark mode">
+                    <label for="dark-mode-toggle" class="cursor-pointer text-gray-700 dark:text-slate-200 hover:text-primary dark:hover:text-primary-light" title="Toggle dark mode">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                         </svg>

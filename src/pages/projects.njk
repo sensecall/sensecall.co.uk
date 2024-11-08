@@ -16,10 +16,10 @@ description: A selection of projects by UI UX Ltd, a digital service design agen
     </p>
     <div class="flex flex-col md:flex-row md:gap-8">
         <div class="flex-1">
-            <p class="mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
+            <p class="mb-4 text-base md:text-lg text-gray-700 dark:text-slate-200">
                 The most rewarding work we've done has been within the Public Sector, where we've been able to make a measurable difference to people's lives, and the important jobs done by the people who serve them.
             </p>
-            <p class="mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
+            <p class="mb-4 text-base md:text-lg text-gray-700 dark:text-slate-200">
                 We have also worked in the private sector, helping businesses including Sainsbury's and npower to meet organisational goals by improving customer experience and increasing conversion rates.
             </p>
         </div>
@@ -34,14 +34,14 @@ description: A selection of projects by UI UX Ltd, a digital service design agen
             </figcaption>
         </figure>
     </div>
-    <h2 class="text-2xl md:text-3xl mb-2 sm:mb-4 mt-12 font-semibold text-dark dark:text-white">Case studies</h2>
-    <p class="mb-4 sm:mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
+    <h2 class="text-2xl md:text-4xl mb-2 sm:mb-4 mt-12 font-black text-dark dark:text-white font-serif">Case studies</h2>
+    <p class="mb-4 sm:mb-4 text-base md:text-lg text-gray-700 dark:text-slate-200">
         If you're interested in the type of work we've done, we've written up some short case studies.
     </p>
     <div class="space-y-6 md:space-y-8 divide-y divide-gray-200 dark:divide-gray-600 mb-8">
         {% for project in collections.project %}
             <div class="pt-6 md:pt-8">
-                <h3 class="text-xl md:text-2xl font-medium text-gray-900 dark:text-white mb-2">
+                <h3 class="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white mb-2">
                     <a href="{{ project.url }}"
                        class="hover:text-blue-600 dark:hover:text-blue-400">{{ project.data.title }}</a>
                 </h3>
@@ -52,7 +52,7 @@ description: A selection of projects by UI UX Ltd, a digital service design agen
                         {% endfor %}
                     </ul>
                 {% endif %}
-                <p class="text-base text-gray-600 dark:text-gray-300 mb-4">{{ project.data.description }}</p>
+                <p class="text-base text-gray-600 dark:text-slate-200 mb-4">{{ project.data.description }}</p>
                 <a href="{{ project.url }}"
                    class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline">
                     Read case study

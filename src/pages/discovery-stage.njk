@@ -24,28 +24,31 @@ collection: services
                     <h2 id="what-is-prototyping" class="text-2xl md:text-3xl font-serif font-bold mb-4 text-gray-900 dark:text-white">
                         What is the discovery stage and how can it help?
                     </h2>
-                    <p class="text-gray-700 dark:text-gray-300 text-lg md:text-xl mb-6">
+                    <p class="text-gray-700 dark:text-slate-200 text-lg md:text-xl mb-6">
                         The discovery stage is all about getting to know what users need and what the project aims to achieve. We gather valuable insights through thorough research and analysis, which helps us pinpoint key challenges and areas for improvement.
                     </p>
-                    <p class="text-gray-700 dark:text-gray-300 text-lg md:text-xl mb-6">
+                    <p class="text-gray-700 dark:text-slate-200 text-lg md:text-xl mb-6">
                         We begin by clearly defining the problem. This means having conversations with both stakeholders and users. We collect data through interviews and surveys to ensure we have a solid understanding.
                     </p>
-                    <p class="text-gray-700 dark:text-gray-300 text-lg md:text-xl mb-6">
+                    <p class="text-gray-700 dark:text-slate-200 text-lg md:text-xl mb-6">
                         After collecting data, we analyse it to spot patterns. This analysis helps us grasp user behaviour and needs. We then create user personas to inform our design choices.
                     </p>
-                    <p class="text-gray-700 dark:text-gray-300 text-lg md:text-xl mb-6">
+                    <p class="text-gray-700 dark:text-slate-200 text-lg md:text-xl mb-6">
                         Finally, we compile our findings into a report. This document includes insights and recommendations, acting as a guide for the next steps in the project.
                     </p>
-                    {# <p class="text-gray-700 dark:text-gray-300 text-lg md:text-xl mb-6">
+                    {# <p class="text-gray-700 dark:text-slate-200 text-lg md:text-xl mb-6">
                         Discover more about our <a href="/services/user-research/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 underline">user research</a> and <a href="/services/ux-design/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 underline">UX design</a> services.
                     </p> #}
                 </section>
             </article>
-            <div class="bg-pink-500 text-white p-6 mt-8 lg:mt-12 pb-8 rounded-xl">
-                <h3 class="text-xl lg:text-2xl font-bold mb-2">Ready to start your project?</h3>
-                <p class="mb-4 lg:mb-6 text-lg lg:text-xl">Contact us today to discuss how we can help you in the discovery stage.</p>
-                <a href="/contact/" class="px-4 py-2 bg-white text-pink-500 rounded-md hover:bg-pink-100">Get in touch</a>
-            </div>
+            {% from "macros/callout.njk" import contactCallout %}
+            {{ contactCallout(
+                title="Ready to start your project?",
+                description="Contact us today to discuss how we can help you in the discovery stage.",
+                buttonText="Get in touch",
+                buttonLink="/contact/",
+                classes="mt-8 lg:mt-12"
+            ) }}
         </div>
         
         {% include 'partials/_related-articles.njk' %}
