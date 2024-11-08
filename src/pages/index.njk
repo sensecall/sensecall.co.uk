@@ -24,7 +24,7 @@ permalink: /
                 <p class="mb-4">
                     We specialise in helping organisations understand and design services that meet the needs of their users. We collaborate with teams to build customer journeys that are <span class="highlight font-medium">simple, efficient and effective</span>. Our team has expertise in:
                 </p>
-                <ul class="mb-10 list-disc list-inside">
+                <ul class="mb-10 list-disc list-inside" role="list">
                     <li>service design</li>
                     <li>interaction design</li>
                     <li>user research</li>
@@ -126,11 +126,11 @@ permalink: /
         ] %}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
         {% for service in services %}
-            <div class="mb-5">
-                <h2 class="text-lg md:text-xl mb-2 font-semibold flex items-center gap-2 text-gray-900 dark:text-white">
+            <div class="mb-5" role="article">
+                <h3 class="text-lg md:text-xl mb-2 font-semibold flex items-center gap-2 text-gray-900 dark:text-white">
                     <span class="text-pink-500 dark:text-pink-400">{{ service.icon | safe }}</span>
                     {{ service.title }}
-                </h2>
+                </h3>
                 <p class="text-base md:text-lg text-gray-700 dark:text-slate-200 mb-3">{{ service.description | safe }}</p>
                 {% if service.link %}
                     <a href="{{ service.link.url }}"
@@ -169,13 +169,12 @@ permalink: /
     </div>
     <div class="lg:w-2/3 grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-x-2 gap-y-4 sm:gap-x-4 sm:gap-y-6 md:gap-y-8">
         {% for logo in collections.logos %}
-            <div class="flex items-center justify-start"
-                 role="img"
-                 aria-label="{{ logo.name }}">
+            <div class="flex items-center justify-start" role="img" aria-label="{{ logo.name }}">
                 <img src="/assets/images/clients/{{ logo.image | replace('.svg', '--dark.svg') if (logo.image.endsWith('.svg')) else logo.image }}"
                      alt="{{ logo.name }} logo"
                      width="100"
                      height="50"
+                     loading="lazy"
                      class="hidden dark:block w-full max-w-[80px] sm:max-w-[100px] md:max-w-[120px] h-auto object-contain" />
                 <img src="/assets/images/clients/{{ logo.image }}"
                      alt="{{ logo.name }} logo"
