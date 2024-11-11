@@ -1,6 +1,7 @@
 let Nunjucks = require("nunjucks");
 const execSync = require('child_process').execSync;
 const moment = require('moment');
+const marked = require('marked');
 const HTMLMinifier = require('html-minifier');
 
 module.exports = function (eleventyConfig) {
@@ -40,6 +41,18 @@ module.exports = function (eleventyConfig) {
     console.log(text);
     const wordCount = text.split(/\s+/g).length;
     return Math.ceil(wordCount / wordsPerMinute);
+  });
+
+  // Add a filter to get a random item from an array
+  eleventyConfig.addFilter("random", function(array) {
+    return array[Math.floor(Math.random() * array.length)];
+  });
+
+  // add an append filter for arrays
+  // e.g. {% set _ = combined.append(service ~ " in " ~ randomPlace) %}
+  eleventyConfig.addFilter("append", function(array, item) {
+    array.push(item);
+    return array;
   });
 
   let nunjucksEnvironment = new Nunjucks.Environment(

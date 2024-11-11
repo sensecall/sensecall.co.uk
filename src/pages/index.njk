@@ -2,259 +2,524 @@
 eleventyImport:
     collections: ["post"]
 layout: page.njk
-title: The UK's Experts in User-Centred Design and Research, Product Design and Strategy
-description: Digital service design agency helping organisations solve complex problems through user-centred design. We specialise in service design, interaction design, user research, accessibility, content design and product strategy.
+title: Monthly Digital Design Support for Growing Businesses | UI UX Ltd
+description: Get ongoing UX design, research and digital strategy support without the high agency fees. Fixed monthly pricing with unlimited requests.
 permalink: /
+bodyClass: homePage
 ---
 
-<section id="introduction"
-         aria-labelledby="introduction-title"
-         class="pt-4 lg:pt-12">
-    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
-        <div class="max-w-4xl py-6 lg:w-3/5">
-            <p class="text-2xl md:text-3xl text-gray-600 dark:text-slate-400 mb-1 md:mb-2 font-light inline-block border-b-4 border-pink-500 dark:border-pink-500 pb-2">Hello, we're UI UX</p>
-            <h1 id="introduction-title"
-                class="text-4xl md:text-6xl mb-6 lg:mb-12 text-gray-900 dark:text-white font-black drop-shadow-sm font-serif leading-none">
-                Experts in user-centred design and research, and making great digital services.
-            </h1>
-            <div class="text-lg md:text-xl text-gray-700 dark:text-slate-200">
-                <p class="mb-4">
-                    At UIUX, we're <span class="highlight font-medium">passionate about making digital services better for everyone</span>. Our team works with government, public sector and commercial organisations to design user-centred solutions to improve their digital services.
+{# Hero Section #}
+<section class="relative bg-white dark:bg-gray-900 py-24 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+            <div class="lg:w-1/2 lg:pr-12">
+                <span class="inline-block px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border-2 border-blue-200 dark:border-blue-800 text-sm font-bold mb-6">
+                    Introducing Monthly Digital Support
+                </span>
+                <h1 class="text-5xl md:text-5xl font-black text-gray-900 dark:text-white mb-8 font-sans leading-tight animate-fade-in-up">
+                    Expert-led Digital Support for <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-400 dark:from-green-400 dark:to-emerald-400">Growing Businesses</span>
+                </h1>
+                <p class="text-2xl md:text-3xl text-gray-700 dark:text-slate-200 font-medium mb-6 animate-fade-in-up delay-100">Your own in-house digital team, without the overhead.</p>
+                <p class="text-lg md:text-xl text-gray-600 dark:text-slate-300 mb-10 animate-fade-in-up delay-200">
+                    Get all the benefits of an in-house digital team with affordable, flexible monthly packages tailored to your business goals.
                 </p>
-                <p class="mb-4">
-                    We specialise in helping organisations understand and design services that meet the needs of their users. We collaborate with teams to build customer journeys that are <span class="highlight font-medium">simple, efficient and effective</span>. Our team has expertise in:
-                </p>
-                <ul class="mb-10 list-disc list-inside" role="list">
-                    <li>service design</li>
-                    <li>interaction design</li>
-                    <li>user research</li>
-                    <li>user experience</li>
-                    <li>accessibility</li>
-                    <li>content and product design</li>
-                </ul>
+                <div class="flex flex-col sm:flex-row gap-6 animate-fade-in-up delay-300">
+                    <a href="/assessment"
+                       class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-semibold rounded-full text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-sky-700 dark:from-blue-500 dark:to-sky-500 dark:hover:from-blue-600 dark:hover:to-sky-600 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg animate-w">
+                        Get a Free Assessment
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </a>
+                    <a href="/pricing"
+                       class="inline-flex items-center justify-center px-8 py-4 border-2 border-gray-300 dark:border-gray-600 text-lg font-semibold rounded-full text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                        View Pricing
+                    </a>
+                </div>
+            </div>
+            <div class="lg:w-1/2 mt-16 lg:mt-0 relative">
+                <div class="max-w-[90%] mx-auto relative">
+                    <img src="/assets/images/evaluate-performance.webp"
+                         alt="Digital design illustration"
+                         width="800"
+                         height="600"
+                         class="w-full animate-float p-8">
+                </div>
             </div>
         </div>
-        <div class="lg:w-1/3 mt-0 sm:mt-4 mb-12 lg:m-0 hidden sm:block">
-            <div class="flex flex-wrap justify-center items-center gap-5">
-                {% for logo in collections.logos %}
-                    <div class="{% if loop.index % 2 == 0 %}lg:mt-6
-                    {% else %}
-                        lg:mb-6
-                    {% endif %}
-                    mb-2 md:mb-4 lg:mb-0 mx-1 transform hover:scale-105 transition-transform duration-300 ease-in-out" role="img" aria-label="{{ logo.name }}">
-                    <img src="/assets/images/clients/{{ logo.image | replace('.svg', '--dark.svg') if (logo.image.endsWith('.svg')) else logo.image }}"
-                         alt="{{ logo.name }} logo"
-                         width="60"
-                         height="30"
-                         class="hidden dark:block w-auto h-8 md:h-9 lg:h-14 object-contain opacity-30 filter grayscale hover:grayscale-0 hover:opacity-90 transition-all duration-300" />
-                    <img src="/assets/images/clients/{{ logo.image }}"
-                         alt="{{ logo.name }} logo"
-                         width="60"
-                         height="30"
-                         class="dark:hidden w-auto h-8 md:h-9 lg:h-14 object-contain opacity-30 filter grayscale hover:grayscale-0 hover:opacity-90 transition-all duration-300" />
+    </div>
+    <div class="absolute top-0 left-0 w-full h-full bg-grid-pattern opacity-5"></div>
+</section>
+
+<section class="py-4 bg-blue-600 dark:bg-blue-500 text-sm text-blue-100 dark:text-blue-400 overflow-hidden">
+    <div class="max-w-full mx-auto">
+        <style>
+            @keyframes scroll {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
+            }
+            .animate-scroll {
+                animation: scroll 60s linear infinite;
+            }
+        </style>
+        <div class="flex whitespace-nowrap animate-scroll">
+            {% set services = [
+                "UX Design", "Web Development", "Digital Strategy", "UI Design",
+                "User Research", "Branding", "SEO Optimisation", "Content Strategy",
+                "Conversion Rate Optimisation", "Mobile App Design", "E-commerce Solutions",
+                "Accessibility Consulting", "Information Architecture", "Wireframing",
+                "Prototyping", "Usability Testing", "Digital Marketing", "Analytics & Reporting"
+            ] %}
+            {% set places = [
+                "London", "Manchester", "Birmingham", "Glasgow", "Liverpool",
+                "Edinburgh", "Leeds", "Bristol", "Sheffield", "Newcastle",
+                "Cardiff", "Belfast", "Nottingham", "Southampton", "Aberdeen"
+            ] %}
+            {% set combined = [] %}
+            {% for i in range(3) %}
+                {% for service in services %}
+                    {% set randomPlace = places | random %}
+                    {% set _ = combined | append(service ~ " in " ~ randomPlace) %}
+                {% endfor %}
+            {% endfor %}
+            <div class="flex space-x-8">
+                {% for item in combined %}
+                    <span>{{ item }}</span>
+                {% endfor %}
+            </div>
+            <div class="flex space-x-8" aria-hidden="true">
+                {% for item in combined %}
+                    <span>{{ item }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{# Core Services Section - Updated content #}
+<section class="py-16 lg:py-24 bg-slate-800 dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 lg:w-2/3 mx-auto">
+            <h2 class="text-4xl md:text-5xl font-black text-white dark:text-white mb-6 font-sans">
+                Your Digital Presence Probably Needs a Little Work
+            </h2>
+            <p class="text-xl lg:text-2xl text-slate-300 dark:text-slate-700 max-w-3xl mx-auto">
+                Let's face it: you're probably leaving money on the table.<br>We'll show you where.
+            </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {% set services = [
+                {
+                    "title": "Digital Presence Overhaul",
+                    "description": "We'll dissect your digital strategy, providing candid insights and revolutionary solutions to transform your online presence.\n\nWe'll provide you with a detailed report highlighting strengths, weaknesses, and opportunities, along with actionable SEO recommendations and a tailored content strategy to boost your online presence.\n\nYou'll receive a detailed report highlighting strengths, weaknesses, and opportunities, along with actionable SEO recommendations and a tailored content strategy to boost your online presence.",
+                    "image": "/assets/images/Seo-3--Streamline-Brooklyn.png"
+                },
+                {
+                    "title": "Customer Experience Deep Dive",
+                    "description": "Uncover the hidden truths about your customer's journey. We'll reveal genuine insights and guide you towards meaningful improvements.\n\nWe'll map out the entire customer experience from initial contact to post-purchase interactions. This includes a detailed UX assessment, conversion funnel analysis, and customer feedback interpretation.\n\nYou'll gain invaluable insights into customer behaviour and pain points, enabling you to optimise your digital strategy for maximum engagement and conversion.",
+                    "image": "/assets/images/Listening-To-Feedback-1--Streamline-Brooklyn.png"
+                },
+                {
+                    "title": "Market Domination Strategy",
+                    "description": "Elevate your game. We'll equip you with cutting-edge strategies to outperform competitors and claim your rightful place at the top.\n\nWe'll conduct a thorough evaluation of your current services, perform competitive analysis, and provide market trend insights. Our team will work closely with you to refine existing services and identify expansion opportunities.\n\nYou'll receive a comprehensive strategy document outlining short-term improvements and long-term growth plans.",
+                    "image": "/assets/images/Award-Winner-Podium--Streamline-Brooklyn.png"
+                },
+                {
+                    "title": "Impactful Performance Metrics",
+                    "description": "Focus on what truly drives success. We'll identify the key metrics that directly influence your bottom line and show you how to optimise them.\n\nWe'll dive deep into your key performance indicators with our comprehensive analytics service. We go beyond surface-level metrics to provide you with actionable insights. Our team analyses website analytics, conversion rates, user engagement metrics, and more.\n\nYou'll receive regular reports with interpreted data, clear visualisations, and specific action points to drive business growth and improve ROI.",
+                    "image": "/assets/images/Analyze-Data.png"
+                }
+            ] %}
+            {% for service in services %}
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+                    <img src="{{ service.image }}" alt="{{ service.title }}" class="h-48 p-4 rounded" width="200" height="300">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">{{ service.title }}</h3>
+                    <p class="text-gray-600 dark:text-slate-300">{{ service.description | nl2br | safe }}</p>
                 </div>
             {% endfor %}
         </div>
     </div>
-</div>
 </section>
-<section id="services" aria-labelledby="services-title" class="py-8 lg:py-16">
-    <div class="md:w-2/3">
-        <h2 id="services-title"
-            class="text-3xl md:text-5xl font-black mb-8 text-gray-900 dark:text-white font-serif inline-block border-b-4 border-pink-500 dark:border-pink-400 pb-2">
-            What we do
-        </h2>
-        <p class="text-lg md:text-xl text-gray-700 dark:text-slate-200 mb-12">
-            We offer a range of services to help our clients understand their users and improve their services across the whole user journey. From user experience (UX) research and design, to user testing and design sprints, we help our clients build services that are <span class="highlight font-medium">easy to use and understand</span>.
-        </p>
-    </div>
-    {% set services = [
-            {
-                "title": "Service design",
-                "description": "We help organisations understand and improve their users' end-to-end journeys. This means looking at how different parts of a service work together and identifying opportunities for improvement.",
-                "icon": '<svg xmlns="http://www.w3.org/2000/svg"
-         class="h-6 w-6"
-         fill="none"
-         viewBox="0 0 24 24"
-         stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" /></svg>'
-            },
-            {
-                "title": "Interaction design",
-                "description": 'We design intuitive user interfaces that make complex tasks feel simple. Our focus is on creating clear, accessible interactions that help users achieve their goals efficiently. We also create <a href="/services/interaction-design" class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline">interactive prototypes</a> to quickly test and refine our designs.',
-                "icon": '<svg xmlns="http://www.w3.org/2000/svg"
-         class="h-6 w-6"
-         fill="none"
-         viewBox="0 0 24 24"
-         stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" /></svg>'
-            },
-            {
-                "title": "User research",
-                "description": "Through interviews, testing and analysis, we help you understand your users' needs, behaviours and pain points. This evidence-based approach ensures we build the right thing, in the right way.",
-                "icon": '<svg xmlns="http://www.w3.org/2000/svg"
-         class="h-6 w-6"
-         fill="none"
-         viewBox="0 0 24 24"
-         stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>'
-            },
-            {
-                "title": "Accessibility",
-                "description": "We ensure digital services work for everyone, including people with disabilities. Our expertise covers WCAG guidelines, assistive technologies, and inclusive design principles.",
-                "icon": '<svg xmlns="http://www.w3.org/2000/svg"
-         class="h-6 w-6"
-         fill="none"
-         viewBox="0 0 24 24"
-         stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>'
-            },
-            {
-                "title": "Content design",
-                "description": "We craft clear, purposeful content that guides users through their journey. Our approach to content design and content strategy ensures the services we design are clear, understandable and actionable.",
-                "icon": '<svg xmlns="http://www.w3.org/2000/svg"
-         class="h-6 w-6"
-         fill="none"
-         viewBox="0 0 24 24"
-         stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>'
-            },
-            {
-                "title": "Product strategy",
-                "description": "Our experience working with government and commercial organisations means we understand the challenges of delivering digital services at scale.",
-                "icon": '<svg xmlns="http://www.w3.org/2000/svg"
-         class="h-6 w-6"
-         fill="none"
-         viewBox="0 0 24 24"
-         stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" /></svg>'
-            }
-        ] %}
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-        {% for service in services %}
-            <div class="mb-5" role="article">
-                <h3 class="text-lg md:text-xl mb-2 font-semibold flex items-center gap-2 text-gray-900 dark:text-white">
-                    <span class="text-pink-500 dark:text-pink-400">{{ service.icon | safe }}</span>
-                    {{ service.title }}
-                </h3>
-                <p class="text-base md:text-lg text-gray-700 dark:text-slate-200 mb-3">{{ service.description | safe }}</p>
-                {% if service.link %}
-                    <a href="{{ service.link.url }}"
-                       class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline inline-flex items-center gap-1">
-                        {{ service.link.text }}
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                             class="w-4 h-4"
-                             fill="none"
-                             viewBox="0 24 24"
-                             stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
+
+{# What you get - content about deliverables, artefacts, etc #}
+<section class="py-16 lg:py-24 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-6 font-sans">
+                What You'll Get
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% set artefacts = [
+                {
+                    "title": "Digital Presence Audit",
+                    "description": "Comprehensive monthly or quarterly assessments of your entire digital footprint. Our experts meticulously analyse your website performance, social media impact, and search engine visibility.\n\nYou'll receive a detailed report highlighting strengths, weaknesses, and opportunities, along with actionable SEO recommendations and a tailored content strategy to boost your online presence.",
+                    "icon": "...",
+                    "image": "...",
+                    "cta": "Learn More",
+                    "link": "/digital-presence-audit",
+                    "process": [
+                        "Initial consultation to understand your goals",
+                        "Data collection across all digital platforms",
+                        "In-depth analysis by our expert team",
+                        "Creation of a comprehensive report",
+                        "Presentation of findings and recommendations",
+                        "Follow-up support for implementation"
+                    ]
+                },
+                {
+                    "title": "Customer Experience Analysis",
+                    "description": "A thorough evaluation of your customer's journey across all digital touchpoints. We map out the entire customer experience from initial contact to post-purchase interactions.\n\nThis includes a detailed UX assessment, conversion funnel analysis, and customer feedback interpretation. You'll gain invaluable insights into customer behaviour and pain points, enabling you to optimise your digital strategy for maximum engagement and conversion.",
+                    "icon": "...",
+                    "image": "...",
+                    "cta": "Learn More",
+                    "link": "/customer-experience-analysis",
+                    "process": [
+                        "Customer journey mapping workshop",
+                        "User testing and feedback collection",
+                        "Heatmap and user behaviour analysis",
+                        "Conversion funnel optimisation",
+                        "Detailed report with visualisations",
+                        "Strategy session for implementing improvements"
+                    ]
+                },
+                {
+                    "title": "Performance Analytics",
+                    "description": "Dive deep into your key performance indicators with our comprehensive analytics service. We go beyond surface-level metrics to provide you with actionable insights.\n\nOur team analyses website analytics, conversion rates, user engagement metrics, and more. You'll receive regular reports with interpreted data, clear visualisations, and specific action points to drive business growth and improve ROI.",
+                    "icon": "...",
+                    "image": "...",
+                    "cta": "Learn More",
+                    "link": "/performance-analytics",
+                    "process": [
+                        "Setup and configuration of analytics tools",
+                        "Custom dashboard creation",
+                        "Regular data collection and analysis",
+                        "Trend identification and forecasting",
+                        "Monthly performance reports",
+                        "Quarterly strategy reviews and goal setting"
+                    ]
+                },
+                {
+                    "title": "Strategic Service Development",
+                    "description": "Elevate your service offerings with our data-driven strategic development process. We conduct a thorough evaluation of your current services, perform competitive analysis, and provide market trend insights.\n\nOur team will work closely with you to refine existing services and identify expansion opportunities. You'll receive a comprehensive strategy document outlining short-term improvements and long-term growth plans.",
+                    "icon": "...",
+                    "image": "...",
+                    "cta": "Learn More",
+                    "link": "/strategic-service-development",
+                    "process": [
+                        "In-depth review of current service offerings",
+                        "Market research and competitor analysis",
+                        "Customer needs assessment",
+                        "Ideation and concept development workshops",
+                        "Financial modelling and feasibility studies",
+                        "Detailed strategy document and implementation plan"
+                    ]
+                },
+                {
+                    "title": "Design Improvement",
+                    "description": "Transform your digital presence with our comprehensive design improvement service. Our expert designers and UX specialists will analyse your current design, identify areas for enhancement, and create a visually stunning and user-friendly experience.\n\nWe focus on creating designs that not only look great but also drive conversions and improve user engagement across all devices and platforms.",
+                    "icon": "...",
+                    "image": "...",
+                    "cta": "Learn More",
+                    "link": "/design-improvement",
+                    "process": [
+                        "UX audit and heuristic evaluation",
+                        "User research and persona development",
+                        "Wireframing and prototyping",
+                        "Visual design and branding alignment",
+                        "Responsive design implementation",
+                        "User testing and iterative refinement"
+                    ]
+                }
+            ] %}
+
+            {% for artefact in artefacts %}
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-sm">
+                    <img src="https://picsum.photos/id/20/200/300" alt="{{ artefact.title }}"
+                    class="w-auto h-48 mb-6 rounded"
+                    width="200"
+                    height="300"
+                    >
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">{{ artefact.title }}</h3>
+                    <p class="text-gray-600 dark:text-slate-300 mb-6">{{ artefact.description | nl2br | safe }}</p>
+                    <h4 class="text-lg font-semibold text-gray-800 dark:text-white mb-3">Our Process:</h4>
+                    <ul class="list-disc pl-5 mb-6 text-gray-600 dark:text-slate-300">
+                        {% for step in artefact.process %}
+                            <li>{{ step }}</li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{{ artefact.link }}" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+                        {{ artefact.cta }}
                     </a>
-                {% endif %}
-            </div>
-        {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="mt-16">
+            <p class="text-gray-600 dark:text-slate-300 max-w-3xl mx-auto">
+                We'll work with you to understand your business goals and objectives, and then we'll develop a tailored plan to help you achieve them.
+            </p>
+        </div>
     </div>
-    {% from "macros/callout.njk" import contactCallout %}
-    {{ contactCallout(title="Struggling with your digital offering?",
-        description="We can help make your digital services work better. We combine deep user understanding with practical solutions to transform your organisation.") }}
-</section>
-<section id="clients" class="py-8 lg:py-16">
-    <div class="lg:w-2/3">
-        <h2 id="clients-title"
-            class="text-3xl md:text-5xl font-black mb-8 text-gray-900 dark:text-white font-serif inline-block border-b-4 border-pink-500 dark:border-pink-400 pb-2">
-            Clients
-        </h2>
-        <p class="mb-4 md:text-lg text-gray-700 dark:text-slate-200">
-            Over the past 15 years we've worked with a range of clients, from startups to government
-            departments, to improve their products and services.
-        </p>
-        <p class="mb-8 md:text-lg text-gray-700 dark:text-slate-200">
-            Since 2018, we've worked exclusively with Public Sector organisations to design services for
-            citizens and internal users.
-        </p>
-    </div>
-    <div class="lg:w-2/3 grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-x-2 gap-y-4 sm:gap-x-4 sm:gap-y-6 md:gap-y-8">
-        {% for logo in collections.logos %}
-            <div class="flex items-center justify-start" role="img" aria-label="{{ logo.name }}">
-                <img src="/assets/images/clients/{{ logo.image | replace('.svg', '--dark.svg') if (logo.image.endsWith('.svg')) else logo.image }}"
-                     alt="{{ logo.name }} logo"
-                     width="100"
-                     height="50"
-                     loading="lazy"
-                     class="hidden dark:block w-full max-w-[80px] sm:max-w-[100px] md:max-w-[120px] h-auto object-contain" />
-                <img src="/assets/images/clients/{{ logo.image }}"
-                     alt="{{ logo.name }} logo"
-                     width="100"
-                     height="50"
-                     class="dark:hidden w-full max-w-[80px] sm:max-w-[90px] md:max-w-[100px] h-auto object-contain" />
-            </div>
-        {% endfor %}
-    </div>
-</section>
-<section id="our-work" class="py-8 lg:py-16" aria-labelledby="our-work-title">
-    <div class="lg:w-2/3">
-        <h2 id="our-work-title"
-            class="text-3xl md:text-5xl font-black mb-8 text-gray-900 dark:text-white font-serif inline-block border-b-4 border-pink-500 dark:border-pink-400 pb-2">
-            Our work
-        </h2>
-        <p class="mb-4 md:text-lg text-gray-700 dark:text-slate-200">
-            We've provided design services on a wide range of projects, from small websites to large-scale digital transformation programmes.
-        </p>
-        <p class="mb-4 md:text-lg text-gray-700 dark:text-slate-200">
-            Our projects have ranged from greenfield initiatives to replacing legacy systems with new services. Ideally, we're involved from the very start, but we're experienced in joining projects to help with specific challenges.
-        </p>
-        <p class="mb-4 md:text-lg text-gray-700 dark:text-slate-200">
-            Typically, the projects we work on are used by thousands of people every day, from members of the public completing a task online, to civil servants using a system to manage their work.
-        </p>
-        <p class="mb-4 md:text-lg text-gray-700 dark:text-slate-200">Here are some examples of our work:</p>
-        <ul class="mb-4 md:text-lg text-gray-700 dark:text-slate-200 list-disc list-outside pl-5">
-            <li class="mb-2">
-                Designed a new service to make it simpler for further education providers to provide learner data to the Education and Skills Funding Agency (ESFA)
-            </li>
-            <li class="mb-2">
-                <a href="projects/home-office"
-                   class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline">Redesigned the Police National Computer (PNC)</a> to make it easier for police officers to manage stolen property records
-            </li>
-            <li class="mb-2">
-                <a href="projects/hmpps"
-                   class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline">Designed a service to replace the National Offender Management Service (NOMIS)</a>, allowing prison staff to manage prisoner activities
-            </li>
-            <li class="mb-2">
-                Provided design support to the Apprenticeship Service, helping to improve the service for employers and training providers
-            </li>
-            <li class="mb-2">
-                <a href="projects/childrens-social-care"
-                   class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline">Collaborated with the Children's Social Care team at the Department for Education</a> to explore how digital tools could make social workers' day-to-day work easier
-            </li>
-            <li class="mb-2">
-                Redesigned the main account home page for the Apprenticeship Service, making it easier for employers to manage their accounts and start taking on apprentices
-            </li>
-        </ul>
-        <p class="md:text-lg text-gray-700 dark:text-slate-200">
-            You can read more about <a href="/projects"
-    class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline">projects we've worked on</a> recently.
+
+    <div class="py-4 text-center text-white dark:text-gray-900 bg-pink-500 dark:bg-pink-500/10 mt-16">
+        <p class="text-lg font-medium">
+            Ready to improve your digital presence?
         </p>
     </div>
 </section>
-<section id="work-with-us"
-         class="py-8 lg:py-16"
-         aria-labelledby="work-with-us-title">
-    <div class="lg:w-2/3">
-        <h2 id="work-with-us-title"
-            class="text-3xl md:text-5xl font-black mb-8 text-gray-900 dark:text-white font-serif inline-block border-b-4 border-pink-500 dark:border-pink-400 pb-2">
-            Work with us
-        </h2>
-        <p class="mb-4 md:text-lg text-gray-700 dark:text-slate-200">
-            We're flexible in how we work with clients, depending on their needs. This can include:
-        </p>
-        <ul class="mb-4 md:text-lg text-gray-700 dark:text-slate-200 list-disc list-outside pl-5">
-            <li class="mb-2">integrating with existing teams</li>
-            <li class="mb-2">providing a complete project team</li>
-            <li class="mb-2">collaborating with partner agencies</li>
-            <li class="mb-2">working directly with stakeholders</li>
-        </ul>
-        <p class="mb-4 md:text-lg text-gray-700 dark:text-slate-200">
-            While we primarily work remotely, we can arrange face-to-face meetings when needed. Our central UK location allows us to easily reach London, Birmingham, Manchester, and other major cities.
-        </p>
-        <p class="mb-4 md:text-lg text-gray-700 dark:text-slate-200">
-            We're experienced in working with clients' existing tools and processes, particularly in the Public Sector where security is a priority.
-        </p>
+
+{# New Section: Flexible Pricing Options #}
+<section class="py-16 lg:py-24 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <span class="inline-block px-4 py-2 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-sm font-medium mb-4">
+                Flexible Solutions
+            </span>
+            <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-6 font-sans">
+                Tailored to Your Business Requirements
+            </h2>
+            <p class="text-xl text-gray-600 dark:text-slate-300 max-w-3xl mx-auto">
+                Choose from tiered subscription plans with optional add-ons and success-based pricing models.
+            </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% set tiers = [
+                {
+                    "name": "Startup Package",
+                    "description": "Ideal for small businesses and startups with limited turnover.",
+                    "price": "Starting at £299/month",
+                    "features": [
+                        "Basic digital presence audits",
+                        "Monthly performance reports",
+                        "Email support"
+                    ],
+                    "cta": "Get Started"
+                },
+                {
+                    "name": "Growth Package",
+                    "description": "For growing businesses with moderate turnover and complexity.",
+                    "price": "Starting at £799/month",
+                    "features": [
+                        "Comprehensive audits",
+                        "Quarterly strategy sessions",
+                        "Priority support"
+                    ],
+                    "cta": "Get Started",
+                    "highlight": true
+                },
+                {
+                    "name": "Enterprise Package",
+                    "description": "Custom solutions for large enterprises with high turnover.",
+                    "price": "Custom Pricing",
+                    "features": [
+                        "All Growth features",
+                        "Dedicated account manager",
+                        "Custom implementation"
+                    ],
+                    "cta": "Contact Us"
+                }
+            ] %}
+            
+            {% for tier in tiers %}
+                <div class="flex flex-col h-full bg-white dark:bg-gray-800 p-8 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 {% if tier.highlight %}ring-2 ring-pink-500 dark:ring-pink-400{% endif %}">
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">{{ tier.name }}</h3>
+                    <p class="text-gray-600 dark:text-slate-300 mb-4">{{ tier.description }}</p>
+                    <p class="text-3xl font-bold text-gray-900 dark:text-white mb-6">{{ tier.price }}</p>
+                    <ul class="mb-8 flex-grow">
+                        {% for feature in tier.features %}
+                            <li class="flex items-center mb-2">
+                                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-gray-600 dark:text-slate-300">{{ feature }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <a href="#" class="w-full text-center px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white font-semibold rounded-lg transition duration-200 {% if tier.highlight %}text-lg{% endif %}">
+                        {{ tier.cta }}
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-    {% from "macros/callout.njk" import contactCallout %}
-    {{ contactCallout(title="Let's talk about your project",
-        description="We'll help you understand your users' needs and design services that deliver measurable improvements and return on investment.") }}
+</section>
+
+<section class="py-16 lg:py-24 bg-red-50 dark:bg-red-900/10 w-full">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <span class="inline-block px-4 py-2 rounded-full border-2 border-red-600 dark:border-red-900/30 text-red-600 dark:text-red-400 text-sm font-bold mb-4 uppercase">
+                The Agency Dilemma
+            </span>
+            <h2 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-6 font-sans">
+                Traditional Agencies: <span class="text-red-600 dark:text-red-400">Overpriced and Underwhelming</span>
+            </h2>
+            <p class="text-xl text-gray-600 dark:text-slate-300 max-w-3xl mx-auto">
+                Your business needs ongoing design support, not a financial black hole. Why pay a fortune for inflexible service?
+            </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {# Problem Cards #}
+            {% set problems = [
+                {
+                    "title": "Eye-Watering Fees",
+                    "description": "Prepare for sticker shock: sky-high rates, sneaky hidden costs, and rigid contracts that'll make your accountant weep.",
+                    "icon": "..."
+                },
+                {
+                    "title": "Strategy? What Strategy?",
+                    "description": "One-off projects leave you high and dry. Where's the long-term vision for your digital growth?",
+                    "icon": "..."
+                },
+                {
+                    "title": "Jack of All Trades, Master of None",
+                    "description": "Generic solutions and a revolving door of junior staff. Where are the real experts when you need them?",
+                    "icon": "..."
+                }
+            ] %}
+            {% for problem in problems %}
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg border-2 border-red-100 dark:border-red-700 hover:border-red-500 dark:hover:border-red-400 transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="flex items-center mb-6">
+                        <div class="p-3 bg-red-100 dark:bg-red-900/30 rounded-lg">
+                            <svg class="w-8 h-8 text-red-600 dark:text-red-400"
+                                 fill="none"
+                                 stroke="currentColor"
+                                 viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ problem.icon }}"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white ml-4">{{ problem.title }}</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-slate-300 leading-relaxed">{{ problem.description }}</p>
+                    <div class="mt-6 flex items-center text-red-600 dark:text-red-400 font-medium">
+                        <span>Discover our budget-friendly fix</span>
+                        <svg class="w-4 h-4 ml-2"
+                             fill="none"
+                             stroke="currentColor"
+                             viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="mt-16">
+            <p class="text-gray-600 dark:text-slate-300 max-w-3xl mx-auto">
+                We've cracked the code: top-tier design support that won't break the bank. Ready to ditch the agency drama?
+            </p>
+        </div>
+    </div>
+</section>
+
+
+{# Benefits Section - Updated content #}
+<section class="py-16 lg:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-6 font-sans">
+                Why Choose Our Monthly Service
+            </h2>
+            <p class="text-xl text-gray-600 dark:text-slate-300 max-w-3xl mx-auto">
+                Get all the benefits of an in-house design team without the overhead.
+            </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% set benefits = [
+                {
+                    "title": "Direct Expert Access",
+                    "description": "Work directly with senior digital strategists who provide customised recommendations based on your industry and goals.",
+                    "icon": "..."
+                },
+                {
+                    "title": "Flexible Implementation",
+                    "description": "Choose between implementing changes yourself with our guidance or letting our team handle everything for you.",
+                    "icon": "..."
+                },
+                {
+                    "title": "Strategic Training",
+                    "description": "Regular workshops and training sessions to enhance your team's digital capabilities and understanding.",
+                    "icon": "..."
+                },
+                {
+                    "title": "Data-Driven Decisions",
+                    "description": "All recommendations backed by concrete data and aligned with your specific business objectives.",
+                    "icon": "..."
+                }
+            ] %}
+            {% for benefit in benefits %}
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
+                    <svg class="w-12 h-12 text-pink-500 mb-6"
+                         fill="none"
+                         stroke="currentColor"
+                         viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ benefit.icon }}"></path>
+                    </svg>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">{{ benefit.title }}</h3>
+                    <p class="text-gray-600 dark:text-slate-300">{{ benefit.description }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{# Testimonials Section #}
+<section class="py-16 lg:py-24 bg-gray-50 dark:bg-gray-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-6 font-sans">What Our Clients Say</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {% set testimonials = [
+                {
+                    "quote": "The monthly service model has transformed how we approach design. It's like having an in-house team but better.",
+                    "author": "Sarah Johnson",
+                    "role": "Product Manager, Digital First",
+                    "image": "testimonial-1.jpg"
+                },
+                {
+                    "quote": "The quality of work and quick turnaround times have exceeded our expectations. Highly recommended.",
+                    "author": "Mark Thompson",
+                    "role": "CEO, Tech Innovators",
+                    "image": "testimonial-2.jpg"
+                }
+            ] %}
+            {% for testimonial in testimonials %}
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-sm">
+                    <div class="flex items-center mb-6">
+                        <img class="h-12 w-12 rounded-full"
+                             src="/assets/images/{{ testimonial.image }}"
+                             alt="{{ testimonial.author }}">
+                        <div class="ml-4">
+                            <p class="text-lg font-bold text-gray-900 dark:text-white">{{ testimonial.author }}</p>
+                            <p class="text-gray-600 dark:text-slate-300">{{ testimonial.role }}</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-slate-300 text-lg italic">"{{ testimonial.quote }}"</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{# Final CTA Section #}
+<section class="py-16 lg:py-24 bg-gradient-to-br from-pink-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-6 font-sans">
+            Ready to Transform Your Digital Presence?
+        </h2>
+        <p class="text-xl text-gray-600 dark:text-slate-300 max-w-3xl mx-auto mb-8">
+            Start with a comprehensive digital assessment and discover how our expert-led, data-driven approach can accelerate your business growth.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/assessment"
+               class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-base font-medium rounded-lg text-white bg-pink-600 hover:bg-pink-700 dark:bg-pink-500 dark:hover:bg-pink-600 transition-colors">
+                Get Your Free Assessment
+            </a>
+            <a href="/pricing"
+               class="inline-flex items-center justify-center px-8 py-4 border border-gray-300 dark:border-gray-600 text-base font-medium rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                View Monthly Plans
+            </a>
+        </div>
+    </div>
 </section>

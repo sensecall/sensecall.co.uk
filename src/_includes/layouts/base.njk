@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en-GB" class="h-full">
     {% include "partials/head.njk" %}
-    <body class="bg-white dark:bg-slate-800 min-h-full flex flex-col {{ bodyClasses }}">
+    <body class="min-h-full flex flex-col">
         {% block header %}
             {% include "partials/header.njk" %}
         {% endblock %}
         
         {% block main %}
-            <main class="container mx-auto px-4 flex-grow" id="main-content">
+            <main class="flex-grow" id="main-content">
                 {{ content | safe }}
             </main>
         {% endblock %}

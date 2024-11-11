@@ -158,6 +158,7 @@
     "lru-cache": "^4.1.5",
     "luxon": "^2.5.0",
     "markdown-it": "^12.3.2",
+    "marked": "^15.0.0",
     "maximatch": "^0.1.0",
     "mdurl": "^1.0.1",
     "merge2": "^1.4.1",

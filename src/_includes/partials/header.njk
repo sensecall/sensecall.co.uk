@@ -3,17 +3,12 @@
     Skip to main content
 </a>
 
-<nav class="py-3 my-3" aria-label="Main navigation">
-    <div class="container mx-auto px-4">
+<nav class="py-5 bg-transparent lg:sticky lg:top-0 lg:z-40 lg:bg-white/90 dark:lg:bg-gray-900/95 lg:backdrop-blur-sm" aria-label="Main navigation">
+    <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <a href="/" class="flex items-center justify-center relative animate-wiggle">
-                    <img src="/assets/images/logo.svg" alt="UIUX logo" width="56" height="56" class="h-14 w-auto text-gray-900 dark:text-white dark:hidden">
-                    <img src="/assets/images/logo--dark.svg" alt="UIUX logo" width="56" height="56" class="h-14 w-auto text-gray-900 dark:text-white hidden dark:block">
-                </a>
-                <a href="https://redirect.contractawardservice.crowncommercial.gov.uk/agreement/RM1043.8/lot/1/supplier-list" target="_blank" rel="noopener noreferrer">
-                    <img src="/assets/images/ccs-supplier-logo.svg" alt="Crown Commercial Service Supplier Logo" width="56" height="56" class="h-10 sm:h-12 xl:h-12 w-auto dark:hidden">
-                    <img src="/assets/images/ccs-supplier-logo--dark.svg" alt="Crown Commercial Service Supplier Logo" width="56" height="56" class="h-10 sm:h-12 xl:h-12 w-auto hidden dark:block">
+                <a href="/" class="flex items-center justify-center relative">
+                    <span class="text-3xl font-black text-gray-900 dark:text-white tracking-tight">Growth<span class="font-serif text-orange-500 dark:text-orange-400 font-extralight italic">Lab</span></span>
                 </a>
             </div>
 
@@ -45,12 +40,11 @@
 
                         <ul class="flex flex-col lg:flex-row items-start lg:items-center space-y-4 lg:space-y-0 lg:space-x-6 text-sm lg:text-lg p-4 lg:p-0 divide-y divide-gray-200 dark:divide-gray-800 lg:divide-y-0 w-full mt-8 lg:mt-0">
                             {% set navItems = [
-                                { url: '/', text: 'Home', exact: true },
-                                { url: '/services', text: 'Services' },
-                                { url: '/what-is-ux', text: 'What is UX?' },
-                                { url: '/about', text: 'About' },
-                                { url: '/projects', text: 'Projects' },
-                                { url: '/contact', text: 'Contact' }
+                                { url: '/pricing', text: 'Pricing' },
+                                { url: '/design', text: 'Design' },
+                                { url: '/research', text: 'Research' },
+                                { url: '/strategy', text: 'Strategy' },
+                                { url: '/what-is-ux', text: 'What is UX?' }
                             ] %}
 
                             {% for item in navItems %}
