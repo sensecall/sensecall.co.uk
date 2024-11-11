@@ -115,6 +115,12 @@ module.exports = function (eleventyConfig) {
         'description': 'A map of current and planned renewable energy generation capacity in the UK.',
         'url': 'https://uk-renewable-energy-map.sensecall.co.uk',
         'why': 'I was interested in seeing how much renewable energy generation capacity is planned or currently in operation in the UK, but I couldn\'t find a map that showed this information so I built my own.'
+      },
+      {
+        'title': 'Times tables game',
+        'description': 'A game to help children practice maths times tables.',
+        'url': 'https://times-tables-game.sensecall.co.uk',
+        'why': 'While helping my son with his times tables, I couldn\'t find a game that was quick, fun and engaging so I built a simple one-page web app to do the job.'
       }
     ];
 
