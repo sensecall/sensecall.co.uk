@@ -1,0 +1,127 @@
+---
+layout: page.njk
+title: Pricing Plans
+permalink: /pricing/
+description: Explore our flexible pricing plans tailored to your business needs.
+---
+
+<section class="py-16 lg:py-24 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-6 font-sans">
+                Flexible Pricing Plans
+            </h1>
+            <p class="text-xl text-gray-600 dark:text-slate-300 max-w-3xl mx-auto">
+                Choose a plan that fits your business needs and budget. No hidden fees, just transparent pricing.
+            </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% set plans = [
+                {
+                    "name": "Starter",
+                    "price": "£299<span class='text-sm text-gray-600 dark:text-slate-300'>/month</span>",
+                    "description": "Kickstart your digital journey with expert guidance.",
+                    "features": [
+                        "In-depth digital presence analysis",
+                        "Actionable monthly performance insights",
+                        "Responsive email support within 24 hours",
+                        "Tailored design and development roadmap"
+                    ],
+                    "cta": "Boost Your Growth"
+                },
+                {
+                    "name": "Professional",
+                    "price": "£799<span class='text-sm text-gray-600 dark:text-slate-300'>/month</span>",
+                    "description": "Accelerate your business with comprehensive strategies.",
+                    "features": [
+                        "360° digital ecosystem audit",
+                        "Strategic quarterly planning sessions",
+                        "Priority support with same-day responses",
+                        "Cutting-edge design and development solutions"
+                    ],
+                    "cta": "Amplify Your Success",
+                    "highlight": true
+                },
+                {
+                    "name": "Enterprise",
+                    "price": "Bespoke Pricing",
+                    "description": "Unleash your full potential with tailored, high-impact solutions.",
+                    "features": [
+                        "All Professional features, supercharged",
+                        "Your personal digital growth architect",
+                        "Bespoke implementation and ongoing optimisation",
+                        "Innovative design and development at scale"
+                    ],
+                    "cta": "Transform Your Business"
+                }
+            ] %}
+            
+            {% for plan in plans %}
+                <div class="flex flex-col h-full bg-white dark:bg-gray-800 p-8 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 {% if plan.highlight %}ring-2 ring-orange-500 dark:ring-orange-400{% endif %}">
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">{{ plan.name }}</h3>
+                    <p class="text-gray-600 dark:text-slate-300 mb-4">{{ plan.description }}</p>
+                    <p class="text-3xl font-bold text-gray-900 dark:text-white mb-6">{{ plan.price | safe }}</p>
+                    <ul class="mb-8 flex-grow">
+                        {% for feature in plan.features %}
+                            <li class="flex items-center mb-2">
+                                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-gray-600 dark:text-slate-300">{{ feature }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <a href="/assessment/" class="w-full text-center px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition duration-200 {% if plan.highlight %}text-lg{% endif %}">
+                        {{ plan.cta }}
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{# Additional Content Sections #}
+
+<section class="py-16 lg:py-24 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-6 font-sans">
+                Why Choose Us?
+            </h2>
+            <p class="text-xl text-gray-600 dark:text-slate-300 max-w-3xl mx-auto">
+                Our plans are designed to provide maximum value and flexibility, ensuring you get the best support for your business growth.
+            </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% set benefits = [
+                {
+                    "title": "Expert Support",
+                    "description": "Access to a team of experienced professionals ready to assist you with any challenges.",
+                    "icon": "..."
+                },
+                {
+                    "title": "Custom Solutions",
+                    "description": "Tailored strategies that align with your unique business goals and objectives.",
+                    "icon": "..."
+                },
+                {
+                    "title": "Scalable Plans",
+                    "description": "Flexible pricing options that grow with your business, ensuring you only pay for what you need.",
+                    "icon": "..."
+                }
+            ] %}
+            {% for benefit in benefits %}
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
+                    <svg class="w-12 h-12 text-pink-500 mb-6"
+                         fill="none"
+                         stroke="currentColor"
+                         viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ benefit.icon }}"></path>
+                    </svg>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">{{ benefit.title }}</h3>
+                    <p class="text-gray-600 dark:text-slate-300">{{ benefit.description }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

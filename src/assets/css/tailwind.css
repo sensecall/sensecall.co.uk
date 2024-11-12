@@ -4,14 +4,14 @@
 
 @layer base {
   :root {
-    --primary: #e11d48;
+    --primary: #f97316;
     --body-color: #384042;
     --dark: #1e2223;
     --secondary: whitesmoke;
   }
 
   :root[class~="dark"] {
-    --primary: #ff5773;
+    --primary: #fb923c;
     --body-color: #e0e2e3;
     --dark: #f1f2f3;
     --secondary: #2c3e50;

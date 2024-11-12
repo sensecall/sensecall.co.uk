@@ -1,0 +1,113 @@
+---
+layout: page.njk
+title: Assessment
+permalink: /assessment/
+description: Start Your Free Assessment
+---
+
+<section id="assessment-hero">
+    <div class="relative z-10 bg-orange-600 dark:bg-sky-800 py-24 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 md:mb-12">
+            <div class="w-full md:w-2/3">
+                <h1 class="text-4xl md:text-5xl font-black text-white dark:text-white mb-6 font-sans drop-shadow-lg">Get Your Free Assessment</h1>
+                <p class="text-lg md:text-xl text-orange-50 dark:text-slate-300 mb-4">
+                    We'll review your website and provide a free report with recommendations on how to improve your digital presence.
+                </p>
+                <p class="text-lg md:text-xl text-orange-50 dark:text-slate-300 mb-4">No obligation, no spam, just a helpful report.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row">
+        <div class="w-full md:w-1/2 -mt-24 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg relative z-20 mb-24">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Tell us about your project</h2>
+            <form action="https://formspree.io/f/mgeqqzqj"
+                  method="POST"
+                  class="space-y-4">
+                {% set formFields = [
+                    {
+                        "label": "Name",
+                        "type": "text",
+                        "id": "name",
+                        "name": "name",
+                        "required": true
+                    },
+                    {
+                        "label": "Email",
+                        "type": "email",
+                        "id": "email",
+                        "name": "email",
+                        "required": true
+                    },
+                    {
+                        "label": "Phone Number",
+                        "type": "tel",
+                        "id": "phone",
+                        "name": "phone",
+                        "required": true
+                    },
+                    {
+                        "label": "Company Name",
+                        "type": "text",
+                        "id": "company-name",
+                        "name": "company-name",
+                        "required": true
+                    },
+                    {
+                        "label": "Website URL",
+                        "type": "url",
+                        "id": "url",
+                        "name": "url",
+                        "required": true
+                    },
+                    {
+                        "label": "Message",
+                        "type": "textarea",
+                        "id": "message",
+                        "name": "message",
+                        "required": false
+                    }
+                ] %}
+                {% macro inputField(field) %}
+                    <div class="space-y-2">
+                        <label for="{{ field.id }}"
+                               class="block text-sm font-medium text-gray-700 dark:text-slate-300">
+                            {{ field.label }} {{ "(optional)" if not field.required else "" }}
+                        </label>
+                        <input type="{{ field.type }}" id="{{ field.id }}" name="{{ field.name }}" {{ "required" if field.required else "" }} aria-required="{{ field.required }}" class="px-3 py-4 h-10 mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                    </div>
+                {% endmacro %}
+                {% macro textareaField(field) %}
+                    <div class="space-y-2">
+                        <label for="{{ field.id }}"
+                               class="block text-sm font-medium text-gray-700 dark:text-slate-300">
+                            {{ field.label }} {{ "(optional)" if not field.required else "" }}
+                        </label>
+                        <textarea id="{{ field.id }}" name="{{ field.name }}" {{ "required" if field.required else "" }} aria-required="{{ field.required }}" class="p-4 h-24 mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"></textarea>
+                    </div>
+                {% endmacro %}
+                {% for field in formFields %}
+                    {% if field.type == "textarea" %}
+                        {{ textareaField(field) }}
+                    {% else %}
+                        {{ inputField(field) }}
+                    {% endif %}
+                {% endfor %}
+                <button type="submit"
+                        class="w-full inline-flex justify-center py-3 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                    Get Your Free Assessment
+                </button>
+            </form>
+        </div>
+        <div class="md:ml-12 mt-8 md:mt-12 md:w-1/4">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">What happens next?</h3>
+            <p class="text-lg text-gray-700 dark:text-slate-300 mb-4">
+                Once we receive your information, we'll review your website and provide a free report with recommendations on how to improve your digital presence.
+            </p>
+            <p class="text-lg text-gray-700 dark:text-slate-300">
+                You'll receive an email with a link to download the report.
+            </p>
+        </div>
+    </div>
+</section>
