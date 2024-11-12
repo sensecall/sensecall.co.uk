@@ -9,11 +9,15 @@ description: Start Your Free Assessment
     <div class="relative z-10 bg-orange-600 dark:bg-sky-800 py-24 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 md:mb-12">
             <div class="w-full md:w-2/3">
-                <h1 class="text-4xl md:text-5xl font-black text-white dark:text-white mb-6 font-sans drop-shadow-lg">Get Your Free Assessment</h1>
+                <h1 class="text-4xl md:text-5xl font-black text-white dark:text-white mb-6 font-sans drop-shadow-lg">
+                    Get Your Free Assessment
+                </h1>
                 <p class="text-lg md:text-xl text-orange-50 dark:text-slate-300 mb-4">
                     We'll review your website and provide a free report with recommendations on how to improve your digital presence.
                 </p>
-                <p class="text-lg md:text-xl text-orange-50 dark:text-slate-300 mb-4">No obligation, no spam, just a helpful report.</p>
+                <p class="text-lg md:text-xl text-orange-50 dark:text-slate-300 mb-4">
+                    No obligation, no spam, just a helpful report.
+                </p>
             </div>
         </div>
     </div>
@@ -24,35 +28,36 @@ description: Start Your Free Assessment
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Tell us about your project</h2>
             <form action="https://formspree.io/f/mgeqqzqj"
                   method="POST"
-                  class="space-y-4">
+                  class="space-y-4"
+                  id="assessmentForm">
                 {% set formFields = [
                     {
                         "label": "Name",
                         "type": "text",
                         "id": "name",
                         "name": "name",
-                        "required": true
+                        "required": false
                     },
                     {
                         "label": "Email",
                         "type": "email",
                         "id": "email",
                         "name": "email",
-                        "required": true
+                        "required": false
                     },
                     {
                         "label": "Phone Number",
                         "type": "tel",
                         "id": "phone",
                         "name": "phone",
-                        "required": true
+                        "required": false
                     },
                     {
                         "label": "Company Name",
                         "type": "text",
                         "id": "company-name",
                         "name": "company-name",
-                        "required": true
+                        "required": false
                     },
                     {
                         "label": "Website URL",
@@ -105,9 +110,29 @@ description: Start Your Free Assessment
             <p class="text-lg text-gray-700 dark:text-slate-300 mb-4">
                 Once we receive your information, we'll review your website and provide a free report with recommendations on how to improve your digital presence.
             </p>
-            <p class="text-lg text-gray-700 dark:text-slate-300">
-                You'll receive an email with a link to download the report.
-            </p>
+            <p class="text-lg text-gray-700 dark:text-slate-300">You'll receive an email with a link to download the report.</p>
         </div>
     </div>
 </section>
+<script>
+    document.getElementById('assessmentForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const url = formData.get('url');
+
+        console.log(url);
+
+        const response = await fetch('/.netlify/functions/captureScreenshot', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                url
+            })
+        });
+
+        const result = await response.json();
+        alert(result.message);
+    });
+</script>
