@@ -1,12 +1,6 @@
----
-eleventyImport:
-    collections: ["post"]
-layout: page.njk
-title: Monthly Digital Design Support for Growing Businesses | UI UX Ltd
-description: Get ongoing UX design, research and digital strategy support without the high agency fees. Fixed monthly pricing with unlimited requests.
-permalink: /
-bodyClass: homePage
----
+{% extends "_includes/layouts/base.njk" %}
+
+{% block content %}
 
 {# Hero Section #}
 <section class="relative bg-white dark:bg-gray-900 py-24 overflow-hidden">
@@ -523,3 +517,4 @@ bodyClass: homePage
         </div>
     </div>
 </section>
+{% endblock %}

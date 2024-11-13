@@ -1,0 +1,11 @@
+{
+  "watch": [
+    "src/**/*.{js,njk,css,html}",
+    "server.js"
+  ],
+  "ext": "js,njk,css,html",
+  "ignore": [
+    "src/assets/css/style.css",
+    "node_modules/*"
+  ]
+} 

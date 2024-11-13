@@ -2,8 +2,10 @@
 module.exports = {
   darkMode: 'class',
   content: [
-    './_site/**/*.html',
-    './src/**/*.{html,js,jsx,md,njk,liquid,webc}'
+    './src/**/*.{html,js,jsx}',
+    './src/**/*.njk',
+    './src/pages/**/*.njk',
+    './src/_includes/**/*.njk'
   ],
   theme: {
     fontFamily: {
@@ -15,9 +17,9 @@ module.exports = {
         css: {
           color: '#384042',
           a: {
-            color: '#1d4ed8', // Tailwind blue
+            color: '#1d4ed8',
             '&:hover': {
-              color: '#1e40af', // Darker Tailwind blue
+              color: '#1e40af',
             },
           },
           'h1,h2,h3,h4': {
@@ -32,7 +34,7 @@ module.exports = {
           a: {
             color: '#ff5773',
             '&:hover': {
-              color: '#ff8599', 
+              color: '#ff8599',
             },
           },
         },
