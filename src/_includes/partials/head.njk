@@ -1,7 +1,11 @@
 <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>{{ title }} - UI UX Ltd</title>
+      {% if title %}
+      <title>{{ title }} - SiteHero</title>
+      {% else %}
+      <title>SiteHero – Honest Website Audits & Practical Solutions</title>
+      {% endif %}
       <meta name="description" content="{{ description }}">
       <meta name="format-detection" content="telephone=no">
       <meta name="theme-color"
@@ -40,33 +44,32 @@
           {
               "@context": "https://schema.org",
               "@type": "Organization",
-              "name": "UI UX Ltd",
+              "name": "SiteHero",
               "description": "{{ description }}",
-              "url": "https://uiux.ltd{{ page.url }}",
+              "url": "https://sitehero.dev{{ page.url }}",
               "areaServed": "United Kingdom",
               "serviceType": [
-                  "Service Design",
-                  "User Experience Design",
-                  "Interaction Design",
-                  "User Research",
-                  "Accessibility",
-                  "Content Design",
-                  "Prototyping",
-                  "Frontend Development",
-                  "Product Strategy"
+                  "Website Audits",
+                  "UX Design",
+                  "Performance Optimization",
+                  "SEO Analysis",
+                  "Accessibility Testing",
+                  "Design Recommendations",
+                  "Mobile Optimization",
+                  "Competitor Analysis"
               ],
-              "logo": "https://uiux.ltd/assets/images/logo.svg",
+              "logo": "https://sitehero.dev/assets/images/logo.svg",
               "contactPoint": {
                   "@type": "ContactPoint",
                   "telephone": "00447702310015",
-                  "contactType": "Organisation contact"
+                  "contactType": "Customer Support"
               }
           }
       </script>
-      <meta name="author" content="UI UX Ltd">
+      <meta name="author" content="SiteHero">
       <meta name="robots" content="index, follow">
-      <meta property="og:title" content="{{ title }} - UI UX Ltd">
+      <meta property="og:title" content="{{ title }} - SiteHero">
       <meta property="og:description" content="{{ description }}">
-      <meta property="og:url" content="https://uiux.ltd{{ page.url }}">
+      <meta property="og:url" content="https://sitehero.dev{{ page.url }}">
       <meta property="og:type" content="website">
 </head>
