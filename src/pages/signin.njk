@@ -1,0 +1,87 @@
+{% extends "_includes/layouts/base.njk" %}
+
+{% set title = "Sign in to your SiteHero account" %}
+
+{% block content %}
+<div class="min-h-[80vh] flex items-center justify-center px-4 bg-gradient-to-br from-green-600 to-emerald-800 dark:from-green-900 dark:to-emerald-950">
+  <div class="absolute inset-0 opacity-20 bg-[url('/assets/images/pattern.svg')]"></div>
+  <div class="w-full max-w-md relative z-10">
+    {# Card container #}
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8">
+      {# Header #}
+      <div class="text-center mb-8">
+        <div class="flex items-center justify-center mb-4">
+          <div class="flex items-center justify-start relative">
+            <svg class="w-6 h-6 absolute -top-2 -left-6 -rotate-12" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" 
+                    fill="#22C55E" class="dark:fill-green-400" />
+            </svg>
+            <span class="text-4xl font-black text-gray-900 dark:text-white tracking-tight">site<span class="text-green-500 dark:text-green-400 font-extralight">hero</span></span>
+          </div>
+        </div>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Welcome back</h1>
+        <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Sign in to continue</p>
+      </div>
+
+      {# Sign in form #}
+      <form action="/auth/signin" method="post" class="space-y-6">
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email address</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            required
+            class="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 shadow-sm focus:border-green-500 focus:ring-green-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
+            placeholder="you@example.com"
+          >
+        </div>
+
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            required
+            class="mt-1 block w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 shadow-sm focus:border-green-500 focus:ring-green-500 dark:bg-gray-700 dark:text-white transition-colors duration-200"
+          >
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <input
+              type="checkbox"
+              name="remember"
+              id="remember"
+              class="h-5 w-5 rounded border-gray-300 text-green-600 focus:ring-green-500 transition-colors duration-200"
+            >
+            <label for="remember" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">Remember me</label>
+          </div>
+
+          <a href="/forgot-password" class="text-sm font-medium text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition-colors duration-200">
+            Forgot your password?
+          </a>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 shadow-lg hover:shadow-xl"
+        >
+          Sign in
+        </button>
+      </form>
+
+      {# Sign up link #}
+      <div class="mt-6 text-center text-sm">
+        <p class="text-gray-600 dark:text-gray-400">
+          Don't have an account?
+          <a href="/signup" class="font-medium text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300">
+            Create one now
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

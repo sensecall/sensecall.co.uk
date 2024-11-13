@@ -21,6 +21,13 @@ router.get('/pricing', (req, res) => {
     });
 });
 
+// Sign in page
+router.get('/signin', (req, res) => {
+    res.render('pages/signin.njk', {
+        title: 'Sign in to your SiteHero account'
+    });
+});
+
 // Projects page
 router.get('/assessment', async (req, res) => {
     const websiteUrl = req.query.url || null;
