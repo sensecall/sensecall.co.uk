@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { captureScreenshots } = require('./captureScreenshot');
+const { captureScreenshots } = require('./services/captureScreenshot');
 const path = require('path');
-const fs = require('fs').promises;
+const fs = require('fs/promises');
 const crypto = require('crypto');
+const apiAssessmentRouter = require('./routes/api/assessment');
+const assessmentRouter = require('./routes/assessment');
 
 // Home page
 router.get('/', (req, res) => {
@@ -28,28 +30,10 @@ router.get('/signin', (req, res) => {
     });
 });
 
-// Projects page
-router.get('/assessment', async (req, res) => {
-    const websiteUrl = req.query.url || null;
-    const sessionId = crypto.randomBytes(16).toString('hex');
-    
-    console.log('Assessment page loaded:', {
-        websiteUrl,
-        sessionId,
-        hasUrl: !!websiteUrl
-    });
-    
-    if (websiteUrl) {
-        captureScreenshotsAsync(websiteUrl, sessionId);
-    }
-
-    res.render('pages/assessment.njk', {
-        title: 'Assessment',
-        description: 'Get a brutally honest assessment of your digital presence.',
-        websiteUrl,
-        sessionId
-    });
-});
+// Assessment route
+router.use('/assessment', assessmentRouter);
+// API routes
+router.use('/api', apiAssessmentRouter);
 
 // New endpoint to check screenshot status
 router.get('/api/screenshot-status/:sessionId', async (req, res) => {
@@ -91,26 +75,36 @@ router.get('/api/screenshot-status/:sessionId', async (req, res) => {
 // Function to handle screenshot capture asynchronously
 async function captureScreenshotsAsync(url, sessionId) {
     console.log(`🔄 Starting async screenshot capture for session ${sessionId}`);
-    const screenshotsPath = path.join(__dirname, 'tmp', sessionId);
+    const tmpDir = path.join(__dirname, 'tmp');
+    const screenshotsPath = path.join(tmpDir, sessionId);
     
     try {
-        console.log(`📁 Creating directory: ${screenshotsPath}`);
+        // Create both directories sequentially
+        console.log(`📁 Creating directories...`);
+        await fs.mkdir(tmpDir, { recursive: true });
         await fs.mkdir(screenshotsPath, { recursive: true });
         
         console.log('📸 Capturing screenshots...');
         const screenshots = await captureScreenshots(url);
         
         console.log('💾 Saving screenshots to disk...');
-        await Promise.all(screenshots.map(async (screenshot) => {
+        for (const screenshot of screenshots) {
             const filename = `${screenshot.breakpoint.width}x${screenshot.breakpoint.height}.jpg`;
             const filepath = path.join(screenshotsPath, filename);
             console.log(`📝 Writing file: ${filepath}`);
-            await fs.writeFile(filepath, screenshot.image, 'base64');
-        }));
+            try {
+                await fs.writeFile(filepath, Buffer.from(screenshot.image, 'base64'));
+                console.log(`✅ Successfully wrote: ${filename}`);
+            } catch (writeError) {
+                console.error(`❌ Error writing file ${filename}:`, writeError);
+                throw writeError;
+            }
+        }
 
         console.log('✅ Screenshot capture and save complete');
     } catch (error) {
         console.error('❌ Error in captureScreenshotsAsync:', error);
+        throw error;
     }
 }
 
@@ -158,5 +152,8 @@ router.get('/api/debug-screenshots/:sessionId', async (req, res) => {
         });
     }
 });
+
+router.use('/assessment', assessmentRouter);
+router.use('/api', apiAssessmentRouter);
 
 module.exports = router;

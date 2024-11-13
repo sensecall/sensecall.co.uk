@@ -1,0 +1,56 @@
+{% extends "_includes/layouts/base.njk" %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold mb-8">Assessment Status</h1>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div class="mb-6">
+            <h2 class="text-xl font-semibold mb-2">Website</h2>
+            <p class="text-gray-600 dark:text-gray-400">{{ assessment.websiteUrl }}</p>
+        </div>
+
+        <div class="mb-6">
+            <h2 class="text-xl font-semibold mb-2">Status</h2>
+            <div class="flex items-center">
+                {% if assessment.status === 'processing' %}
+                    <div class="animate-pulse flex space-x-4">
+                        <div class="h-3 w-3 bg-yellow-400 rounded-full"></div>
+                        <span class="text-gray-600 dark:text-gray-400">Processing...</span>
+                    </div>
+                {% elif assessment.status === 'completed' %}
+                    <div class="flex space-x-4">
+                        <div class="h-3 w-3 bg-green-500 rounded-full"></div>
+                        <span class="text-gray-600 dark:text-gray-400">Completed</span>
+                    </div>
+                {% else %}
+                    <div class="flex space-x-4">
+                        <div class="h-3 w-3 bg-red-500 rounded-full"></div>
+                        <span class="text-gray-600 dark:text-gray-400">Failed</span>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if assessment.status === 'completed' and assessment.screenshots %}
+            <div class="mt-8">
+                <h2 class="text-xl font-semibold mb-4">Screenshots</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {% for screenshot in assessment.screenshots %}
+                        <div class="rounded-lg overflow-hidden shadow-lg">
+                            <img src="data:image/jpeg;base64,{{ screenshot.image }}" 
+                                 alt="Screenshot at {{ screenshot.breakpoint.width }}x{{ screenshot.breakpoint.height }}"
+                                 class="w-full h-auto">
+                            <div class="p-4 bg-gray-50 dark:bg-gray-700">
+                                <p class="text-sm text-gray-600 dark:text-gray-400">
+                                    {{ screenshot.breakpoint.width }}x{{ screenshot.breakpoint.height }}
+                                </p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %} 

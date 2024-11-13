@@ -11,3 +11,5 @@ package-lock.json
 # Local Netlify folder
 .netlify
 tmp/
+.env
+data/

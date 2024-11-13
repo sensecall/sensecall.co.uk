@@ -8,10 +8,27 @@ const darkModeMiddleware = require('./middleware/darkMode');
 const filters = require('./filters');
 const browserSync = require('browser-sync');
 const bs = browserSync.create();
-const { router: screenshotRouter } = require('./captureScreenshot');
+const { router: screenshotRouter } = require('./services/captureScreenshot');
+const mongoose = require('mongoose');
+const checkDatabaseConnection = require('./utils/dbCheck');
+const assessmentRoutes = require('./routes/assessment');
 
+// Load environment variables first
 require('dotenv').config();
 const env = process.env.NODE_ENV;
+
+// Then connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 5000,
+  socketTimeoutMS: 45000,
+}).then(async () => {
+  console.log('Connected to MongoDB');
+  await checkDatabaseConnection();
+}).catch(err => {
+  console.error('MongoDB connection error:', err);
+});
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -43,12 +60,6 @@ njEnvironment.addGlobal('year', new Date().getFullYear());
 app.use('/css', express.static(path.join(__dirname, 'src/assets/css')));
 app.use('/js', express.static(path.join(__dirname, 'src/assets/js')));
 app.use('/assets', express.static(path.join(__dirname, 'src/assets')));
-
-// Move URL logging middleware before routes
-app.use((req, res, next) => {
-    console.log(`Page URL: ${req.url}`);
-    next();
-});
 
 // Move dark mode middleware before routes
 app.use(darkModeMiddleware);

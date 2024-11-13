@@ -151,7 +151,7 @@
                                 </p>
                             </div>
                             {# Form Component #}
-                            <form action="https://formspree.io/f/mgeqqzqj"
+                            <form action="/assessment/submit"
                                   method="post"
                                   class="space-y-6"
                                   id="assessmentForm">
@@ -362,53 +362,56 @@
                 return;
             }
 
-            // First, update the screenshot
-            const screenshot = screenshots[0];
-            if (!screenshot) {
-                console.error('No screenshots available');
+            // Find the desktop screenshot (largest width)
+            const desktopScreenshot = screenshots.reduce((prev, current) => 
+                (prev.breakpoint.width > current.breakpoint.width) ? prev : current
+            );
+
+            if (!desktopScreenshot) {
+                console.error('No desktop screenshot available');
                 return;
             }
 
-            console.log('Generating HTML for first screenshot');
+            console.log('Generating HTML for desktop screenshot');
             const html = `
-                <div class="space-y-2">
-                    <div class="aspect-video w-full relative rounded-b-lg overflow-hidden" style="max-height: 320px;">
-                        <img src="data:image/jpeg;base64,${screenshot.image}" 
-                             alt="Website Preview at ${screenshot.breakpoint.width}x${screenshot.breakpoint.height}" 
-                             class="w-full object-cover object-top">
+                <div class="space-y-4">
+                    <div class="aspect-video w-full relative rounded-lg overflow-hidden" style="max-height: 320px;">
+                        <img src="data:image/jpeg;base64,${desktopScreenshot.image}" 
+                             alt="Website Preview" 
+                             class="w-full h-full object-cover object-top">
                     </div>
-                </div>
-                <div id="analysis-checklist" class="mt-4 text-left p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                    <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Analysis Progress:</h3>
-                    <ul class="space-y-2">
-                        <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
-                            <span class="checklist-icon">⏳</span>
-                            <span class="checklist-text">Page source code</span>
-                        </li>
-                        <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
-                            <span class="checklist-icon">⏳</span>
-                            <span class="checklist-text">Site metadata</span>
-                        </li>
-                        <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
-                            <span class="checklist-icon">⏳</span>
-                            <span class="checklist-text">Page content (formatted)</span>
-                        </li>
-                        <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
-                            <span class="checklist-icon">⏳</span>
-                            <span class="checklist-text">Performance analysis</span>
-                        </li>
-                        <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
-                            <span class="checklist-icon">⏳</span>
-                            <span class="checklist-text">SEO analysis</span>
-                        </li>
-                    </ul>
+                    <div id="analysis-checklist" class="text-left p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Analysis Progress:</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
+                                <span class="checklist-icon">⏳</span>
+                                <span class="checklist-text">Page source code</span>
+                            </li>
+                            <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
+                                <span class="checklist-icon">⏳</span>
+                                <span class="checklist-text">Site metadata</span>
+                            </li>
+                            <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
+                                <span class="checklist-icon">⏳</span>
+                                <span class="checklist-text">Page content (formatted)</span>
+                            </li>
+                            <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
+                                <span class="checklist-icon">⏳</span>
+                                <span class="checklist-text">Performance analysis</span>
+                            </li>
+                            <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
+                                <span class="checklist-icon">⏳</span>
+                                <span class="checklist-text">SEO analysis</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             `;
 
             console.log('Setting container innerHTML');
             container.innerHTML = html;
-            
-            // Then animate the checklist items
+
+            // Animate the checklist items
             const items = container.querySelectorAll('#analysis-checklist li');
             items.forEach((item, index) => {
                 const delay = 500 + (index * 1000); // Sequential delays, starting after 500ms
@@ -449,6 +452,31 @@
                 }
             } else {
                 console.error('Screenshots container not found');
+            }
+        });
+
+        document.getElementById('assessmentForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const form = e.target;
+            const formData = new FormData(form);
+            
+            try {
+                const response = await fetch('/api/submit-assessment', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Start polling for status
+                    pollScreenshots(data.sessionId);
+                } else {
+                    console.error('Submission failed:', data.message);
+                }
+            } catch (error) {
+                console.error('Form submission error:', error);
             }
         });
     </script>

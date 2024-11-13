@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const puppeteer = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
-const fs = require('fs');
+const fs = require('fs/promises');
+const fsSync = require('fs');
 const path = require('path');
 const tmpDir = path.join(__dirname, '../tmp');
 
@@ -36,23 +37,14 @@ const captureScreenshots = async (url) => {
     ];
 
     let browser = null;
+    let screenshots = [];
     
     try {
         console.log('🌐 Launching browser...');
         browser = await puppeteer.launch(browserOptions);
         
-        // Update cleanup of previous screenshots in development
-        if (isDevelopment) {
-            console.log('🧹 Cleaning up previous screenshots in development mode');
-            
-            if (fs.existsSync(tmpDir)) {
-                fs.rmSync(tmpDir, { recursive: true, force: true });
-            }
-            fs.mkdirSync(tmpDir, { recursive: true });
-        }
-
         console.log('📸 Capturing screenshots for breakpoints:', breakpoints);
-        const screenshots = await Promise.all(breakpoints.map(async (breakpoint) => {
+        screenshots = await Promise.all(breakpoints.map(async (breakpoint) => {
             console.log(`⚡ Processing breakpoint: ${breakpoint.width}x${breakpoint.height}`);
             const page = await browser.newPage();
             
@@ -94,7 +86,8 @@ const captureScreenshots = async (url) => {
                 console.log(`✅ Screenshot captured for ${breakpoint.width}x${breakpoint.height}`);
                 return {
                     breakpoint,
-                    image: screenshotBuffer
+                    image: screenshotBuffer,
+                    timestamp: new Date().toISOString()
                 };
             } catch (error) {
                 console.error(`❌ Error capturing screenshot for ${breakpoint.width}x${breakpoint.height}:`, error);
@@ -113,6 +106,8 @@ const captureScreenshots = async (url) => {
         if (browser) {
             console.log('🔄 Closing browser');
             await browser.close();
+            console.log('✅ Browser closed successfully');
+            console.log('📊 Final screenshots count:', screenshots.length);
         }
     }
 };
@@ -126,10 +121,20 @@ router.post('/', async (req, res) => {
         }
         
         const screenshots = await captureScreenshots(url);
-        res.json({ screenshots });
+        
+        res.json({ 
+            success: true,
+            message: 'Screenshots captured successfully',
+            count: screenshots.length,
+            screenshots 
+        });
     } catch (error) {
         console.error('Screenshot capture failed:', error);
-        res.status(500).json({ error: 'Failed to capture screenshots' });
+        res.status(500).json({ 
+            success: false,
+            error: 'Failed to capture screenshots',
+            message: error.message 
+        });
     }
 });
 
