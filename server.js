@@ -8,12 +8,21 @@ const darkModeMiddleware = require('./middleware/darkMode');
 const filters = require('./filters');
 const browserSync = require('browser-sync');
 const bs = browserSync.create();
+const { router: screenshotRouter } = require('./captureScreenshot');
+
+require('dotenv').config();
+const env = process.env.NODE_ENV;
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Add cookie-parser middleware before other middleware
+// Add body-parser middleware before other middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+// Add screenshot router middleware
+app.use('/api/screenshot', screenshotRouter);
 
 // Configure Nunjucks
 const njEnvironment = nunjucks.configure('src', {
@@ -41,11 +50,12 @@ app.use((req, res, next) => {
     next();
 });
 
+// Move dark mode middleware before routes
+app.use(darkModeMiddleware);
+
 // Use routes
 app.use('/', routes);
-
-// Use dark mode middleware
-app.use(darkModeMiddleware);
+app.use(screenshotRouter);
 
 // Error handling
 app.use((req, res, next) => {

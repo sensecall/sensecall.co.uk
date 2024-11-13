@@ -1,127 +1,395 @@
----
-layout: page.njk
-title: Pricing Plans
-permalink: /pricing/
-description: Explore our flexible pricing plans tailored to your business needs.
----
-
-<section class="py-16 lg:py-24 bg-white dark:bg-gray-900">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-            <h1 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-6 font-sans">
-                Flexible Pricing Plans
-            </h1>
-            <p class="text-xl text-gray-600 dark:text-slate-300 max-w-3xl mx-auto">
-                Choose a plan that fits your business needs and budget. No hidden fees, just transparent pricing.
-            </p>
+{% extends "_includes/layouts/base.njk" %}
+{% block content %}
+    {# FAQ Floating Button #}
+    <button class="fixed bottom-8 right-8 bg-white dark:bg-gray-800 shadow-lg rounded-full p-4 flex items-center space-x-2 hover:shadow-xl transition-all z-50">
+        <svg class="w-6 h-6 text-orange-500"
+             fill="none"
+             stroke="currentColor"
+             viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span class="text-gray-900 dark:text-white font-medium">Need Help?</span>
+    </button>
+    <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {# Pricing Header with Toggle #}
+        <section class="py-16 lg:py-24 bg-white dark:bg-gray-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h1 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-6 font-sans">
+                        Straightforward Pricing.
+                        <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-300 to-red-600">No BS.</span>
+                    </h1>
+                    <p class="text-xl text-gray-600 dark:text-slate-300 max-w-3xl mx-auto">
+                        Choose your plan, and let's fix your website. Simple as that.
+                    </p>
+                </div>
+                <div class="flex justify-center space-x-4 mb-12">
+                    <fieldset id="billingToggle" class="bg-gray-100 dark:bg-gray-800 p-1 rounded-full flex" role="radiogroup" aria-label="Billing frequency">
+                        <label class="relative">
+                            <input type="radio" 
+                                   name="billing" 
+                                   value="monthly" 
+                                   class="sr-only peer/monthly"
+                                   id="monthly"
+                                   checked>
+                            <span class="px-6 py-2 rounded-full transition-all duration-200 cursor-pointer block
+                                       text-gray-700 dark:text-gray-300
+                                       peer-checked/monthly:bg-orange-500 peer-checked/monthly:text-white peer-checked/monthly:shadow-md
+                                       focus-within:ring-2 focus-within:ring-orange-500 focus-within:ring-offset-2">
+                                Monthly
+                            </span>
+                        </label>
+                        <label class="relative">
+                            <input type="radio" 
+                                   name="billing" 
+                                   value="annual" 
+                                   class="sr-only peer/annual"
+                                   id="annual">
+                            <span class="px-6 py-2 rounded-full transition-all duration-200 cursor-pointer block
+                                       text-gray-700 dark:text-gray-300
+                                       peer-checked/annual:bg-orange-500 peer-checked/annual:text-white peer-checked/annual:shadow-md
+                                       focus-within:ring-2 focus-within:ring-orange-500 focus-within:ring-offset-2">
+                                Annual
+                                <span class="ml-1 text-sm bg-orange-500/10 rounded-full px-2 py-1 peer-checked/annual:text-white text-orange-500">
+                                    Save 20%
+                                </span>
+                            </span>
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {% set plans = [
+                        {
+                            "name": "Pay As You Go",
+                            "price": "£149<span class='text-sm text-gray-600 dark:text-slate-300'>/audit</span>",
+                            "annual_price": "£149<span class='text-sm text-gray-600 dark:text-slate-300'>/audit</span>",
+                            "description": "One-off website audits when you need them.",
+                            "features": [
+                                "Comprehensive site audit & report",
+                                "Performance analysis",
+                                "UX recommendations",
+                                "30-day action plan",
+                                "One revision round"
+                            ],
+                            "cta": "Get Your Audit",
+                            "best_for": "Perfect for startups and small businesses"
+                        },
+                        {
+                            "name": "Growth",
+                            "price": "£399<span class='text-sm text-gray-600 dark:text-slate-300'>/month</span>",
+                            "annual_price": "£319<span class='text-sm text-gray-600 dark:text-slate-300'>/month</span>",
+                            "description": "Continuous improvement for serious businesses.",
+                            "features": [
+                                "Monthly site audits & reports",
+                                "Priority support (48h response)",
+                                "A/B testing recommendations",
+                                "Competitor analysis",
+                                "Monthly strategy calls",
+                                "Implementation guidance"
+                            ],
+                            "cta": "Start Growing",
+                            "highlight": true,
+                            "best_for": "Ideal for growing businesses"
+                        },
+                        {
+                            "name": "Scale",
+                            "price": "£999<span class='text-sm text-gray-600 dark:text-slate-300'>/month</span>",
+                            "annual_price": "£799<span class='text-sm text-gray-600 dark:text-slate-300'>/month</span>",
+                            "description": "Full-service optimization & implementation.",
+                            "features": [
+                                "Everything in Growth, plus:",
+                                "Hands-on implementation",
+                                "Weekly priority tasks",
+                                "Custom development hours",
+                                "24/7 emergency support",
+                                "Dedicated success manager"
+                            ],
+                            "cta": "Scale Up Now",
+                            "best_for": "For businesses that want it done for them"
+                        }
+                    ] %}
+                    {% for plan in plans %}
+                        <div class="flex flex-col h-full bg-white dark:bg-gray-800 p-8 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 {% if plan.highlight %}ring-2 ring-orange-500 dark:ring-orange-400{% endif %}">
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">{{ plan.name }}</h3>
+                            <p class="text-gray-600 dark:text-slate-300 mb-4">{{ plan.description }}</p>
+                            <p class="text-3xl font-bold text-gray-900 dark:text-white mb-6"
+                               data-monthly-price="{{ plan.price | safe }}"
+                               data-annual-price="{{ plan.annual_price | safe }}">
+                                {{ plan.price | safe }}
+                            </p>
+                            <ul class="mb-8 flex-grow">
+                                {% for feature in plan.features %}
+                                    <li class="flex items-center mb-2">
+                                        <svg class="w-5 h-5 text-green-500 mr-2"
+                                             fill="none"
+                                             stroke="currentColor"
+                                             viewBox="0 0 24 24"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                        <span class="text-gray-600 dark:text-slate-300">{{ feature }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <a href="/assessment/"
+                               class="w-full text-center px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition duration-200 {% if plan.highlight %}text-lg{% endif %}">
+                                {{ plan.cta }}
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="mt-12 text-center">
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Enterprise Solutions</h3>
+                    <p class="text-gray-600 dark:text-slate-300 mb-6">Need a custom solution for your large-scale business?</p>
+                    <div class="inline-flex items-center space-x-8">
+                        <div class="text-left">
+                            <p class="font-semibold">• Multiple websites</p>
+                            <p class="font-semibold">• Custom SLAs</p>
+                        </div>
+                        <div class="text-left">
+                            <p class="font-semibold">• API access</p>
+                            <p class="font-semibold">• White-label reports</p>
+                        </div>
+                        <a href="/enterprise"
+                           class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700">
+                            Contact Sales
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-16 text-center">
+                    <button class="text-orange-500 hover:text-orange-600 font-semibold flex items-center justify-center mx-auto">
+                        <span>Compare all features</span>
+                        <svg class="w-5 h-5 ml-2"
+                             fill="none"
+                             stroke="currentColor"
+                             viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+        {# Popular Add-ons Section #}
+        <div class="mb-12">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Popular Add-ons</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {% set addons = [
+                    {
+                        "name": "Priority Support",
+                        "price": "£99/mo",
+                        "description": "24/7 priority response within 2 hours"
+                    },
+                    {
+                        "name": "Extra Team Members",
+                        "price": "£49/user/mo",
+                        "description": "Add additional team members to your account"
+                    },
+                    {
+                        "name": "White Label Reports",
+                        "price": "£199/mo",
+                        "description": "Custom branded reports for your clients"
+                    }
+                ] %}
+                {% for addon in addons %}
+                    <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-medium text-gray-900 dark:text-white">{{ addon.name }}</span>
+                            <span class="text-orange-500 font-semibold">{{ addon.price }}</span>
+                        </div>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">{{ addon.description }}</p>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {% set plans = [
-                {
-                    "name": "Starter",
-                    "price": "£299<span class='text-sm text-gray-600 dark:text-slate-300'>/month</span>",
-                    "description": "Kickstart your digital journey with expert guidance.",
-                    "features": [
-                        "In-depth digital presence analysis",
-                        "Actionable monthly performance insights",
-                        "Responsive email support within 24 hours",
-                        "Tailored design and development roadmap"
-                    ],
-                    "cta": "Boost Your Growth"
-                },
-                {
-                    "name": "Professional",
-                    "price": "£799<span class='text-sm text-gray-600 dark:text-slate-300'>/month</span>",
-                    "description": "Accelerate your business with comprehensive strategies.",
-                    "features": [
-                        "360° digital ecosystem audit",
-                        "Strategic quarterly planning sessions",
-                        "Priority support with same-day responses",
-                        "Cutting-edge design and development solutions"
-                    ],
-                    "cta": "Amplify Your Success",
-                    "highlight": true
-                },
-                {
-                    "name": "Enterprise",
-                    "price": "Bespoke Pricing",
-                    "description": "Unleash your full potential with tailored, high-impact solutions.",
-                    "features": [
-                        "All Professional features, supercharged",
-                        "Your personal digital growth architect",
-                        "Bespoke implementation and ongoing optimisation",
-                        "Innovative design and development at scale"
-                    ],
-                    "cta": "Transform Your Business"
-                }
-            ] %}
-            
-            {% for plan in plans %}
-                <div class="flex flex-col h-full bg-white dark:bg-gray-800 p-8 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 {% if plan.highlight %}ring-2 ring-orange-500 dark:ring-orange-400{% endif %}">
-                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">{{ plan.name }}</h3>
-                    <p class="text-gray-600 dark:text-slate-300 mb-4">{{ plan.description }}</p>
-                    <p class="text-3xl font-bold text-gray-900 dark:text-white mb-6">{{ plan.price | safe }}</p>
-                    <ul class="mb-8 flex-grow">
-                        {% for feature in plan.features %}
-                            <li class="flex items-center mb-2">
-                                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                <span class="text-gray-600 dark:text-slate-300">{{ feature }}</span>
-                            </li>
+        {# Feature Comparison Table #}
+        <div class="mt-16 overflow-hidden">
+            <h3 class="text-2xl font-bold text-center mb-8">Feature Comparison</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="bg-gray-100 dark:bg-gray-800">
+                            <th class="px-6 py-3 text-left text-gray-500 dark:text-gray-300">Feature</th>
+                            <th class="px-6 py-3 text-center">Pay As You Go</th>
+                            <th class="px-6 py-3 text-center">Growth</th>
+                            <th class="px-6 py-3 text-center">Scale</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                        {% set features = [
+                            "Website Audit",
+                            "Performance Analysis",
+                            "SEO Recommendations",
+                            "UX Analysis",
+                            "Custom Development",
+                            "Priority Support",
+                            "Strategy Calls",
+                            "Implementation Support"
+                        ] %}
+
+                        {% set tickHtml = '<svg class="w-5 h-5 text-green-500 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></svg>' %}
+                        {% set crossHtml = '<svg class="w-5 h-5 text-red-500 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>' %}
+                        {% for feature in features %}
+                            <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-800/50">
+                                <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">{{ feature }}</td>
+                                <td class="px-6 py-4 text-center">
+                                    {% if loop.index <= 4 %}
+                                        {{ tickHtml | safe }}
+                                    {% else %}
+                                        {{ crossHtml | safe }}
+                                    {% endif %}
+                                </td>
+                                <td class="px-6 py-4 text-center">
+                                    {% if loop.index <= 6 %}
+                                        {{ tickHtml | safe }}
+                                    {% else %}
+                                        {{ crossHtml | safe }}
+                                    {% endif %}
+                                </td>
+                                <td class="px-6 py-4 text-center">
+                                    {{ tickHtml | safe }}
+                                </td>
+                            </tr>
                         {% endfor %}
-                    </ul>
-                    <a href="/assessment/" class="w-full text-center px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition duration-200 {% if plan.highlight %}text-lg{% endif %}">
-                        {{ plan.cta }}
-                    </a>
-                </div>
-            {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
-</section>
-
-{# Additional Content Sections #}
-
-<section class="py-16 lg:py-24 bg-gray-50 dark:bg-gray-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-6 font-sans">
-                Why Choose Us?
-            </h2>
-            <p class="text-xl text-gray-600 dark:text-slate-300 max-w-3xl mx-auto">
-                Our plans are designed to provide maximum value and flexibility, ensuring you get the best support for your business growth.
+        {# FAQ Section #}
+        <div class="mt-24">
+            <h3 class="text-2xl font-bold text-center mb-12">Frequently Asked Questions</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {% set faqs = [
+                    {
+                        "question": "Can I switch plans at any time?",
+                        "answer": "Yes, you can upgrade or downgrade your plan at any time. Changes will be reflected in your next billing cycle."
+                    },
+                    {
+                        "question": "What's included in the website audit?",
+                        "answer": "Our comprehensive audit includes performance analysis, UX review, SEO assessment, and detailed recommendations for improvement."
+                    },
+                    {
+                        "question": "Do you offer refunds?",
+                        "answer": "We offer a 14-day money-back guarantee if you're not satisfied with our service."
+                    },
+                    {
+                        "question": "How do I cancel my subscription?",
+                        "answer": "You can cancel your subscription anytime from your account dashboard. No long-term contracts or hidden fees."
+                    }
+                ] %}
+                {% for faq in faqs %}
+                    <div class="border-b border-gray-200 dark:border-gray-700 pb-6">
+                        <button data-faq-toggle
+                                class="w-full text-left flex justify-between items-center">
+                            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{{ faq.question }}</h4>
+                            <svg class="w-5 h-5 transition-transform duration-200"
+                                 fill="none"
+                                 stroke="currentColor"
+                                 viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <p class="text-gray-600 dark:text-gray-300 hidden">{{ faq.answer }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {# Call to Action #}
+        <div class="mt-24 text-center">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Still have questions?</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-8">
+                Our team is here to help you choose the right plan for your business.
             </p>
+            <div class="flex justify-center space-x-4">
+                <a href="/contact"
+                   class="px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition duration-200">
+                    Contact Sales
+                </a>
+                <a href="/book-demo"
+                   class="px-6 py-3 border border-orange-500 text-orange-500 hover:bg-orange-50 dark:hover:bg-gray-800 rounded-lg transition duration-200">
+                    Book a Demo
+                </a>
+            </div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {% set benefits = [
-                {
-                    "title": "Expert Support",
-                    "description": "Access to a team of experienced professionals ready to assist you with any challenges.",
-                    "icon": "..."
-                },
-                {
-                    "title": "Custom Solutions",
-                    "description": "Tailored strategies that align with your unique business goals and objectives.",
-                    "icon": "..."
-                },
-                {
-                    "title": "Scalable Plans",
-                    "description": "Flexible pricing options that grow with your business, ensuring you only pay for what you need.",
-                    "icon": "..."
-                }
-            ] %}
-            {% for benefit in benefits %}
-                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
-                    <svg class="w-12 h-12 text-pink-500 mb-6"
-                         fill="none"
-                         stroke="currentColor"
-                         viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ benefit.icon }}"></path>
-                    </svg>
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">{{ benefit.title }}</h3>
-                    <p class="text-gray-600 dark:text-slate-300">{{ benefit.description }}</p>
+        <section class="py-16 lg:py-24 bg-gray-50 dark:bg-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-6 font-sans">Why Work With Us?</h2>
+                    <p class="text-xl text-gray-600 dark:text-slate-300 max-w-3xl mx-auto">
+                        Because we're not afraid to tell you what's wrong - and then actually fix it.
+                    </p>
                 </div>
-            {% endfor %}
-        </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {% set benefits = [
+                        {
+                            "title": "Expert Support",
+                            "description": "Access to a team of experienced professionals ready to assist you with any challenges.",
+                            "icon": "..."
+                        },
+                        {
+                            "title": "Custom Solutions",
+                            "description": "Tailored strategies that align with your unique business goals and objectives.",
+                            "icon": "..."
+                        },
+                        {
+                            "title": "Scalable Plans",
+                            "description": "Flexible pricing options that grow with your business, ensuring you only pay for what you need.",
+                            "icon": "..."
+                        }
+                    ] %}
+                    {% for benefit in benefits %}
+                        <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
+                            <svg class="w-12 h-12 text-pink-500 mb-6"
+                                 fill="none"
+                                 stroke="currentColor"
+                                 viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ benefit.icon }}"></path>
+                            </svg>
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">{{ benefit.title }}</h3>
+                            <p class="text-gray-600 dark:text-slate-300">{{ benefit.description }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        {# Trust Signals Section #}
+        <section class="py-12 bg-gray-50 dark:bg-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-8">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Trusted by leading companies worldwide</h3>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
+                    {# Add your client logos here #}
+                    {% for i in range(4) %}
+                        <img src="/assets/images/client-logo-{{ i + 1 }}.svg"
+                             alt="Client logo"
+                             class="h-8 opacity-50 hover:opacity-100 transition-opacity">
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
     </div>
-</section>
+{% endblock %}
+{% block pageScripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const billingToggle = document.getElementById('billingToggle');
+            const radioInputs = billingToggle.querySelectorAll('input[type="radio"]');
+            const prices = document.querySelectorAll('[data-monthly-price]');
+            
+            const updatePrices = (billingType) => {
+                prices.forEach(price => {
+                    const monthlyPrice = price.getAttribute('data-monthly-price');
+                    const annualPrice = price.getAttribute('data-annual-price');
+                    price.innerHTML = billingType === 'annual' ? annualPrice : monthlyPrice;
+                });
+            };
+
+            radioInputs.forEach(input => {
+                input.addEventListener('change', () => {
+                    updatePrices(input.value);
+                });
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,138 +1,455 @@
----
-layout: page.njk
-title: Assessment
-permalink: /assessment/
-description: Start Your Free Assessment
----
-
-<section id="assessment-hero">
-    <div class="relative z-10 bg-orange-600 dark:bg-sky-800 py-24 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 md:mb-12">
-            <div class="w-full md:w-2/3">
-                <h1 class="text-4xl md:text-5xl font-black text-white dark:text-white mb-6 font-sans drop-shadow-lg">
-                    Get Your Free Assessment
-                </h1>
-                <p class="text-lg md:text-xl text-orange-50 dark:text-slate-300 mb-4">
-                    We'll review your website and provide a free report with recommendations on how to improve your digital presence.
-                </p>
-                <p class="text-lg md:text-xl text-orange-50 dark:text-slate-300 mb-4">
-                    No obligation, no spam, just a helpful report.
-                </p>
+{% extends "_includes/layouts/base.njk" %}
+{% block content %}
+    {# Hero Section with Dynamic Background #}
+    <section id="assessment-hero" class="relative">
+        <div class="absolute inset-0 bg-gradient-to-br from-green-600 to-emerald-800 dark:from-green-900 dark:to-emerald-950">
+        </div>
+        <div class="absolute inset-0 opacity-20 bg-[url('/assets/images/pattern.svg')]"></div>
+        <div class="relative z-10 py-24 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 md:mb-12">
+                <div class="w-full md:w-2/3">
+                    {% if websiteUrl %}
+                        <div class="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm mb-6" id="analysis-status">
+                            <svg aria-hidden="true"
+                                 class="w-4 h-4 md:w-5 md:h-5 text-gray-200 animate-spin dark:text-gray-600 fill-white mr-2"
+                                 viewBox="0 0 100 101"
+                                 fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
+                                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill" />
+                            </svg>
+                            <span class="text-white text-sm font-medium md:text-base">Analysing <span class="font-bold">{{ websiteUrl | replace('https://', '') | replace('http://', '') }}</span></span>
+                        </div>
+                    {% endif %}
+                    <h1 class="text-4xl md:text-6xl font-black text-white mb-6 font-sans leading-tight">
+                        {% if websiteUrl %}
+                            Your Website
+                            <br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-emerald-100">
+                                Is About to Get Honest
+                            </span>
+                        {% else %}
+                            Your Website
+                            <br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-emerald-100">Probably Sucks</span>
+                        {% endif %}
+                    </h1>
+                    <p class="text-xl md:text-2xl text-white/80 font-light max-w-xl">
+                        {% if websiteUrl %}
+                            Brace yourself. We're about to give you the brutal truth about your website's performance, design, and user experience.
+                        {% else %}
+                            Stop losing customers to your competitors. Get a brutally honest assessment of your digital presence, and let us help you fix it.
+                        {% endif %}
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-<section class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-col md:flex-row">
-        <div class="w-full md:w-1/2 -mt-24 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg relative z-20 mb-24">
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Tell us about your project</h2>
-            <form action="https://formspree.io/f/mgeqqzqj"
-                  method="POST"
-                  class="space-y-4"
-                  id="assessmentForm">
-                {% set formFields = [
-                    {
-                        "label": "Name",
-                        "type": "text",
-                        "id": "name",
-                        "name": "name",
-                        "required": false
-                    },
-                    {
-                        "label": "Email",
-                        "type": "email",
-                        "id": "email",
-                        "name": "email",
-                        "required": false
-                    },
-                    {
-                        "label": "Phone Number",
-                        "type": "tel",
-                        "id": "phone",
-                        "name": "phone",
-                        "required": false
-                    },
-                    {
-                        "label": "Company Name",
-                        "type": "text",
-                        "id": "company-name",
-                        "name": "company-name",
-                        "required": false
-                    },
-                    {
-                        "label": "Website URL",
-                        "type": "url",
-                        "id": "url",
-                        "name": "url",
-                        "required": true
-                    },
-                    {
-                        "label": "Message",
-                        "type": "textarea",
-                        "id": "message",
-                        "name": "message",
-                        "required": false
+    </section>
+    {# Main Content Section #}
+    <section class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-32">
+        <div class="flex flex-col lg:flex-row gap-8 mb-24">
+            {% if websiteUrl %}
+                {# Preview Section #}
+                <div class="w-full lg:w-2/5 mb-8 lg:mb-0 mt-16">
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden">
+                        {# Preview Header #}
+                        <div class="px-6 py-4 flex items-center border-b border-gray-200 dark:border-gray-700">
+                            <div class="flex space-x-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                        </div>
+                        {# preview browser URL bar #}
+                        <div class="px-6 py-3 bg-gray-100 dark:bg-gray-700 flex items-center select-none">
+                            <div class="flex items-center w-full">
+                                <div class="flex items-center text-gray-400 dark:text-gray-500 mr-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <span class="text-gray-500 dark:text-gray-400 truncate text-sm">
+                                    {{ websiteUrl | replace('https://', '') | replace('http://', '') }}
+                                </span>
+                            </div>
+                        </div>
+                        {# Preview Content #}
+                        <div class="">
+                            {% if websiteUrl %}
+                                <div id="screenshots-container"
+                                     data-session-id="{{ sessionId }}"
+                                     class="space-y-6">
+                                    {# Loading state #}
+                                    <div class="aspect-video w-full mb-4 relative rounded-b-lg overflow-hidden">
+                                        <div class="absolute inset-0 backdrop-blur-lg bg-white/30 dark:bg-black/30 flex flex-col items-center justify-center z-10 text-center p-6">
+                                            <svg aria-hidden="true"
+                                                 class="w-12 h-12 text-gray-400 mb-4 animate-spin dark:text-gray-600 fill-white"
+                                                 viewBox="0 0 100 101"
+                                                 fill="none"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                                                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                                            </svg>
+                                            <span class="text-xl font-bold text-gray-900 dark:text-white mb-4">Capturing screenshots...</span>
+                                            <div class="w-full max-w-md">
+                                                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                                    <div id="screenshot-progress" class="bg-green-600 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+                                                </div>
+                                                <div class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                                                    <span id="screenshot-status">Initialising capture...</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {# Move checklist outside the loading overlay #}
+                                    <div id="analysis-checklist" class="mt-4 text-left hidden p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                                        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Analysis Progress:</h3>
+                                        <ul class="space-y-2">
+                                            <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
+                                                <span class="checklist-icon">⏳</span>
+                                                <span class="checklist-text">Page source code</span>
+                                            </li>
+                                            <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
+                                                <span class="checklist-icon">⏳</span>
+                                                <span class="checklist-text">Site metadata</span>
+                                            </li>
+                                            <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
+                                                <span class="checklist-icon">⏳</span>
+                                                <span class="checklist-text">Page content (formatted)</span>
+                                            </li>
+                                            <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
+                                                <span class="checklist-icon">⏳</span>
+                                                <span class="checklist-text">Performance analysis</span>
+                                            </li>
+                                            <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
+                                                <span class="checklist-icon">⏳</span>
+                                                <span class="checklist-text">SEO analysis</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {# Form Section with Report Summary #}
+            <div class="w-full {{ 'lg:w-3/5' if websiteUrl }}">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8">
+                    <div class="flex flex-col lg:flex-row gap-8">
+                        <div class="lg:w-2/3">
+                            <div class="mb-8">
+                                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-3">
+                                    {% if websiteUrl %}
+                                        Ready for the Truth?
+                                    {% else %}
+                                        Let's Roast Your Website
+                                    {% endif %}
+                                </h2>
+                                <p class="text-lg text-gray-600 dark:text-gray-400">
+                                    Fill in your details and we'll show you exactly what's wrong (and how to fix it)
+                                </p>
+                            </div>
+                            {# Form Component #}
+                            <form action="https://formspree.io/f/mgeqqzqj"
+                                  method="post"
+                                  class="space-y-6"
+                                  id="assessmentForm">
+                                {% if websiteUrl %}<input type="hidden" name="url" value="{{ websiteUrl }}">{% endif %}
+                                {% set formFields = [
+                                                                    {
+                                                                        "label": "Website URL",
+                                                                        "type": "url",
+                                                                        "id": "url",
+                                                                        "name": "url",
+                                                                        "required": true,
+                                                                        "value": websiteUrl
+                                                                    },
+                                                                    {
+                                                                        "label": "Name",
+                                                                        "type": "text",
+                                                                        "id": "name",
+                                                                        "name": "name",
+                                                                        "required": false
+                                                                    },
+                                                                    {
+                                                                        "label": "Email",
+                                                                        "type": "email",
+                                                                        "id": "email",
+                                                                        "name": "email",
+                                                                        "required": false
+                                                                    },
+                                                                    {
+                                                                        "label": "Phone Number",
+                                                                        "type": "tel",
+                                                                        "id": "phone",
+                                                                        "name": "phone",
+                                                                        "required": false
+                                                                    },
+                                                                    {
+                                                                        "label": "Company Name",
+                                                                        "type": "text",
+                                                                        "id": "company-name",
+                                                                        "name": "company-name",
+                                                                        "required": false
+                                                                    },
+                                                                    {
+                                                                        "label": "Message",
+                                                                        "type": "textarea",
+                                                                        "id": "message",
+                                                                        "name": "message",
+                                                                        "required": false
+                                                                    }
+                                                                ] %}
+                                {% macro inputField(field) %}
+                                    <div class="space-y-2">
+                                        <label for="{{ field.id }}"
+                                               class="block text-sm font-medium text-gray-700 dark:text-slate-300">
+                                            {{ field.label }} {{ "(optional)" if not field.required else "" }}
+                                        </label>
+                                        <input type="{{ field.type }}" id="{{ field.id }}" name="{{ field.name }}" {{ "required" if field.required else "" }} aria-required="{{ field.required }}" class="px-4 py-2 mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out" value="{{ field.value }}">
+                                    </div>
+                                {% endmacro %}
+                                {% macro textareaField(field) %}
+                                    <div class="space-y-2">
+                                        <label for="{{ field.id }}"
+                                               class="block text-sm font-medium text-gray-700 dark:text-slate-300">
+                                            {{ field.label }} {{ "(optional)" if not field.required else "" }}
+                                        </label>
+                                        <textarea id="{{ field.id }}" name="{{ field.name }}" {{ "required" if field.required else "" }} aria-required="{{ field.required }}" class="px-4 py-2 mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out" rows="4">{{ field.value }}</textarea>
+                                    </div>
+                                {% endmacro %}
+                                {% for field in formFields %}
+                                    {% if field.type == "textarea" %}
+                                        {{ textareaField(field) }}
+                                    {% else %}
+                                        {{ inputField(field) }}
+                                    {% endif %}
+                                {% endfor %}
+                                <button type="submit"
+                                        class="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 shadow-lg hover:shadow-xl">
+                                    <span class="flex items-center justify-center">
+                                        <span>Get Your Free Assessment</span>
+                                        <svg class="w-5 h-5 ml-2"
+                                             fill="none"
+                                             stroke="currentColor"
+                                             viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                        </svg>
+                                    </span>
+                                </button>
+                            </form>
+                        </div>
+                        {% if websiteUrl %}
+                            <div class="h-full pb-8 lg:w-1/3 bg-gray-100 dark:bg-gray-700 p-4 rounded-xl">
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Your Report Includes:</h3>
+                                <ul class="space-y-3">
+                                    {% set features = [
+                                        {
+                                            "icon": "🐌",
+                                            "text": "Speed Analysis"
+                                        },
+                                        {
+                                            "icon": "🤮",
+                                            "text": "Design Reality Check"
+                                        },
+                                        {
+                                            "icon": "💸",
+                                            "text": "Competitor Comparison"
+                                        },
+                                        {
+                                            "icon": "🔥",
+                                            "text": "Brutally Honest Feedback"
+                                        },
+                                        {
+                                            "icon": "💪",
+                                            "text": "Actually Useful Solutions"
+                                        }
+                                    ] %}
+                                    {% for feature in features %}
+                                        <li class="flex items-start space-x-3 text-gray-700 dark:text-gray-300">
+                                            <svg class="w-6 h-6 text-green-500 dark:text-emerald-400"
+                                                 fill="none"
+                                                 stroke="currentColor"
+                                                 viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            <span class="flex-1">{{ feature.text }}</span>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block pageScripts %}
+    <script>
+        // Debug function to check screenshot directory
+        async function debugScreenshots(sessionId) {
+            try {
+                const response = await fetch(`/api/debug-screenshots/${sessionId}`);
+                const data = await response.json();
+                console.log('Debug Screenshots:', data);
+            } catch (error) {
+                console.error('Debug Error:', error);
+            }
+        }
+
+        function pollScreenshots(sessionId) {
+            console.log(`Starting to poll screenshots for session: ${sessionId}`);
+            const progressBar = document.querySelector('#screenshot-progress');
+            const statusText = document.querySelector('#screenshot-status');
+            let progress = 0;
+
+            // Update progress bar animation
+            function updateProgress(status) {
+                if (progress < 90) {
+                    progress += 10;
+                    progressBar.style.width = `${progress}%`;
+                    if (status) {
+                        statusText.textContent = status;
                     }
-                ] %}
-                {% macro inputField(field) %}
-                    <div class="space-y-2">
-                        <label for="{{ field.id }}"
-                               class="block text-sm font-medium text-gray-700 dark:text-slate-300">
-                            {{ field.label }} {{ "(optional)" if not field.required else "" }}
-                        </label>
-                        <input type="{{ field.type }}" id="{{ field.id }}" name="{{ field.name }}" {{ "required" if field.required else "" }} aria-required="{{ field.required }}" class="px-3 py-4 h-10 mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                    </div>
-                {% endmacro %}
-                {% macro textareaField(field) %}
-                    <div class="space-y-2">
-                        <label for="{{ field.id }}"
-                               class="block text-sm font-medium text-gray-700 dark:text-slate-300">
-                            {{ field.label }} {{ "(optional)" if not field.required else "" }}
-                        </label>
-                        <textarea id="{{ field.id }}" name="{{ field.name }}" {{ "required" if field.required else "" }} aria-required="{{ field.required }}" class="p-4 h-24 mt-1 block w-full rounded-md border border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out"></textarea>
-                    </div>
-                {% endmacro %}
-                {% for field in formFields %}
-                    {% if field.type == "textarea" %}
-                        {{ textareaField(field) }}
-                    {% else %}
-                        {{ inputField(field) }}
-                    {% endif %}
-                {% endfor %}
-                <button type="submit"
-                        class="w-full inline-flex justify-center py-3 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                    Get Your Free Assessment
-                </button>
-            </form>
-        </div>
-        <div class="md:ml-12 mt-8 md:mt-12 md:w-1/4">
-            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">What happens next?</h3>
-            <p class="text-lg text-gray-700 dark:text-slate-300 mb-4">
-                Once we receive your information, we'll review your website and provide a free report with recommendations on how to improve your digital presence.
-            </p>
-            <p class="text-lg text-gray-700 dark:text-slate-300">You'll receive an email with a link to download the report.</p>
-        </div>
-    </div>
-</section>
-<script>
-    document.getElementById('assessmentForm').addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-        const url = formData.get('url');
+                }
+            }
 
-        console.log(url);
+            // Initial debug check
+            debugScreenshots(sessionId);
+            updateProgress('Starting capture...');
 
-        const response = await fetch('/.netlify/functions/captureScreenshot', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                url
-            })
+            const interval = setInterval(async () => {
+                try {
+                    console.log(`Fetching screenshot status for session: ${sessionId}`);
+                    const response = await fetch(`/api/screenshot-status/${sessionId}`);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    console.log('Poll response:', data);
+
+                    updateProgress(data.message || 'Processing...');
+
+                    if (data.status === 'complete' && data.screenshots?.length > 0) {
+                        console.log('Screenshots are complete. Count:', data.screenshots.length);
+                        progressBar.style.width = '100%';
+                        statusText.textContent = 'Complete!';
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            updateScreenshots(data.screenshots);
+                        }, 500);
+                    } else {
+                        console.log('Screenshots are still processing...', data);
+                        await debugScreenshots(sessionId);
+                    }
+                } catch (error) {
+                    console.error('Error polling screenshots:', error);
+                    statusText.textContent = 'Error capturing screenshots';
+                }
+            }, 2000);
+
+            // Store interval ID in case we need to clear it
+            window._screenshotInterval = interval;
+        }
+
+        function updateScreenshots(screenshots) {
+            console.log(`Updating screenshots. Count: ${screenshots.length}`);
+            const container = document.querySelector('#screenshots-container');
+            if (!container) {
+                console.error('Screenshots container not found');
+                return;
+            }
+
+            // First, update the screenshot
+            const screenshot = screenshots[0];
+            if (!screenshot) {
+                console.error('No screenshots available');
+                return;
+            }
+
+            console.log('Generating HTML for first screenshot');
+            const html = `
+                <div class="space-y-2">
+                    <div class="aspect-video w-full relative rounded-b-lg overflow-hidden" style="max-height: 320px;">
+                        <img src="data:image/jpeg;base64,${screenshot.image}" 
+                             alt="Website Preview at ${screenshot.breakpoint.width}x${screenshot.breakpoint.height}" 
+                             class="w-full object-cover object-top">
+                    </div>
+                </div>
+                <div id="analysis-checklist" class="mt-4 text-left p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Analysis Progress:</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
+                            <span class="checklist-icon">⏳</span>
+                            <span class="checklist-text">Page source code</span>
+                        </li>
+                        <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
+                            <span class="checklist-icon">⏳</span>
+                            <span class="checklist-text">Site metadata</span>
+                        </li>
+                        <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
+                            <span class="checklist-icon">⏳</span>
+                            <span class="checklist-text">Page content (formatted)</span>
+                        </li>
+                        <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
+                            <span class="checklist-icon">⏳</span>
+                            <span class="checklist-text">Performance analysis</span>
+                        </li>
+                        <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
+                            <span class="checklist-icon">⏳</span>
+                            <span class="checklist-text">SEO analysis</span>
+                        </li>
+                    </ul>
+                </div>
+            `;
+
+            console.log('Setting container innerHTML');
+            container.innerHTML = html;
+            
+            // Then animate the checklist items
+            const items = container.querySelectorAll('#analysis-checklist li');
+            items.forEach((item, index) => {
+                const delay = 500 + (index * 1000); // Sequential delays, starting after 500ms
+                setTimeout(() => {
+                    const icon = item.querySelector('.checklist-icon');
+                    icon.textContent = '✅';
+                    item.classList.add('text-green-600', 'dark:text-green-400');
+                }, delay);
+            });
+
+            // Update the analysis status
+            const analysisStatus = document.querySelector('#analysis-status');
+            if (analysisStatus) {
+                analysisStatus.innerHTML = `
+                    <svg class="w-4 h-4 md:w-5 md:h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span class="text-white text-sm font-medium md:text-base">Analysis Complete</span>
+                `;
+            }
+        }
+
+        // Start polling when the page loads if we have a sessionId
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM Content Loaded');
+            const container = document.querySelector('#screenshots-container');
+            console.log('Container found:', !!container);
+
+            if (container) {
+                const sessionId = container.dataset.sessionId;
+                console.log('SessionId:', sessionId);
+
+                if (sessionId) {
+                    console.log('Starting polling with sessionId:', sessionId);
+                    pollScreenshots(sessionId);
+                } else {
+                    console.error('No sessionId found in container data attribute');
+                }
+            } else {
+                console.error('Screenshots container not found');
+            }
         });
-
-        const result = await response.json();
-        alert(result.message);
-    });
-</script>
+    </script>
+{% endblock %}

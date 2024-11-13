@@ -10,3 +10,4 @@ package-lock.json
 .vscode
 # Local Netlify folder
 .netlify
+tmp/

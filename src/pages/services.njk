@@ -5,160 +5,319 @@ permalink: /services/
 description: We help businesses create exceptional digital experiences through strategic design thinking and user-centred solutions.
 ---
 
-{# Hero Section #}
-<section class="text-center mb-6 py-12 text-gray-600 dark:text-slate-300">
-  <h1 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-6 font-serif inline-block border-b-4 border-pink-600 dark:border-pink-400 pb-2">
-    Our Services
-  </h1>
-  <p class="text-xl md:text-2xl max-w-3xl mx-auto mb-4">
-    We help organisations create <span class="highlight text-gray-900 dark:text-white font-medium">exceptional digital experiences</span> through strategic thinking and user-centred design and research.
-  </p>
-  <p class="text-xl md:text-2xl max-w-3xl mx-auto">
-    Our services are designed to help you understand your users and create better digital experiences.
-  </p>
-</section>
-{# Services Grid #}
-<section id="services" class="mb-20">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-    {% from "macros/service-card.njk" import serviceCard %}
-    {{ serviceCard({
-      "title": "UX Audit & Assessment",
-      "icon": "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01",
-      "price": "£2,500",
-      "pricePrefix": "Fixed price",
-      "description": "A comprehensive review of your digital product or website, including: Heuristic evaluation, User testing sessions, UX strategy development",
-      "timeline": "About 2 weeks",
-      "buttonText": "Get started",
-      "buttonLink": "/contact",
-      "features": [
-        "Heuristic evaluation",
-        "User testing sessions",
-        "UX strategy development"
-      ]
-    }) }}
-    {{ serviceCard({
-      "title": "User Research",
-      "icon": "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z",
-      "price": "£2,500",
-      "pricePrefix": "Starting from",
-      "description": "We conduct in-depth interviews, surveys, and usability tests to understand user needs and behaviours",
-      "deliveryTime": "2-4 weeks",
-      "buttonText": "Book a research session",
-      "buttonLink": "/contact",
-      "features": [
-        "In-depth interviews",
-        "Surveys",
-        "Usability testing"
-      ],
-      "timeline": "Completed in 2-4 weeks"
-    }) }}
-    {{ serviceCard({
-      "title": "UI Design Sprint",
-      "icon": "M13 10V3L4 14h7v7l9-11h-7z",
-      "price": "£2,500",
-      "pricePrefix": "Starting from",
-      "description": "A 5-day design sprint to rapidly explore and prototype UI solutions for complex problems",
-      "timeline": "About 1-2 weeks",
-      "buttonText": "Book a sprint",
-      "buttonLink": "/contact",
-      "features": [
-        "5-day design sprint",
-        "Rapid prototyping",
-        "User testing sessions"
-      ]
-    }) }}
-    {{ serviceCard({
-      "title": "Web Development",
-      "icon": "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4",
-      "price": "Project-based pricing",
-      "description": "Custom web development tailored to your needs, including: Responsive website development, Web application development",
-      "timeline": "Timeline varies by project scope",
-      "buttonText": "Discuss your project",
-      "buttonLink": "/contact",
-      "features": [
-        "Responsive website development",
-        "Web application development",
-        "Technical support"
-      ]
-    }) }}
-    {{ serviceCard({
-      "title": "Digital Strategy Consulting",
-      "icon": "M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7",
-      "price": "From £1,000/day",
-      "description": "Strategic guidance for your digital transformation, including roadmap planning, technology stack recommendations, and team structure planning",
-      "timeline": "Minimum engagement: 2 weeks",
-      "buttonText": "Schedule a consultation",
-      "buttonLink": "/contact",
-      "features": [
-        "Digital roadmap development",
-        "Technology stack recommendations",
-        "Team structure planning"
-      ]
-    }) }}
-    {{ serviceCard({
-      "title": "Prototyping",
-      "icon": "M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122",
-      "price": "From £1,000",
-      "description": "We'll create an interactive prototype to test with users, and collect feedback to help you refine your product",
-      "timeline": "Approximately 1-2 weeks",
-      "buttonText": "Book a prototype",
-      "buttonLink": "/contact",
-      "features": [
-        "Coded prototype",
-        "User testing sessions",
-        "Feedback collection"
-      ]
-    }) }}
-  </div>
-  <p class="text-center text-sm md:text-base text-gray-600 dark:text-gray-400 mt-8 mb-8 md:mb-24 italic w-full md:w-1/2 mx-auto">
-      Prices shown are indicative and do not include VAT. Final costs may vary based on the requirements and complexity of your project.
-    </p>
-</section>
-<section class="mb-20 border-t border-b border-gray-200 dark:border-gray-700 py-12 lg:py-24">
-  <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-8 text-center font-serif">
-    Our UX Design Process
-  </h2>
-  <div class="grid grid-cols-1 md:grid-cols-5 gap-8 sm:gap-6">
-    {% for step in [
-      { "number": "1", "title": "Discovery and Research", "description": "Understanding your users through interviews and market research." },
-      { "number": "2", "title": "Information Architecture", "description": "Planning the structure and navigation of your product." },
-      { "number": "3", "title": "Design and Prototyping", "description": "Transforming research into detailed designs and prototypes." },
-      { "number": "4", "title": "Testing and Refinement", "description": "Testing designs with users and refining based on feedback." },
-      { "number": "5", "title": "Development Support", "description": "Ensuring the product is built as designed and evolves post-launch." }
-      ] %}
-      <div class="text-center">
-        <div class="bg-pink-100 dark:bg-pink-800/50 dark:border dark:border-pink-800 rounded-full w-8 h-8 md:w-12 md:h-12 flex items-center justify-center mx-auto mb-2 md:mb-4">
-          <span class="text-base sm:text-lg md:text-xl font-bold text-pink-600 dark:text-pink-100">{{ step.number }}</span>
+<section class="py-4 bg-blue-600 dark:bg-blue-500 text-sm text-blue-100 dark:text-blue-400 overflow-hidden">
+    <div class="max-w-full mx-auto">
+        <style>
+            @keyframes scroll {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
+            }
+            .animate-scroll {
+                animation: scroll 60s linear infinite;
+            }
+        </style>
+        <div class="flex whitespace-nowrap animate-scroll">
+            {% set services = [
+                "UX Design", "Web Development", "Digital Strategy", "UI Design",
+                "User Research", "Branding", "SEO Optimisation", "Content Strategy",
+                "Conversion Rate Optimisation", "Mobile App Design", "E-commerce Solutions",
+                "Accessibility Consulting", "Information Architecture", "Wireframing",
+                "Prototyping", "Usability Testing", "Digital Marketing", "Analytics & Reporting"
+            ] %}
+            {% set places = [
+                "London", "Manchester", "Birmingham", "Glasgow", "Liverpool",
+                "Edinburgh", "Leeds", "Bristol", "Sheffield", "Newcastle",
+                "Cardiff", "Belfast", "Nottingham", "Southampton", "Aberdeen"
+            ] %}
+            {% set combined = [] %}
+            {% for i in range(3) %}
+                {% for service in services %}
+                    {% set randomPlace = places | random %}
+                    {% set _ = combined | append(service ~ " in " ~ randomPlace) %}
+                {% endfor %}
+            {% endfor %}
+            <div class="flex space-x-8">
+                {% for item in combined %}
+                    <span>{{ item }}</span>
+                {% endfor %}
+            </div>
+            <div class="flex space-x-8" aria-hidden="true">
+                {% for item in combined %}
+                    <span>{{ item }}</span>
+                {% endfor %}
+            </div>
         </div>
-        <h3 class="font-bold text-lg lg:text-xl mb-1 md:mb-2">{{ step.title }}</h3>
-        <p class="text-gray-600 dark:text-slate-300">{{ step.description }}</p>
-      </div>
-    {% endfor %}
-  </div>
-  <div class="mt-12 text-center bg-gray-100 dark:bg-slate-700 rounded-lg p-6 mx-auto max-w-3xl border border-gray-200 dark:border-slate-500">
-    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Interested in our full process?</h3>
-    <p class="text-gray-600 dark:text-slate-300">
-      Discover how our structured approach can transform your digital product. <a href="/services/ux-design-process/"
-    class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline">Read more about our UX design process</a>.
-    </p>
-  </div>
+    </div>
 </section>
-{# CTA Section #}
-<section aria-labelledby="services-summary-title">
-  <div class="mb-8 w-full md:w-2/3 text-gray-600 dark:text-slate-300">
-    <h2 id="services-summary-title"
-        class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Why choose us?</h2>
-    <p class="mb-4 text-lg md:text-xl">
-      We're a small team of experienced UX designers and developers who work with you to understand your users' needs and design services that deliver measurable improvements and return on investment.
-    </p>
-    <p class=" mb-8 text-lg md:text-xl">
-      You'll have a dedicated point of contact who will get to know your business and your users, and will be with you every step of the way. If you need a face-to-face meeting, we can arrange that too.
-    </p>
-  </div>
-  {% from "macros/callout.njk" import contactCallout %}
-  {{ contactCallout(title="Ready to improve your digital experience?",
-    description="Book a free 30-minute consultation to discuss your project.",
-    buttonText="Schedule a Call",
-    buttonLink="/contact",
-    classes="mb-8 lg:mb-20") }}
+
+
+{# Core Services Section - Updated content #}
+<section class="py-16 lg:py-24 bg-slate-800 dark:bg-stone-900 border-t border-gray-200 dark:border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 lg:w-2/3 mx-auto">
+            <h2 class="text-4xl md:text-5xl font-black text-white dark:text-white mb-6 font-sans">
+                Your Digital Presence Probably Needs a Little Work
+            </h2>
+            <p class="text-xl lg:text-2xl text-slate-300 dark:text-slate-700 max-w-3xl mx-auto">
+                Let's face it: you're probably leaving money on the table.<br>We'll show you where.
+            </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {% set services = [
+                {
+                    "title": "Digital Presence Overhaul",
+                    "description": "We'll <span class='bg-orange-100 dark:bg-orange-900 border border-orange-200 dark:border-orange-700 px-1 rounded'>dissect your digital strategy</span>, providing candid insights and revolutionary solutions to transform your online presence.\n\nWe'll provide you with a <span class='bg-orange-100 dark:bg-orange-900 border border-orange-200 dark:border-orange-700 px-1 rounded'>detailed report</span> highlighting strengths, weaknesses, and opportunities, along with <span class='bg-orange-100 dark:bg-orange-900 border border-orange-200 dark:border-orange-700 px-1 rounded'>actionable SEO recommendations</span> and a <span class='bg-orange-100 dark:bg-orange-900 border border-orange-200 dark:border-orange-700 px-1 rounded'>tailored content strategy</span> to boost your online presence.\n\nYou'll receive a detailed report highlighting strengths, weaknesses, and opportunities, along with actionable SEO recommendations and a tailored content strategy to boost your online presence.",
+                    "image": "/assets/images/Seo-3--Streamline-Brooklyn.png"
+                },
+                {
+                    "title": "Customer Experience Deep Dive",
+                    "description": "Uncover the <span class='bg-orange-100 dark:bg-orange-900 border border-orange-200 dark:border-orange-700 px-1 rounded'>hidden truths</span> about your customer's journey. We'll reveal <span class='bg-orange-100 dark:bg-orange-900 border border-orange-200 dark:border-orange-700 px-1 rounded'>genuine insights</span> and guide you towards meaningful improvements.\n\nWe'll <span class='bg-orange-100 dark:bg-orange-900 border border-orange-200 dark:border-orange-700 px-1 rounded'>map out the entire customer experience</span> from initial contact to post-purchase interactions. This includes a <span class='bg-orange-100 dark:bg-orange-900 border border-orange-200 dark:border-orange-700 px-1 rounded'>detailed UX assessment</span>, <span class='bg-orange-100 dark:bg-orange-900 border border-orange-200 dark:border-orange-700 px-1 rounded'>conversion funnel analysis</span>, and <span class='bg-orange-100 dark:bg-orange-900 border border-orange-200 dark:border-orange-700 px-1 rounded'>customer feedback interpretation</span>.\n\nYou'll gain invaluable insights into customer behaviour and pain points, enabling you to optimise your digital strategy for maximum engagement and conversion.",
+                    "image": "/assets/images/Listening-To-Feedback-1--Streamline-Brooklyn.png"
+                },
+                {
+                    "title": "Market Domination Strategy",
+                    "description": "Elevate your game. We'll equip you with <span class='bg-orange-100 dark:bg-orange-900 border border-orange-200 dark:border-orange-700 px-1 rounded'>cutting-edge strategies</span> to outperform competitors and claim your rightful place at the top.\n\nWe'll conduct a <span class='bg-orange-100 dark:bg-orange-900 border border-orange-200 dark:border-orange-700 px-1 rounded'>thorough evaluation</span> of your current services, perform <span class='bg-orange-100 dark:bg-orange-900 border border-orange-200 dark:border-orange-700 px-1 rounded'>competitive analysis</span>, and provide <span class='bg-orange-100 dark:bg-orange-900 border border-orange-200 dark:border-orange-700 px-1 rounded'>market trend insights</span>. Our team will work closely with you to refine existing services and identify expansion opportunities.\n\nYou'll receive a <span class='bg-orange-100 dark:bg-orange-900 border border-orange-200 dark:border-orange-700 px-1 rounded'>comprehensive strategy document</span> outlining short-term improvements and long-term growth plans.",
+                    "image": "/assets/images/Award-Winner-Podium--Streamline-Brooklyn.png"
+                },
+                {
+                    "title": "Impactful Performance Metrics",
+                    "description": "Focus on what truly drives success. We'll identify the <span class='bg-orange-100 dark:bg-orange-900 border border-orange-200 dark:border-orange-700 px-1 rounded'>key metrics</span> that directly influence your bottom line and show you how to optimise them.\n\nWe'll dive deep into your <span class='bg-orange-100 dark:bg-orange-900 border border-orange-200 dark:border-orange-700 px-1 rounded'>key performance indicators</span> with our comprehensive analytics service. We go beyond surface-level metrics to provide you with <span class='bg-orange-100 dark:bg-orange-900 border border-orange-200 dark:border-orange-700 px-1 rounded'>actionable insights</span>. Our team analyses website analytics, conversion rates, user engagement metrics, and more.\n\nYou'll receive <span class='bg-orange-100 dark:bg-orange-900 border border-orange-200 dark:border-orange-700 px-1 rounded'>regular reports</span> with interpreted data, clear visualisations, and specific action points to drive business growth and improve ROI.",
+                    "image": "/assets/images/Analyze-Data.png"
+                }
+            ] %}
+            {% for service in services %}
+                <div class="bg-white dark:bg-gray-800 p-8 pb-12 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+                    <img src="{{ service.image }}" alt="{{ service.title }}" class="h-48 p-4 rounded" width="200" height="300">
+                    <h3 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">{{ service.title }}</h3>
+                    <p class="text-gray-600 dark:text-slate-300">{{ service.description | nl2br | safe }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{# What you get - content about deliverables, artefacts, etc #}
+<section class="py-16 lg:py-24 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-6 font-sans">
+                What You'll Get
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% set artefacts = [
+                {
+                    "title": "Digital Presence Audit",
+                    "description": "Comprehensive monthly or quarterly assessments of your entire digital footprint. Our experts meticulously analyse your website performance, social media impact, and search engine visibility.\n\nYou'll receive a detailed report highlighting strengths, weaknesses, and opportunities, along with actionable SEO recommendations and a tailored content strategy to boost your online presence.",
+                    "icon": "...",
+                    "image": "...",
+                    "cta": "Learn More",
+                    "link": "/digital-presence-audit",
+                    "process": [
+                        "Initial consultation to understand your goals",
+                        "Data collection across all digital platforms",
+                        "In-depth analysis by our expert team",
+                        "Creation of a comprehensive report",
+                        "Presentation of findings and recommendations",
+                        "Follow-up support for implementation"
+                    ]
+                },
+                {
+                    "title": "Customer Experience Analysis",
+                    "description": "A thorough evaluation of your customer's journey across all digital touchpoints. We map out the entire customer experience from initial contact to post-purchase interactions.\n\nThis includes a detailed UX assessment, conversion funnel analysis, and customer feedback interpretation. You'll gain invaluable insights into customer behaviour and pain points, enabling you to optimise your digital strategy for maximum engagement and conversion.",
+                    "icon": "...",
+                    "image": "...",
+                    "cta": "Learn More",
+                    "link": "/customer-experience-analysis",
+                    "process": [
+                        "Customer journey mapping workshop",
+                        "User testing and feedback collection",
+                        "Heatmap and user behaviour analysis",
+                        "Conversion funnel optimisation",
+                        "Detailed report with visualisations",
+                        "Strategy session for implementing improvements"
+                    ]
+                },
+                {
+                    "title": "Performance Analytics",
+                    "description": "Dive deep into your key performance indicators with our comprehensive analytics service. We go beyond surface-level metrics to provide you with actionable insights.\n\nOur team analyses website analytics, conversion rates, user engagement metrics, and more. You'll receive regular reports with interpreted data, clear visualisations, and specific action points to drive business growth and improve ROI.",
+                    "icon": "...",
+                    "image": "...",
+                    "cta": "Learn More",
+                    "link": "/performance-analytics",
+                    "process": [
+                        "Setup and configuration of analytics tools",
+                        "Custom dashboard creation",
+                        "Regular data collection and analysis",
+                        "Trend identification and forecasting",
+                        "Monthly performance reports",
+                        "Quarterly strategy reviews and goal setting"
+                    ]
+                },
+                {
+                    "title": "Strategic Service Development",
+                    "description": "Elevate your service offerings with our data-driven strategic development process. We conduct a thorough evaluation of your current services, perform competitive analysis, and provide market trend insights.\n\nOur team will work closely with you to refine existing services and identify expansion opportunities. You'll receive a comprehensive strategy document outlining short-term improvements and long-term growth plans.",
+                    "icon": "...",
+                    "image": "...",
+                    "cta": "Learn More",
+                    "link": "/strategic-service-development",
+                    "process": [
+                        "In-depth review of current service offerings",
+                        "Market research and competitor analysis",
+                        "Customer needs assessment",
+                        "Ideation and concept development workshops",
+                        "Financial modelling and feasibility studies",
+                        "Detailed strategy document and implementation plan"
+                    ]
+                },
+                {
+                    "title": "Design Improvement",
+                    "description": "Transform your digital presence with our comprehensive design improvement service. Our expert designers and UX specialists will analyse your current design, identify areas for enhancement, and create a visually stunning and user-friendly experience.\n\nWe focus on creating designs that not only look great but also drive conversions and improve user engagement across all devices and platforms.",
+                    "icon": "...",
+                    "image": "...",
+                    "cta": "Learn More",
+                    "link": "/design-improvement",
+                    "process": [
+                        "UX audit and heuristic evaluation",
+                        "User research and persona development",
+                        "Wireframing and prototyping",
+                        "Visual design and branding alignment",
+                        "Responsive design implementation",
+                        "User testing and iterative refinement"
+                    ]
+                }
+            ] %}
+
+            {% for artefact in artefacts %}
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-sm">
+                    <img src="https://picsum.photos/id/20/200/300" alt="{{ artefact.title }}"
+                    class="w-auto h-48 mb-6 rounded"
+                    width="200"
+                    height="300"
+                    >
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">{{ artefact.title }}</h3>
+                    <p class="text-gray-600 dark:text-slate-300 mb-6">{{ artefact.description | nl2br | safe }}</p>
+                    <h4 class="text-lg font-semibold text-gray-800 dark:text-white mb-3">Our Process:</h4>
+                    <ul class="list-disc pl-5 mb-6 text-gray-600 dark:text-slate-300">
+                        {% for step in artefact.process %}
+                            <li>{{ step }}</li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{{ artefact.link }}" class="inline-block bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+                        {{ artefact.cta }}
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="mt-16">
+            <p class="text-gray-600 dark:text-slate-300 max-w-3xl mx-auto">
+                We'll work with you to understand your business goals and objectives, and then we'll develop a tailored plan to help you achieve them.
+            </p>
+        </div>
+    </div>
+
+    <div class="py-4 text-center text-white dark:text-gray-900 bg-pink-500 dark:bg-pink-500/10 mt-16">
+        <p class="text-lg font-medium">
+            Ready to improve your digital presence?
+        </p>
+    </div>
+</section>
+
+{# New Section: Flexible Pricing Options #}
+<section class="py-16 lg:py-24 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <span class="inline-block px-4 py-2 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-sm font-medium mb-4">
+                Flexible Solutions
+            </span>
+            <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-6 font-sans">
+                Tailored to Your Business Requirements
+            </h2>
+            <p class="text-xl text-gray-600 dark:text-slate-300 max-w-3xl mx-auto">
+                Choose from tiered subscription plans with optional add-ons and success-based pricing models.
+            </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% set tiers = [
+                {
+                    "name": "Startup Package",
+                    "description": "Ideal for small businesses and startups with limited turnover.",
+                    "price": "Starting at £299/month",
+                    "features": [
+                        "Basic digital presence audits",
+                        "Monthly performance reports",
+                        "Email support"
+                    ],
+                    "cta": "Get Started"
+                },
+                {
+                    "name": "Growth Package",
+                    "description": "For growing businesses with moderate turnover and complexity.",
+                    "price": "Starting at £799/month",
+                    "features": [
+                        "Comprehensive audits",
+                        "Quarterly strategy sessions",
+                        "Priority support"
+                    ],
+                    "cta": "Get Started",
+                    "highlight": true
+                },
+                {
+                    "name": "Enterprise Package",
+                    "description": "Custom solutions for large enterprises with high turnover.",
+                    "price": "Custom Pricing",
+                    "features": [
+                        "All Growth features",
+                        "Dedicated account manager",
+                        "Custom implementation"
+                    ],
+                    "cta": "Contact Us"
+                }
+            ] %}
+            
+            {% for tier in tiers %}
+                <div class="flex flex-col h-full bg-white dark:bg-gray-800 p-8 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 {% if tier.highlight %}ring-2 ring-pink-500 dark:ring-pink-400{% endif %}">
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">{{ tier.name }}</h3>
+                    <p class="text-gray-600 dark:text-slate-300 mb-4">{{ tier.description }}</p>
+                    <p class="text-3xl font-bold text-gray-900 dark:text-white mb-6">{{ tier.price }}</p>
+                    <ul class="mb-8 flex-grow">
+                        {% for feature in tier.features %}
+                            <li class="flex items-center mb-2">
+                                <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-gray-600 dark:text-slate-300">{{ feature }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <a href="#" class="w-full text-center px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white font-semibold rounded-lg transition duration-200 {% if tier.highlight %}text-lg{% endif %}">
+                        {{ tier.cta }}
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="py-16 lg:py-24 bg-gradient-to-br from-pink-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-6 font-sans">
+            Ready to Transform Your Digital Presence?
+        </h2>
+        <p class="text-xl text-gray-600 dark:text-slate-300 max-w-3xl mx-auto mb-8">
+            Start with a comprehensive digital assessment and discover how our expert-led, data-driven approach can accelerate your business growth.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/assessment"
+               class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-base font-medium rounded-lg text-white bg-pink-600 hover:bg-pink-700 dark:bg-pink-500 dark:hover:bg-pink-600 transition-colors">
+                Get Your Free Assessment
+            </a>
+            <a href="/pricing"
+               class="inline-flex items-center justify-center px-8 py-4 border border-gray-300 dark:border-gray-600 text-base font-medium rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                View Monthly Plans
+            </a>
+        </div>
+    </div>
 </section>

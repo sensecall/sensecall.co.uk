@@ -3,12 +3,15 @@
     Skip to main content
 </a>
 
-<nav class="py-5 bg-transparent lg:sticky lg:top-0 lg:z-40 lg:bg-white/90 dark:lg:bg-gray-900/95 lg:backdrop-blur-sm border-b border-gray-200 dark:border-gray-800" aria-label="Main navigation">
+<nav class="py-5 bg-white/80 dark:bg-stone-950/80 lg:sticky lg:top-0 lg:z-40 lg:backdrop-blur-sm border-b border-gray-200 dark:border-gray-800" aria-label="Main navigation">
     <div class="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center">
             <div class="flex items-center space-x-3">
                 <a href="/" class="flex items-center justify-center relative">
-                    <span class="text-3xl font-black text-gray-900 dark:text-white tracking-tight">Grow<span class="font-serif text-orange-500 dark:text-orange-400 font-extralight italic">better</span></span>
+                    <svg class="w-4 h-4 absolute top-0 -left-4 -rotate-12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#22C55E" class="dark:fill-green-400"/>
+                    </svg>
+                    <span class="text-3xl font-black text-gray-900 dark:text-white tracking-tight">site<span class="text-green-500 dark:text-green-400 font-extralight">hero</span></span>
                 </a>
             </div>
 
@@ -38,13 +41,10 @@
                             <span>Close</span>
                         </button>
 
-                        <ul class="flex flex-col lg:flex-row items-start lg:items-center space-y-4 lg:space-y-0 lg:space-x-6 text-sm lg:text-lg p-4 lg:p-0 divide-y divide-gray-200 dark:divide-gray-800 lg:divide-y-0 w-full mt-8 lg:mt-0">
+                        <ul class="flex flex-col lg:flex-row items-start lg:items-center space-y-4 lg:space-y-0 lg:space-x-8 text-sm lg:text-lg p-4 lg:p-0 divide-y divide-gray-200 dark:divide-gray-800 lg:divide-y-0 w-full mt-8 lg:mt-0">
                             {% set navItems = [
                                 { url: '/pricing', text: 'Pricing' },
-                                { url: '/design', text: 'Design' },
-                                { url: '/research', text: 'Research' },
-                                { url: '/strategy', text: 'Strategy' },
-                                { url: '/what-is-ux', text: 'What is UX?' }
+                                { url: '/solutions', text: 'Solutions' }
                             ] %}
 
                             {% for item in navItems %}
