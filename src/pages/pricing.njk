@@ -18,13 +18,13 @@
                     <h1 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-6 font-sans">
                         Straightforward Pricing.
                         <br>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-300 to-red-600">No BS.</span>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-green-600">No BS.</span>
                     </h1>
                     <p class="text-xl text-gray-600 dark:text-slate-300 max-w-3xl mx-auto">
                         Choose your plan, and let's fix your website. Simple as that.
                     </p>
                 </div>
-                <div class="flex justify-center space-x-4 mb-12">
+                {# <div class="flex justify-center space-x-4 mb-12">
                     <fieldset id="billingToggle" class="bg-gray-100 dark:bg-gray-800 p-1 rounded-full flex" role="radiogroup" aria-label="Billing frequency">
                         <label class="relative">
                             <input type="radio" 
@@ -35,8 +35,8 @@
                                    checked>
                             <span class="px-6 py-2 rounded-full transition-all duration-200 cursor-pointer block
                                        text-gray-700 dark:text-gray-300
-                                       peer-checked/monthly:bg-orange-500 peer-checked/monthly:text-white peer-checked/monthly:shadow-md
-                                       focus-within:ring-2 focus-within:ring-orange-500 focus-within:ring-offset-2">
+                                       peer-checked/monthly:bg-green-500 peer-checked/monthly:text-white peer-checked/monthly:shadow-md
+                                       focus-within:ring-2 focus-within:ring-green-500 focus-within:ring-offset-2">
                                 Monthly
                             </span>
                         </label>
@@ -48,69 +48,69 @@
                                    id="annual">
                             <span class="px-6 py-2 rounded-full transition-all duration-200 cursor-pointer block
                                        text-gray-700 dark:text-gray-300
-                                       peer-checked/annual:bg-orange-500 peer-checked/annual:text-white peer-checked/annual:shadow-md
-                                       focus-within:ring-2 focus-within:ring-orange-500 focus-within:ring-offset-2">
+                                       peer-checked/annual:bg-green-500 peer-checked/annual:text-white peer-checked/annual:shadow-md
+                                       focus-within:ring-2 focus-within:ring-green-500 focus-within:ring-offset-2">
                                 Annual
-                                <span class="ml-1 text-sm bg-orange-500/10 rounded-full px-2 py-1 peer-checked/annual:text-white text-orange-500">
+                                <span class="ml-1 text-sm bg-green-500/10 rounded-full px-2 py-1 peer-checked/annual:text-white text-green-500">
                                     Save 20%
                                 </span>
                             </span>
                         </label>
                     </fieldset>
-                </div>
+                </div> #}
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {% set plans = [
                         {
-                            "name": "Pay As You Go",
-                            "price": "£149<span class='text-sm text-gray-600 dark:text-slate-300'>/audit</span>",
-                            "annual_price": "£149<span class='text-sm text-gray-600 dark:text-slate-300'>/audit</span>",
-                            "description": "One-off website audits when you need them.",
+                            "name": "Basic Report",
+                            "price": "£99<span class='text-sm text-gray-600 dark:text-slate-300'>/report</span>",
+                            "annual_price": "£99<span class='text-sm text-gray-600 dark:text-slate-300'>/report</span>",
+                            "description": "Essential insights for quick improvements.",
                             "features": [
-                                "Comprehensive site audit & report",
-                                "Performance analysis",
-                                "UX recommendations",
-                                "30-day action plan",
-                                "One revision round"
+                                "UX analysis",
+                                "Accessibility audit",
+                                "SEO recommendations",
+                                "Content design review",
+                                "Action items list"
                             ],
-                            "cta": "Get Your Audit",
-                            "best_for": "Perfect for startups and small businesses"
+                            "cta": "Get Your Report",
+                            "best_for": "Perfect for small websites and quick checks"
                         },
                         {
-                            "name": "Growth",
-                            "price": "£399<span class='text-sm text-gray-600 dark:text-slate-300'>/month</span>",
-                            "annual_price": "£319<span class='text-sm text-gray-600 dark:text-slate-300'>/month</span>",
-                            "description": "Continuous improvement for serious businesses.",
+                            "name": "Pro Report",
+                            "price": "£199<span class='text-sm text-gray-600 dark:text-slate-300'>/report</span>",
+                            "annual_price": "£199<span class='text-sm text-gray-600 dark:text-slate-300'>/report</span>",
+                            "description": "Comprehensive analysis with competitive insights.",
                             "features": [
-                                "Monthly site audits & reports",
-                                "Priority support (48h response)",
-                                "A/B testing recommendations",
-                                "Competitor analysis",
-                                "Monthly strategy calls",
-                                "Implementation guidance"
+                                "Everything in Basic Report",
+                                "Competitive analysis",
+                                "Detailed action plan",
+                                "Priority recommendations",
+                                "Implementation guidance",
+                                "30-day support"
                             ],
-                            "cta": "Start Growing",
+                            "cta": "Start Pro Audit",
                             "highlight": true,
-                            "best_for": "Ideal for growing businesses"
+                            "best_for": "Ideal for businesses seeking detailed insights"
                         },
                         {
-                            "name": "Scale",
-                            "price": "£999<span class='text-sm text-gray-600 dark:text-slate-300'>/month</span>",
-                            "annual_price": "£799<span class='text-sm text-gray-600 dark:text-slate-300'>/month</span>",
-                            "description": "Full-service optimization & implementation.",
+                            "name": "Audit & Consult",
+                            "price": "£499<span class='text-sm text-gray-600 dark:text-slate-300'>/package</span>",
+                            "annual_price": "£499<span class='text-sm text-gray-600 dark:text-slate-300'>/package</span>",
+                            "description": "Full audit with expert consultation.",
                             "features": [
-                                "Everything in Growth, plus:",
-                                "Hands-on implementation",
-                                "Weekly priority tasks",
-                                "Custom development hours",
-                                "24/7 emergency support",
-                                "Dedicated success manager"
+                                "Complete Pro Report",
+                                "2-hour consultation",
+                                "Priority recommendations",
+                                "Custom action plan",
+                                "60-day support",
+                                "Follow-up review"
                             ],
-                            "cta": "Scale Up Now",
-                            "best_for": "For businesses that want it done for them"
+                            "cta": "Book Package",
+                            "best_for": "For businesses that want expert guidance"
                         }
                     ] %}
                     {% for plan in plans %}
-                        <div class="flex flex-col h-full bg-white dark:bg-gray-800 p-8 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 {% if plan.highlight %}ring-2 ring-orange-500 dark:ring-orange-400{% endif %}">
+                        <div class="flex flex-col h-full bg-white dark:bg-gray-800 p-8 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 {% if plan.highlight %}ring-2 ring-green-500 dark:ring-green-400{% endif %}">
                             <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">{{ plan.name }}</h3>
                             <p class="text-gray-600 dark:text-slate-300 mb-4">{{ plan.description }}</p>
                             <p class="text-3xl font-bold text-gray-900 dark:text-white mb-6"
@@ -133,7 +133,7 @@
                                 {% endfor %}
                             </ul>
                             <a href="/assessment/"
-                               class="w-full text-center px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition duration-200 {% if plan.highlight %}text-lg{% endif %}">
+                               class="w-full text-center px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition duration-200 {% if plan.highlight %}text-lg{% endif %}">
                                 {{ plan.cta }}
                             </a>
                         </div>

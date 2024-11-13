@@ -1,7 +1,7 @@
 {% extends "_includes/layouts/base.njk" %}
 {% block content %}
     {# Hero Section - Updated for more impact #}
-    <section class="relative bg-white dark:bg-stone-900 py-24 overflow-hidden">
+    <section class="relative bg-white dark:bg-gray-900 py-24 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
                 <div class="lg:w-1/2 lg:pr-12">
@@ -55,7 +55,7 @@
         </div>
     </section>
     {# Problems Section - New hard-hitting section #}
-    <section class="py-16 lg:py-36 bg-slate-100 dark:bg-slate-800">
+    <section class="py-16 lg:py-36 bg-slate-100 dark:bg-slate-800 border-t border-gray-200 dark:border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <div class="flex items-center justify-center mb-4">
@@ -180,7 +180,7 @@
         </div>
     </section>
     {# Testimonials Section #}
-    <section class="py-16 lg:py-24 bg-gray-50 dark:bg-gray-900/50">
+    <section class="py-16 lg:py-24 bg-gray-50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-6 font-sans">What Our Clients Say</h2>
@@ -203,8 +203,8 @@
                 {% for testimonial in testimonials %}
                     <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-sm">
                         <div class="flex items-center mb-6">
-                            <img class="h-12 w-12 rounded-full"
-                                 src="/assets/images/{{ testimonial.image }}"
+                            <img class="h-12 w-12 rounded-full object-cover"
+                                 src="https://thispersondoesnotexist.com/"
                                  alt="{{ testimonial.author }}">
                             <div class="ml-4">
                                 <p class="text-lg font-bold text-gray-900 dark:text-white">{{ testimonial.author }}</p>
