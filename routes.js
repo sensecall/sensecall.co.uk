@@ -90,32 +90,39 @@ async function captureScreenshotsAsync(url, sessionId) {
         const tmpDir = path.join(__dirname, 'tmp');
         const screenshotsPath = path.join(tmpDir, sessionId);
         
+        // Ensure directories exist
         await fs.mkdir(tmpDir, { recursive: true });
         await fs.mkdir(screenshotsPath, { recursive: true });
         
+        // Capture screenshots
         const screenshots = await captureScreenshots(url);
         
-        // Update assessment with screenshots
-        await Assessment.findOneAndUpdate(
-            { sessionId },
-            { 
-                screenshots,
-                status: 'completed'
-            }
-        );
-        
-        // Save screenshots to disk
+        // Save screenshots to disk first
         for (const screenshot of screenshots) {
             const filename = `${screenshot.breakpoint.width}x${screenshot.breakpoint.height}.jpg`;
             const filepath = path.join(screenshotsPath, filename);
             await fs.writeFile(filepath, Buffer.from(screenshot.image, 'base64'));
         }
         
-        return screenshots;
-    } catch (error) {
+        // Then update assessment with screenshots and completed status
         await Assessment.findOneAndUpdate(
             { sessionId },
-            { status: 'failed' }
+            { 
+                screenshots,
+                status: 'completed',
+                completed: new Date()
+            }
+        );
+        
+        return screenshots;
+    } catch (error) {
+        console.error('Screenshot capture failed:', error);
+        await Assessment.findOneAndUpdate(
+            { sessionId },
+            { 
+                status: 'failed',
+                error: error.message
+            }
         );
         throw error;
     }

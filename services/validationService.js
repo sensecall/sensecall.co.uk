@@ -54,19 +54,31 @@ async function validateWebsite(url, sessionId) {
         );
 
         // Capture screenshots
-        const screenshots = await captureScreenshots(url);
-        
-        // Update with completed status
-        await Assessment.findOneAndUpdate(
-            { sessionId },
-            { 
-                screenshots,
-                status: 'completed',
-                completed: new Date()
-            }
-        );
+        try {
+            const screenshots = await captureScreenshots(url);
+            
+            // Update with completed status
+            await Assessment.findOneAndUpdate(
+                { sessionId },
+                { 
+                    screenshots,
+                    status: 'completed',
+                    completed: new Date()
+                }
+            );
 
-        return true;
+            return true;
+        } catch (error) {
+            console.error('Screenshot capture failed:', error);
+            await Assessment.findOneAndUpdate(
+                { sessionId },
+                { 
+                    status: 'failed',
+                    error: error.message || 'Failed to capture screenshots'
+                }
+            );
+            return false;
+        }
     } catch (error) {
         console.error('Validation failed:', error);
         await Assessment.findOneAndUpdate(

@@ -15,11 +15,11 @@
                     </p>
                 </div>
 
-                {# Pricing Cards - keeping the existing cards section #}
+                {# Paid Plans #}
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {% set plans = [
                         {
-                            "name": "Basic Report",
+                            "name": "Starter",
                             "price": "£99<span class='text-sm text-gray-600 dark:text-slate-300'>/report</span>",
                             "annual_price": "£99<span class='text-sm text-gray-600 dark:text-slate-300'>/report</span>",
                             "description": "Essential insights for quick improvements.",
@@ -34,7 +34,7 @@
                             "best_for": "Perfect for small websites and quick checks"
                         },
                         {
-                            "name": "Pro Report",
+                            "name": "Business",
                             "price": "£199<span class='text-sm text-gray-600 dark:text-slate-300'>/report</span>",
                             "annual_price": "£199<span class='text-sm text-gray-600 dark:text-slate-300'>/report</span>",
                             "description": "Comprehensive analysis with competitive insights.",
@@ -96,6 +96,21 @@
                             </a>
                         </div>
                     {% endfor %}
+                </div>
+
+                {# Free Tier #}
+                <div class="mt-8 text-center">
+                    <div class="inline-flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-300 transition-colors duration-200">
+                        <span>Not ready to commit?</span>
+                        <a href="/assessment/" class="inline-flex items-center font-medium">
+                            Try our basic scan for free
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                        <span class="text-gray-400 dark:text-gray-600">•</span>
+                        <span class="text-xs">Includes basic UX, accessibility & SEO checks</span>
+                    </div>
                 </div>
 
                 {# Improved Enterprise Section #}
