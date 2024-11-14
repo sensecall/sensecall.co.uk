@@ -6,18 +6,28 @@ const fs = require('fs/promises');
 const crypto = require('crypto');
 const apiAssessmentRouter = require('./routes/api/assessment');
 const assessmentRouter = require('./routes/assessment');
+const ReportRequest = require('./models/ReportRequest');
+const Assessment = require('./models/Assessment');
 
 // Home page
 router.get('/', (req, res) => {
-    res.render('pages/index.njk', {
+    res.render('pages/landing.njk', {
         title: 'Home',
         description: 'Your Digital Presence Probably Needs a Little Work'
     });
 });
 
+// Landing page
+router.get('/home', (req, res) => {
+    res.render('pages/index.njk', {
+        title: 'Landing',
+        description: 'Get a Free Website Audit Report'
+    });
+});
+
 // Pricing page
 router.get('/pricing', (req, res) => {
-    res.render('pages/pricing.njk', {
+    res.render('pages/pricing-simple.njk', {
         title: 'Pricing',
         description: 'Our pricing plans'
     });
@@ -74,36 +84,37 @@ router.get('/api/screenshot-status/:sessionId', async (req, res) => {
 
 // Function to handle screenshot capture asynchronously
 async function captureScreenshotsAsync(url, sessionId) {
-    console.log(`🔄 Starting async screenshot capture for session ${sessionId}`);
-    const tmpDir = path.join(__dirname, 'tmp');
-    const screenshotsPath = path.join(tmpDir, sessionId);
-    
     try {
-        // Create both directories sequentially
-        console.log(`📁 Creating directories...`);
+        const tmpDir = path.join(__dirname, 'tmp');
+        const screenshotsPath = path.join(tmpDir, sessionId);
+        
         await fs.mkdir(tmpDir, { recursive: true });
         await fs.mkdir(screenshotsPath, { recursive: true });
         
-        console.log('📸 Capturing screenshots...');
         const screenshots = await captureScreenshots(url);
         
-        console.log('💾 Saving screenshots to disk...');
+        // Update assessment with screenshots
+        await Assessment.findOneAndUpdate(
+            { sessionId },
+            { 
+                screenshots,
+                status: 'completed'
+            }
+        );
+        
+        // Save screenshots to disk
         for (const screenshot of screenshots) {
             const filename = `${screenshot.breakpoint.width}x${screenshot.breakpoint.height}.jpg`;
             const filepath = path.join(screenshotsPath, filename);
-            console.log(`📝 Writing file: ${filepath}`);
-            try {
-                await fs.writeFile(filepath, Buffer.from(screenshot.image, 'base64'));
-                console.log(`✅ Successfully wrote: ${filename}`);
-            } catch (writeError) {
-                console.error(`❌ Error writing file ${filename}:`, writeError);
-                throw writeError;
-            }
+            await fs.writeFile(filepath, Buffer.from(screenshot.image, 'base64'));
         }
-
-        console.log('✅ Screenshot capture and save complete');
+        
+        return screenshots;
     } catch (error) {
-        console.error('❌ Error in captureScreenshotsAsync:', error);
+        await Assessment.findOneAndUpdate(
+            { sessionId },
+            { status: 'failed' }
+        );
         throw error;
     }
 }
@@ -127,6 +138,14 @@ router.get('/screenshot', (req, res) => {
     res.render('pages/screenshot.njk', {
         title: 'Screenshot Viewer',
         description: 'Capture and view screenshots of websites.'
+    });
+});
+
+// Success page
+router.get('/success', (req, res) => {
+    res.render('pages/success.njk', {
+        title: 'Thank You',
+        description: 'Your website analysis is being prepared'
     });
 });
 
@@ -155,5 +174,81 @@ router.get('/api/debug-screenshots/:sessionId', async (req, res) => {
 
 router.use('/assessment', assessmentRouter);
 router.use('/api', apiAssessmentRouter);
+
+router.get('/api/lighthouse-report/:sessionId', async (req, res) => {
+  try {
+    const report = await ReportRequest.findOne({ sessionId: req.params.sessionId });
+    if (!report || !report.lighthouseReport) {
+      return res.status(404).json({ error: 'Report not found' });
+    }
+    res.json(report.lighthouseReport);
+  } catch (error) {
+    console.error('Error fetching Lighthouse report:', error);
+    res.status(500).json({ error: 'Failed to fetch report' });
+  }
+});
+
+router.post('/register-interest', async (req, res) => {
+    try {
+        let { url, email } = req.body;
+
+        // Validate email
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            return res.redirect('/?error=invalid_email');
+        }
+
+        // Clean and validate URL
+        if (!url.startsWith('http://') && !url.startsWith('https://')) {
+            url = 'https://' + url;
+        }
+
+        try {
+            new URL(url);
+        } catch (e) {
+            return res.redirect('/?error=invalid_url');
+        }
+
+        // Store in database and redirect to success page
+        const sessionId = crypto.randomBytes(16).toString('hex');
+        const assessment = new Assessment({
+            websiteUrl: url,
+            email,
+            sessionId,
+            status: 'pending',
+            created: new Date()
+        });
+
+        await assessment.save();
+        res.redirect(`/processing/${sessionId}`);
+    } catch (error) {
+        console.error('Registration error:', error);
+        res.redirect('/?error=server_error');
+    }
+});
+
+// Add after the register-interest route
+router.get('/processing/:sessionId', async (req, res) => {
+    const { sessionId } = req.params;
+    
+    try {
+        const assessment = await Assessment.findOne({ sessionId });
+        if (!assessment) {
+            return res.redirect('/?error=invalid_session');
+        }
+
+        // Start the screenshot capture process
+        captureScreenshotsAsync(assessment.websiteUrl, sessionId)
+            .catch(error => console.error('Screenshot capture failed:', error));
+
+        res.render('pages/processing.njk', {
+            title: 'Analysing Your Website',
+            websiteUrl: assessment.websiteUrl,
+            sessionId
+        });
+    } catch (error) {
+        console.error('Processing page error:', error);
+        res.redirect('/?error=server_error');
+    }
+});
 
 module.exports = router;

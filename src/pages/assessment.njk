@@ -80,22 +80,16 @@
                                      data-session-id="{{ sessionId }}"
                                      class="space-y-6">
                                     {# Loading state #}
-                                    <div class="aspect-video w-full mb-4 relative rounded-b-lg overflow-hidden">
+                                    <div class="aspect-video w-full mb-4 relative rounded-lg overflow-hidden">
                                         <div class="absolute inset-0 backdrop-blur-lg bg-white/30 dark:bg-black/30 flex flex-col items-center justify-center z-10 text-center p-6">
-                                            <svg aria-hidden="true"
-                                                 class="w-12 h-12 text-gray-400 mb-4 animate-spin dark:text-gray-600 fill-white"
-                                                 viewBox="0 0 100 101"
-                                                 fill="none"
-                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-                                                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
-                                            </svg>
-                                            <span class="text-xl font-bold text-gray-900 dark:text-white mb-4">Capturing screenshots...</span>
-                                            <div class="w-full max-w-md">
+                                            <div class="w-full max-w-md space-y-4">
                                                 <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
-                                                    <div id="screenshot-progress" class="bg-green-600 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+                                                    <div id="screenshot-progress" 
+                                                         class="bg-green-600 h-2.5 rounded-full transition-all duration-300" 
+                                                         style="width: 0%">
+                                                    </div>
                                                 </div>
-                                                <div class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                                                <div class="text-sm text-gray-900 dark:text-white font-medium">
                                                     <span id="screenshot-status">Initialising capture...</span>
                                                 </div>
                                             </div>
@@ -288,195 +282,100 @@
 {% endblock %}
 {% block pageScripts %}
     <script>
-        // Debug function to check screenshot directory
-        async function debugScreenshots(sessionId) {
-            try {
-                const response = await fetch(`/api/debug-screenshots/${sessionId}`);
-                const data = await response.json();
-                console.log('Debug Screenshots:', data);
-            } catch (error) {
-                console.error('Debug Error:', error);
-            }
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('screenshots-container');
+            const statusElement = document.getElementById('analysis-status');
+            const progressBar = document.getElementById('screenshot-progress');
+            const progressStatus = document.getElementById('screenshot-status');
+            const analysisChecklist = document.getElementById('analysis-checklist');
 
-        function pollScreenshots(sessionId) {
-            console.log(`Starting to poll screenshots for session: ${sessionId}`);
-            const progressBar = document.querySelector('#screenshot-progress');
-            const statusText = document.querySelector('#screenshot-status');
             let progress = 0;
-
-            // Update progress bar animation
-            function updateProgress(status) {
-                if (progress < 90) {
-                    progress += 10;
-                    progressBar.style.width = `${progress}%`;
-                    if (status) {
-                        statusText.textContent = status;
-                    }
-                }
+            
+            function updateProgress(status, percent) {
+                progressBar.style.width = `${percent}%`;
+                progressStatus.textContent = status;
             }
 
-            // Initial debug check
-            debugScreenshots(sessionId);
-            updateProgress('Starting capture...');
-
-            const interval = setInterval(async () => {
+            async function pollPreviewStatus(sessionId) {
                 try {
-                    console.log(`Fetching screenshot status for session: ${sessionId}`);
-                    const response = await fetch(`/api/screenshot-status/${sessionId}`);
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
+                    const response = await fetch(`/api/preview-status/${sessionId}`);
                     const data = await response.json();
-                    console.log('Poll response:', data);
 
-                    updateProgress(data.message || 'Processing...');
+                    switch (data.status) {
+                        case 'processing':
+                            progress = Math.min(progress + 20, 90);
+                            updateProgress('Processing website...', progress);
+                            return false;
 
-                    if (data.status === 'complete' && data.screenshots?.length > 0) {
-                        console.log('Screenshots are complete. Count:', data.screenshots.length);
-                        progressBar.style.width = '100%';
-                        statusText.textContent = 'Complete!';
-                        clearInterval(interval);
-                        setTimeout(() => {
-                            updateScreenshots(data.screenshots);
-                        }, 500);
-                    } else {
-                        console.log('Screenshots are still processing...', data);
-                        await debugScreenshots(sessionId);
+                        case 'completed':
+                            statusElement.innerHTML = `
+                                <svg class="w-4 h-4 md:w-5 md:h-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-white text-sm font-medium md:text-base">Screenshot Captured</span>
+                            `;
+
+                            if (data.screenshot && data.screenshot.image) {
+                                container.innerHTML = `
+                                    <div class="aspect-video w-full relative rounded-lg overflow-hidden">
+                                        <img src="data:image/jpeg;base64,${data.screenshot.image}" 
+                                             alt="Website Preview" 
+                                             class="w-full h-full object-cover object-top">
+                                    </div>
+                                `;
+
+                                analysisChecklist.classList.remove('hidden');
+                                const checklistItems = analysisChecklist.querySelectorAll('li');
+                                
+                                if (data.previewReport) {
+                                    checklistItems.forEach(item => {
+                                        const icon = item.querySelector('.checklist-icon');
+                                        icon.textContent = '✅';
+                                    });
+                                } else {
+                                    const screenshotItem = checklistItems[0];
+                                    if (screenshotItem) {
+                                        const icon = screenshotItem.querySelector('.checklist-icon');
+                                        icon.textContent = '✅';
+                                    }
+                                    for (let i = 1; i < checklistItems.length; i++) {
+                                        const icon = checklistItems[i].querySelector('.checklist-icon');
+                                        icon.textContent = '❌';
+                                    }
+                                }
+                            }
+
+                            return true;
+
+                        case 'failed':
+                            statusElement.innerHTML = `
+                                <svg class="w-4 h-4 md:w-5 md:h-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-white text-sm font-medium md:text-base">Analysis Failed</span>
+                            `;
+                            updateProgress('Analysis failed', 0);
+                            return true;
+
+                        default:
+                            return false;
                     }
                 } catch (error) {
-                    console.error('Error polling screenshots:', error);
-                    statusText.textContent = 'Error capturing screenshots';
+                    console.error('Error polling status:', error);
+                    updateProgress('Error occurred', 0);
+                    return true;
                 }
-            }, 2000);
-
-            // Store interval ID in case we need to clear it
-            window._screenshotInterval = interval;
-        }
-
-        function updateScreenshots(screenshots) {
-            console.log(`Updating screenshots. Count: ${screenshots.length}`);
-            const container = document.querySelector('#screenshots-container');
-            if (!container) {
-                console.error('Screenshots container not found');
-                return;
             }
 
-            // Find the desktop screenshot (largest width)
-            const desktopScreenshot = screenshots.reduce((prev, current) => 
-                (prev.breakpoint.width > current.breakpoint.width) ? prev : current
-            );
-
-            if (!desktopScreenshot) {
-                console.error('No desktop screenshot available');
-                return;
-            }
-
-            console.log('Generating HTML for desktop screenshot');
-            const html = `
-                <div class="space-y-4">
-                    <div class="aspect-video w-full relative rounded-lg overflow-hidden" style="max-height: 320px;">
-                        <img src="data:image/jpeg;base64,${desktopScreenshot.image}" 
-                             alt="Website Preview" 
-                             class="w-full h-full object-cover object-top">
-                    </div>
-                    <div id="analysis-checklist" class="text-left p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                        <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Analysis Progress:</h3>
-                        <ul class="space-y-2">
-                            <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
-                                <span class="checklist-icon">⏳</span>
-                                <span class="checklist-text">Page source code</span>
-                            </li>
-                            <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
-                                <span class="checklist-icon">⏳</span>
-                                <span class="checklist-text">Site metadata</span>
-                            </li>
-                            <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
-                                <span class="checklist-icon">⏳</span>
-                                <span class="checklist-text">Page content (formatted)</span>
-                            </li>
-                            <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
-                                <span class="checklist-icon">⏳</span>
-                                <span class="checklist-text">Performance analysis</span>
-                            </li>
-                            <li class="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
-                                <span class="checklist-icon">⏳</span>
-                                <span class="checklist-text">SEO analysis</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            `;
-
-            console.log('Setting container innerHTML');
-            container.innerHTML = html;
-
-            // Animate the checklist items
-            const items = container.querySelectorAll('#analysis-checklist li');
-            items.forEach((item, index) => {
-                const delay = 500 + (index * 1000); // Sequential delays, starting after 500ms
-                setTimeout(() => {
-                    const icon = item.querySelector('.checklist-icon');
-                    icon.textContent = '✅';
-                    item.classList.add('text-green-600', 'dark:text-green-400');
-                }, delay);
-            });
-
-            // Update the analysis status
-            const analysisStatus = document.querySelector('#analysis-status');
-            if (analysisStatus) {
-                analysisStatus.innerHTML = `
-                    <svg class="w-4 h-4 md:w-5 md:h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    <span class="text-white text-sm font-medium md:text-base">Analysis Complete</span>
-                `;
-            }
-        }
-
-        // Start polling when the page loads if we have a sessionId
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('DOM Content Loaded');
-            const container = document.querySelector('#screenshots-container');
-            console.log('Container found:', !!container);
-
-            if (container) {
-                const sessionId = container.dataset.sessionId;
-                console.log('SessionId:', sessionId);
-
-                if (sessionId) {
-                    console.log('Starting polling with sessionId:', sessionId);
-                    pollScreenshots(sessionId);
-                } else {
-                    console.error('No sessionId found in container data attribute');
-                }
-            } else {
-                console.error('Screenshots container not found');
-            }
-        });
-
-        document.getElementById('assessmentForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const form = e.target;
-            const formData = new FormData(form);
-            
-            try {
-                const response = await fetch('/api/submit-assessment', {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                const data = await response.json();
-                
-                if (data.success) {
-                    // Start polling for status
-                    pollScreenshots(data.sessionId);
-                } else {
-                    console.error('Submission failed:', data.message);
-                }
-            } catch (error) {
-                console.error('Form submission error:', error);
+            const sessionId = container?.dataset.sessionId;
+            if (sessionId) {
+                updateProgress('Initialising capture...', 0);
+                const pollInterval = setInterval(async () => {
+                    const completed = await pollPreviewStatus(sessionId);
+                    if (completed) {
+                        clearInterval(pollInterval);
+                    }
+                }, 2000);
             }
         });
     </script>

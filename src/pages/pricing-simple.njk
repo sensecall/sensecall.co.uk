@@ -1,0 +1,137 @@
+{% extends "_includes/layouts/base.njk" %}
+{% block content %}
+    <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {# Pricing Header #}
+        <section class="py-16 lg:py-24 bg-white dark:bg-gray-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h1 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-6 font-sans">
+                        Straightforward Pricing.
+                        <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-green-600">No BS.</span>
+                    </h1>
+                    <p class="text-xl text-gray-600 dark:text-slate-300 max-w-3xl mx-auto">
+                        Choose your plan, and let's fix your website. Simple as that.
+                    </p>
+                </div>
+
+                {# Pricing Cards - keeping the existing cards section #}
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {% set plans = [
+                        {
+                            "name": "Basic Report",
+                            "price": "£99<span class='text-sm text-gray-600 dark:text-slate-300'>/report</span>",
+                            "annual_price": "£99<span class='text-sm text-gray-600 dark:text-slate-300'>/report</span>",
+                            "description": "Essential insights for quick improvements.",
+                            "features": [
+                                "UX analysis",
+                                "Accessibility audit",
+                                "SEO recommendations",
+                                "Content design review",
+                                "Action items list"
+                            ],
+                            "cta": "Get Your Report",
+                            "best_for": "Perfect for small websites and quick checks"
+                        },
+                        {
+                            "name": "Pro Report",
+                            "price": "£199<span class='text-sm text-gray-600 dark:text-slate-300'>/report</span>",
+                            "annual_price": "£199<span class='text-sm text-gray-600 dark:text-slate-300'>/report</span>",
+                            "description": "Comprehensive analysis with competitive insights.",
+                            "features": [
+                                "Everything in Basic Report",
+                                "Competitive analysis",
+                                "Detailed action plan",
+                                "Priority recommendations",
+                                "Implementation guidance",
+                                "30-day support"
+                            ],
+                            "cta": "Start Pro Audit",
+                            "highlight": true,
+                            "best_for": "Ideal for businesses seeking detailed insights"
+                        },
+                        {
+                            "name": "Audit & Consult",
+                            "price": "£499<span class='text-sm text-gray-600 dark:text-slate-300'>/package</span>",
+                            "annual_price": "£499<span class='text-sm text-gray-600 dark:text-slate-300'>/package</span>",
+                            "description": "Full audit with expert consultation.",
+                            "features": [
+                                "Complete Pro Report",
+                                "2-hour consultation",
+                                "Priority recommendations",
+                                "Custom action plan",
+                                "60-day support",
+                                "Follow-up review"
+                            ],
+                            "cta": "Book Package",
+                            "best_for": "For businesses that want expert guidance"
+                        }
+                    ] %}
+                    {% for plan in plans %}
+                        <div class="flex flex-col h-full bg-white dark:bg-gray-800 p-8 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 {% if plan.highlight %}ring-2 ring-green-500 dark:ring-green-400{% endif %}">
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">{{ plan.name }}</h3>
+                            <p class="text-gray-600 dark:text-slate-300 mb-4">{{ plan.description }}</p>
+                            <p class="text-3xl font-bold text-gray-900 dark:text-white mb-6"
+                               data-monthly-price="{{ plan.price | safe }}"
+                               data-annual-price="{{ plan.annual_price | safe }}">
+                                {{ plan.price | safe }}
+                            </p>
+                            <ul class="mb-8 flex-grow">
+                                {% for feature in plan.features %}
+                                    <li class="flex items-center mb-2">
+                                        <svg class="w-5 h-5 text-green-500 mr-2"
+                                             fill="none"
+                                             stroke="currentColor"
+                                             viewBox="0 0 24 24"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                        <span class="text-gray-600 dark:text-slate-300">{{ feature }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <a href="/assessment/"
+                               class="w-full text-center px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition duration-200 {% if plan.highlight %}text-lg{% endif %}">
+                                {{ plan.cta }}
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                {# Improved Enterprise Section #}
+                <div class="mt-24 bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700">
+                    <div class="max-w-3xl mx-auto">
+                        <div class="text-center mb-8">
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Enterprise Solutions</h3>
+                            <p class="text-gray-600 dark:text-slate-300 mt-2">Custom solutions for large-scale businesses</p>
+                        </div>
+                        
+                        <div class="flex flex-row items-center justify-center space-x-8 mb-8">
+                            {% set enterprise_features = [
+                                "Multiple websites",
+                                "Custom SLAs", 
+                                "API access",
+                                "White-label reports"
+                            ] %}
+                            {% for feature in enterprise_features %}
+                                <div class="flex items-center space-x-2">
+                                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span class="text-gray-700 dark:text-gray-300">{{ feature }}</span>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="text-center">
+                            <a href="/enterprise"
+                               class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-500 hover:bg-blue-600">
+                                Contact Sales
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

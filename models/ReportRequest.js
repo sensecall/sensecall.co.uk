@@ -26,6 +26,15 @@ const reportRequestSchema = new mongoose.Schema({
   previewReport: {
     type: String
   },
+  lighthouseReport: {
+    scores: {
+      performance: Number,
+      accessibility: Number,
+      bestPractices: Number,
+      seo: Number
+    },
+    rawReport: String
+  },
   createdAt: {
     type: Date,
     default: Date.now

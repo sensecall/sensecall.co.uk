@@ -1,0 +1,93 @@
+{% extends "_includes/layouts/base.njk" %}
+
+{% block content %}
+<div class="min-h-[80vh] flex items-center justify-center px-4 bg-gradient-to-br from-green-600 to-emerald-800 dark:from-green-900 dark:to-emerald-950">
+    <div class="absolute inset-0 opacity-20 bg-[url('/assets/images/pattern.svg')]"></div>
+    <div class="w-full max-w-2xl relative z-10">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8">
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 mx-auto mb-4">
+                    <svg class="w-full h-full text-green-500 animate-spin" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </div>
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Analysing Your Website</h1>
+                <p class="text-lg text-gray-600 dark:text-gray-300" id="status-text">
+                    Running initial checks on {{ websiteUrl }}...
+                </p>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
+                    <div class="flex items-center space-x-3">
+                        <div id="capture-status" class="w-5 h-5">
+                            <div class="w-full h-full rounded-full border-2 border-green-500 border-t-transparent animate-spin"></div>
+                        </div>
+                        <span class="text-gray-700 dark:text-gray-300">Capturing website</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const sessionId = '{{ sessionId }}';
+    let checkCount = 0;
+    
+    function updateStatus(status) {
+        const element = document.getElementById('capture-status');
+        const statusText = document.getElementById('status-text');
+        
+        if (status === 'complete') {
+            element.innerHTML = `
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            `;
+            statusText.textContent = 'Analysis complete!';
+        } else if (status === 'processing') {
+            element.innerHTML = `
+                <div class="w-full h-full rounded-full border-2 border-green-500 border-t-transparent animate-spin"></div>
+            `;
+            statusText.textContent = 'Capturing website...';
+        }
+    }
+    
+    async function checkStatus() {
+        try {
+            const response = await fetch(`/api/screenshot-status/${sessionId}`);
+            const data = await response.json();
+            
+            if (data.status === 'complete' && data.screenshots) {
+                updateStatus('complete');
+                setTimeout(() => {
+                    window.location.href = '/success';
+                }, 1500);
+                return;
+            } else if (data.status === 'processing') {
+                updateStatus('processing');
+            }
+            
+            checkCount++;
+            if (checkCount < 30) { // Maximum 30 seconds wait
+                setTimeout(checkStatus, 1000);
+            } else {
+                window.location.href = '/success';
+            }
+        } catch (error) {
+            console.error('Error checking status:', error);
+            window.location.href = '/success';
+        }
+    }
+    
+    // Start checking status
+    updateStatus('processing');
+    checkStatus();
+});
+</script>
+{% endblock %}

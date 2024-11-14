@@ -12,6 +12,7 @@ const { router: screenshotRouter } = require('./services/captureScreenshot');
 const mongoose = require('mongoose');
 const checkDatabaseConnection = require('./utils/dbCheck');
 const assessmentRoutes = require('./routes/assessment');
+const previewRouter = require('./routes/api/preview');
 
 // Load environment variables first
 require('dotenv').config();
@@ -67,6 +68,7 @@ app.use(darkModeMiddleware);
 // Use routes
 app.use('/', routes);
 app.use(screenshotRouter);
+app.use('/api', previewRouter);
 
 // Error handling
 app.use((req, res, next) => {

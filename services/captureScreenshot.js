@@ -17,7 +17,7 @@ const isDevelopment = env === 'development';
 puppeteer.use(StealthPlugin());
 
 // Export the screenshot capture functionality
-const captureScreenshots = async (url) => {
+const captureScreenshots = async (url, breakpointTypes = ['mobile', 'tablet', 'desktop']) => {
     console.log(`🔄 Starting screenshot capture for URL: ${url}`);
     
     const browserOptions = {
@@ -30,12 +30,14 @@ const captureScreenshots = async (url) => {
         ]
     };
 
-    const breakpoints = [
-        { width: 320, height: 568 },
-        { width: 768, height: 1024 },
-        { width: 1366, height: 768 }
-    ];
+    const breakpoints = {
+        mobile: { width: 320, height: 568 },
+        tablet: { width: 768, height: 1024 },
+        desktop: { width: 1366, height: 768 }
+    };
 
+    const selectedBreakpoints = breakpointTypes.map(type => breakpoints[type]);
+    
     let browser = null;
     let screenshots = [];
     
@@ -43,8 +45,8 @@ const captureScreenshots = async (url) => {
         console.log('🌐 Launching browser...');
         browser = await puppeteer.launch(browserOptions);
         
-        console.log('📸 Capturing screenshots for breakpoints:', breakpoints);
-        screenshots = await Promise.all(breakpoints.map(async (breakpoint) => {
+        console.log('📸 Capturing screenshots for breakpoints:', selectedBreakpoints);
+        for (const breakpoint of selectedBreakpoints) {
             console.log(`⚡ Processing breakpoint: ${breakpoint.width}x${breakpoint.height}`);
             const page = await browser.newPage();
             
@@ -84,18 +86,19 @@ const captureScreenshots = async (url) => {
                 });
 
                 console.log(`✅ Screenshot captured for ${breakpoint.width}x${breakpoint.height}`);
-                return {
+                const screenshot = {
                     breakpoint,
                     image: screenshotBuffer,
                     timestamp: new Date().toISOString()
                 };
+                screenshots.push(screenshot);
             } catch (error) {
                 console.error(`❌ Error capturing screenshot for ${breakpoint.width}x${breakpoint.height}:`, error);
                 throw error;
             } finally {
                 await page.close();
             }
-        }));
+        }
 
         console.log('✅ All screenshots captured successfully');
         return screenshots;

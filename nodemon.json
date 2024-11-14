@@ -1,11 +1,18 @@
 {
   "watch": [
     "src/**/*.{js,njk,css,html}",
-    "server.js"
+    "server.js",
+    "routes.js",
+    "routes/**/*.js",
+    "services/**/*.js",
+    "middleware/**/*.js",
+    "utils/**/*.js",
+    "models/**/*.js"
   ],
   "ext": "js,njk,css,html",
   "ignore": [
     "src/assets/css/style.css",
-    "node_modules/*"
+    "node_modules/*",
+    "src/assets/js/*"
   ]
 } 

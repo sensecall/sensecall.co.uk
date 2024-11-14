@@ -1,0 +1,216 @@
+{% extends "_includes/layouts/base.njk" %}
+
+{% set title = null %}
+{% block content %}
+    {# Hero Section - Simplified for validation #}
+    <section class="relative bg-white dark:bg-gray-900 py-24 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                <div class="lg:w-1/2 lg:pr-12">
+                    <h1 class="text-5xl md:text-7xl font-black text-gray-900 dark:text-white mb-8 font-sans leading-tight animate-fade-in-up">
+                        Your Website <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-300 to-red-600">Probably <span class="underline">Sucks.</span></span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-300 mb-10 animate-fade-in-up delay-200">
+                        Discover exactly what's holding your website back and get actionable recommendations to improve it.
+                    </p>
+                    <form id="interest-form"
+                          class="animate-fade-in-up delay-300"
+                          action="/register-interest"
+                          method="post"
+                          onsubmit="return validateForm()">
+                        <div class="space-y-4 max-w-xl">
+                            <input type="email"
+                                   id="email"
+                                   name="email"
+                                   placeholder="Your email address"
+                                   required
+                                   class="w-full pl-4 pr-4 py-3 text-lg border-2 border-gray-300 rounded-lg focus:outline-none focus:border-green-500 dark:bg-stone-800 dark:border-stone-600 dark:text-white"
+                                   value="a@b.com">
+                            <input type="text"
+                                   id="website-url"
+                                   name="url"
+                                   placeholder="Your website URL (e.g., example.com)"
+                                   required
+                                   class="w-full pl-4 pr-4 py-3 text-lg border-2 border-gray-300 rounded-lg focus:outline-none focus:border-green-500 dark:bg-stone-800 dark:border-stone-600 dark:text-white"
+                                   value="https://example.com">
+                            <button type="submit"
+                                    class="w-full py-3 text-lg font-bold rounded-lg text-white bg-green-600 hover:bg-green-700 transition-all duration-300">
+                                Get your Free Report
+                            </button>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 text-center">
+                                That's it! No payment required. Get your report within 24 hours.
+                            </p>
+                        </div>
+                    </form>
+                    <script>
+                        function validateForm() {
+                            var urlInput = document.getElementById('website-url');
+                            var url = urlInput.value.trim();
+                            if (url.indexOf('://') === -1) {
+                                url = 'https://' + url;
+                            }
+                            if (!/^https?:\/\//i.test(url)) {
+                                url = 'https://' + url;
+                            }
+                            urlInput.value = url;
+                            return true;
+                        }
+                    </script>
+                </div>
+                <div class="lg:w-1/2 mt-16 lg:mt-0 relative hidden lg:block">
+                    <div class="relative">
+                        <div class="absolute inset-0"></div>
+                        <img src="/assets/images/something-wrong-4--light.webp"
+                             alt="Digital design illustration"
+                             width="800"
+                             height="600"
+                             class="w-full animate-float p-12 rounded-2xl dark:hidden">
+                        <img src="/assets/images/something-wrong-4--dark.webp"
+                             alt="Digital design illustration"
+                             width="800"
+                             height="600"
+                             class="hidden dark:block w-full animate-float p-12 rounded-2xl">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 lg:py-36 bg-slate-100 dark:bg-slate-800 border-t border-gray-200 dark:border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <div class="flex items-center justify-center mb-4">
+                    <div class="flex items-center justify-start relative">
+                        <svg class="w-6 h-6 absolute -top-2 -left-6 -rotate-12"
+                             viewBox="0 0 24 24"
+                             fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#22C55E" class="dark:fill-green-400" />
+                        </svg>
+                        <span class="text-5xl font-black text-gray-900 dark:text-white tracking-tight">site<span class="text-green-500 dark:text-green-400 font-extralight">hero</span></span>
+                    </div>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold text-slate-800 dark:text-white mb-6 font-sans">
+                    The Honest Truth About Your Website
+                </h2>
+                <p class="text-lg md:text-xl text-slate-900 dark:text-slate-300 mb-10">
+                    We'll take a look at your website and give you a brutally honest assessment of what's wrong with it.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {% set problems = [
+                    {
+                        "title": "Performance Issues?",
+                        "description": "Slow loading times can frustrate users and impact conversions.",
+                        "icon": "⏱️"
+                    },
+                    {
+                        "title": "Outdated Design?",
+                        "description": "An outdated look can harm your brand's credibility and user experience.",
+                        "icon": "🎨"
+                    },
+                    {
+                        "title": "Missed Opportunities?",
+                        "description": "You might be losing potential customers to competitors.",
+                        "icon": "🎯"
+                    }
+                ] %}
+                {% for problem in problems %}
+                    <div class="bg-white dark:bg-slate-700 p-8 rounded-lg shadow-md">
+                        <div class="text-4xl mb-4">{{ problem.icon }}</div>
+                        <h3 class="text-2xl font-semibold text-slate-800 dark:text-white mb-4">{{ problem.title }}</h3>
+                        <p class="text-lg text-slate-600 dark:text-slate-300">{{ problem.description }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="text-center mt-20">
+                <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-6 font-sans">
+                    Get Your <span class="px-3 py-1 bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-600 text-green-600 rounded-lg">Free</span> Report Now
+                </h2>
+                <p class="text-lg md:text-xl text-slate-900 dark:text-slate-300 mb-10">
+                    Enter your email and website URL to get your free report.
+                </p>
+                <form id="assessment-form"
+                      class="animate-fade-in-up delay-300"
+                      action="/register-interest"
+                      method="post">
+                    <div class="space-y-4 max-w-xl mx-auto">
+                        <input type="email"
+                               id="email-2"
+                               name="email"
+                               placeholder="Your email address"
+                               required
+                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                               class="w-full pl-4 pr-4 py-3 text-lg border-2 border-gray-300 rounded-lg focus:outline-none focus:border-green-500 dark:bg-stone-800 dark:border-stone-600 dark:text-white"
+                               value="a@b.com">
+                        <input type="url"
+                               id="website-url-2"
+                               name="url"
+                               placeholder="Your website URL (e.g., https://example.com)"
+                               required
+                               pattern="https?://.+"
+                               class="w-full pl-4 pr-4 py-3 text-lg border-2 border-gray-300 rounded-lg focus:outline-none focus:border-green-500 dark:bg-stone-800 dark:border-stone-600 dark:text-white"
+                               value="https://example.com">
+                        <button type="submit"
+                                class="w-full py-3 text-lg font-bold rounded-lg text-white bg-green-600 hover:bg-green-700 transition-all duration-300">
+                            Get your Free Report
+                        </button>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 text-center">
+                            That's it! No payment required. Get your report within 24 hours.
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    {# Benefits Section - Simplified #}
+    <section class="py-16 lg:py-24 border-t border-gray-200 dark:border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-6 font-sans">What Your Report Includes</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {% set details = [
+                    {
+                        "title": "UX & Design Audit",
+                        "description": "We'll look at your website's design and UX, and give you recommendations on how to improve it.",
+                        "icon": "🎨"
+                    },
+                    {
+                        "title": "SEO & Competitor Analysis",
+                        "description": "We'll look at your website's SEO and how it compares to your competitors.",
+                        "icon": "🔍"
+                    },
+                    {
+                        "title": "Performance Report",
+                        "description": "We'll look at your website's performance and give you recommendations on how to improve it.",
+                        "icon": "🚀"
+                    },
+                    {
+                        "title": "Mobile-Friendly",
+                        "description": "We'll check if your website is mobile-friendly and give you recommendations on how to improve it.",
+                        "icon": "📱"
+                    },
+                    {
+                        "title": "Accessibility Report",
+                        "description": "We'll check if your website is accessible and give you recommendations on how to improve it.",
+                        "icon": "♿"
+                    },
+                    {
+                        "title": "Design & UX Recommendations",
+                        "description": "We'll give you ideas for how to improve your website's design and UX.",
+                        "icon": "💡"
+                    }
+                ] %}
+                {% for detail in details %}
+                    <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
+                        <div class="text-6xl mb-4">{{ detail.icon }}</div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">{{ detail.title }}</h3>
+                        <p class="text-gray-600 dark:text-slate-300">{{ detail.description }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

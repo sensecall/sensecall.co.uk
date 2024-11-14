@@ -5,6 +5,7 @@ const { generateReportPreview } = require('./claudeService');
 const fs = require('fs/promises');
 const path = require('path');
 const Jimp = require('jimp');
+const { generateLighthouseReport } = require('./lighthouseService');
 
 async function compressScreenshot(buffer) {
   const image = await Jimp.read(Buffer.from(buffer, 'base64'));
@@ -23,8 +24,11 @@ async function processWebsiteReport(websiteUrl, sessionId) {
     });
     await reportRequest.save();
 
-    // Capture screenshots
-    const screenshots = await captureScreenshots(websiteUrl);
+    // Run tasks in parallel
+    const [screenshots, lighthouseResults] = await Promise.all([
+      captureScreenshots(websiteUrl),
+      generateLighthouseReport(websiteUrl)
+    ]);
     
     // Compress screenshots
     const compressedScreenshots = await Promise.all(
@@ -46,7 +50,8 @@ async function processWebsiteReport(websiteUrl, sessionId) {
           breakpoint: s.breakpoint,
           path: `${sessionId}/${s.breakpoint.width}x${s.breakpoint.height}.jpg`
         })),
-        previewReport
+        previewReport,
+        lighthouseReport: lighthouseResults
       },
       { new: true }
     );

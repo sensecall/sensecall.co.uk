@@ -116,16 +116,16 @@ router.get('/screenshot-status/:sessionId', async (req, res) => {
         }
 
         // Check if screenshots exist and are in the expected format
-        const hasScreenshots = assessment.screenshots && assessment.screenshots.length > 0;
-        const status = hasScreenshots ? 'complete' : assessment.status;
+        const screenshots = assessment.screenshots || [];
+        const status = screenshots.length === 3 ? 'complete' : 'processing';
 
         res.json({
             status,
-            screenshots: hasScreenshots ? assessment.screenshots.map(screenshot => ({
+            screenshots: screenshots.map(screenshot => ({
                 image: screenshot.image,
                 breakpoint: screenshot.breakpoint,
                 timestamp: screenshot.timestamp
-            })) : [],
+            })),
             message: `Status: ${status}`
         });
     } catch (error) {

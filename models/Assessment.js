@@ -3,34 +3,31 @@ const mongoose = require('mongoose');
 const assessmentSchema = new mongoose.Schema({
   websiteUrl: {
     type: String,
-    required: true,
-    trim: true
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
   },
   sessionId: {
     type: String,
     required: true,
     unique: true
   },
-  name: String,
-  email: String,
-  phone: String,
-  companyName: String,
-  message: String,
-  screenshots: [{
-    breakpoint: {
-      width: Number,
-      height: Number
-    },
-    image: String // base64 encoded image
-  }],
   status: {
     type: String,
     enum: ['pending', 'processing', 'completed', 'failed'],
     default: 'pending'
   },
-  createdAt: {
+  created: {
     type: Date,
     default: Date.now
+  },
+  completed: {
+    type: Date
+  },
+  error: {
+    type: String
   }
 });
 

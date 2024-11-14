@@ -1,0 +1,53 @@
+{% extends "_includes/layouts/base.njk" %}
+
+{% block content %}
+<div class="min-h-[80vh] flex items-center justify-center px-4 bg-gradient-to-br from-green-600 to-emerald-800 dark:from-green-900 dark:to-emerald-950">
+    <div class="absolute inset-0 opacity-20 bg-[url('/assets/images/pattern.svg')]"></div>
+    <div class="w-full max-w-2xl relative z-10">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 text-center">
+            <div class="mb-6">
+                <div class="w-16 h-16 bg-green-600 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+            </div>
+            
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Ok, Let's Get Started!</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">
+                We're rolling up our sleeves and diving into your website analysis. Your report will land in your inbox within 24 hours.
+            </p>
+            
+            <div class="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-6 mb-8">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">What happens next?</h2>
+                {% set steps = [
+                    "Our team will analyse your website thoroughly",
+                    "We'll prepare a detailed report with actionable recommendations",
+                    "You'll receive the report via email within 24 hours"
+                ] %}
+                <ul class="space-y-4 text-left">
+                    {% for step in steps %}
+                    <li class="flex items-center">
+                        <svg class="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span class="text-gray-600 dark:text-gray-300">{{ step }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="/"
+                   class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition duration-200">
+                    Analyse Another Site
+                </a>
+                <a href="/examples"
+                   class="px-6 py-3 border border-green-600 text-green-600 hover:bg-green-50 dark:hover:bg-gray-700 font-medium rounded-lg transition duration-200">
+                    View Example Reports
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
