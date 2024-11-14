@@ -10,12 +10,28 @@ const assessmentRouter = require('./routes/assessment');
 const ReportRequest = require('./models/ReportRequest');
 const { validateWebsite } = require('./services/validationService');
 const User = require('./models/User');
+const { registerUserInterest } = require('./services/userService');
 
 // Home page
 router.get('/', (req, res) => {
+    const error = req.query.error;
+    let validationErrors = {};
+    
+    if (error === 'missing_fields') {
+        validationErrors = {
+            email: !req.query.email && 'Email is required',
+            url: !req.query.url && 'Website URL is required'
+        };
+    }
+    
     res.render('pages/landing.njk', {
         title: 'Home',
-        description: 'Your Digital Presence Probably Needs a Little Work'
+        description: 'Your Digital Presence Probably Needs a Little Work',
+        validationErrors,
+        formData: {
+            email: req.query.email || '',
+            url: req.query.url || ''
+        }
     });
 });
 
@@ -209,51 +225,45 @@ router.get('/api/lighthouse-report/:sessionId', async (req, res) => {
 });
 
 router.post('/register-interest', async (req, res) => {
-  try {
-    const { email, url } = req.body;
-    
-    // Basic validation
-    if (!email || !url) {
-      return res.status(400).redirect('/?error=missing_fields');
+    try {
+        const { email, url } = req.body;
+        
+        // Validate fields
+        if (!email || !url) {
+            return res.redirect('/?error=missing_fields');
+        }
+        
+        const result = await registerUserInterest(email, url);
+        
+        switch (result.status) {
+            case 'EXISTING_RECENT_ASSESSMENT':
+                return res.redirect(`/processing/${result.sessionId}?notice=existing_assessment`);
+            
+            case 'NEW_ASSESSMENT':
+                return res.redirect(`/processing/${result.sessionId}`);
+            
+            default:
+                throw new Error('UNKNOWN_STATUS');
+        }
+    } catch (error) {
+        console.error('Error registering interest:', error);
+        
+        // Handle specific error types
+        const errorMapping = {
+            'RATE_LIMIT_EXCEEDED': 'rate_limit',
+            'MISSING_FIELDS': 'missing_fields',
+            'INVALID_URL': 'invalid_url'
+        };
+        
+        const errorCode = errorMapping[error.message] || 'server_error';
+        const queryParams = new URLSearchParams({
+            error: errorCode,
+            email: req.body.email || '',
+            url: req.body.url || ''
+        });
+        
+        res.redirect(`/?${queryParams.toString()}`);
     }
-
-    let user;
-    // Check if user already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      // Update existing user's website URL
-      existingUser.websiteUrl = url;
-      user = await existingUser.save();
-    } else {
-      // Create new user
-      user = new User({
-        email,
-        websiteUrl: url,
-        createdAt: new Date()
-      });
-      await user.save();
-    }
-
-    // Generate session ID for tracking
-    const sessionId = crypto.randomBytes(16).toString('hex');
-
-    // Create initial assessment
-    const assessment = new Assessment({
-      websiteUrl: url,
-      sessionId,
-      userId: user._id,
-      status: 'pending',
-      created: new Date()
-    });
-
-    await assessment.save();
-
-    // Redirect to processing page with session ID
-    res.redirect(`/processing/${sessionId}`);
-  } catch (error) {
-    console.error('Error saving user:', error);
-    res.status(500).redirect('/?error=server_error');
-  }
 });
 
 // Add after the register-interest route

@@ -93,6 +93,11 @@
         </div>
     </div>
 </div>
+{% if notice == 'existing_assessment' %}
+    <div class="mb-8 p-4 bg-blue-50 border border-blue-200 text-blue-800 rounded-lg">
+        <p>We found an existing assessment for this website from the last 24 hours. We'll show you those results instead of running a new analysis.</p>
+    </div>
+{% endif %}
 {% endblock %}
 
 {% block pageScripts %}

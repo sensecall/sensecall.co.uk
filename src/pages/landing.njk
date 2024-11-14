@@ -21,20 +21,30 @@
                           method="post"
                           onsubmit="return validateForm()">
                         <div class="space-y-4 max-w-xl">
-                            <input type="email"
-                                   id="email"
-                                   name="email"
-                                   placeholder="Your email address"
-                                   required
-                                   class="w-full pl-4 pr-4 py-3 text-lg border-2 border-gray-300 rounded-lg focus:outline-none focus:border-green-500 dark:bg-stone-800 dark:border-stone-600 dark:text-white"
-                                   value="a@b.com">
-                            <input type="text"
-                                   id="website-url"
-                                   name="url"
-                                   placeholder="Your website URL (e.g., example.com)"
-                                   required
-                                   class="w-full pl-4 pr-4 py-3 text-lg border-2 border-gray-300 rounded-lg focus:outline-none focus:border-green-500 dark:bg-stone-800 dark:border-stone-600 dark:text-white"
-                                   value="https://example.com">
+                            <div>
+                                <input type="email"
+                                       id="email"
+                                       name="email"
+                                       placeholder="Your email address"
+                                       required
+                                       class="w-full pl-4 pr-4 py-3 text-lg border-2 border-gray-300 rounded-lg focus:outline-none focus:border-green-500 dark:bg-stone-800 dark:border-stone-600 dark:text-white {% if validationErrors.email %}border-red-500{% endif %}"
+                                       value="a@v.com">
+                                {% if validationErrors.email %}
+                                    <p class="text-red-500 text-sm mt-1">{{ validationErrors.email }}</p>
+                                {% endif %}
+                            </div>
+                            <div>
+                                <input type="text"
+                                       id="website-url"
+                                       name="url"
+                                       placeholder="Your website URL (e.g., example.com)"
+                                       required
+                                       class="w-full pl-4 pr-4 py-3 text-lg border-2 border-gray-300 rounded-lg focus:outline-none focus:border-green-500 dark:bg-stone-800 dark:border-stone-600 dark:text-white {% if validationErrors.url %}border-red-500{% endif %}"
+                                       value="http://example.com">
+                                {% if validationErrors.url %}
+                                    <p class="text-red-500 text-sm mt-1">{{ validationErrors.url }}</p>
+                                {% endif %}
+                            </div>
                             <button type="submit"
                                     class="w-full py-3 text-lg font-bold rounded-lg text-white bg-green-600 hover:bg-green-700 transition-all duration-300">
                                 Get your Free Report
@@ -47,15 +57,66 @@
                     <script>
                         function validateForm() {
                             var urlInput = document.getElementById('website-url');
+                            var emailInput = document.getElementById('email');
+                            var form = document.getElementById('interest-form');
                             var url = urlInput.value.trim();
+                            
+                            // Clear any existing error messages
+                            clearErrors();
+                            
+                            // Validate email
+                            if (!isValidEmail(emailInput.value)) {
+                                showError(emailInput, 'Please enter a valid email address');
+                                return false;
+                            }
+                            
+                            // Validate and normalise URL
+                            if (!url) {
+                                showError(urlInput, 'Please enter a website URL');
+                                return false;
+                            }
+                            
+                            // Normalise URL
                             if (url.indexOf('://') === -1) {
                                 url = 'https://' + url;
                             }
                             if (!/^https?:\/\//i.test(url)) {
                                 url = 'https://' + url;
                             }
+                            
+                            // Basic URL validation
+                            try {
+                                new URL(url);
+                            } catch (e) {
+                                showError(urlInput, 'Please enter a valid website URL');
+                                return false;
+                            }
+                            
                             urlInput.value = url;
+                            
+                            // Disable form submission button and show loading state
+                            const submitButton = form.querySelector('button[type="submit"]');
+                            submitButton.disabled = true;
+                            submitButton.innerHTML = '<span class="inline-flex items-center"><svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Analysing...</span>';
+                            
                             return true;
+                        }
+                        
+                        function isValidEmail(email) {
+                            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+                        }
+                        
+                        function showError(input, message) {
+                            const errorDiv = document.createElement('p');
+                            errorDiv.className = 'text-red-500 text-sm mt-1';
+                            errorDiv.textContent = message;
+                            input.classList.add('border-red-500');
+                            input.parentNode.appendChild(errorDiv);
+                        }
+                        
+                        function clearErrors() {
+                            document.querySelectorAll('.text-red-500').forEach(el => el.remove());
+                            document.querySelectorAll('.border-red-500').forEach(el => el.classList.remove('border-red-500'));
                         }
                     </script>
                 </div>
