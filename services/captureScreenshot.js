@@ -17,7 +17,7 @@ const isDevelopment = env === 'development';
 puppeteer.use(StealthPlugin());
 
 // Export the screenshot capture functionality
-const captureScreenshots = async (url, breakpointTypes = ['mobile', 'tablet', 'desktop']) => {
+const captureScreenshots = async (url, breakpointTypes = ['desktop']) => {
     console.log(`🔄 Starting screenshot capture for URL: ${url}`);
     
     const browserOptions = {

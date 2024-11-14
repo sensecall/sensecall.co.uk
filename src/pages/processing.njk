@@ -1,21 +1,44 @@
 {% extends "_includes/layouts/base.njk" %}
 
+{% block header %}
+{% endblock %}
+
 {% block content %}
-<div class="min-h-[80vh] flex items-center justify-center px-4 bg-gradient-to-br from-green-600 to-emerald-800 dark:from-green-900 dark:to-emerald-950">
+<div class="h-screen flex items-center justify-center px-4 bg-gradient-to-br from-green-600 to-emerald-800 dark:from-green-900 dark:to-emerald-950">
     <div class="absolute inset-0 opacity-20 bg-[url('/assets/images/pattern.svg')]"></div>
     <div class="w-full max-w-2xl relative z-10">
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8">
-            <div class="text-center mb-8">
-                <div class="w-16 h-16 mx-auto mb-4">
-                    <svg class="w-full h-full text-blue-500 animate-spin" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
+            <div class="relative min-h-[400px] flex flex-col">
+                <div class="text-center mb-8 relative z-20 transition-opacity duration-700 flex-1">
+                    <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">Analysing Your Website</h1>
+                    <div class="w-full h-2 bg-gray-200 rounded-full mb-4">
+                        <div id="progress-bar" class="h-full bg-blue-500 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                    <p class="text-xl text-gray-600 dark:text-gray-300" id="status-text">
+                        We're currently examining {{ websiteUrl }}
+                    </p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-2" id="progress-text">
+                        0% Complete
+                    </p>
                 </div>
-                <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Analysing Your Website</h1>
-                <p class="text-lg text-gray-600 dark:text-gray-300" id="status-text">
-                    Running initial checks on {{ websiteUrl }}...
-                </p>
+
+                <div id="screenshot-preview" class="absolute inset-0 opacity-0 transition-all duration-1000 transform translate-y-8">
+                    <div class="max-w-md mx-auto text-center">
+                        <div class="w-20 h-20 mx-auto mb-6">
+                            <svg class="w-full h-full text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">Website Captured</h1>
+                        <p class="text-xl text-gray-600 dark:text-gray-300 mb-6">
+                            Here's a preview of your website
+                        </p>
+                        
+                        <div class="aspect-[16/9] w-full relative rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700 shadow-lg">
+                            <img id="preview-image" src="" alt="Website Preview" class="w-full object-cover object-top opacity-0 transition-opacity duration-700" width="1280" height="720">
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="space-y-4">
@@ -73,24 +96,57 @@
 document.addEventListener('DOMContentLoaded', function() {
     const sessionId = '{{ sessionId }}';
     let checkCount = 0;
+    let currentProgress = 0;
     
     console.log('🚀 Processing page initialized');
     console.log(`📝 Session ID: ${sessionId}`);
     
+    function updateProgress(percentage, message = null) {
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        
+        currentProgress = percentage;
+        progressBar.style.width = `${percentage}%`;
+        progressText.textContent = `${Math.round(percentage)}% Complete`;
+        
+        if (message) {
+            document.getElementById('status-text').textContent = message;
+        }
+    }
+
+    function simulateProgress(start, end, duration, callback) {
+        const startTime = Date.now();
+        
+        function update() {
+            const currentTime = Date.now();
+            const elapsed = currentTime - startTime;
+            const progress = Math.min((elapsed / duration) * (end - start) + start, end);
+            
+            const roundedProgress = Math.round(progress);
+            updateProgress(roundedProgress);
+            
+            if (progress < end) {
+                requestAnimationFrame(update);
+            } else if (callback) {
+                callback();
+            }
+        }
+        
+        requestAnimationFrame(update);
+    }
+
     function updateStepStatus(elementId, status, message = null) {
         console.log(`🔄 Updating status for ${elementId}: ${status}${message ? ` (${message})` : ''}`);
         const element = document.getElementById(elementId);
         const statusText = document.getElementById('status-text');
         
         if (status === 'complete') {
-            console.log(`✅ Step completed: ${elementId}`);
             element.innerHTML = `
                 <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
             `;
         } else if (status === 'error') {
-            console.log(`❌ Step failed: ${elementId}`);
             element.innerHTML = `
                 <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -99,13 +155,59 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         if (message) {
-            console.log(`📝 Updating status text: ${message}`);
             statusText.textContent = message;
+        }
+        
+        switch(elementId) {
+            case 'url-validation-status':
+                simulateProgress(currentProgress, 25, 2000);
+                break;
+            case 'dns-check-status':
+                simulateProgress(currentProgress, 50, 2000);
+                break;
+            case 'site-response-status':
+                simulateProgress(currentProgress, 75, 2000);
+                break;
+            case 'capture-status':
+                simulateProgress(currentProgress, 100, 2000, () => {
+                    if (status === 'complete') {
+                        setTimeout(() => {
+                            const previewContainer = document.getElementById('screenshot-preview');
+                            const previewImage = document.getElementById('preview-image');
+                            const mainMessage = document.querySelector('.text-center.mb-8');
+                            const stepsContainer = document.querySelector('.space-y-4');
+                            
+                            if (previewContainer && previewImage && mainMessage && stepsContainer) {
+                                previewImage.src = `data:image/jpeg;base64,${data.screenshots[0].image}`;
+                                
+                                mainMessage.style.opacity = '0';
+                                stepsContainer.style.transition = 'opacity 700ms, transform 700ms';
+                                stepsContainer.style.opacity = '0';
+                                stepsContainer.style.transform = 'translateY(-1rem)';
+                                
+                                setTimeout(() => {
+                                    previewContainer.style.opacity = '1';
+                                    previewContainer.style.transform = 'translateY(0)';
+                                    previewImage.style.opacity = '1';
+                                    
+                                    setTimeout(() => {
+                                        window.location.href = '/success';
+                                    }, 6000);
+                                }, 700);
+                            }
+                        }, 500);
+                    }
+                });
+                break;
         }
     }
     
     async function checkStatus() {
         try {
+            if (checkCount === 0) {
+                simulateProgress(0, 15, 2000);
+            }
+            
             console.log(`\n🔍 Checking status (Attempt ${checkCount + 1})`);
             const response = await fetch(`/api/validation-status/${sessionId}`);
             
@@ -116,7 +218,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const data = await response.json();
             console.log('📊 Status check response:', data);
             
-            // Update UI based on validation steps
             if (data.validationResults) {
                 console.log('🔄 Processing validation results:', data.validationResults);
                 if (data.validationResults.urlValid) {
@@ -130,18 +231,39 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
             
-            // Handle different status cases
             switch (data.status) {
                 case 'completed':
                     console.log('✅ Process completed, checking screenshots...');
                     if (data.screenshots && data.screenshots.length > 0) {
                         console.log(`📸 Found ${data.screenshots.length} screenshots`);
                         updateStepStatus('capture-status', 'complete');
-                        console.log('🔄 Redirecting to success page...');
-                        setTimeout(() => {
-                            window.location.href = '/success';
-                        }, 1500);
-                        return;
+                        
+                        const previewContainer = document.getElementById('screenshot-preview');
+                        const previewImage = document.getElementById('preview-image');
+                        const mainMessage = document.querySelector('.text-center.mb-8');
+                        const stepsContainer = document.querySelector('.space-y-4');
+                        
+                        if (previewContainer && previewImage && mainMessage && stepsContainer) {
+                            previewImage.src = `data:image/jpeg;base64,${data.screenshots[0].image}`;
+                            
+                            setTimeout(() => {
+                                mainMessage.style.opacity = '0';
+                                stepsContainer.style.transition = 'opacity 700ms, transform 700ms';
+                                stepsContainer.style.opacity = '0';
+                                stepsContainer.style.transform = 'translateY(-1rem)';
+                                
+                                setTimeout(() => {
+                                    previewContainer.style.opacity = '1';
+                                    previewContainer.style.transform = 'translateY(0)';
+                                    previewImage.style.opacity = '1';
+                                    
+                                    setTimeout(() => {
+                                        window.location.href = '/success';
+                                    }, 6000);
+                                }, 300);
+                            }, 300);
+                            return;
+                        }
                     }
                     break;
                     
@@ -183,9 +305,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Start checking status
     console.log('🚀 Starting status checks...');
     checkStatus();
 });
 </script>
+{% endblock %}
+
+{% block footer %}
 {% endblock %}
