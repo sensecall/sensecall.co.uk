@@ -18,13 +18,48 @@
                 </p>
             </div>
 
-            <div class="space-y-6">
-                <div class="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
-                    <div class="flex items-center space-x-3">
-                        <div id="capture-status" class="w-5 h-5">
-                            <div class="w-full h-full rounded-full border-2 border-green-500 border-t-transparent animate-spin"></div>
+            <div class="space-y-4">
+                <div class="bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                    <div class="divide-y divide-gray-200 dark:divide-gray-600">
+                        <!-- URL Validation -->
+                        <div class="p-4">
+                            <div class="flex items-center space-x-3">
+                                <div id="url-validation-status" class="w-5 h-5">
+                                    <div class="w-full h-full rounded-full border-2 border-green-500 border-t-transparent animate-spin"></div>
+                                </div>
+                                <span class="text-gray-700 dark:text-gray-300">Validating URL format</span>
+                            </div>
                         </div>
-                        <span class="text-gray-700 dark:text-gray-300">Capturing website</span>
+
+                        <!-- DNS Check -->
+                        <div class="p-4">
+                            <div class="flex items-center space-x-3">
+                                <div id="dns-check-status" class="w-5 h-5">
+                                    <div class="w-full h-full rounded-full border-2 border-green-500 border-t-transparent animate-spin"></div>
+                                </div>
+                                <span class="text-gray-700 dark:text-gray-300">Checking domain availability</span>
+                            </div>
+                        </div>
+
+                        <!-- Site Response -->
+                        <div class="p-4">
+                            <div class="flex items-center space-x-3">
+                                <div id="site-response-status" class="w-5 h-5">
+                                    <div class="w-full h-full rounded-full border-2 border-green-500 border-t-transparent animate-spin"></div>
+                                </div>
+                                <span class="text-gray-700 dark:text-gray-300">Verifying site response</span>
+                            </div>
+                        </div>
+
+                        <!-- Screenshot Capture -->
+                        <div class="p-4">
+                            <div class="flex items-center space-x-3">
+                                <div id="capture-status" class="w-5 h-5">
+                                    <div class="w-full h-full rounded-full border-2 border-green-500 border-t-transparent animate-spin"></div>
+                                </div>
+                                <span class="text-gray-700 dark:text-gray-300">Capturing website</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -39,8 +74,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const sessionId = '{{ sessionId }}';
     let checkCount = 0;
     
-    function updateStatus(status) {
-        const element = document.getElementById('capture-status');
+    function updateStepStatus(elementId, status, message = null) {
+        const element = document.getElementById(elementId);
         const statusText = document.getElementById('status-text');
         
         if (status === 'complete') {
@@ -49,44 +84,59 @@ document.addEventListener('DOMContentLoaded', function() {
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
             `;
-            statusText.textContent = 'Analysis complete!';
-        } else if (status === 'processing') {
+        } else if (status === 'error') {
             element.innerHTML = `
-                <div class="w-full h-full rounded-full border-2 border-green-500 border-t-transparent animate-spin"></div>
+                <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
             `;
-            statusText.textContent = 'Capturing website...';
+        }
+        
+        if (message) {
+            statusText.textContent = message;
         }
     }
     
     async function checkStatus() {
         try {
-            const response = await fetch(`/api/screenshot-status/${sessionId}`);
+            const response = await fetch(`/api/validation-status/${sessionId}`);
             const data = await response.json();
             
+            // Update UI based on validation steps
+            if (data.urlValidation) {
+                updateStepStatus('url-validation-status', 'complete');
+            }
+            if (data.dnsCheck) {
+                updateStepStatus('dns-check-status', 'complete');
+            }
+            if (data.siteResponse) {
+                updateStepStatus('site-response-status', 'complete');
+            }
+            
             if (data.status === 'complete' && data.screenshots) {
-                updateStatus('complete');
+                updateStepStatus('capture-status', 'complete');
                 setTimeout(() => {
                     window.location.href = '/success';
                 }, 1500);
                 return;
-            } else if (data.status === 'processing') {
-                updateStatus('processing');
+            } else if (data.status === 'failed') {
+                updateStepStatus('capture-status', 'error', data.error || 'Failed to analyse website');
+                return;
             }
             
             checkCount++;
             if (checkCount < 30) { // Maximum 30 seconds wait
                 setTimeout(checkStatus, 1000);
             } else {
-                window.location.href = '/success';
+                window.location.href = '/error';
             }
         } catch (error) {
             console.error('Error checking status:', error);
-            window.location.href = '/success';
+            window.location.href = '/error';
         }
     }
     
     // Start checking status
-    updateStatus('processing');
     checkStatus();
 });
 </script>

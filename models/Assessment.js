@@ -1,34 +1,30 @@
 const mongoose = require('mongoose');
 
-const assessmentSchema = new mongoose.Schema({
-  websiteUrl: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true
-  },
-  sessionId: {
-    type: String,
-    required: true,
-    unique: true
-  },
+const AssessmentSchema = new mongoose.Schema({
+  sessionId: String,
+  websiteUrl: String,
   status: {
     type: String,
     enum: ['pending', 'processing', 'completed', 'failed'],
     default: 'pending'
   },
-  created: {
-    type: Date,
-    default: Date.now
+  validationResults: {
+    urlValid: Boolean,
+    dnsValid: Boolean,
+    siteResponds: Boolean,
+    timestamp: Date
   },
-  completed: {
-    type: Date
-  },
-  error: {
-    type: String
-  }
+  screenshots: [{
+    breakpoint: {
+      width: Number,
+      height: Number
+    },
+    image: String,
+    timestamp: Date
+  }],
+  error: String,
+  created: Date,
+  completed: Date
 });
 
-module.exports = mongoose.model('Assessment', assessmentSchema);
+module.exports = mongoose.model('Assessment', AssessmentSchema);

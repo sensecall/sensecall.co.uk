@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const { captureScreenshots } = require('./services/captureScreenshot');
 const path = require('path');
-const fs = require('fs/promises');
+const fs = require('fs').promises;
 const crypto = require('crypto');
+const Assessment = require('./models/Assessment');
+const { captureScreenshots } = require('./services/captureScreenshot');
+const { validateUrl } = require('./services/urlValidationService');
 const apiAssessmentRouter = require('./routes/api/assessment');
 const assessmentRouter = require('./routes/assessment');
 const ReportRequest = require('./models/ReportRequest');
-const Assessment = require('./models/Assessment');
+const { validateWebsite } = require('./services/validationService');
 
 // Home page
 router.get('/', (req, res) => {
@@ -229,24 +231,32 @@ router.post('/register-interest', async (req, res) => {
 // Add after the register-interest route
 router.get('/processing/:sessionId', async (req, res) => {
     const { sessionId } = req.params;
+    console.log(`🔍 Processing request for session: ${sessionId}`);
     
     try {
         const assessment = await Assessment.findOne({ sessionId });
         if (!assessment) {
+            console.log(`❌ No assessment found for session: ${sessionId}`);
             return res.redirect('/?error=invalid_session');
         }
 
-        // Start the screenshot capture process
-        captureScreenshotsAsync(assessment.websiteUrl, sessionId)
-            .catch(error => console.error('Screenshot capture failed:', error));
-
+        // Render the processing page
         res.render('pages/processing.njk', {
             title: 'Analysing Your Website',
             websiteUrl: assessment.websiteUrl,
             sessionId
         });
+
+        // Start validation if not already done
+        if (assessment.status === 'pending') {
+            validateWebsite(assessment.websiteUrl, sessionId)
+                .catch(error => {
+                    console.error('Validation failed:', error);
+                });
+        }
+
     } catch (error) {
-        console.error('Processing page error:', error);
+        console.error(`❌ Processing page error for session ${sessionId}:`, error);
         res.redirect('/?error=server_error');
     }
 });
