@@ -42,6 +42,20 @@ router.get('/signin', (req, res) => {
     });
 });
 
+// Forgot password page
+router.get('/forgot-password', (req, res) => {
+    res.render('pages/forgot-password.njk', {
+        title: 'Reset your SiteHero password'
+    });
+});
+
+// Privacy page
+router.get('/privacy', (req, res) => {
+    res.render('pages/privacy.njk', {
+        title: 'Privacy Policy'
+    });
+});
+
 // Assessment route
 router.use('/assessment', assessmentRouter);
 
