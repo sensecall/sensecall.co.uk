@@ -265,7 +265,23 @@ router.get('/processing/:sessionId', async (req, res) => {
         const assessment = await Assessment.findOne({ sessionId });
         if (!assessment) {
             console.log(`❌ No assessment found for session: ${sessionId}`);
-            return res.redirect('/?error=invalid_session');
+            return res.render('pages/error.njk', {
+                title: 'Invalid Session',
+                message: 'We could not find your assessment session. Please try again.',
+                errorType: 'INVALID_SESSION'
+            });
+        }
+
+        // Check if the assessment has already failed
+        if (assessment.status === 'failed') {
+            const errorType = assessment.validationResults?.error || 'UNKNOWN_ERROR';
+            const errorMessage = assessment.validationResults?.message || 'An unknown error occurred';
+            
+            return res.render('pages/error.njk', {
+                title: 'Validation Failed',
+                message: errorMessage,
+                errorType: errorType
+            });
         }
 
         // Render the processing page
@@ -280,12 +296,19 @@ router.get('/processing/:sessionId', async (req, res) => {
             validateWebsite(assessment.websiteUrl, sessionId)
                 .catch(error => {
                     console.error('Validation failed:', error);
+                    assessment.status = 'failed';
+                    assessment.error = error.message;
+                    assessment.save();
                 });
         }
 
     } catch (error) {
         console.error(`❌ Processing page error for session ${sessionId}:`, error);
-        res.redirect('/?error=server_error');
+        res.render('pages/error.njk', {
+            title: 'Server Error',
+            message: 'An unexpected error occurred. Please try again later.',
+            errorType: 'SERVER_ERROR'
+        });
     }
 });
 
@@ -297,7 +320,9 @@ router.get('/api/validation-status/:sessionId', async (req, res) => {
         
         if (!assessment) {
             return res.status(404).json({
-                error: 'Assessment not found'
+                status: 'failed',
+                error: 'INVALID_SESSION',
+                message: 'Assessment not found'
             });
         }
 
@@ -305,14 +330,31 @@ router.get('/api/validation-status/:sessionId', async (req, res) => {
             status: assessment.status,
             validationResults: assessment.validationResults,
             screenshots: assessment.screenshots,
-            error: assessment.error
+            error: assessment.validationResults?.error || assessment.error,
+            message: assessment.validationResults?.message || 'An unknown error occurred'
         });
     } catch (error) {
         console.error('Error fetching validation status:', error);
         res.status(500).json({
-            error: 'Failed to fetch validation status'
+            status: 'failed',
+            error: 'SERVER_ERROR',
+            message: 'Failed to fetch validation status'
         });
     }
+});
+
+// Add this before the module.exports
+router.get('/error', (req, res) => {
+    const errorType = req.query.type || 'UNKNOWN_ERROR';
+    const message = req.query.message || 'An unexpected error occurred';
+    
+    console.log(`📄 Rendering error page for type: ${errorType}`);
+    
+    res.render('pages/error.njk', {
+        title: 'Error Occurred',
+        message: message,
+        errorType: errorType
+    });
 });
 
 module.exports = router;

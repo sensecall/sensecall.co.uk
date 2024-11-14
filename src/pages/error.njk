@@ -1,0 +1,80 @@
+{% extends "_includes/layouts/base.njk" %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
+    <div class="max-w-xl w-full mx-auto p-8">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 text-center">
+            <div class="w-20 h-20 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-10 h-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+            </div>
+            
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Something went wrong</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-300 mb-2">We ran into a problem with your request:</p>
+            <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">{{ errorType }}</p>
+            
+            {% if errorType === 'INVALID_PROTOCOL' or errorType === 'INVALID_FORMAT' %}
+                <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 mb-8 text-left">
+                    <h2 class="font-semibold text-blue-800 dark:text-blue-200 mb-2">Let's get you back on track:</h2>
+                    <ul class="list-disc list-inside text-blue-700 dark:text-blue-300 space-y-1">
+                        <li>Make sure your URL starts with http:// or https://</li>
+                        <li>Check for any typos in the domain name</li>
+                        <li>Ensure there are no spaces in the URL</li>
+                    </ul>
+                </div>
+            {% elif errorType === 'DNS_LOOKUP_FAILED' %}
+                <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 mb-8 text-left">
+                    <h2 class="font-semibold text-blue-800 dark:text-blue-200 mb-2">Possible reasons:</h2>
+                    <ul class="list-disc list-inside text-blue-700 dark:text-blue-300 space-y-1">
+                        <li>The domain doesn't exist</li>
+                        <li>There might be a typo in the domain name</li>
+                        <li>The domain's DNS records might be misconfigured</li>
+                    </ul>
+                </div>
+            {% elif errorType === 'CONNECTION_TIMEOUT' or errorType === 'CONNECTION_FAILED' %}
+                <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 mb-8 text-left">
+                    <h2 class="font-semibold text-blue-800 dark:text-blue-200 mb-2">Connection Issues:</h2>
+                    <ul class="list-disc list-inside text-blue-700 dark:text-blue-300 space-y-1">
+                        <li>The website is not responding</li>
+                        <li>The server might be down or overloaded</li>
+                        <li>There might be network connectivity issues</li>
+                    </ul>
+                </div>
+            {% elif errorType === 'INVALID_STATUS' %}
+                <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 mb-8 text-left">
+                    <h2 class="font-semibold text-blue-800 dark:text-blue-200 mb-2">Server Response Issue:</h2>
+                    <ul class="list-disc list-inside text-blue-700 dark:text-blue-300 space-y-1">
+                        <li>The website returned an error status code</li>
+                        <li>The page might be temporarily unavailable</li>
+                        <li>The URL might point to a restricted resource</li>
+                    </ul>
+                </div>
+            {% elif errorType === 'SERVER_ERROR' %}
+                <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 mb-8 text-left">
+                    <h2 class="font-semibold text-blue-800 dark:text-blue-200 mb-2">System Error:</h2>
+                    <ul class="list-disc list-inside text-blue-700 dark:text-blue-300 space-y-1">
+                        <li>Our system encountered an unexpected error</li>
+                        <li>This is likely a temporary issue</li>
+                        <li>Please try again in a few minutes</li>
+                    </ul>
+                </div>
+            {% elif errorType === 'INVALID_SESSION' %}
+                <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 mb-8 text-left">
+                    <h2 class="font-semibold text-blue-800 dark:text-blue-200 mb-2">Session Error:</h2>
+                    <ul class="list-disc list-inside text-blue-700 dark:text-blue-300 space-y-1">
+                        <li>Your session has expired or is invalid</li>
+                        <li>Please start a new assessment</li>
+                    </ul>
+                </div>
+            {% endif %}
+            
+            <div class="flex justify-center">
+                <a href="/" class="inline-flex items-center justify-center px-8 py-3 rounded-lg text-white bg-blue-500 hover:bg-blue-600 transition-colors">
+                    Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,5 +1,5 @@
 // services/validationService.js
-const { validateUrl } = require('./urlValidationService');
+const { validateUrl, ValidationError } = require('./urlValidationService');
 const { captureScreenshots } = require('./captureScreenshot');
 const Assessment = require('../models/Assessment');
 
@@ -34,12 +34,13 @@ async function validateWebsite(url, sessionId) {
                 { sessionId },
                 { 
                     status: 'failed',
-                    error: validationResult.error,
+                    error: validationResult.message,
                     validationResults: {
                         urlValid: false,
                         dnsValid: false,
                         siteResponds: false,
                         error: validationResult.error,
+                        message: validationResult.message,
                         timestamp: new Date()
                     }
                 }
@@ -55,6 +56,8 @@ async function validateWebsite(url, sessionId) {
                     urlValid: true,
                     dnsValid: true,
                     siteResponds: true,
+                    status: validationResult.status,
+                    contentType: validationResult.contentType,
                     timestamp: new Date()
                 }
             }
@@ -84,7 +87,13 @@ async function validateWebsite(url, sessionId) {
                 { sessionId },
                 { 
                     status: 'failed',
-                    error: `Screenshot capture failed: ${error.message}`
+                    error: `Screenshot capture failed: ${error.message}`,
+                    validationResults: {
+                        ...updateResult.validationResults,
+                        error: ValidationError.SCREENSHOT_FAILED,
+                        message: `Screenshot capture failed: ${error.message}`,
+                        timestamp: new Date()
+                    }
                 }
             );
             return false;
@@ -95,7 +104,15 @@ async function validateWebsite(url, sessionId) {
             { sessionId },
             { 
                 status: 'failed',
-                error: `Validation process failed: ${error.message}`
+                error: `Validation process failed: ${error.message}`,
+                validationResults: {
+                    urlValid: false,
+                    dnsValid: false,
+                    siteResponds: false,
+                    error: ValidationError.UNKNOWN_ERROR,
+                    message: `Validation process failed: ${error.message}`,
+                    timestamp: new Date()
+                }
             }
         );
         return false;

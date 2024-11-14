@@ -282,12 +282,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     break;
                     
                 case 'failed':
-                    const errorMessage = data.error || 'Failed to analyse website';
+                    const errorType = data.validationResults?.error || data.error || 'UNKNOWN_ERROR';
+                    const errorMessage = data.validationResults?.message || data.message || 'Failed to analyse website';
                     console.error('❌ Processing failed:', errorMessage);
                     updateStepStatus('capture-status', 'error', errorMessage);
                     console.log('🔄 Redirecting to error page...');
                     setTimeout(() => {
-                        window.location.href = '/error';
+                        window.location.href = `/error?type=${encodeURIComponent(errorType)}&message=${encodeURIComponent(errorMessage)}`;
                     }, 3000);
                     return;
                     
@@ -307,14 +308,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('❌ Process timed out after 120 attempts');
                 updateStepStatus('capture-status', 'error', 'Process timed out');
                 setTimeout(() => {
-                    window.location.href = '/error';
+                    window.location.href = `/error?type=${encodeURIComponent('CONNECTION_TIMEOUT')}&message=${encodeURIComponent('Process timed out - website took too long to respond')}`;
                 }, 3000);
             }
         } catch (error) {
             console.error('❌ Error checking status:', error);
             updateStepStatus('capture-status', 'error', 'An error occurred while checking status');
             setTimeout(() => {
-                window.location.href = '/error';
+                window.location.href = `/error?type=${encodeURIComponent('SERVER_ERROR')}&message=${encodeURIComponent('An error occurred while checking the validation status')}`;
             }, 3000);
         }
     }

@@ -4,6 +4,16 @@ const { promisify } = require('util');
 
 const dnsLookup = promisify(dns.lookup);
 
+const ValidationError = {
+  INVALID_FORMAT: 'INVALID_FORMAT',
+  INVALID_PROTOCOL: 'INVALID_PROTOCOL',
+  DNS_LOOKUP_FAILED: 'DNS_LOOKUP_FAILED',
+  CONNECTION_TIMEOUT: 'CONNECTION_TIMEOUT',
+  CONNECTION_FAILED: 'CONNECTION_FAILED',
+  INVALID_STATUS: 'INVALID_STATUS',
+  UNKNOWN_ERROR: 'UNKNOWN_ERROR'
+};
+
 async function validateUrl(url) {
     console.log(`\n🔍 Starting detailed URL validation for: ${url}`);
     
@@ -14,14 +24,18 @@ async function validateUrl(url) {
         try {
             parsedUrl = new URL(url);
             if (!parsedUrl.protocol.startsWith('http')) {
-                throw new Error('Invalid protocol - must be http or https');
+                return {
+                    valid: false,
+                    error: ValidationError.INVALID_PROTOCOL,
+                    message: 'Invalid protocol - must be http or https'
+                };
             }
             console.log('✅ URL format is valid');
         } catch (error) {
-            console.error('❌ URL format validation failed:', error.message);
             return {
                 valid: false,
-                error: 'Invalid URL format'
+                error: ValidationError.INVALID_FORMAT,
+                message: 'Invalid URL format'
             };
         }
 
@@ -31,10 +45,10 @@ async function validateUrl(url) {
             await dnsLookup(parsedUrl.hostname);
             console.log('✅ DNS lookup successful');
         } catch (error) {
-            console.error('❌ DNS lookup failed:', error.message);
             return {
                 valid: false,
-                error: 'Domain cannot be resolved'
+                error: ValidationError.DNS_LOOKUP_FAILED,
+                message: 'Domain cannot be resolved'
             };
         }
 
@@ -44,7 +58,6 @@ async function validateUrl(url) {
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 10000);
 
-            console.log('📡 Sending HEAD request...');
             const response = await fetch(url, {
                 method: 'HEAD',
                 signal: controller.signal,
@@ -58,7 +71,9 @@ async function validateUrl(url) {
             if (!response.ok) {
                 return {
                     valid: false,
-                    error: `Site returned status code: ${response.status}`
+                    error: ValidationError.INVALID_STATUS,
+                    message: `Site returned status code: ${response.status}`,
+                    status: response.status
                 };
             }
 
@@ -71,17 +86,20 @@ async function validateUrl(url) {
             return {
                 valid: false,
                 error: error.name === 'AbortError' ? 
+                    ValidationError.CONNECTION_TIMEOUT : 
+                    ValidationError.CONNECTION_FAILED,
+                message: error.name === 'AbortError' ? 
                     'Site took too long to respond' : 
                     'Failed to connect to site'
             };
         }
     } catch (error) {
-        console.error('❌ Validation failed:', error);
         return {
             valid: false,
-            error: 'Validation failed'
+            error: ValidationError.UNKNOWN_ERROR,
+            message: 'Validation failed'
         };
     }
 }
 
-module.exports = { validateUrl }; 
+module.exports = { validateUrl, ValidationError }; 
