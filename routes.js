@@ -262,7 +262,9 @@ router.get('/processing/:sessionId', async (req, res) => {
     console.log(`🔍 Processing request for session: ${sessionId}`);
     
     try {
-        const assessment = await Assessment.findOne({ sessionId });
+        const assessment = await Assessment.findOne({ sessionId }); // Find the assessment by sessionId
+        
+        // If no assessment is found, render the error page
         if (!assessment) {
             console.log(`❌ No assessment found for session: ${sessionId}`);
             return res.render('pages/error.njk', {

@@ -4,11 +4,10 @@ const { captureScreenshots } = require('./captureScreenshot');
 const Assessment = require('../models/Assessment');
 
 async function validateWebsite(url, sessionId) {
-    console.log(`🔄 Starting validation process for session: ${sessionId}`);
-    console.log(`📝 URL to validate: ${url}`);
+    console.log(`🔄 Starting validation for ${url} (session id: ${sessionId})`);
     
     try {
-        console.log('⏳ Updating status to processing...');
+        // Update the assessment status to processing
         await Assessment.findOneAndUpdate(
             { sessionId },
             { 
@@ -24,7 +23,6 @@ async function validateWebsite(url, sessionId) {
         console.log('✅ Status updated to processing');
 
         // Validate URL and site
-        console.log('🔍 Starting URL validation...');
         const validationResult = await validateUrl(url);
         console.log('📊 URL validation result:', validationResult);
         
@@ -48,7 +46,6 @@ async function validateWebsite(url, sessionId) {
             return false;
         }
 
-        console.log('✅ URL validation successful, updating results...');
         const updateResult = await Assessment.findOneAndUpdate(
             { sessionId },
             { 
@@ -62,13 +59,11 @@ async function validateWebsite(url, sessionId) {
                 }
             }
         );
-        console.log('✅ Validation results updated in database');
+        console.log('✅ URL validation successful, validation results updated in database');
 
         // Capture screenshots
         try {
-            console.log('Starting screenshot capture...');
             const screenshots = await captureScreenshots(url);
-            console.log(`Successfully captured ${screenshots.length} screenshots`);
             
             // Update with completed status
             await Assessment.findOneAndUpdate(
