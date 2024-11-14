@@ -74,17 +74,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const sessionId = '{{ sessionId }}';
     let checkCount = 0;
     
+    console.log('🚀 Processing page initialized');
+    console.log(`📝 Session ID: ${sessionId}`);
+    
     function updateStepStatus(elementId, status, message = null) {
+        console.log(`🔄 Updating status for ${elementId}: ${status}${message ? ` (${message})` : ''}`);
         const element = document.getElementById(elementId);
         const statusText = document.getElementById('status-text');
         
         if (status === 'complete') {
+            console.log(`✅ Step completed: ${elementId}`);
             element.innerHTML = `
                 <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>
             `;
         } else if (status === 'error') {
+            console.log(`❌ Step failed: ${elementId}`);
             element.innerHTML = `
                 <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -93,52 +99,84 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         if (message) {
+            console.log(`📝 Updating status text: ${message}`);
             statusText.textContent = message;
         }
     }
     
     async function checkStatus() {
         try {
+            console.log(`\n🔍 Checking status (Attempt ${checkCount + 1})`);
             const response = await fetch(`/api/validation-status/${sessionId}`);
+            
+            if (!response.ok) {
+                throw new Error(`Status check failed: ${response.status}`);
+            }
+            
             const data = await response.json();
+            console.log('📊 Status check response:', data);
             
             // Update UI based on validation steps
-            if (data.urlValidation) {
-                updateStepStatus('url-validation-status', 'complete');
-            }
-            if (data.dnsCheck) {
-                updateStepStatus('dns-check-status', 'complete');
-            }
-            if (data.siteResponse) {
-                updateStepStatus('site-response-status', 'complete');
+            if (data.validationResults) {
+                console.log('🔄 Processing validation results:', data.validationResults);
+                if (data.validationResults.urlValid) {
+                    updateStepStatus('url-validation-status', 'complete');
+                }
+                if (data.validationResults.dnsValid) {
+                    updateStepStatus('dns-check-status', 'complete');
+                }
+                if (data.validationResults.siteResponds) {
+                    updateStepStatus('site-response-status', 'complete');
+                }
             }
             
-            if (data.status === 'completed' && data.screenshots) {
-                updateStepStatus('capture-status', 'complete');
-                setTimeout(() => {
-                    window.location.href = '/success';
-                }, 1500);
-                return;
-            } else if (data.status === 'failed') {
-                updateStepStatus('capture-status', 'error', data.error || 'Failed to analyse website');
-                setTimeout(() => {
-                    window.location.href = '/error';
-                }, 3000);
-                return;
+            // Handle different status cases
+            switch (data.status) {
+                case 'completed':
+                    console.log('✅ Process completed, checking screenshots...');
+                    if (data.screenshots && data.screenshots.length > 0) {
+                        console.log(`📸 Found ${data.screenshots.length} screenshots`);
+                        updateStepStatus('capture-status', 'complete');
+                        console.log('🔄 Redirecting to success page...');
+                        setTimeout(() => {
+                            window.location.href = '/success';
+                        }, 1500);
+                        return;
+                    }
+                    break;
+                    
+                case 'failed':
+                    const errorMessage = data.error || 'Failed to analyse website';
+                    console.error('❌ Processing failed:', errorMessage);
+                    updateStepStatus('capture-status', 'error', errorMessage);
+                    console.log('🔄 Redirecting to error page...');
+                    setTimeout(() => {
+                        window.location.href = '/error';
+                    }, 3000);
+                    return;
+                    
+                case 'processing':
+                    console.log('⏳ Still processing...');
+                    break;
+                    
+                default:
+                    console.warn('⚠️ Unknown status:', data.status);
             }
             
             checkCount++;
-            if (checkCount < 60) { // Increased to 60 seconds
-                setTimeout(checkStatus, 1000);
+            if (checkCount < 120) {
+                console.log(`🔄 Scheduling next check (${checkCount}/120)`);
+                setTimeout(checkStatus, 2000);
             } else {
+                console.error('❌ Process timed out after 120 attempts');
                 updateStepStatus('capture-status', 'error', 'Process timed out');
                 setTimeout(() => {
                     window.location.href = '/error';
                 }, 3000);
             }
         } catch (error) {
-            console.error('Error checking status:', error);
-            updateStepStatus('capture-status', 'error', 'An error occurred');
+            console.error('❌ Error checking status:', error);
+            updateStepStatus('capture-status', 'error', 'An error occurred while checking status');
             setTimeout(() => {
                 window.location.href = '/error';
             }, 3000);
@@ -146,6 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Start checking status
+    console.log('🚀 Starting status checks...');
     checkStatus();
 });
 </script>

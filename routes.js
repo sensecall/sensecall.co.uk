@@ -6,10 +6,10 @@ const crypto = require('crypto');
 const Assessment = require('./models/Assessment');
 const { captureScreenshots } = require('./services/captureScreenshot');
 const { validateUrl } = require('./services/urlValidationService');
-const apiAssessmentRouter = require('./routes/api/assessment');
 const assessmentRouter = require('./routes/assessment');
 const ReportRequest = require('./models/ReportRequest');
 const { validateWebsite } = require('./services/validationService');
+const User = require('./models/User');
 
 // Home page
 router.get('/', (req, res) => {
@@ -44,8 +44,6 @@ router.get('/signin', (req, res) => {
 
 // Assessment route
 router.use('/assessment', assessmentRouter);
-// API routes
-router.use('/api', apiAssessmentRouter);
 
 // New endpoint to check screenshot status
 router.get('/api/screenshot-status/:sessionId', async (req, res) => {
@@ -182,7 +180,6 @@ router.get('/api/debug-screenshots/:sessionId', async (req, res) => {
 });
 
 router.use('/assessment', assessmentRouter);
-router.use('/api', apiAssessmentRouter);
 
 router.get('/api/lighthouse-report/:sessionId', async (req, res) => {
   try {
@@ -198,41 +195,51 @@ router.get('/api/lighthouse-report/:sessionId', async (req, res) => {
 });
 
 router.post('/register-interest', async (req, res) => {
-    try {
-        let { url, email } = req.body;
-
-        // Validate email
-        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            return res.redirect('/?error=invalid_email');
-        }
-
-        // Clean and validate URL
-        if (!url.startsWith('http://') && !url.startsWith('https://')) {
-            url = 'https://' + url;
-        }
-
-        try {
-            new URL(url);
-        } catch (e) {
-            return res.redirect('/?error=invalid_url');
-        }
-
-        // Store in database and redirect to success page
-        const sessionId = crypto.randomBytes(16).toString('hex');
-        const assessment = new Assessment({
-            websiteUrl: url,
-            email,
-            sessionId,
-            status: 'pending',
-            created: new Date()
-        });
-
-        await assessment.save();
-        res.redirect(`/processing/${sessionId}`);
-    } catch (error) {
-        console.error('Registration error:', error);
-        res.redirect('/?error=server_error');
+  try {
+    const { email, url } = req.body;
+    
+    // Basic validation
+    if (!email || !url) {
+      return res.status(400).redirect('/?error=missing_fields');
     }
+
+    let user;
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      // Update existing user's website URL
+      existingUser.websiteUrl = url;
+      user = await existingUser.save();
+    } else {
+      // Create new user
+      user = new User({
+        email,
+        websiteUrl: url,
+        createdAt: new Date()
+      });
+      await user.save();
+    }
+
+    // Generate session ID for tracking
+    const sessionId = crypto.randomBytes(16).toString('hex');
+
+    // Create initial assessment
+    const assessment = new Assessment({
+      websiteUrl: url,
+      sessionId,
+      userId: user._id,
+      status: 'pending',
+      created: new Date()
+    });
+
+    await assessment.save();
+
+    // Redirect to processing page with session ID
+    res.redirect(`/processing/${sessionId}`);
+  } catch (error) {
+    console.error('Error saving user:', error);
+    res.status(500).redirect('/?error=server_error');
+  }
 });
 
 // Add after the register-interest route
@@ -265,6 +272,32 @@ router.get('/processing/:sessionId', async (req, res) => {
     } catch (error) {
         console.error(`❌ Processing page error for session ${sessionId}:`, error);
         res.redirect('/?error=server_error');
+    }
+});
+
+// Add this route to handle validation status checks
+router.get('/api/validation-status/:sessionId', async (req, res) => {
+    try {
+        const { sessionId } = req.params;
+        const assessment = await Assessment.findOne({ sessionId });
+        
+        if (!assessment) {
+            return res.status(404).json({
+                error: 'Assessment not found'
+            });
+        }
+
+        res.json({
+            status: assessment.status,
+            validationResults: assessment.validationResults,
+            screenshots: assessment.screenshots,
+            error: assessment.error
+        });
+    } catch (error) {
+        console.error('Error fetching validation status:', error);
+        res.status(500).json({
+            error: 'Failed to fetch validation status'
+        });
     }
 });
 

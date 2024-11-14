@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 const AssessmentSchema = new mongoose.Schema({
   sessionId: String,
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
   websiteUrl: String,
   status: {
     type: String,

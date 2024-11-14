@@ -11,15 +11,20 @@ router.get('/', async (req, res) => {
 
   if (websiteUrl) {
     try {
+      console.log('\n🚀 Starting new assessment process');
       sessionId = crypto.randomBytes(16).toString('hex');
+      console.log(`📝 Generated session ID: ${sessionId}`);
+      console.log(`🌐 Website URL: ${websiteUrl}`);
       
       // Start the quick preview process
+      console.log('⏳ Initializing quick preview...');
       generateQuickPreview(websiteUrl, sessionId)
         .catch(error => {
-          console.error('Preview generation failed:', error);
+          console.error('❌ Preview generation failed:', error);
         });
+      console.log('✅ Preview generation initiated');
     } catch (error) {
-      console.error('Error initializing preview:', error);
+      console.error('❌ Error during assessment initialization:', error);
     }
   }
 

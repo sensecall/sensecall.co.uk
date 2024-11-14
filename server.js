@@ -69,6 +69,7 @@ app.use(darkModeMiddleware);
 app.use('/', routes);
 app.use(screenshotRouter);
 app.use('/api', previewRouter);
+app.use('/api', require('./routes/api/users'));
 
 // Error handling
 app.use((req, res, next) => {

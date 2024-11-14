@@ -5,18 +5,20 @@ const { promisify } = require('util');
 const dnsLookup = promisify(dns.lookup);
 
 async function validateUrl(url) {
-    console.log(`🔍 Starting URL validation for: ${url}`);
+    console.log(`\n🔍 Starting detailed URL validation for: ${url}`);
     
     try {
         // Ensure URL is properly formatted
+        console.log('1️⃣ Checking URL format...');
         let parsedUrl;
         try {
             parsedUrl = new URL(url);
             if (!parsedUrl.protocol.startsWith('http')) {
                 throw new Error('Invalid protocol - must be http or https');
             }
+            console.log('✅ URL format is valid');
         } catch (error) {
-            console.error('❌ URL format invalid:', error.message);
+            console.error('❌ URL format validation failed:', error.message);
             return {
                 valid: false,
                 error: 'Invalid URL format'
@@ -24,8 +26,10 @@ async function validateUrl(url) {
         }
 
         // Check if domain resolves
+        console.log('2️⃣ Performing DNS lookup...');
         try {
             await dnsLookup(parsedUrl.hostname);
+            console.log('✅ DNS lookup successful');
         } catch (error) {
             console.error('❌ DNS lookup failed:', error.message);
             return {
@@ -35,10 +39,12 @@ async function validateUrl(url) {
         }
 
         // Try to fetch the website
+        console.log('3️⃣ Testing website response...');
         try {
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 10000);
 
+            console.log('📡 Sending HEAD request...');
             const response = await fetch(url, {
                 method: 'HEAD',
                 signal: controller.signal,

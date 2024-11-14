@@ -4,8 +4,11 @@ const { captureScreenshots } = require('./captureScreenshot');
 const Assessment = require('../models/Assessment');
 
 async function validateWebsite(url, sessionId) {
+    console.log(`🔄 Starting validation process for session: ${sessionId}`);
+    console.log(`📝 URL to validate: ${url}`);
+    
     try {
-        // Update status to processing
+        console.log('⏳ Updating status to processing...');
         await Assessment.findOneAndUpdate(
             { sessionId },
             { 
@@ -18,11 +21,15 @@ async function validateWebsite(url, sessionId) {
                 }
             }
         );
+        console.log('✅ Status updated to processing');
 
         // Validate URL and site
+        console.log('🔍 Starting URL validation...');
         const validationResult = await validateUrl(url);
+        console.log('📊 URL validation result:', validationResult);
         
         if (!validationResult.valid) {
+            console.error(`❌ URL validation failed: ${validationResult.error}`);
             await Assessment.findOneAndUpdate(
                 { sessionId },
                 { 
@@ -40,8 +47,8 @@ async function validateWebsite(url, sessionId) {
             return false;
         }
 
-        // Update validation results
-        await Assessment.findOneAndUpdate(
+        console.log('✅ URL validation successful, updating results...');
+        const updateResult = await Assessment.findOneAndUpdate(
             { sessionId },
             { 
                 validationResults: {
@@ -52,10 +59,13 @@ async function validateWebsite(url, sessionId) {
                 }
             }
         );
+        console.log('✅ Validation results updated in database');
 
         // Capture screenshots
         try {
+            console.log('Starting screenshot capture...');
             const screenshots = await captureScreenshots(url);
+            console.log(`Successfully captured ${screenshots.length} screenshots`);
             
             // Update with completed status
             await Assessment.findOneAndUpdate(
@@ -74,7 +84,7 @@ async function validateWebsite(url, sessionId) {
                 { sessionId },
                 { 
                     status: 'failed',
-                    error: error.message || 'Failed to capture screenshots'
+                    error: `Screenshot capture failed: ${error.message}`
                 }
             );
             return false;
@@ -85,7 +95,7 @@ async function validateWebsite(url, sessionId) {
             { sessionId },
             { 
                 status: 'failed',
-                error: error.message
+                error: `Validation process failed: ${error.message}`
             }
         );
         return false;
