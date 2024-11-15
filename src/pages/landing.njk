@@ -10,7 +10,7 @@
                     <h1 class="text-4xl lg:text-6xl xl:text-7xl font-black text-gray-900 dark:text-white mb-8 font-sans leading-tight animate-fade-in-up">
                         Your Website Sucks.
                         <br>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-300 to-red-600 underline">(Probably)</span>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-red-600">(Probably)</span>
                     </h1>
                     <p class="text-xl md:text-2xl text-slate-600 dark:text-zinc-300 mb-10 animate-fade-in-up delay-200">
                         Discover exactly what's holding your website back and get actionable recommendations to improve it.
@@ -42,7 +42,6 @@
                                 <label for="email" class="sr-only">Email address</label>
                                 <div class="relative">
                                     <input type="email"
-                                    value="test@test.com" 
                                            id="email"
                                            name="email"
                                            placeholder="Your email address"
@@ -51,7 +50,7 @@
                                            aria-invalid="{% if validationErrors.email %}true{% else %}false{% endif %}"
                                            aria-describedby="{% if validationErrors.email %}email-error{% endif %}"
                                            class="w-full pl-4 pr-4 py-3 text-lg border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:bg-zinc-800 dark:text-white transition-colors {% if validationErrors.email %}border-red-500 focus:border-red-500 focus:ring-red-500{% else %}border-gray-300 dark:border-zinc-600{% endif %}"
-                                           value="{{ formData.email }}">
+                                           >
                                     {% if validationErrors.email %}
                                         <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                                             <svg class="h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -71,7 +70,6 @@
                                 <label for="website-url" class="sr-only">Website URL</label>
                                 <div class="relative">
                                     <input type="url"
-                                           value="https://example.com"
                                            id="website-url"
                                            name="url"
                                            placeholder="Your website URL (e.g., example.com)"
@@ -80,7 +78,7 @@
                                            aria-invalid="{% if validationErrors.url %}true{% else %}false{% endif %}"
                                            aria-describedby="{% if validationErrors.url %}url-error{% endif %}"
                                            class="w-full pl-4 pr-4 py-3 text-lg border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:bg-zinc-800 dark:text-white transition-colors {% if validationErrors.url %}border-red-500 focus:border-red-500 focus:ring-red-500{% else %}border-gray-300 dark:border-zinc-600{% endif %}"
-                                           value="{{ formData.url }}">
+                                           >
                                     {% if validationErrors.url %}
                                         <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                                             <svg class="h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -276,7 +274,7 @@
                                    required
                                    aria-required="true"
                                    class="w-full pl-4 pr-4 py-3 text-lg border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:bg-zinc-900 dark:text-white transition-colors border-gray-300 dark:border-zinc-600 hover:border-green-500 dark:hover:border-green-500"
-                                   value="a@b.com">
+                                   >
                         </div>
                         <div class="relative">
                             <input type="url"
@@ -286,7 +284,7 @@
                                    required
                                    aria-required="true"
                                    class="w-full pl-4 pr-4 py-3 text-lg border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:bg-zinc-900 dark:text-white transition-colors border-gray-300 dark:border-zinc-600 hover:border-green-500 dark:hover:border-green-500"
-                                   value="https://example.com">
+                                   >
                         </div>
                         <button type="submit"
                                 class="w-full py-3 text-lg font-bold rounded-lg text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all duration-300">
@@ -305,7 +303,10 @@
     <section class="py-16 lg:py-24 border-t border-gray-200 dark:border-zinc-600 dark:bg-zinc-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-6 font-sans">What Your Report Includes</h2>
+                <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-6 font-sans">What Our Reports Include</h2>
+                <p class="text-lg md:text-xl text-slate-900 dark:text-zinc-300 mb-10">
+                    Our reports are comprehensive and include everything you need to know about your website. For even more detailed insights, check out our <a href="/pricing" class="text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-500 underline">premium reports</a>.
+                </p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {% set details = [

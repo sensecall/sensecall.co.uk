@@ -9,11 +9,6 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-
-  ::selection {
-    background-color: color-mix(in srgb, var(--primary) 50%, transparent);
-    color: white;
-  }
 }
 
 @layer components {
