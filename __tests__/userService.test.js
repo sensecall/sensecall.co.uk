@@ -80,5 +80,47 @@ describe('UserService Tests', () => {
             const assessments = await Assessment.find({ userId: user._id });
             expect(assessments).toHaveLength(2);
         });
+
+        test('should handle duplicate assessment creation gracefully', async () => {
+            const testEmail = 'test@example.com';
+            const testUrl = 'https://example.com';
+
+            // Create initial assessment
+            const firstResult = await registerUserInterest(testEmail, testUrl);
+            expect(firstResult.status).toBe('NEW_ASSESSMENT');
+
+            // Attempt to create another assessment for the same URL within 24 hours
+            const secondResult = await registerUserInterest(testEmail, testUrl);
+
+            // Verify we get the existing assessment back
+            expect(secondResult.status).toBe('EXISTING_RECENT_ASSESSMENT');
+            expect(secondResult.sessionId).toBe(firstResult.sessionId);
+            expect(secondResult.assessment._id).toEqual(firstResult.assessment._id);
+        });
+
+        test('should throw error when duplicate key occurs without recent assessment', async () => {
+            const testEmail = 'test@example.com';
+            const testUrl = 'https://example.com';
+
+            // Create initial user
+            const firstResult = await registerUserInterest(testEmail, testUrl);
+            
+            // Manually modify the assessment date to be older than 24 hours
+            await Assessment.findByIdAndUpdate(firstResult.assessment._id, {
+                created: new Date(Date.now() - 25 * 60 * 60 * 1000)
+            });
+
+            // Mock the duplicate key error
+            jest.spyOn(Assessment, 'findOneAndUpdate').mockImplementationOnce(() => {
+                const error = new Error('Duplicate key error');
+                error.code = 11000;
+                throw error;
+            });
+
+            // Attempt to create another assessment should throw the error
+            await expect(registerUserInterest(testEmail, testUrl))
+                .rejects
+                .toThrow();
+        });
     });
 }); 
