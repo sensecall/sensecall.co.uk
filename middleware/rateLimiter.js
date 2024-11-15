@@ -11,6 +11,10 @@ const limiter = rateLimit({
   legacyHeaders: false,
   skipFailedRequests: false,
   handler: (req, res) => {
+    // Set flag to skip validation
+    req.skipValidation = true;
+    // Ensure body object exists
+    req.body = req.body || {};
     const queryParams = new URLSearchParams({
       error: 'rate_limit',
       email: req.body.email || '',
@@ -20,4 +24,5 @@ const limiter = rateLimit({
   }
 });
 
-module.exports = limiter;
+// Export the configured limiter and the max value for testing
+module.exports = Object.assign(limiter, { max: isDevelopment ? 1000 : 5 });

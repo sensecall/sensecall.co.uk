@@ -11,8 +11,9 @@ const ReportRequest = require('./models/ReportRequest');
 const { validateWebsite } = require('./services/validationService');
 const User = require('./models/User');
 const { registerUserInterest } = require('./services/userService');
-const validateFormInput = require('./middleware/validateFormInput');
 const limiter = require('./middleware/rateLimiter');
+const validateFormInput = require('./middleware/validateFormInput');
+
 
 // Home page
 router.get('/', (req, res) => {
@@ -76,6 +77,27 @@ router.get('/privacy', (req, res) => {
     res.render('pages/privacy.njk', {
         title: 'Privacy Policy'
     });
+});
+
+// Add this with your other routes
+router.post('/theme', (req, res) => {
+    const { theme, redirect } = req.body;
+    
+    // Set cookie that expires in 1 year
+    res.cookie('theme', theme, {
+        maxAge: 31536000000, // 1 year
+        httpOnly: false, // Allow JavaScript access
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax'
+    });
+    
+    // Send JSON response if it's an AJAX request
+    if (req.xhr || req.headers.accept.indexOf('json') > -1) {
+        return res.json({ success: true, theme });
+    }
+    
+    // Otherwise redirect back to the previous page
+    res.redirect(redirect || '/');
 });
 
 // Assessment route

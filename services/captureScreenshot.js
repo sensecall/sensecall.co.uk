@@ -60,10 +60,6 @@ const captureScreenshots = async (url, breakpointTypes = ['desktop']) => {
                 });
 
                 await page.evaluate(() => {
-                    if (process.env.NODE_ENV === 'test') {
-                        // Mock implementation for tests
-                        return Promise.resolve();
-                    }
                     return new Promise((resolve) => {
                         window.scrollTo(0, document.body.scrollHeight);
                         setTimeout(resolve, 2000);
@@ -71,10 +67,6 @@ const captureScreenshots = async (url, breakpointTypes = ['desktop']) => {
                 });
 
                 await page.evaluate(() => {
-                    if (typeof window === 'undefined') {
-                        // Mock scrolling behavior for test environment
-                        return Promise.resolve();
-                    }
                     return window.scrollTo(0, 0);
                 });
 

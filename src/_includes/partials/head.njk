@@ -1,75 +1,89 @@
 <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      {% if title %}
-      <title>{{ title }} - SiteHero</title>
-      {% else %}
-      <title>SiteHero – Honest Website Audits & Practical Solutions</title>
-      {% endif %}
-      <meta name="description" content="{{ description }}">
-      <meta name="format-detection" content="telephone=no">
-      <meta name="theme-color"
-            content="#f3f4f6"
-            media="(prefers-color-scheme: light)">
-      <meta name="theme-color"
-            content="#18181b"
-            media="(prefers-color-scheme: dark)">
-      <link rel="stylesheet" href="/css/style.css">
-      <link rel="icon" href="/assets/images/favicon.ico">
-      <script src="/assets/js/app.js"></script>
-      <script>
-          document.documentElement.classList.replace('no-js', 'js');
-      </script>
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-X5C3QK5VN3"></script>
-      <script>
-          window.dataLayer = window.dataLayer || [];
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if title %}
+        <title>{{ title }} - SiteHero</title>
+    {% else %}
+        <title>SiteHero – Honest Website Audits & Practical Solutions</title>
+    {% endif %}
+    <meta name="description" content="{{ description }}">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="theme-color"
+          content="#f3f4f6"
+          media="(prefers-color-scheme: light)">
+    <meta name="theme-color"
+          content="#18181b"
+          media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" href="/assets/images/favicon.ico">
+    <script src="/assets/js/app.js"></script>
+    <script>
+        // Check for saved theme preference, otherwise use system preference
+        (function() {
+            function getThemePreference() {
+                const storedTheme = document.cookie.match(/theme=([^;]+)/)?.[1];
+                if (storedTheme) return storedTheme;
+                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
 
-          function gtag() {
-              dataLayer.push(arguments);
-          }
-          gtag('js', new Date());
+            const theme = getThemePreference();
+            document.documentElement.classList.toggle('dark', theme === 'dark');
+        })();
+    </script>
+    <script src="/assets/js/theme.js"></script>
+    <script>
+        document.documentElement.classList.replace('no-js', 'js');
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X5C3QK5VN3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-          gtag('config', 'G-X5C3QK5VN3');
-      </script>
-      <link rel="canonical" href="https://sensecall.co.uk{{ page.url }}">
-      <link rel="preload"
-            href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-            as="style"
-            onload="this.onload=null;this.rel='stylesheet'">
-      <noscript>
-            <link rel="stylesheet"
-                  href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
-      </noscript>
-      <script type="application/ld+json">
-          {
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "SiteHero",
-              "description": "{{ description }}",
-              "url": "https://sitehero.dev{{ page.url }}",
-              "areaServed": "United Kingdom",
-              "serviceType": [
-                  "Website Audits",
-                  "UX Design",
-                  "Performance Optimization",
-                  "SEO Analysis",
-                  "Accessibility Testing",
-                  "Design Recommendations",
-                  "Mobile Optimization",
-                  "Competitor Analysis"
-              ],
-              "logo": "https://sitehero.dev/assets/images/logo.svg",
-              "contactPoint": {
-                  "@type": "ContactPoint",
-                  "telephone": "00447702310015",
-                  "contactType": "Customer Support"
-              }
-          }
-      </script>
-      <meta name="author" content="SiteHero">
-      <meta name="robots" content="index, follow">
-      <meta property="og:title" content="{{ title }} - SiteHero">
-      <meta property="og:description" content="{{ description }}">
-      <meta property="og:url" content="https://sitehero.dev{{ page.url }}">
-      <meta property="og:type" content="website">
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-X5C3QK5VN3');
+    </script>
+    <link rel="canonical" href="https://sensecall.co.uk{{ page.url }}">
+    <link rel="preload"
+          href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+          as="style"
+          onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+    </noscript>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "SiteHero",
+            "description": "{{ description }}",
+            "url": "https://sitehero.dev{{ page.url }}",
+            "areaServed": "United Kingdom",
+            "serviceType": [
+                "Website Audits",
+                "UX Design",
+                "Performance Optimization",
+                "SEO Analysis",
+                "Accessibility Testing",
+                "Design Recommendations",
+                "Mobile Optimization",
+                "Competitor Analysis"
+            ],
+            "logo": "https://sitehero.dev/assets/images/logo.svg",
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "00447702310015",
+                "contactType": "Customer Support"
+            }
+        }
+    </script>
+    <meta name="author" content="SiteHero">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="{{ title }} - SiteHero">
+    <meta property="og:description" content="{{ description }}">
+    <meta property="og:url" content="https://sitehero.dev{{ page.url }}">
+    <meta property="og:type" content="website">
 </head>

@@ -2,6 +2,10 @@
 const { URL } = require('url');
 
 const validateFormInput = (req, res, next) => {
+    if (req.skipValidation || req.rateLimitExceeded) {
+        return next();
+    }
+
     const { email, url } = req.body;
     const errors = {};
 

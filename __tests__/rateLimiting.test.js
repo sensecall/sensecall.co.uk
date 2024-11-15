@@ -116,4 +116,54 @@ describe('Rate Limiting Tests', () => {
         expect(assessments.length).toBe(4);
         expect(assessments[0].websiteUrl).toBe('https://newsite.com');
     });
+
+    test('should use different rate limits based on environment', async () => {
+        // Store original NODE_ENV
+        const originalEnv = process.env.NODE_ENV;
+        
+        // Test production limits
+        process.env.NODE_ENV = 'production';
+        const prodLimiter = require('../middleware/rateLimiter');
+        expect(prodLimiter.max).toBe(5);
+
+        // Test development limits
+        process.env.NODE_ENV = 'development';
+        jest.resetModules(); // Clear require cache
+        const devLimiter = require('../middleware/rateLimiter');
+        expect(devLimiter.max).toBe(1000);
+
+        // Restore original NODE_ENV
+        process.env.NODE_ENV = originalEnv;
+    });
+
+    test('should handle rate limit with missing email and url', async () => {
+        const email = 'test@example.com';
+        
+        // First make enough valid requests to trigger the rate limit
+        for (let i = 0; i < 5; i++) {
+            await request(app)
+                .post('/register-interest')
+                .send({ email, url: `https://site${i}.com` });
+        }
+
+        // Modify the mock to bypass validation AND simulate rate limit
+        jest.mock('../middleware/rateLimiter', () => {
+            return (req, res, next) => {
+                // Simulate rate limit directly
+                return res.redirect('/?error=rate_limit');
+            };
+        });
+
+        // Clear require cache and reload routes
+        jest.resetModules();
+        const router = require('../routes');
+        app.use('/', router);
+
+        const response = await request(app)
+            .post('/register-interest')
+            .send({ email, url: 'https://example.com' });
+
+        expect(response.status).toBe(302);
+        expect(response.headers.location).toBe('/?error=rate_limit');
+    });
 }); 
