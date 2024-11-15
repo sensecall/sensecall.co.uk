@@ -25,7 +25,7 @@ router.get('/', (req, res) => {
         };
     } else if (error === 'rate_limit') {
         validationErrors = {
-            email: 'Too many requests. Please try again in 24 hours.'
+            email: "You've reached the daily limit. Try again later."
         };
     }
     

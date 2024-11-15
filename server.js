@@ -13,6 +13,7 @@ const mongoose = require('mongoose');
 const checkDatabaseConnection = require('./utils/dbCheck');
 const assessmentRoutes = require('./routes/assessment');
 const previewRouter = require('./routes/api/preview');
+const mongoSanitize = require('express-mongo-sanitize');
 
 // Load environment variables first
 require('dotenv').config();
@@ -20,15 +21,15 @@ const env = process.env.NODE_ENV;
 
 // Then connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  serverSelectionTimeoutMS: 5000,
-  socketTimeoutMS: 45000,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 5000,
+    socketTimeoutMS: 45000,
 }).then(async () => {
-  console.log('Connected to MongoDB');
-  await checkDatabaseConnection();
+    console.log('Connected to MongoDB');
+    await checkDatabaseConnection();
 }).catch(err => {
-  console.error('MongoDB connection error:', err);
+    console.error('MongoDB connection error:', err);
 });
 
 const app = express();
@@ -38,6 +39,16 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(mongoSanitize({
+    replaceWith: '_',
+    onSanitize: ({ req, key }) => {
+        console.warn(`Attempted NoSQL injection detected - sanitized ${key}`, {
+            path: req.path,
+            ip: req.ip,
+            timestamp: new Date().toISOString()
+        });
+    }
+}));
 
 // Add screenshot router middleware
 app.use('/api/screenshot', screenshotRouter);
@@ -91,7 +102,7 @@ app.use((err, req, res, next) => {
 function startServer(port) {
     app.listen(port, () => {
         console.log(`Server running at http://localhost:${port}`);
-        
+
         if (process.env.NODE_ENV !== 'production') {
             bs.init({
                 proxy: `localhost:${port}`,
