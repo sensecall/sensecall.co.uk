@@ -145,8 +145,6 @@ describe('captureScreenshots', () => {
     expect(mockBrowser.close).toHaveBeenCalled();
   });
 
-  // ... existing code ...
-
 test('should scroll page before taking screenshot', async () => {
   const url = 'https://example.com';
   mockPage.screenshot.mockResolvedValue('base64-encoded-image');
@@ -157,6 +155,6 @@ test('should scroll page before taking screenshot', async () => {
   await captureScreenshots(url);
 
   // Verify evaluate was called, but don't test the specific function
-  expect(mockPage.evaluate).toHaveBeenCalledTimes(2);
-});
+    expect(mockPage.evaluate).toHaveBeenCalledTimes(2);
+  });
 });

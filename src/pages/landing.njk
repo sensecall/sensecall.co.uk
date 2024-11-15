@@ -3,7 +3,7 @@
 {% set title = null %}
 {% block content %}
     {# Hero Section - Simplified for validation #}
-    <section class="relative bg-white dark:bg-gray-900 py-24 overflow-hidden">
+    <section class="relative bg-white dark:bg-zinc-900 py-24 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
                 <div class="lg:w-1/2 lg:pr-12">
@@ -12,7 +12,7 @@
                         <br>
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-300 to-red-600 underline">(Probably)</span>
                     </h1>
-                    <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-300 mb-10 animate-fade-in-up delay-200">
+                    <p class="text-xl md:text-2xl text-slate-600 dark:text-zinc-300 mb-10 animate-fade-in-up delay-200">
                         Discover exactly what's holding your website back and get actionable recommendations to improve it.
                     </p>
                     <form id="interest-form"
@@ -22,7 +22,7 @@
                           novalidate
                           aria-label="Website analysis request form">
                         {% if validationErrors %}
-                            <div class="mb-4 p-4 bg-red-50 dark:bg-red-900/50 border-l-4 border-red-400 rounded-md" role="alert" aria-labelledby="error-summary-title">
+                            <div class="mb-4 p-4 bg-red-50 dark:bg-zinc-900/50 border-l-4 border-red-400 rounded-md" role="alert" aria-labelledby="error-summary-title">
                                 <h2 id="error-summary-title" class="text-lg font-medium text-red-800 dark:text-red-200">There is a problem</h2>
                                 <ul class="mt-2 list-disc list-inside text-sm text-red-700 dark:text-red-300">
                                     {% if validationErrors.email %}
@@ -50,7 +50,7 @@
                                            aria-required="true"
                                            aria-invalid="{% if validationErrors.email %}true{% else %}false{% endif %}"
                                            aria-describedby="{% if validationErrors.email %}email-error{% endif %}"
-                                           class="w-full pl-4 pr-4 py-3 text-lg border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:bg-stone-800 dark:text-white transition-colors {% if validationErrors.email %}border-red-500 focus:border-red-500 focus:ring-red-500{% else %}border-gray-300 dark:border-stone-600{% endif %}"
+                                           class="w-full pl-4 pr-4 py-3 text-lg border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:bg-zinc-800 dark:text-white transition-colors {% if validationErrors.email %}border-red-500 focus:border-red-500 focus:ring-red-500{% else %}border-gray-300 dark:border-zinc-600{% endif %}"
                                            value="{{ formData.email }}">
                                     {% if validationErrors.email %}
                                         <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -79,7 +79,7 @@
                                            aria-required="true"
                                            aria-invalid="{% if validationErrors.url %}true{% else %}false{% endif %}"
                                            aria-describedby="{% if validationErrors.url %}url-error{% endif %}"
-                                           class="w-full pl-4 pr-4 py-3 text-lg border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:bg-stone-800 dark:text-white transition-colors {% if validationErrors.url %}border-red-500 focus:border-red-500 focus:ring-red-500{% else %}border-gray-300 dark:border-stone-600{% endif %}"
+                                           class="w-full pl-4 pr-4 py-3 text-lg border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:bg-zinc-800 dark:text-white transition-colors {% if validationErrors.url %}border-red-500 focus:border-red-500 focus:ring-red-500{% else %}border-gray-300 dark:border-zinc-600{% endif %}"
                                            value="{{ formData.url }}">
                                     {% if validationErrors.url %}
                                         <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -97,7 +97,7 @@
                             </div>
 
                             {% if validationErrors.general %}
-                                <div class="rounded-md bg-red-50 dark:bg-red-900/50 p-4" role="alert">
+                                <div class="rounded-md bg-red-50 dark:bg-zinc-900/50 p-4" role="alert">
                                     <div class="flex">
                                         <div class="flex-shrink-0">
                                             <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -118,7 +118,7 @@
                                 Get your Free Report
                             </button>
 
-                            <p class="text-sm text-slate-500 dark:text-slate-400 text-center">
+                            <p class="text-sm text-slate-500 dark:text-zinc-400 text-center">
                                 That's it! No payment required. We'll send your basic report via email.
                             </p>
                         </div>
@@ -208,7 +208,7 @@
         </div>
     </section>
 
-    <section class="py-16 lg:py-36 bg-slate-100 dark:bg-slate-800 border-t border-gray-200 dark:border-gray-800">
+    <section class="py-16 lg:py-36 bg-slate-100 dark:bg-zinc-800 border-t border-gray-200 dark:border-zinc-600">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <div class="flex items-center justify-center mb-4">
@@ -248,10 +248,10 @@
                     }
                 ] %}
                 {% for problem in problems %}
-                    <div class="bg-white dark:bg-slate-700 p-8 rounded-lg shadow-md">
+                    <div class="bg-white dark:bg-zinc-700 p-8 rounded-lg shadow-md">
                         <div class="text-4xl mb-4">{{ problem.icon }}</div>
                         <h3 class="text-2xl font-semibold text-slate-800 dark:text-white mb-4">{{ problem.title }}</h3>
-                        <p class="text-lg text-slate-600 dark:text-slate-300">{{ problem.description }}</p>
+                        <p class="text-lg text-slate-600 dark:text-zinc-300">{{ problem.description }}</p>
                     </div>
                 {% endfor %}
             </div>
@@ -259,35 +259,40 @@
                 <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-6 font-sans">
                     Get Your <span class="px-3 py-1 bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-600 text-green-600 rounded-lg">Free Report</span> Now
                 </h2>
-                <p class="text-lg md:text-xl text-slate-900 dark:text-slate-300 mb-10">
+                <p class="text-lg md:text-xl text-slate-900 dark:text-zinc-300 mb-10">
                     Enter your email and website URL to get your free report.
                 </p>
                 <form id="assessment-form"
                       class="animate-fade-in-up delay-300"
                       action="/register-interest"
-                      method="post">
+                      method="post"
+                      novalidate>
                     <div class="space-y-4 max-w-xl mx-auto">
-                        <input type="email"
-                               id="email-2"
-                               name="email"
-                               placeholder="Your email address"
-                               required
-                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                               class="w-full pl-4 pr-4 py-3 text-lg border-2 border-gray-300 rounded-lg focus:outline-none focus:border-green-500 dark:bg-stone-800 dark:border-stone-600 dark:text-white"
-                               value="a@b.com">
-                        <input type="url"
-                               id="website-url-2"
-                               name="url"
-                               placeholder="Your website URL (e.g., https://example.com)"
-                               required
-                               pattern="https?://.+"
-                               class="w-full pl-4 pr-4 py-3 text-lg border-2 border-gray-300 rounded-lg focus:outline-none focus:border-green-500 dark:bg-stone-800 dark:border-stone-600 dark:text-white"
-                               value="https://example.com">
+                        <div class="relative">
+                            <input type="email"
+                                   id="email-2"
+                                   name="email"
+                                   placeholder="Your email address"
+                                   required
+                                   aria-required="true"
+                                   class="w-full pl-4 pr-4 py-3 text-lg border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:bg-zinc-900 dark:text-white transition-colors border-gray-300 dark:border-zinc-600 hover:border-green-500 dark:hover:border-green-500"
+                                   value="a@b.com">
+                        </div>
+                        <div class="relative">
+                            <input type="url"
+                                   id="website-url-2"
+                                   name="url"
+                                   placeholder="Your website URL (e.g., https://example.com)"
+                                   required
+                                   aria-required="true"
+                                   class="w-full pl-4 pr-4 py-3 text-lg border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:bg-zinc-900 dark:text-white transition-colors border-gray-300 dark:border-zinc-600 hover:border-green-500 dark:hover:border-green-500"
+                                   value="https://example.com">
+                        </div>
                         <button type="submit"
-                                class="w-full py-3 text-lg font-bold rounded-lg text-white bg-green-600 hover:bg-green-700 transition-all duration-300">
+                                class="w-full py-3 text-lg font-bold rounded-lg text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all duration-300">
                             Get your Free Report
                         </button>
-                        <p class="text-sm text-slate-500 dark:text-slate-400 text-center">
+                        <p class="text-sm text-slate-500 dark:text-zinc-400 text-center">
                             That's it! No payment required. We'll send your basic report via email.
                         </p>
                     </div>
@@ -297,7 +302,7 @@
     </section>
 
     {# Benefits Section - Simplified #}
-    <section class="py-16 lg:py-24 border-t border-gray-200 dark:border-gray-800">
+    <section class="py-16 lg:py-24 border-t border-gray-200 dark:border-zinc-600 dark:bg-zinc-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-6 font-sans">What Your Report Includes</h2>
@@ -339,7 +344,7 @@
                     <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
                         <div class="text-6xl mb-4">{{ detail.icon }}</div>
                         <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">{{ detail.title }}</h3>
-                        <p class="text-gray-600 dark:text-slate-300">{{ detail.description }}</p>
+                        <p class="text-gray-600 dark:text-zinc-300">{{ detail.description }}</p>
                     </div>
                 {% endfor %}
             </div>

@@ -3,23 +3,9 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --primary: #f97316;
-    --body-color: #384042;
-    --dark: #1e2223;
-    --secondary: whitesmoke;
-  }
-
-  :root[class~="dark"] {
-    --primary: #fb923c;
-    --body-color: #e0e2e3;
-    --dark: #f1f2f3;
-    --secondary: #2c3e50;
-  }
+  
 
   body {
-    @apply bg-white dark:bg-[#1e2223];
-    color: var(--body-color);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -79,24 +65,7 @@
 }
 
 @layer utilities {
-  .dark {
-    --primary: #f43f5e;
-    --body-color: #e0e2e3;
-    --dark: #f1f2f3;
-    --secondary: #2c3e50;
-  }
-
-  .dark body {
-    background-color: #1e2223;
-  }
-
-  .dark .nav-link {
-    @apply text-[color:var(--body-color)] hover:text-[color:var(--primary)] focus:text-[color:var(--primary)];
-  }
-
-  .dark .nav-link.active {
-    @apply text-[color:var(--primary)];
-  }
+  
 }
 
 /* Wiggle animation */
