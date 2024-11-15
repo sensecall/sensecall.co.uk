@@ -49,7 +49,7 @@ describe('MongoDB Tests', () => {
         })
       ]);
 
-      const userAssessments = await Assessment.find({ userId: user._id });
+      const userAssessments = await Assessment.find({ userId: user._id }).sort({ sessionId: 1 });
       expect(userAssessments).toHaveLength(2);
       expect(userAssessments[0].websiteUrl).toBe('https://site1.com');
       expect(userAssessments[1].websiteUrl).toBe('https://site2.com');
