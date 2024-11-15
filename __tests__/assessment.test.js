@@ -12,11 +12,12 @@ describe('Assessment Model', () => {
     });
 
     // Test valid assessment creation
-    test('should create valid assessment', () => {
+    test('should create valid assessment', async () => {
         const assessment = new Assessment({
             sessionId: 'test-session-123',
             websiteUrl: 'https://example.com',
-            status: 'pending'
+            status: 'pending',
+            compound_key: 'test-session-123-example.com'
         });
 
         const validationError = assessment.validateSync();

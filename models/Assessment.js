@@ -11,7 +11,7 @@ const AssessmentSchema = new mongoose.Schema({
   },
   websiteUrl: {
     type: String,
-    required: true  // Making this required
+    required: true
   },
   status: {
     type: String,
@@ -34,8 +34,24 @@ const AssessmentSchema = new mongoose.Schema({
     timestamp: Date
   }],
   error: String,
-  created: Date,
-  completed: Date
+  created: {
+    type: Date,
+    default: Date.now
+  },
+  completed: Date,
+  compound_key: {
+    type: String,
+    unique: true
+  }
+});
+
+// Add pre-save middleware to generate compound_key
+AssessmentSchema.pre('save', function(next) {
+  if (!this.compound_key) {
+    const sanitizedUrl = this.websiteUrl.replace(/[^a-zA-Z0-9]/g, '');
+    this.compound_key = `${this.sessionId}_${sanitizedUrl}_${this.created.toISOString().split('T')[0]}`;
+  }
+  next();
 });
 
 module.exports = mongoose.model('Assessment', AssessmentSchema);

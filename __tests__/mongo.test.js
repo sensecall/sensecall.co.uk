@@ -37,13 +37,15 @@ describe('MongoDB Tests', () => {
           sessionId: 'session-1',
           userId: user._id,
           websiteUrl: 'https://site1.com',
-          status: 'completed'
+          status: 'completed',
+          compound_key: `session-1-${('https://site1.com').replace(/[^a-zA-Z0-9]/g, '')}`
         }),
         Assessment.create({
           sessionId: 'session-2',
           userId: user._id,
           websiteUrl: 'https://site2.com',
-          status: 'pending'
+          status: 'pending',
+          compound_key: `session-2-${('https://site2.com').replace(/[^a-zA-Z0-9]/g, '')}`
         })
       ]);
 

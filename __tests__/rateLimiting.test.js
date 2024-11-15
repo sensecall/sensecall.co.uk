@@ -95,7 +95,8 @@ describe('Rate Limiting Tests', () => {
                 sessionId: `session${i}`,
                 userId: user._id,
                 status: 'completed',
-                created: yesterday
+                created: yesterday,
+                compound_key: `session${i}-${`https://site${i}.com`.replace(/[^a-zA-Z0-9]/g, '')}`
             });
         }
 

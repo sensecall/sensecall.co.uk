@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const Assessment = require('../models/Assessment');
 const crypto = require('crypto');
+const mongoose = require('mongoose');
 
 /**
  * Registers a user's interest in assessing a website
@@ -9,39 +10,50 @@ const crypto = require('crypto');
  * @returns {Object} Contains sessionId, user object, assessment object and status
  */
 async function registerUserInterest(email, url) {
-    // Validate required fields
-    if (!email || !url) {
-        throw new Error('MISSING_FIELDS');
-    }
+    try {
+        // Validate required fields
+        if (!email || !url) {
+            throw new Error('MISSING_FIELDS');
+        }
 
-    // Standardise the URL format
-    const normalisedUrl = normaliseUrl(url);
+        // Standardise the URL format
+        const normalisedUrl = normaliseUrl(url);
 
-    // Check if user exists
-    let user;
-    const existingUser = await User.findOne({ email });
+        // Use findOneAndUpdate with upsert to atomically create or update user
+        let user = await User.findOneAndUpdate(
+            { email },
+            {
+                $setOnInsert: {
+                    websiteUrl: normalisedUrl,
+                    createdAt: new Date()
+                },
+                $addToSet: { activeUrls: normalisedUrl }
+            },
+            { 
+                upsert: true, 
+                new: true 
+            }
+        );
 
-    // If user exists, check if they've assessed this website in the last 24 hours
-    if (existingUser) {
+        // Check for recent assessment using atomic findOne
         const recentAssessment = await Assessment.findOne({
-            userId: existingUser._id,
+            userId: user._id,
             websiteUrl: normalisedUrl,
-            created: { $gte: new Date(Date.now() - 24 * 60 * 60 * 1000) } // Last 24 hours
+            created: { $gte: new Date(Date.now() - 24 * 60 * 60 * 1000) }
         });
 
-        // If recent assessment exists, return existing session
         if (recentAssessment) {
             return {
                 sessionId: recentAssessment.sessionId,
-                user: existingUser,
+                user,
                 assessment: recentAssessment,
                 status: 'EXISTING_RECENT_ASSESSMENT'
             };
         }
 
-        // Rate limiting: Check if user has made more than 3 assessments in 24 hours
+        // Rate limiting check
         const assessmentCount = await Assessment.countDocuments({
-            userId: existingUser._id,
+            userId: user._id,
             created: { $gte: new Date(Date.now() - 24 * 60 * 60 * 1000) }
         });
 
@@ -49,38 +61,49 @@ async function registerUserInterest(email, url) {
             throw new Error('RATE_LIMIT_EXCEEDED');
         }
 
-        // Update user's active URLs if new URL
-        existingUser.activeUrls = existingUser.activeUrls || [];
-        if (!existingUser.activeUrls.includes(normalisedUrl)) {
-            existingUser.activeUrls.push(normalisedUrl);
-            user = await existingUser.save();
-        } else {
-            user = existingUser;
+        // Create new assessment with unique compound key
+        const sessionId = crypto.randomBytes(16).toString('hex');
+        const compound_key = `${user._id}_${normalisedUrl}_${new Date().toDateString()}`;
+        
+        const assessment = await Assessment.findOneAndUpdate(
+            { compound_key },
+            {
+                $setOnInsert: {
+                    websiteUrl: normalisedUrl,
+                    sessionId,
+                    userId: user._id,
+                    status: 'pending',
+                    created: new Date(),
+                    compound_key
+                }
+            },
+            { 
+                upsert: true, 
+                new: true 
+            }
+        );
+
+        return { sessionId, user, assessment, status: 'NEW_ASSESSMENT' };
+    } catch (error) {
+        if (error.code === 11000) { // Duplicate key error
+            // Handle duplicate assessment creation
+            const existingAssessment = await Assessment.findOne({
+                userId: user._id,
+                websiteUrl: normalisedUrl,
+                created: { $gte: new Date(Date.now() - 24 * 60 * 60 * 1000) }
+            });
+            
+            if (existingAssessment) {
+                return {
+                    sessionId: existingAssessment.sessionId,
+                    user,
+                    assessment: existingAssessment,
+                    status: 'EXISTING_RECENT_ASSESSMENT'
+                };
+            }
         }
-    } else {
-        // Create new user if they don't exist
-        user = new User({
-            email,
-            websiteUrl: normalisedUrl,
-            activeUrls: [normalisedUrl],
-            createdAt: new Date()
-        });
-        await user.save();
+        throw error;
     }
-
-    // Create new assessment session
-    const sessionId = crypto.randomBytes(16).toString('hex');
-    const assessment = new Assessment({
-        websiteUrl: normalisedUrl,
-        sessionId,
-        userId: user._id,
-        status: 'pending',
-        created: new Date()
-    });
-
-    await assessment.save();
-
-    return { sessionId, user, assessment, status: 'NEW_ASSESSMENT' };
 }
 
 /**

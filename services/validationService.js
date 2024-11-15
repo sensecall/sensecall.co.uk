@@ -82,10 +82,10 @@ async function validateWebsite(url, sessionId) {
                 { sessionId },
                 { 
                     status: 'failed',
-                    error: `Screenshot capture failed: ${error.message}`,
+                    error: error.message,
                     validationResults: {
                         ...updateResult.validationResults,
-                        error: ValidationError.SCREENSHOT_FAILED,
+                        error: 'SCREENSHOT_FAILED',
                         message: `Screenshot capture failed: ${error.message}`,
                         timestamp: new Date()
                     }
