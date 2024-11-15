@@ -73,6 +73,7 @@
                                 "Action items list"
                             ],
                             "cta": "Get Your Report",
+                            "cta_url": "/",
                             "best_for": "Perfect for small websites and quick checks"
                         },
                         {
@@ -89,6 +90,7 @@
                                 "30-day support"
                             ],
                             "cta": "Start Pro Audit",
+                            "cta_url": "/",
                             "highlight": true,
                             "best_for": "Ideal for businesses seeking detailed insights"
                         },
@@ -106,6 +108,7 @@
                                 "Follow-up review"
                             ],
                             "cta": "Book Package",
+                            "cta_url": "/contact",
                             "best_for": "For businesses that want expert guidance"
                         }
                     ] %}
@@ -132,7 +135,7 @@
                                     </li>
                                 {% endfor %}
                             </ul>
-                            <a href="/assessment/"
+                            <a href="{{ plan.cta_url }}"
                                class="w-full text-center px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition duration-200 {% if plan.highlight %}text-lg{% endif %}">
                                 {{ plan.cta }}
                             </a>

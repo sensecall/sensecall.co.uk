@@ -31,6 +31,7 @@
                                 "Action items list"
                             ],
                             "cta": "Get Your Report",
+                            "cta_url": "/",
                             "best_for": "Perfect for small websites and quick checks",
                             "tag": "Essential"
                         },
@@ -48,6 +49,7 @@
                                 "30-day support"
                             ],
                             "cta": "Start Pro Audit",
+                            "cta_url": "/",
                             "highlight": true,
                             "best_for": "Ideal for businesses seeking detailed insights",
                             "tag": "Popular"
@@ -66,6 +68,7 @@
                                 "Follow-up review"
                             ],
                             "cta": "Book Package",
+                            "cta_url": "/contact",
                             "best_for": "For businesses that want expert guidance"
                         }
                     ] %}
@@ -95,7 +98,7 @@
                                     </li>
                                 {% endfor %}
                             </ul>
-                            <a href="/assessment/"
+                            <a href="{{ plan.cta_url }}"
                                class="w-full text-center px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition duration-200 {% if plan.highlight %}text-lg{% endif %}">
                                 {{ plan.cta }}
                             </a>
@@ -107,7 +110,7 @@
                 <div class="mt-8 text-center">
                     <div class="inline-flex items-center space-x-2 text-sm bg-green-50 dark:bg-green-900 border border-green-500/20 rounded-lg px-4 py-3 mx-auto">
                         <span class="text-gray-700 dark:text-gray-300">Not ready to commit?</span>
-                        <a href="/assessment/" class="inline-flex items-center font-medium text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 underline">
+                        <a href="/" class="inline-flex items-center font-medium text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 underline">
                             Try our basic scan for free
                             <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -144,7 +147,7 @@
                         </div>
 
                         <div class="text-center">
-                            <a href="/enterprise"
+                            <a href="/contact"
                                class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-500 hover:bg-blue-600">
                                 Contact Sales
                             </a>
