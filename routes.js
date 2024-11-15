@@ -12,6 +12,7 @@ const { validateWebsite } = require('./services/validationService');
 const User = require('./models/User');
 const { registerUserInterest } = require('./services/userService');
 const validateFormInput = require('./middleware/validateFormInput');
+const limiter = require('./middleware/rateLimiter');
 
 // Home page
 router.get('/', (req, res) => {
@@ -237,7 +238,10 @@ router.get('/api/lighthouse-report/:sessionId', async (req, res) => {
   }
 });
 
-router.post('/register-interest', validateFormInput, async (req, res) => {
+router.post('/register-interest', 
+    process.env.NODE_ENV === 'production' ? limiter : (req, res, next) => next(),
+    validateFormInput, 
+    async (req, res) => {
     try {
         const { email, url } = req.body;
         
@@ -267,16 +271,8 @@ router.post('/register-interest', validateFormInput, async (req, res) => {
             'VALIDATION_ERROR': 'validation_error'
         };
         
-        const errorCode = errorMapping[error.message] || 'server_error';
-        const queryParams = new URLSearchParams({
-            error: errorCode,
-            email: req.body.email || '',
-            url: req.body.url || '',
-            emailError: error.emailError || '',
-            urlError: error.urlError || ''
-        });
-        
-        res.redirect(`/?${queryParams.toString()}`);
+        const errorCode = errorMapping[error.message] || 'unknown';
+        return res.redirect(`/?error=${errorCode}`);
     }
 });
 
