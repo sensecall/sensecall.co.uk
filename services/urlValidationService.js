@@ -15,11 +15,10 @@ const ValidationError = {
 };
 
 async function validateUrl(url) {
-    console.log(`\n🔍 Starting detailed URL validation for: ${url}`);
+    console.log(`🔍 Validating URL: ${url}`);
     
     try {
         // Ensure URL is properly formatted
-        console.log('1️⃣ Checking URL format...');
         let parsedUrl;
         try {
             parsedUrl = new URL(url);
@@ -30,7 +29,6 @@ async function validateUrl(url) {
                     message: 'Invalid protocol - must be http or https'
                 };
             }
-            console.log('✅ URL format is valid');
         } catch (error) {
             return {
                 valid: false,
@@ -40,10 +38,8 @@ async function validateUrl(url) {
         }
 
         // Check if domain resolves
-        console.log('2️⃣ Performing DNS lookup...');
         try {
             await dnsLookup(parsedUrl.hostname);
-            console.log('✅ DNS lookup successful');
         } catch (error) {
             return {
                 valid: false,
@@ -53,7 +49,6 @@ async function validateUrl(url) {
         }
 
         // Try to fetch the website
-        console.log('3️⃣ Testing website response...');
         try {
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 10000);
@@ -69,6 +64,7 @@ async function validateUrl(url) {
             clearTimeout(timeoutId);
 
             if (!response.ok) {
+                console.log(`❌ URL validation failed: Status ${response.status}`);
                 return {
                     valid: false,
                     error: ValidationError.INVALID_STATUS,
@@ -77,6 +73,7 @@ async function validateUrl(url) {
                 };
             }
 
+            console.log('✅ URL validation successful');
             return {
                 valid: true,
                 status: response.status,

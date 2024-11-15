@@ -14,6 +14,15 @@ describe('captureScreenshots', () => {
   let mockPage;
 
   beforeEach(() => {
+    // Add timer mocks
+    jest.useFakeTimers();
+    
+    // Mock setTimeout to execute immediately
+    jest.spyOn(global, 'setTimeout').mockImplementation((fn) => fn());
+    
+    // Mock Promise.resolve to execute immediately
+    jest.spyOn(Promise, 'resolve').mockImplementation((value) => value);
+
     // Reset all mocks
     jest.clearAllMocks();
 
@@ -34,6 +43,10 @@ describe('captureScreenshots', () => {
 
     // Setup puppeteer launch mock
     puppeteer.launch.mockResolvedValue(mockBrowser);
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
   });
 
   test('should capture screenshot for desktop breakpoint', async () => {
@@ -135,6 +148,12 @@ describe('captureScreenshots', () => {
   test('should scroll page before taking screenshot', async () => {
     const url = 'https://example.com';
     mockPage.screenshot.mockResolvedValue('base64-encoded-image');
+    
+    // Mock the evaluate function to resolve immediately
+    mockPage.evaluate.mockImplementation((fn) => {
+      if (fn) return Promise.resolve(fn());
+      return Promise.resolve();
+    });
 
     await captureScreenshots(url);
 
