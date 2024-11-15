@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
-  previousUrls: [{
+  activeUrls: [{
     type: String,
     trim: true
   }],

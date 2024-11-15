@@ -1,16 +1,23 @@
 const mongoose = require('mongoose');
 
 const AssessmentSchema = new mongoose.Schema({
-  sessionId: String,
+  sessionId: {
+    type: String,
+    required: true
+  },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  websiteUrl: String,
+  websiteUrl: {
+    type: String,
+    required: true  // Making this required
+  },
   status: {
     type: String,
     enum: ['pending', 'processing', 'completed', 'failed'],
-    default: 'pending'
+    default: 'pending',
+    required: true
   },
   validationResults: {
     urlValid: Boolean,

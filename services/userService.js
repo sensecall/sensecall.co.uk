@@ -13,6 +13,7 @@ async function registerUserInterest(email, url) {
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
+        // Check if the user has recently assessed the same website
         const recentAssessment = await Assessment.findOne({
             userId: existingUser._id,
             websiteUrl: normalisedUrl,
@@ -28,6 +29,7 @@ async function registerUserInterest(email, url) {
             };
         }
 
+        // Check rate limit across all URLs
         const assessmentCount = await Assessment.countDocuments({
             userId: existingUser._id,
             created: { $gte: new Date(Date.now() - 24 * 60 * 60 * 1000) }
@@ -37,26 +39,29 @@ async function registerUserInterest(email, url) {
             throw new Error('RATE_LIMIT_EXCEEDED');
         }
 
-        if (existingUser.websiteUrl !== normalisedUrl) {
-            existingUser.previousUrls = existingUser.previousUrls || [];
-            existingUser.previousUrls.push(existingUser.websiteUrl);
-            existingUser.websiteUrl = normalisedUrl;
+        // Add new URL to activeUrls if it doesn't exist
+        existingUser.activeUrls = existingUser.activeUrls || [];
+        if (!existingUser.activeUrls.includes(normalisedUrl)) {
+            existingUser.activeUrls.push(normalisedUrl);
             user = await existingUser.save();
         } else {
             user = existingUser;
         }
     } else {
+        // Create new user with activeUrls array
         user = new User({
             email,
             websiteUrl: normalisedUrl,
-            previousUrls: [],
+            activeUrls: [normalisedUrl],
             createdAt: new Date()
         });
         await user.save();
     }
 
+    // Generate a new session ID for the assessment
     const sessionId = crypto.randomBytes(16).toString('hex');
 
+    // Create a new assessment record
     const assessment = new Assessment({
         websiteUrl: normalisedUrl,
         sessionId,

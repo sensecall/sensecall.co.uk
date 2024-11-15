@@ -11,16 +11,21 @@ const ReportRequest = require('./models/ReportRequest');
 const { validateWebsite } = require('./services/validationService');
 const User = require('./models/User');
 const { registerUserInterest } = require('./services/userService');
+const validateFormInput = require('./middleware/validateFormInput');
 
 // Home page
 router.get('/', (req, res) => {
     const error = req.query.error;
-    let validationErrors = {};
+    let validationErrors = null;
     
-    if (error === 'missing_fields') {
+    if (error === 'validation_error') {
         validationErrors = {
-            email: !req.query.email && 'Email is required',
-            url: !req.query.url && 'Website URL is required'
+            email: req.query.emailError,
+            url: req.query.urlError
+        };
+    } else if (error === 'rate_limit') {
+        validationErrors = {
+            email: 'Too many requests. Please try again in 24 hours.'
         };
     }
     
@@ -186,6 +191,14 @@ router.get('/success', (req, res) => {
     });
 });
 
+// Examples page
+router.get('/examples', (req, res) => {
+    res.render('pages/examples.njk', {
+        title: 'Examples',
+        description: 'See how SiteHero can help your website'
+    });
+});
+
 // Add this debug endpoint
 router.get('/api/debug-screenshots/:sessionId', async (req, res) => {
     const { sessionId } = req.params;
@@ -224,16 +237,17 @@ router.get('/api/lighthouse-report/:sessionId', async (req, res) => {
   }
 });
 
-router.post('/register-interest', async (req, res) => {
+router.post('/register-interest', validateFormInput, async (req, res) => {
     try {
         const { email, url } = req.body;
         
-        // Validate fields
-        if (!email || !url) {
-            return res.redirect('/?error=missing_fields');
+        // Normalize URL
+        let normalizedUrl = url;
+        if (!normalizedUrl.startsWith('http://') && !normalizedUrl.startsWith('https://')) {
+            normalizedUrl = 'https://' + normalizedUrl;
         }
         
-        const result = await registerUserInterest(email, url);
+        const result = await registerUserInterest(email, normalizedUrl);
         
         switch (result.status) {
             case 'EXISTING_RECENT_ASSESSMENT':
@@ -248,18 +262,18 @@ router.post('/register-interest', async (req, res) => {
     } catch (error) {
         console.error('Error registering interest:', error);
         
-        // Handle specific error types
         const errorMapping = {
             'RATE_LIMIT_EXCEEDED': 'rate_limit',
-            'MISSING_FIELDS': 'missing_fields',
-            'INVALID_URL': 'invalid_url'
+            'VALIDATION_ERROR': 'validation_error'
         };
         
         const errorCode = errorMapping[error.message] || 'server_error';
         const queryParams = new URLSearchParams({
             error: errorCode,
             email: req.body.email || '',
-            url: req.body.url || ''
+            url: req.body.url || '',
+            emailError: error.emailError || '',
+            urlError: error.urlError || ''
         });
         
         res.redirect(`/?${queryParams.toString()}`);
@@ -269,10 +283,12 @@ router.post('/register-interest', async (req, res) => {
 // Add after the register-interest route
 router.get('/processing/:sessionId', async (req, res) => {
     const { sessionId } = req.params;
+    const notice = req.query.notice;
     console.log(`🔍 Processing request for session: ${sessionId}`);
     
     try {
-        const assessment = await Assessment.findOne({ sessionId }); // Find the assessment by sessionId
+        // Find the assessment by sessionId
+        const assessment = await Assessment.findOne({ sessionId });
         
         // If no assessment is found, render the error page
         if (!assessment) {
@@ -300,7 +316,8 @@ router.get('/processing/:sessionId', async (req, res) => {
         res.render('pages/processing.njk', {
             title: 'Analysing Your Website',
             websiteUrl: assessment.websiteUrl,
-            sessionId
+            sessionId,
+            notice
         });
 
         // Start validation if not already done
