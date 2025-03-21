@@ -1,7 +1,7 @@
 ---
 layout: post.njk
 title: "Building an Accessible, Expanding Search Input Field"
-date: 2024-03-21
+date: 2025-03-21
 tags: ["post", "code", "javascript", "css"]
 description: "A modern implementation of an expanding search input field that grows as you type, perfect for search forms and message inputs."
 ---
