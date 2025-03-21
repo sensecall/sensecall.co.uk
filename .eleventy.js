@@ -2,6 +2,13 @@ let Nunjucks = require("nunjucks");
 const execSync = require('child_process').execSync;
 
 module.exports = function (eleventyConfig) {
+  // Set site URL for use in sitemap and other places
+  eleventyConfig.addGlobalData("site", {
+    url: "https://sensecall.co.uk",
+    title: "Dan Sensecall",
+    description: "Service Design & UX Consultant"
+  });
+
   // Watch CSS files for changes
   eleventyConfig.setBrowserSyncConfig({
     files: './_site/css/**/*.css',
@@ -19,6 +26,11 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.on('afterBuild', () => {
     // Process Tailwind using the compiled CSS with minification
     execSync('npx tailwindcss -i _site/css/styles.css -o _site/css/styles.min.css --minify --content "./_site/**/*.html"');
+  });
+
+  eleventyConfig.addFilter('date', function(date, format) {
+    if (!date) return '';
+    return new Date(date).toISOString().split('T')[0];
   });
 
   eleventyConfig.addPassthroughCopy({ "src/assets/js": "assets/js" });
