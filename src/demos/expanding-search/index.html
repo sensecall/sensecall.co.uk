@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Auto-expanding Search Input Demo</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        .description {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #555;
+            max-width: 600px;
+            font-size: 16px;
+        }
+
+        .expanding-search {
+            width: 100%;
+            position: relative;
+        }
+
+        .expanding-search__label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 4px;
+            display: inline-block;
+        }
+
+        .expanding-search__input {
+            width: 100%;
+            padding: 8px 12px;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            border: 2px solid #333;
+            border-radius: 4px;
+            resize: none;
+            box-sizing: border-box;
+            min-height: calc(1.5em + 16px);
+            overflow-y: hidden;
+        }
+
+        .expanding-search__input::placeholder {
+            color: #aaa;
+        }
+
+        .expanding-search__input--scrollable {
+            overflow-y: scroll;
+        }
+
+        .expanding-search__measure {
+            position: absolute;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+            width: 100%;
+            padding: 8px 12px;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            border: 2px solid transparent;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            box-sizing: border-box;
+            min-height: 24px;
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-select: none;
+            opacity: 0;
+            z-index: -1;
+        }
+
+        .expanding-search__results {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            min-height: 40px;
+            display: none;
+        }
+
+        .expanding-search__results--visible {
+            display: block;
+        }
+
+        /* Screen reader only class */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        /* Update controls styling */
+        .controls {
+            position: static;
+            margin-top: 40px;
+            padding: 25px;
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .controls h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .controls label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .controls input[type="range"] {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .controls span {
+            min-width: 45px;
+            text-align: right;
+        }
+
+        /* Make sure the search container is responsive */
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .description {
+                font-size: 14px;
+                margin-bottom: 30px;
+            }
+
+            .controls {
+                padding: 20px;
+            }
+
+            .controls label {
+                font-size: 13px;
+            }
+        }
+
+        /* Add to existing styles */
+        .explanation {
+            margin-top: 60px;
+            padding: 0 20px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .explanation h2 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .explanation h3 {
+            font-size: 18px;
+            margin: 25px 0 15px;
+            color: #444;
+        }
+
+        .explanation section {
+            margin-bottom: 30px;
+        }
+
+        .explanation ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        .explanation li {
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .explanation footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #666;
+            font-style: italic;
+        }
+
+        @media (max-width: 480px) {
+            .explanation {
+                margin-top: 40px;
+            }
+
+            .explanation h2 {
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+
+            .explanation h3 {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Auto-expanding Search Input Demo</h1>
+    <div class="description">
+        <p>A modern implementation of an expanding search input field, similar to Google's search box. The input automatically grows as you type, making it perfect for search forms, comment boxes, and message inputs.</p>
+        <p>This demo shows how to create an auto-expanding textarea that behaves like a single-line input until content wraps. Ideal for search interfaces in web applications, progressive web apps, and responsive websites.</p>
+        <p>Features: auto-height adjustment, max height with scrollbar, preserved line breaks, and accessibility support.</p>
+    </div>
+
+    <div class="expanding-search" role="search">
+        <label for="search-input" class="expanding-search__label">Search query</label>
+        <textarea 
+            id="search-input"
+            class="expanding-search__input" 
+            placeholder="Type to search..."
+            rows="1"
+            aria-expanded="false"
+            aria-controls="search-results"
+            aria-describedby="search-description"
+        ></textarea>
+        <div 
+            class="expanding-search__measure" 
+            aria-hidden="true"
+            role="presentation"
+            tabindex="-1"
+            inert
+        ></div>
+        <div id="search-description" class="sr-only">
+            Press Enter to search. The input will expand as you type longer queries.
+        </div>
+        <div 
+            id="search-results" 
+            class="expanding-search__results" 
+            role="region" 
+            aria-live="polite"
+            aria-label="Search results"
+        >
+            <h2>Search query:</h2>
+            <p>
+                <code class="expanding-search__query"></code>
+            </p>
+        </div>
+    </div>
+
+    <div class="controls" aria-label="Display settings">
+        <h2>Customise Display Settings</h2>
+        <label>
+            Font size:
+            <input type="range" id="fontSize" min="12" max="24" value="16" step="1">
+            <span id="fontSizeValue">16px</span>
+        </label>
+        <label>
+            Input width:
+            <input type="range" id="inputWidth" min="200" max="600" value="300" step="10">
+            <span id="inputWidthValue">300px</span>
+        </label>
+        <label>
+            Max rows before scroll:
+            <input type="range" id="maxRows" min="1" max="50" value="20" step="1">
+            <span id="maxRowsValue">20</span>
+        </label>
+    </div>
+
+    <div class="explanation">
+        <h2>How It Works</h2>
+        
+        <section>
+            <h3>Overview</h3>
+            <p>
+                This is a vanilla JavaScript implementation of an auto-expanding search input - no frameworks or dependencies required. 
+                Perfect for creating Google-style expanding search boxes, chat inputs, or comment fields.
+                It uses a hidden div to calculate the content height and adjusts the textarea accordingly.
+            </p>
+        </section>
+
+        <section>
+            <h3>Key Features</h3>
+            <ul>
+                <li>Pure JavaScript - no dependencies like jQuery or React required</li>
+                <li>Maintains a single-line appearance until content wraps, like Google's search input</li>
+                <li>Automatically expands up to a configurable maximum height</li>
+                <li>Shows scrollbar only when content exceeds the maximum height</li>
+                <li>Preserves settings in localStorage for user preferences</li>
+                <li>Fully responsive and mobile-friendly design</li>
+                <li>Perfect for search forms, chat interfaces, and comment boxes</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Accessibility Considerations</h3>
+            <ul>
+                <li>Proper ARIA attributes for search functionality</li>
+                <li>Screen reader support with descriptive labels</li>
+                <li>Keyboard navigation support</li>
+                <li>Live region for search results</li>
+                <li>Hidden elements properly marked with aria-hidden</li>
+                <li>Maintains focus management</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Browser Support</h3>
+            <p>
+                Works in all modern browsers. Uses standard Web APIs including:
+            </p>
+            <ul>
+                <li>CSS Flexbox for layout</li>
+                <li>localStorage for settings persistence</li>
+                <li>Computed styles for dynamic measurements</li>
+                <li>Standard DOM events and methods</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Use Cases</h3>
+            <ul>
+                <li>Search interfaces and search forms</li>
+                <li>Auto-expanding comment boxes</li>
+                <li>Chat message inputs</li>
+                <li>Dynamic form fields</li>
+                <li>Query builders and search filters</li>
+            </ul>
+        </section>
+
+        <footer>
+            <p>
+                View the source code to see how it's implemented. Free to use and adapt for your own projects - 
+                perfect for creating expanding search boxes, dynamic textareas, and responsive input fields.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        class ExpandingSearch {
+            constructor(element) {
+                this.container = element;
+                this.textarea = element.querySelector('.expanding-search__input');
+                this.measureDiv = element.querySelector('.expanding-search__measure');
+                this.resultsArea = element.querySelector('.expanding-search__results');
+                this.searchQuery = element.querySelector('.expanding-search__query');
+
+                // Get computed styles for dynamic measurements
+                const styles = window.getComputedStyle(this.textarea);
+                this.LINE_HEIGHT = parseFloat(styles.lineHeight);
+                this.PADDING = parseFloat(styles.paddingTop) + parseFloat(styles.paddingBottom);
+                this.MAX_ROWS = 20;
+
+                this.init();
+            }
+
+            init() {
+                this.textarea.addEventListener('input', () => this.adjustHeight());
+                this.textarea.addEventListener('keydown', (e) => this.handleKeydown(e));
+                this.textarea.addEventListener('paste', (e) => this.handlePaste(e));
+                window.addEventListener('resize', () => this.updateMeasurements());
+                this.adjustHeight();
+            }
+
+            updateMeasurements() {
+                const styles = window.getComputedStyle(this.textarea);
+                this.LINE_HEIGHT = parseFloat(styles.lineHeight);
+                this.PADDING = parseFloat(styles.paddingTop) + parseFloat(styles.paddingBottom);
+                this.adjustHeight();
+            }
+
+            adjustHeight() {
+                this.measureDiv.textContent = this.textarea.value.replace(/\n/g, ' ');
+                
+                const scrollHeight = this.measureDiv.scrollHeight;
+                const numberOfLines = Math.ceil((scrollHeight - this.PADDING) / this.LINE_HEIGHT);
+                const maxHeight = (this.MAX_ROWS * this.LINE_HEIGHT) + this.PADDING;
+                
+                this.textarea.style.height = `${Math.min(scrollHeight, maxHeight)}px`;
+                this.textarea.classList.toggle('expanding-search__input--scrollable', scrollHeight > maxHeight);
+            }
+
+            handleKeydown(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    this.submitSearch();
+                }
+            }
+
+            handlePaste(event) {
+                event.preventDefault();
+                const text = (event.clipboardData || window.clipboardData)
+                    .getData('text')
+                    .replace(/\n/g, ' ');
+                document.execCommand('insertText', false, text);
+            }
+
+            submitSearch() {
+                const query = this.textarea.value.trim();
+                if (query) {
+                    this.searchQuery.textContent = query;
+                    this.resultsArea.classList.add('expanding-search__results--visible');
+                    this.updateAriaExpanded(true);
+                }
+            }
+
+            updateAriaExpanded(expanded) {
+                this.textarea.setAttribute('aria-expanded', expanded.toString());
+            }
+
+            // Public methods for external configuration
+            setMaxRows(rows) {
+                this.MAX_ROWS = rows;
+                this.adjustHeight();
+            }
+
+            setFontSize(size) {
+                this.textarea.style.fontSize = `${size}px`;
+                this.measureDiv.style.fontSize = `${size}px`;
+                this.updateMeasurements();
+            }
+
+            setWidth(width) {
+                this.container.style.width = `${width}px`;
+                this.measureDiv.style.width = this.textarea.clientWidth + 'px';
+                this.updateMeasurements();
+            }
+        }
+
+        // Demo controls class
+        class SearchDemo {
+            constructor(searchComponent) {
+                this.search = searchComponent;
+                this.setupControls();
+                this.loadSettings();
+            }
+
+            loadSettings() {
+                const settings = JSON.parse(localStorage.getItem('searchBoxSettings') || '{}');
+                
+                const fontSize = settings.fontSize || 16;
+                const width = settings.width || 300;
+                const maxRows = settings.maxRows || 20;
+
+                // Update controls
+                document.getElementById('fontSize').value = fontSize;
+                document.getElementById('fontSizeValue').textContent = `${fontSize}px`;
+                document.getElementById('inputWidth').value = width;
+                document.getElementById('inputWidthValue').textContent = `${width}px`;
+                document.getElementById('maxRows').value = maxRows;
+                document.getElementById('maxRowsValue').textContent = maxRows;
+
+                // Apply settings
+                this.search.setFontSize(fontSize);
+                this.search.setWidth(width);
+                this.search.setMaxRows(maxRows);
+            }
+
+            saveSettings() {
+                const settings = {
+                    fontSize: parseInt(document.getElementById('fontSize').value),
+                    width: parseInt(document.getElementById('inputWidth').value),
+                    maxRows: parseInt(document.getElementById('maxRows').value)
+                };
+                localStorage.setItem('searchBoxSettings', JSON.stringify(settings));
+            }
+
+            setupControls() {
+                // Font size control
+                const fontSizeInput = document.getElementById('fontSize');
+                const fontSizeValue = document.getElementById('fontSizeValue');
+                fontSizeInput.addEventListener('input', () => {
+                    const size = fontSizeInput.value;
+                    fontSizeValue.textContent = `${size}px`;
+                    this.search.setFontSize(size);
+                    this.saveSettings();
+                });
+
+                // Width control
+                const widthInput = document.getElementById('inputWidth');
+                const widthValue = document.getElementById('inputWidthValue');
+                widthInput.addEventListener('input', () => {
+                    const width = widthInput.value;
+                    widthValue.textContent = `${width}px`;
+                    this.search.setWidth(width);
+                    this.saveSettings();
+                });
+
+                // Max rows control
+                const maxRowsInput = document.getElementById('maxRows');
+                const maxRowsValue = document.getElementById('maxRowsValue');
+                maxRowsInput.addEventListener('input', () => {
+                    const rows = maxRowsInput.value;
+                    maxRowsValue.textContent = rows;
+                    this.search.setMaxRows(parseInt(rows, 10));
+                    this.saveSettings();
+                });
+            }
+        }
+
+        // Initialize
+        const searchComponent = new ExpandingSearch(document.querySelector('.expanding-search'));
+        new SearchDemo(searchComponent);
+    </script>
+</body>
+</html>

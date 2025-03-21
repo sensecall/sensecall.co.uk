@@ -24,6 +24,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/assets/js": "assets/js" });
   eleventyConfig.addPassthroughCopy("fonts");
   eleventyConfig.addPassthroughCopy({ "src/assets/images": "assets/images" });
+  eleventyConfig.addPassthroughCopy({ "src/demos": "demos" });
   eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
 
   // add nunjucks filter for showing the date in a nice format
