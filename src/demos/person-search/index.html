@@ -10,6 +10,32 @@
 </head>
 
 <body class="bg-grey-100 flex flex-col min-h-screen" id="app">
+    <div class="container mx-auto px-4 py-8 bg-white shadow-sm mt-4 mb-8 rounded-lg">
+        <div class="prose max-w-none">
+            <h2 class="text-3xl font-bold mb-4">About this demo</h2>
+            <p class="mb-4">This demo shows how to build a flexible search interface that handles the complexities of searching for people across different systems and databases. It's particularly useful when dealing with variations in how names and dates are recorded.</p>
+            
+            <h3 class="text-xl font-bold mb-2">Key features</h3>
+            <ul class="list-disc pl-6 mb-4">
+                <li>Multiple name variations (first names, middle names, surnames)</li>
+                <li>Different name formats (full names, initials, reversed order)</li>
+                <li>Multiple date of birth possibilities with customisable range matching</li>
+                <li>Various date formats (UK, US, and international standards)</li>
+            </ul>
+
+            <h3 class="text-xl font-bold mb-2">Common use cases</h3>
+            <ul class="list-disc pl-6 mb-4">
+                <li>Healthcare: Finding patient records across different systems</li>
+                <li>Government services: Public records searching</li>
+                <li>Financial services: Customer verification checks</li>
+                <li>Research: Family history and genealogy searches</li>
+                <li>Data management: Finding and matching duplicate records</li>
+            </ul>
+
+            <p class="text-sm text-gray-600 mb-4">Try the demo below to see how it handles different name combinations and date formats. Enter multiple variations of names and dates to see how the search adapts.</p>
+        </div>
+    </div>
+
     <div class="flex flex-col lg:flex-row container mx-auto pb-16 pt-4 gap-8">
         <!-- Main content -->
         <div class="w-full lg:w-1/2">
@@ -21,7 +47,7 @@
                 <h2 class="text-2xl font-bold pb-0">Names</h2>
 
                 <div v-for="(nameType, nameTypeIndex) in nameTypes" :key="nameType.id" class="pb-6">
-                    <label :for="nameType.id" class="block text-lg font-bold text-gray-900 mb-2">[[ nameType.label ]]</label>
+                    <label :for="nameType.id" class="block text-md font-bold text-gray-900 mb-2">[[ nameType.label ]]</label>
                     <div v-for="(name, index) in nameType.values" :key="`${nameType.id}-${index}`" class="flex mb-3">
                         <input type="text" :id="`${nameType.id}-${index}`" v-model="nameType.values[index]"
                             :data-name-type="nameType.id"
@@ -109,55 +135,6 @@
         createApp({
             delimiters: ['[[', ']]'],
             setup() {
-                const showQuickSearch = ref(false);
-                const quickSearchQuery = ref('');
-                const searchQuery = ref('');
-                const showCommandPalette = ref(false);
-                const serviceName = ref('Person Search Service');
-                const showDevTool = ref(false);
-                const selectedUserType = ref(localStorage.getItem('selectedUserType') || 'Standard User');
-                const userTypes = ['Administrator', 'Standard User', 'Guest User'];
-
-                const handleKeydown = (e) => {
-                    // Check if the active element is an input field
-                    const isInputField = e.target.tagName.toLowerCase() === 'input' || e.target.tagName.toLowerCase() === 'textarea';
-
-                    if (e.key === 's' && !showCommandPalette.value && !isInputField) {
-                        e.preventDefault();
-                        showQuickSearch.value = true;
-                        nextTick(() => {
-                            const searchInput = document.querySelector('#quick-search-input');
-                            if (searchInput) {
-                                searchInput.focus();
-                            }
-                        });
-                    }
-                    // When 'q' key is pressed:
-                    if (e.key === 'q' && !isInputField) {
-                        console.log('Keydown event:', e);
-                        e.preventDefault(); // Prevent the default key action
-                        showCommandPalette.value = true; // Show the command palette
-                        nextTick(() => {
-                            const commandInput = document.querySelector('#command-input');
-                            if (commandInput) {
-                                commandInput.focus();
-                            }
-                        });
-                    }
-                    // When 'Esc' key is pressed:
-                    if (e.key === 'Escape') {
-                        e.preventDefault(); // Prevent default action
-                        // Close quick search if it's open
-                        if (showQuickSearch.value) {
-                            showQuickSearch.value = false;
-                        }
-                        // Close command palette if it's open
-                        if (showCommandPalette.value) {
-                            closeCommandPalette();
-                        }
-                    }
-                };
-
                 // names functionality
                 // nameTypes
                 const nameTypes = ref([
@@ -231,59 +208,91 @@
                     const { firstName, middleName, surname } = searchData.names;
                     const variations = new Set();
 
-                    // Helper function to get initials
-                    const getInitials = (name) => name.map(n => n.charAt(0).toUpperCase()).join('');
-
                     // Helper function to capitalise first letter
                     const capitalise = (str) => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 
-                    // Full name variations
-                    const allNames = [...firstName, ...middleName, ...surname];
-                    variations.add(allNames.map(capitalise).join(' '));
-                    variations.add(allNames.map(capitalise).reverse().join(' '));
+                    // Helper function to get initial
+                    const getInitial = (name) => name.charAt(0).toUpperCase();
 
-                    // First name + surname variations
+                    // Helper function to format name with comma
+                    const formatWithComma = (surname, restOfName) => `${surname}, ${restOfName}`;
+
+                    // Process each name combination (including swapped order if middle name exists)
                     firstName.forEach(first => {
-                        surname.forEach(last => {
-                            variations.add(`${capitalise(first)} ${capitalise(last)}`);
-                            variations.add(`${capitalise(last)}, ${capitalise(first)}`);
-                        });
-                    });
+                        const firstInitial = getInitial(first);
+                        const capitalisedFirst = capitalise(first);
 
-                    // Initials + surname variations
-                    const firstInitials = getInitials(firstName);
-                    const middleInitials = getInitials(middleName);
-                    surname.forEach(last => {
-                        variations.add(`${firstInitials} ${capitalise(last)}`);
-                        variations.add(`${firstInitials}${middleInitials} ${capitalise(last)}`);
-                        variations.add(`${capitalise(last)}, ${firstInitials}`);
-                        variations.add(`${capitalise(last)}, ${firstInitials}${middleInitials}`);
-                    });
+                        // Generate variations with original order
+                        const processVariationsForNameOrder = (primaryName, primaryInitial, secondaryName = null) => {
+                            const secondaryInitial = secondaryName ? getInitial(secondaryName) : '';
+                            const capitalisedSecondary = secondaryName ? capitalise(secondaryName) : '';
 
-                    // Middle name variations
-                    if (middleName.length > 0) {
-                        firstName.forEach(first => {
-                            middleName.forEach(middle => {
-                                surname.forEach(last => {
-                                    variations.add(`${capitalise(first)} ${capitalise(middle)} ${capitalise(last)}`);
-                                    variations.add(`${capitalise(last)}, ${capitalise(first)} ${capitalise(middle)}`);
-                                });
+                            surname.forEach(last => {
+                                const capitalisedLast = capitalise(last);
+
+                                // Basic first + last
+                                variations.add(`${primaryName} ${capitalisedLast}`);
+                                variations.add(formatWithComma(capitalisedLast, primaryName));
+
+                                // With secondary name if exists
+                                if (secondaryName) {
+                                    // Full secondary name
+                                    variations.add(`${primaryName} ${capitalisedSecondary} ${capitalisedLast}`);
+                                    variations.add(formatWithComma(capitalisedLast, `${primaryName} ${capitalisedSecondary}`));
+
+                                    // Secondary initial
+                                    variations.add(`${primaryName} ${secondaryInitial} ${capitalisedLast}`);
+                                    variations.add(formatWithComma(capitalisedLast, `${primaryName} ${secondaryInitial}`));
+                                }
+
+                                // Initial variations
+                                variations.add(`${primaryInitial} ${capitalisedLast}`);
+                                variations.add(formatWithComma(capitalisedLast, primaryInitial));
+
+                                // Initial with secondary initial
+                                if (secondaryName) {
+                                    variations.add(`${primaryInitial} ${secondaryInitial} ${capitalisedLast}`);
+                                    variations.add(formatWithComma(capitalisedLast, `${primaryInitial} ${secondaryInitial}`));
+                                }
                             });
-                        });
-                    }
+                        };
 
-                    // Hyphenated surname variations
+                        // Original order variations
+                        processVariationsForNameOrder(capitalisedFirst, firstInitial, middleName[0]);
+
+                        // Swapped order variations (if middle name exists)
+                        if (middleName.length > 0) {
+                            const middleInitial = getInitial(middleName[0]);
+                            const capitalisedMiddle = capitalise(middleName[0]);
+                            processVariationsForNameOrder(capitalisedMiddle, middleInitial, first);
+                        }
+                    });
+
+                    // Hyphenated surname variations if multiple surnames
                     if (surname.length > 1) {
                         const hyphenatedSurname = surname.map(capitalise).join('-');
+                        
                         firstName.forEach(first => {
-                            variations.add(`${capitalise(first)} ${hyphenatedSurname}`);
-                            variations.add(`${hyphenatedSurname}, ${capitalise(first)}`);
+                            const capitalisedFirst = capitalise(first);
+                            
+                            variations.add(`${capitalisedFirst} ${hyphenatedSurname}`);
+                            variations.add(formatWithComma(hyphenatedSurname, capitalisedFirst));
+
+                            if (middleName.length > 0) {
+                                // Original order with hyphenated surname
+                                const capitalisedMiddle = capitalise(middleName[0]);
+                                variations.add(`${capitalisedFirst} ${capitalisedMiddle} ${hyphenatedSurname}`);
+                                variations.add(formatWithComma(hyphenatedSurname, `${capitalisedFirst} ${capitalisedMiddle}`));
+
+                                // Swapped order with hyphenated surname
+                                variations.add(`${capitalisedMiddle} ${capitalisedFirst} ${hyphenatedSurname}`);
+                                variations.add(formatWithComma(hyphenatedSurname, `${capitalisedMiddle} ${capitalisedFirst}`));
+                            }
                         });
                     }
 
                     return Array.from(variations);
                 };
-
 
                 // submitPersonSearch
                 const submitPersonSearch = () => {
@@ -337,11 +346,6 @@
                     nameType.values.splice(index, 1);
                 };
 
-                // add and remove dob functionality
-                const addDob = () => {
-                    dob.value.push('');
-                };
-
                 const removeAdditionalDob = (index) => {
                     additionalDobs.value.splice(index, 1);
                 }
@@ -350,119 +354,14 @@
                     additionalDobs.value.push({ day: '', month: '', year: '', range: 'exact' });
                 };
 
-                onMounted(() => {
-                    window.addEventListener('keydown', handleKeydown);
-                });
-
-                onUnmounted(() => {
-                    window.removeEventListener('keydown', handleKeydown);
-                });
-
-                const commandQuery = ref('');
-                const commands = [
-                    { id: 1, text: 'Person search', hint: 'Search by name or identifier', action: () => { showQuickSearch.value = true } },
-                    { id: 2, text: 'Advanced search', hint: 'Perform complex searches', action: () => { showQuickSearch.value = true } },
-                    { id: 3, text: 'Bulk search', hint: 'Search multiple records at once', action: () => { showQuickSearch.value = true } },
-                    { id: 4, text: 'Quick search', hint: 'Quickly find records using basic criteria', action: () => { showQuickSearch.value = true } },
-                    { id: 5, text: 'View records', hint: 'Access all records', action: () => { showQuickSearch.value = true } },
-                    { id: 6, text: 'Create new record', hint: 'Start a new record with basic information', action: () => { showQuickSearch.value = true } },
-                    { id: 7, text: 'Change password', hint: 'Update your account security', action: () => { showQuickSearch.value = true } },
-                    { id: 8, text: 'My account', hint: 'View and manage your account settings', action: () => { showQuickSearch.value = true } },
-                    { id: 9, text: 'Help and support', hint: 'Get help using the database', action: () => { showQuickSearch.value = true } },
-                    { id: 10, text: 'Saved searches', hint: 'View and manage saved searches', action: () => { showQuickSearch.value = true } },
-                    { id: 11, text: 'Notifications', hint: 'View and manage your notifications', action: () => { showQuickSearch.value = true } },
-                    { id: 12, text: 'View and manage saved searches', hint: 'Access and edit your saved searches', action: () => { showQuickSearch.value = true } },
-                ];
-
-                const filteredCommands = computed(() => {
-                    return commands.filter(command => command.text.toLowerCase().includes(commandQuery.value.toLowerCase()));
-                });
-
-                let selectedIndex = ref(0);
-
-                const executeCommand = (command) => {
-                    if (typeof command === 'object') {
-                        command.action();
-                    } else {
-                        const selectedCommand = filteredCommands.value[selectedIndex.value];
-                        if (selectedCommand) {
-                            selectedCommand.action();
-                        }
-                    }
-                    closeCommandPalette();
-                };
-
-                const closeCommandPalette = () => {
-                    showCommandPalette.value = false;
-                    commandQuery.value = '';
-                    selectedIndex.value = 0;
-                };
-
-                const navigateCommands = (direction) => {
-                    if (direction === 'up') {
-                        selectedIndex.value = (selectedIndex.value - 1 + filteredCommands.value.length) % filteredCommands.value.length;
-                    } else if (direction === 'down') {
-                        selectedIndex.value = (selectedIndex.value + 1) % filteredCommands.value.length;
-                    }
-                };
-
-                const handleCommandPaletteKeydown = (e) => {
-                    if (e.key === 'ArrowUp') {
-                        e.preventDefault();
-                        navigateCommands('up');
-                    } else if (e.key === 'ArrowDown') {
-                        e.preventDefault();
-                        navigateCommands('down');
-                    } else if (e.key === 'Enter') {
-                        e.preventDefault();
-                        executeCommand();
-                    } else if (e.key === 'Escape') {
-                        e.preventDefault();
-                        closeCommandPalette();
-                    }
-                };
-
-                const toggleQuickSearch = () => {
-                    showQuickSearch.value = !showQuickSearch.value;
-                    if (showQuickSearch.value) {
-                        // Use nextTick to ensure the DOM has updated before focusing
-                        Vue.nextTick(() => {
-                            document.querySelector('#quickSearch').focus();
-                        });
-                    }
-                };
-
-                const oneHourAgo = new Date(Date.now() - 1 * 60 * 60 * 1000).toLocaleString('en-GB', {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric',
-                    hour: 'numeric',
-                    minute: '2-digit',
-                    hour12: true
-                }).replace(',', ' at');
-
                 const searchResults = ref(null);
 
                 return {
-                    showQuickSearch,
-                    quickSearchQuery,
-                    toggleQuickSearch,
-                    showCommandPalette,
-                    commandQuery,
-                    filteredCommands,
-                    executeCommand,
-                    closeCommandPalette,
-                    serviceName,
-                    handleCommandPaletteKeydown,
-                    selectedIndex,
-                    navigateCommands,
-                    oneHourAgo,
                     nameTypes,
                     dob,
                     submitPersonSearch,
                     addName,
                     removeName,
-                    addDob,
                     additionalDobs,
                     addAdditionalDob,
                     removeAdditionalDob,
