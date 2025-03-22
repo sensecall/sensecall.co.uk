@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Person Search</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body class="bg-grey-100 flex flex-col min-h-screen" id="app">
+    <div class="flex flex-col lg:flex-row container mx-auto pb-16 pt-4 gap-8">
+        <!-- Main content -->
+        <div class="w-full lg:w-1/2">
+            <h1 class="text-5xl font-bold mb-8">
+                Search for a person
+            </h1>
+
+            <form @submit.prevent="submitPersonSearch" class="space-y-3">
+                <h2 class="text-2xl font-bold pb-0">Names</h2>
+
+                <div v-for="(nameType, nameTypeIndex) in nameTypes" :key="nameType.id" class="pb-6">
+                    <label :for="nameType.id" class="block text-lg font-bold text-gray-900 mb-2">[[ nameType.label ]]</label>
+                    <div v-for="(name, index) in nameType.values" :key="`${nameType.id}-${index}`" class="flex mb-3">
+                        <input type="text" :id="`${nameType.id}-${index}`" v-model="nameType.values[index]"
+                            :data-name-type="nameType.id"
+                            class="w-2/3 border-2 border-black p-2 text-base focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-black">
+                        <button v-if="nameType.values.length > 1" @click="removeName(nameType, index)" type="button"
+                            class="ml-2 px-3 py-2 bg-red-600 text-white text-base hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 border-b-2 border-red-900">Remove</button>
+                    </div>
+                    <button @click="addName(nameType)" @keydown.enter="addName(nameType)"
+                        @keydown.space="addName(nameType)" type="button"
+                        class="px-3 py-2 bg-gray-200 text-black text-base hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 border-b-2 border-gray-400"
+                        role="button" tabindex="0">Add another [[ nameType.label.toLowerCase() ]]</button>
+                </div>
+
+                <div class="pb-6">
+                    <label class="block text-2xl font-bold text-gray-900 mb-2">Date of Birth</label>
+                    <div v-for="(additionalDob, index) in additionalDobs" :key="index" class="mb-3 flex space-x-3">
+                        <div>
+                            <label :for="'dobDay-' + index" class="sr-only">Day</label>
+                            <input type="number" :id="'dobDay-' + index" v-model="additionalDob.day" min="1" max="31"
+                                class="w-16 border-2 border-black p-2 text-base focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-black h-11">
+                        </div>
+                        <div>
+                            <label :for="'dobMonth-' + index" class="sr-only">Month</label>
+                            <input type="number" :id="'dobMonth-' + index" v-model="additionalDob.month" min="1"
+                                max="12"
+                                class="w-16 border-2 border-black p-2 text-base focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-black h-11">
+                        </div>
+                        <div>
+                            <label :for="'dobYear-' + index" class="sr-only">Year</label>
+                            <input type="number" :id="'dobYear-' + index" v-model="additionalDob.year" min="1900"
+                                :max="new Date().getFullYear()"
+                                class="w-24 border-2 border-black p-2 text-base focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-black h-11">
+                        </div>
+                        <div>
+                            <label :for="'dobRange-' + index" class="sr-only">Range (years)</label>
+                            <select :id="'dobRange-' + index" v-model="additionalDob.range"
+                                class="border-2 border-black p-2 text-base focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-black h-11">
+                                <option value="" disabled>Select range</option>
+                                <option value="exact">Exact</option>
+                                <option v-for="year in 10" :key="year" :value="year">within [[ year ]] [[ year === 1 ? 'year' : 'years' ]]</option>
+                            </select>
+                        </div>
+                        <button v-if="additionalDobs.length > 1" @click="removeAdditionalDob(index)" type="button"
+                            class="px-3 py-2 bg-red-600 text-white text-base hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 border-b-2 border-red-900 h-11">Remove</button>
+                    </div>
+                    <button @click="addAdditionalDob" type="button"
+                        class="px-3 py-2 bg-gray-200 text-black text-base hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 border-b-2 border-gray-400">Add another date of birth</button>
+                </div>
+
+                <div>
+                    <button type="submit"
+                        class="px-3 py-2 bg-green-700 text-white text-lg hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 border-b-2 border-green-900">Search</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Results panel -->
+        <div class="w-full lg:w-1/2 bg-gray-50 p-6 border-2 border-gray-200 rounded-lg" v-if="searchResults">
+            <h2 class="text-2xl font-bold mb-6">Search Variations</h2>
+            
+            <div class="mb-8">
+                <h3 class="text-lg font-bold mb-3">Name Combinations</h3>
+                <ul class="space-y-1 font-mono text-sm bg-white p-4 border border-gray-200 rounded max-h-60 overflow-y-auto">
+                    <li v-for="variation in searchResults.nameVariations" :key="variation" class="text-gray-700">[[ variation ]]</li>
+                </ul>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-lg font-bold mb-3">Date of Birth Formats</h3>
+                <ul class="space-y-1 font-mono text-sm bg-white p-4 border border-gray-200 rounded max-h-40 overflow-y-auto">
+                    <li v-for="variation in searchResults.dobVariations" :key="variation" class="text-gray-700">[[ variation ]]</li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-bold mb-3">Search Data Structure</h3>
+                <pre class="font-mono text-sm bg-white p-4 border border-gray-200 rounded overflow-x-auto"><code>[[ JSON.stringify(searchResults.searchData, null, 2) ]]</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp, ref, nextTick, computed, onMounted, onUnmounted } = Vue;
+
+        createApp({
+            delimiters: ['[[', ']]'],
+            setup() {
+                const showQuickSearch = ref(false);
+                const quickSearchQuery = ref('');
+                const searchQuery = ref('');
+                const showCommandPalette = ref(false);
+                const serviceName = ref('Person Search Service');
+                const showDevTool = ref(false);
+                const selectedUserType = ref(localStorage.getItem('selectedUserType') || 'Standard User');
+                const userTypes = ['Administrator', 'Standard User', 'Guest User'];
+
+                const handleKeydown = (e) => {
+                    // Check if the active element is an input field
+                    const isInputField = e.target.tagName.toLowerCase() === 'input' || e.target.tagName.toLowerCase() === 'textarea';
+
+                    if (e.key === 's' && !showCommandPalette.value && !isInputField) {
+                        e.preventDefault();
+                        showQuickSearch.value = true;
+                        nextTick(() => {
+                            const searchInput = document.querySelector('#quick-search-input');
+                            if (searchInput) {
+                                searchInput.focus();
+                            }
+                        });
+                    }
+                    // When 'q' key is pressed:
+                    if (e.key === 'q' && !isInputField) {
+                        console.log('Keydown event:', e);
+                        e.preventDefault(); // Prevent the default key action
+                        showCommandPalette.value = true; // Show the command palette
+                        nextTick(() => {
+                            const commandInput = document.querySelector('#command-input');
+                            if (commandInput) {
+                                commandInput.focus();
+                            }
+                        });
+                    }
+                    // When 'Esc' key is pressed:
+                    if (e.key === 'Escape') {
+                        e.preventDefault(); // Prevent default action
+                        // Close quick search if it's open
+                        if (showQuickSearch.value) {
+                            showQuickSearch.value = false;
+                        }
+                        // Close command palette if it's open
+                        if (showCommandPalette.value) {
+                            closeCommandPalette();
+                        }
+                    }
+                };
+
+                // names functionality
+                // nameTypes
+                const nameTypes = ref([
+                    { id: 1, label: 'First Name', values: [''] },
+                    { id: 2, label: 'Surname', values: [''] },
+                    { id: 3, label: 'Middle Name', values: [''] },
+                ]);
+
+                // dob fields
+                const dob = ref({
+                    day: '',
+                    month: '',
+                    year: ''
+                });
+
+                // additionalDobs
+                const additionalDobs = ref([
+                    { day: '', month: '', year: '', range: '' }
+                ]);
+
+                // function to make all variations of a given dob:
+                // Function to generate date variations using built-in JavaScript Date methods
+                const makeDobVariations = (dob) => {
+                    const { day, month, year } = dob;
+                    if (!day && !month && !year) return [];
+
+                    const variations = new Set();
+                    const date = new Date(year, month - 1, day);
+
+                    if (isNaN(date.getTime())) return []; // Invalid date
+
+                    const addVariation = (formatter) => {
+                        try {
+                            variations.add(formatter.format(date));
+                        } catch (error) {
+                            console.error('Error formatting date:', error);
+                        }
+                    };
+
+                    // ISO 8601
+                    variations.add(date.toISOString().split('T')[0]);
+
+                    // Locale-specific formats
+                    const locales = ['en-GB', 'en-US'];
+                    const dateStyleOptions = ['long', 'medium', 'short'];
+
+                    locales.forEach(locale => {
+                        dateStyleOptions.forEach(dateStyle => {
+                            addVariation(new Intl.DateTimeFormat(locale, { dateStyle }));
+                        });
+
+                        // Custom formats
+                        addVariation(new Intl.DateTimeFormat(locale, { day: '2-digit', month: '2-digit', year: 'numeric' }));
+                        addVariation(new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long', year: 'numeric' }));
+                    });
+
+                    // Add variations with different separators
+                    const separators = ['/', '-', '.', ' '];
+                    separators.forEach(separator => {
+                        variations.add([day, month, year].join(separator));
+                        variations.add([month, day, year].join(separator));
+                        variations.add([year, month, day].join(separator));
+                    });
+
+                    return Array.from(variations);
+                };
+
+                // name variations - formats:
+                // initials for first and middle names (not for surname), reverse the order of names, other sensible formats for finding name matches in a database
+                const makeNameVariations = (searchData) => {
+                    const { firstName, middleName, surname } = searchData.names;
+                    const variations = new Set();
+
+                    // Helper function to get initials
+                    const getInitials = (name) => name.map(n => n.charAt(0).toUpperCase()).join('');
+
+                    // Helper function to capitalise first letter
+                    const capitalise = (str) => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+
+                    // Full name variations
+                    const allNames = [...firstName, ...middleName, ...surname];
+                    variations.add(allNames.map(capitalise).join(' '));
+                    variations.add(allNames.map(capitalise).reverse().join(' '));
+
+                    // First name + surname variations
+                    firstName.forEach(first => {
+                        surname.forEach(last => {
+                            variations.add(`${capitalise(first)} ${capitalise(last)}`);
+                            variations.add(`${capitalise(last)}, ${capitalise(first)}`);
+                        });
+                    });
+
+                    // Initials + surname variations
+                    const firstInitials = getInitials(firstName);
+                    const middleInitials = getInitials(middleName);
+                    surname.forEach(last => {
+                        variations.add(`${firstInitials} ${capitalise(last)}`);
+                        variations.add(`${firstInitials}${middleInitials} ${capitalise(last)}`);
+                        variations.add(`${capitalise(last)}, ${firstInitials}`);
+                        variations.add(`${capitalise(last)}, ${firstInitials}${middleInitials}`);
+                    });
+
+                    // Middle name variations
+                    if (middleName.length > 0) {
+                        firstName.forEach(first => {
+                            middleName.forEach(middle => {
+                                surname.forEach(last => {
+                                    variations.add(`${capitalise(first)} ${capitalise(middle)} ${capitalise(last)}`);
+                                    variations.add(`${capitalise(last)}, ${capitalise(first)} ${capitalise(middle)}`);
+                                });
+                            });
+                        });
+                    }
+
+                    // Hyphenated surname variations
+                    if (surname.length > 1) {
+                        const hyphenatedSurname = surname.map(capitalise).join('-');
+                        firstName.forEach(first => {
+                            variations.add(`${capitalise(first)} ${hyphenatedSurname}`);
+                            variations.add(`${hyphenatedSurname}, ${capitalise(first)}`);
+                        });
+                    }
+
+                    return Array.from(variations);
+                };
+
+
+                // submitPersonSearch
+                const submitPersonSearch = () => {
+                    const searchData = {
+                        names: {
+                            firstName: nameTypes.value.find(nt => nt.id === 1).values,
+                            surname: nameTypes.value.find(nt => nt.id === 2).values,
+                            middleName: nameTypes.value.find(nt => nt.id === 3).values
+                        },
+                        dateOfBirth: {
+                            primary: dob.value,
+                            additional: additionalDobs.value
+                        }
+                    };
+
+                    // Generate variations
+                    const dobVariations = [];
+                    additionalDobs.value.forEach(dob => {
+                        const dobObj = {
+                            day: dob.day,
+                            month: dob.month,
+                            year: dob.year
+                        };
+                        dobVariations.push(...makeDobVariations(dobObj));
+                    });
+
+                    const nameVariations = makeNameVariations(searchData);
+
+                    // Update search results
+                    searchResults.value = {
+                        searchData,
+                        nameVariations,
+                        dobVariations
+                    };
+                };
+
+                // addName functionality
+                const addName = (nameType) => {
+                    nameType.values.push('');
+                    nextTick(() => {
+                        const inputs = document.querySelectorAll(`[data-name-type="${nameType.id}"]`);
+                        const lastInput = inputs[inputs.length - 1];
+                        if (lastInput) {
+                            lastInput.focus();
+                        }
+                    });
+                };
+
+                // removeName functionality
+                const removeName = (nameType, index) => {
+                    nameType.values.splice(index, 1);
+                };
+
+                // add and remove dob functionality
+                const addDob = () => {
+                    dob.value.push('');
+                };
+
+                const removeAdditionalDob = (index) => {
+                    additionalDobs.value.splice(index, 1);
+                }
+
+                const addAdditionalDob = () => {
+                    additionalDobs.value.push({ day: '', month: '', year: '', range: 'exact' });
+                };
+
+                onMounted(() => {
+                    window.addEventListener('keydown', handleKeydown);
+                });
+
+                onUnmounted(() => {
+                    window.removeEventListener('keydown', handleKeydown);
+                });
+
+                const commandQuery = ref('');
+                const commands = [
+                    { id: 1, text: 'Person search', hint: 'Search by name or identifier', action: () => { showQuickSearch.value = true } },
+                    { id: 2, text: 'Advanced search', hint: 'Perform complex searches', action: () => { showQuickSearch.value = true } },
+                    { id: 3, text: 'Bulk search', hint: 'Search multiple records at once', action: () => { showQuickSearch.value = true } },
+                    { id: 4, text: 'Quick search', hint: 'Quickly find records using basic criteria', action: () => { showQuickSearch.value = true } },
+                    { id: 5, text: 'View records', hint: 'Access all records', action: () => { showQuickSearch.value = true } },
+                    { id: 6, text: 'Create new record', hint: 'Start a new record with basic information', action: () => { showQuickSearch.value = true } },
+                    { id: 7, text: 'Change password', hint: 'Update your account security', action: () => { showQuickSearch.value = true } },
+                    { id: 8, text: 'My account', hint: 'View and manage your account settings', action: () => { showQuickSearch.value = true } },
+                    { id: 9, text: 'Help and support', hint: 'Get help using the database', action: () => { showQuickSearch.value = true } },
+                    { id: 10, text: 'Saved searches', hint: 'View and manage saved searches', action: () => { showQuickSearch.value = true } },
+                    { id: 11, text: 'Notifications', hint: 'View and manage your notifications', action: () => { showQuickSearch.value = true } },
+                    { id: 12, text: 'View and manage saved searches', hint: 'Access and edit your saved searches', action: () => { showQuickSearch.value = true } },
+                ];
+
+                const filteredCommands = computed(() => {
+                    return commands.filter(command => command.text.toLowerCase().includes(commandQuery.value.toLowerCase()));
+                });
+
+                let selectedIndex = ref(0);
+
+                const executeCommand = (command) => {
+                    if (typeof command === 'object') {
+                        command.action();
+                    } else {
+                        const selectedCommand = filteredCommands.value[selectedIndex.value];
+                        if (selectedCommand) {
+                            selectedCommand.action();
+                        }
+                    }
+                    closeCommandPalette();
+                };
+
+                const closeCommandPalette = () => {
+                    showCommandPalette.value = false;
+                    commandQuery.value = '';
+                    selectedIndex.value = 0;
+                };
+
+                const navigateCommands = (direction) => {
+                    if (direction === 'up') {
+                        selectedIndex.value = (selectedIndex.value - 1 + filteredCommands.value.length) % filteredCommands.value.length;
+                    } else if (direction === 'down') {
+                        selectedIndex.value = (selectedIndex.value + 1) % filteredCommands.value.length;
+                    }
+                };
+
+                const handleCommandPaletteKeydown = (e) => {
+                    if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        navigateCommands('up');
+                    } else if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        navigateCommands('down');
+                    } else if (e.key === 'Enter') {
+                        e.preventDefault();
+                        executeCommand();
+                    } else if (e.key === 'Escape') {
+                        e.preventDefault();
+                        closeCommandPalette();
+                    }
+                };
+
+                const toggleQuickSearch = () => {
+                    showQuickSearch.value = !showQuickSearch.value;
+                    if (showQuickSearch.value) {
+                        // Use nextTick to ensure the DOM has updated before focusing
+                        Vue.nextTick(() => {
+                            document.querySelector('#quickSearch').focus();
+                        });
+                    }
+                };
+
+                const oneHourAgo = new Date(Date.now() - 1 * 60 * 60 * 1000).toLocaleString('en-GB', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true
+                }).replace(',', ' at');
+
+                const searchResults = ref(null);
+
+                return {
+                    showQuickSearch,
+                    quickSearchQuery,
+                    toggleQuickSearch,
+                    showCommandPalette,
+                    commandQuery,
+                    filteredCommands,
+                    executeCommand,
+                    closeCommandPalette,
+                    serviceName,
+                    handleCommandPaletteKeydown,
+                    selectedIndex,
+                    navigateCommands,
+                    oneHourAgo,
+                    nameTypes,
+                    dob,
+                    submitPersonSearch,
+                    addName,
+                    removeName,
+                    addDob,
+                    additionalDobs,
+                    addAdditionalDob,
+                    removeAdditionalDob,
+                    searchResults,
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+
+</html>
