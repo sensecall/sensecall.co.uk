@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>Auto-expanding Search Input Demo</title>
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GHPFLMRQ3T"></script>
@@ -18,30 +19,37 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
+            padding: 10px;
             font-family: Arial, sans-serif;
             max-width: 800px;
             margin: 0 auto;
             line-height: 1.6;
+            min-height: 100vh;
+            box-sizing: border-box;
         }
 
         h1 {
             margin-bottom: 20px;
             color: #333;
             text-align: center;
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            padding: 0 10px;
         }
 
         .description {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             color: #555;
             max-width: 600px;
-            font-size: 16px;
+            font-size: clamp(0.875rem, 4vw, 1rem);
+            padding: 0 10px;
         }
 
         .expanding-search {
             width: 100%;
             position: relative;
+            max-width: calc(100vw - 20px);
+            margin: 0 10px;
         }
 
         .expanding-search__label {
@@ -59,11 +67,19 @@
             font-family: Arial, sans-serif;
             line-height: 1.5;
             border: 2px solid #333;
-            border-radius: 4px;
+            border-radius: 8px;
             resize: none;
             box-sizing: border-box;
             min-height: calc(1.5em + 16px);
             overflow-y: hidden;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .expanding-search__input:focus {
+            outline: none;
+            border-color: #4A90E2;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
         }
 
         .expanding-search__input::placeholder {
@@ -162,25 +178,30 @@
 
         /* Make sure the search container is responsive */
         @media (max-width: 480px) {
-            body {
-                padding: 15px;
-            }
-
-            h1 {
-                font-size: 24px;
-            }
-
-            .description {
-                font-size: 14px;
-                margin-bottom: 30px;
-            }
-
             .controls {
-                padding: 20px;
+                margin-top: 20px;
+                padding: 15px;
+                width: calc(100% - 20px);
             }
 
             .controls label {
-                font-size: 13px;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+
+            .controls span {
+                text-align: left;
+            }
+
+            .controls input[type="range"] {
+                width: 100%;
+                margin: 10px 0;
+            }
+
+            .explanation {
+                margin-top: 30px;
+                padding: 0 10px;
             }
         }
 
@@ -240,6 +261,49 @@
                 font-size: 16px;
             }
         }
+
+        /* Add to existing styles */
+        .example-queries {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .example-queries__label {
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .example-query-btn {
+            display: inline-block;
+            margin: 0 8px 8px 0;
+            padding: 6px 12px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            color: #333;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+
+        .example-query-btn:hover {
+            background: #e5e5e5;
+            border-color: #ccc;
+        }
+
+        .example-query-btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.3);
+        }
+
+        @media (max-width: 480px) {
+            .example-query-btn {
+                display: block;
+                width: 100%;
+                margin-bottom: 8px;
+                text-align: left;
+            }
+        }
     </style>
 </head>
 <body>
@@ -270,6 +334,11 @@
         ></div>
         <div id="search-description" class="sr-only">
             Press Enter to search. The input will expand as you type longer queries.
+        </div>
+        <div class="example-queries">
+            <p class="example-queries__label">Try these example searches:</p>
+            <button class="example-query-btn" data-query="accessibility standards">Simple search</button>
+            <button class="example-query-btn" data-query='site:gov.uk "service assessment" AND (accessibility OR "user needs") -template filetype:pdf before:2024-01-01 after:2023-01-01'>Complex search</button>
         </div>
         <div 
             id="search-results" 
@@ -388,6 +457,9 @@
                 this.PADDING = parseFloat(styles.paddingTop) + parseFloat(styles.paddingBottom);
                 this.MAX_ROWS = 20;
 
+                // Mobile detection
+                this.isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
                 this.init();
             }
 
@@ -395,19 +467,62 @@
                 this.textarea.addEventListener('input', () => this.adjustHeight());
                 this.textarea.addEventListener('keydown', (e) => this.handleKeydown(e));
                 this.textarea.addEventListener('paste', (e) => this.handlePaste(e));
+                this.textarea.addEventListener('focus', () => this.handleFocus());
+                this.textarea.addEventListener('blur', () => this.handleBlur());
                 window.addEventListener('resize', () => this.updateMeasurements());
+                window.addEventListener('orientationchange', () => {
+                    setTimeout(() => this.updateMeasurements(), 100);
+                });
                 this.adjustHeight();
+
+                // Prevent zoom on mobile when focusing input
+                if (this.isMobile) {
+                    this.textarea.style.fontSize = '16px';
+                }
+
+                // Add example query handlers
+                this.setupExampleQueries();
+            }
+
+            handleFocus() {
+                if (this.isMobile) {
+                    // Scroll the textarea into view with some padding
+                    setTimeout(() => {
+                        const rect = this.textarea.getBoundingClientRect();
+                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                        window.scrollTo({
+                            top: rect.top + scrollTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }, 100);
+                }
+            }
+
+            handleBlur() {
+                if (this.isMobile) {
+                    // Reset scroll position smoothly
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }
             }
 
             updateMeasurements() {
                 const styles = window.getComputedStyle(this.textarea);
                 this.LINE_HEIGHT = parseFloat(styles.lineHeight);
                 this.PADDING = parseFloat(styles.paddingTop) + parseFloat(styles.paddingBottom);
+                
+                // Update measure div width to match textarea
+                this.measureDiv.style.width = this.textarea.clientWidth + 'px';
+                
                 this.adjustHeight();
             }
 
             adjustHeight() {
-                this.measureDiv.textContent = this.textarea.value.replace(/\n/g, ' ');
+                // Ensure measure div matches textarea width
+                this.measureDiv.style.width = this.textarea.clientWidth + 'px';
+                this.measureDiv.textContent = this.textarea.value + '\n';
                 
                 const scrollHeight = this.measureDiv.scrollHeight;
                 const numberOfLines = Math.ceil((scrollHeight - this.PADDING) / this.LINE_HEIGHT);
@@ -462,6 +577,19 @@
                 this.measureDiv.style.width = this.textarea.clientWidth + 'px';
                 this.updateMeasurements();
             }
+
+            setupExampleQueries() {
+                const buttons = document.querySelectorAll('.example-query-btn');
+                buttons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const query = button.dataset.query;
+                        this.textarea.value = query;
+                        this.adjustHeight();
+                        this.textarea.focus();
+                        this.submitSearch();
+                    });
+                });
+            }
         }
 
         // Demo controls class
@@ -470,6 +598,28 @@
                 this.search = searchComponent;
                 this.setupControls();
                 this.loadSettings();
+                
+                // Handle orientation changes
+                window.addEventListener('orientationchange', () => {
+                    setTimeout(() => this.handleOrientationChange(), 100);
+                });
+            }
+
+            handleOrientationChange() {
+                // Update all measurements and controls after orientation change
+                this.search.updateMeasurements();
+                this.updateControlsLayout();
+            }
+
+            updateControlsLayout() {
+                const isMobile = window.innerWidth <= 480;
+                const controls = document.querySelector('.controls');
+                
+                if (isMobile) {
+                    controls.style.width = 'calc(100% - 20px)';
+                } else {
+                    controls.style.width = '';
+                }
             }
 
             loadSettings() {
