@@ -223,3 +223,78 @@ body.homePage {
         }
     }
 }
+
+.example-container {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+// Example containers for blog posts
+.example {
+    --example-border: #e9ecef;
+    --example-bg: #f8f9fa;
+    --example-text: #384042;
+    --example-heading: #243e64;
+
+    margin: 2.5rem 0;
+    border: 1px solid var(--example-border);
+    border-radius: 0.5rem;
+    overflow: hidden;
+
+    // Container header
+    &__header {
+        padding: 1rem 1.5rem;
+        background: var(--example-heading);
+        color: white;
+        font-weight: 500;
+        font-size: 1rem;
+        border-bottom: 1px solid var(--example-border);
+    }
+
+    // Main content area
+    &__content {
+        padding: 2rem 2.5rem;
+        background: var(--example-bg);
+        color: var(--example-text);
+    }
+
+    // Responsive adjustments
+    @media (max-width: 640px) {
+        margin: 2rem 0;
+
+        &__header {
+            padding: 0.875rem 1.25rem;
+        }
+
+        &__content {
+            padding: 1.25rem;
+        }
+    }
+}
+
+// Dark mode styles
+.dark {
+    .example {
+        --example-border: #2d3748;
+        --example-bg: #1a202c;
+        --example-text: #e2e8f0;
+        --example-heading: #2b4c7e;
+    }
+}
+
+// Print styles for examples
+@media print {
+    .example {
+        break-inside: avoid;
+        border: 1px solid #000;
+        
+        &__header {
+            background: #fff !important;
+            color: #000;
+            border-bottom: 1px solid #000;
+        }
+    }
+}
