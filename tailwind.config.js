@@ -32,6 +32,17 @@ module.exports = {
               padding: '0',
               color: 'inherit'
             },
+            'h1, h2, h3, h4, h5, h6': {
+              marginBottom: '0.5rem',
+            },
+            'ul > li, ol > li': {
+              marginTop: '0.25rem',
+              marginBottom: '0.25rem',
+            },
+            'ul, ol': {
+              marginTop: '1rem',
+              marginBottom: '1rem',
+            },
             '.dark code': {
               color: '#E5E7EB',
               backgroundColor: '#374151'
