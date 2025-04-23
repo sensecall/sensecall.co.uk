@@ -280,12 +280,12 @@
     "yargs-parser": "^21.1.0"
   },
   "scripts": {
-    "start": "npm-run-all -p dev:*",
-    "dev:11ty": "eleventy --serve",
-    "dev:css": "tailwindcss -i ./src/assets/css/tailwind.css -o ./_site/css/styles.css --watch --postcss",
-    "build": "npm-run-all build:*",
-    "build:11ty": "eleventy",
-    "build:css": "tailwindcss -i ./src/assets/css/tailwind.css -o ./_site/css/styles.css --minify --postcss"
+    "start": "npm-run-all -p eleventy:serve tailwind:watch",
+    "eleventy:serve": "eleventy --serve",
+    "tailwind:watch": "tailwindcss -i ./src/assets/css/tailwind.css -o ./_site/css/styles.css --watch --postcss",
+    "build": "npm-run-all eleventy:build tailwind:build",
+    "eleventy:build": "eleventy",
+    "tailwind:build": "tailwindcss -i ./src/assets/css/tailwind.css -o ./_site/css/styles.css --minify --postcss"
   },
   "keywords": [],
   "author": "",

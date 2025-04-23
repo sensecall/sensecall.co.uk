@@ -1,3 +1,7 @@
 [build]
 	publish = "_site"
 	command = "npm run build"
+
+# Add this section for netlify dev
+[dev]
+    command = "npm run start"
