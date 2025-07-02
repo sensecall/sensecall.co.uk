@@ -118,6 +118,12 @@ module.exports = function (eleventyConfig) {
         'why': 'I couldn\'t find a tool or spreadsheet that did a decent job of helping me compare the cost of buying a new car against the cost of keeping my current car.'
       },
       {
+        'title': 'Nursery EYFS ratio planning tool',
+        'description': 'A tool to help nurseries and other early years providers plan their EYFS ratios.',
+        'url': 'https://nursery.sensecall.co.uk',
+        'why': 'Honestly, I started this as a small tool as an alternative to using Excel, but it\'s grown into an almost fully-fledged service for early years providers. I might build a proper website for it one day.'
+      },
+      {
         'title': 'Football score keeper',
         'description': 'A simple tool to help keep track of the score in a football match.',
         'url': 'https://football.sensecall.co.uk',
