@@ -48,6 +48,31 @@ module.exports = function (eleventyConfig) {
     });
   });
 
+  // a function allowing accepting a nunjucks filter - e.g. {{ date | customDate('MMMM yyyy') }}
+  eleventyConfig.addFilter("customDate", function (date, format) {
+    // if format is 'MMMM yyyy', return the date in the format 'MMMM yyyy'
+    if (format === 'MMMM yyyy') {
+      return new Date(date).toLocaleDateString('en-GB', {
+        month: 'long',
+        year: 'numeric'
+      });
+    } else if (format === 'dd MMMM yyyy') {
+      return new Date(date).toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
+      });
+    } else if (format === 'd MMM yyyy') {
+      return new Date(date).toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+      });
+    } else {
+      return new Date(date).toLocaleDateString('en-GB', format);
+    }
+  });
+
   // Add a filter to get the index of the current item in a collection
   eleventyConfig.addFilter("getCollectionIndex", function(collection, page) {
     return collection.findIndex(item => item.url === page.url) + 1;
@@ -112,34 +137,39 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addCollection("experiments", function (collectionApi) {
     let experiments = [
       {
+        'title': 'Advanced Mortgage Planning Calculator',
+        'description': 'A comprehensive mortgage calculator that allows you to explore different scenarios and see how different factors affect your mortgage repayments.',
+        'url': 'https://themortgagetool.co.uk',
+        'why': 'Another tool to scratch an itch. I was looking for a mortgage calculator that would allow me to explore different scenarios and see how future interest rates would affect my mortgage repayments. In the end I decided to spin it out into a proper website; I hope it\'s useful for others.',
+        'date': '2025-07-01'
+      },
+      {
         'title': 'Car cost comparison',
         'description': 'A tool to help compare the cost of buying a new car against the cost of keeping your current car.',
         'url': 'https://car.sensecall.co.uk',
-        'why': 'I couldn\'t find a tool or spreadsheet that did a decent job of helping me compare the cost of buying a new car against the cost of keeping my current car.'
+        'why': 'I couldn\'t find a tool or spreadsheet that did a decent job of helping me compare the cost of buying a new car against the cost of keeping my current car.',
+        'date': '2024-11-01'
       },
       {
         'title': 'Nursery EYFS ratio planning tool',
         'description': 'A tool to help nurseries and other early years providers plan their EYFS ratios.',
         'url': 'https://nursery.sensecall.co.uk',
-        'why': 'Honestly, I started this as a small tool as an alternative to using Excel, but it\'s grown into an almost fully-fledged service for early years providers. I might build a proper website for it one day.'
+        'why': 'Honestly, I started this as a small tool as an alternative to using Excel, but it\'s grown into an almost fully-fledged service for early years providers. I might build a proper website for it one day.',
+        'date': '2025-06-01'
       },
       {
         'title': 'Football score keeper',
         'description': 'A simple tool to help keep track of the score in a football match.',
         'url': 'https://football.sensecall.co.uk',
-        'why': 'I was stood at my son\'s football match and got fed up of keeping score using the Notes app on my phone, so I built a simple tool to do it for me.'
-      },
-      {
-        'title': 'UK Renewable Energy Map',
-        'description': 'A map of current and planned renewable energy generation capacity in the UK.',
-        'url': 'https://uk-renewable-energy-map.sensecall.co.uk',
-        'why': 'I was interested in seeing how much renewable energy generation capacity is planned or currently in operation in the UK, but I couldn\'t find a map that showed this information so I built my own.'
+        'why': 'I was stood at my son\'s football match and got fed up of keeping score using the Notes app on my phone, so I built a simple tool to do it for me.',
+        'date': '2023-12-01'
       },
       {
         'title': 'Times tables game',
         'description': 'A game to help children practice maths times tables.',
         'url': 'https://times-tables-game.sensecall.co.uk',
-        'why': 'While helping my son with his times tables, I couldn\'t find a game that was quick, fun and engaging so I built a simple one-page web app to do the job.'
+        'why': 'While helping my son with his times tables, I couldn\'t find a game that was quick, fun and engaging so I built a simple one-page web app to do the job.',
+        'date': '2022-11-01'
       }
     ];
 
