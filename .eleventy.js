@@ -137,6 +137,13 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addCollection("experiments", function (collectionApi) {
     let experiments = [
       {
+        'title': 'Drawdown calculator',
+        'description': 'A quick way to model how different withdrawal rates and investment returns affect pension drawdown over time.',
+        'url': 'https://drawdowncalculator.sensecall.co.uk',
+        'why': 'I wanted to see how long my pension might last under different scenarios, so I built a simple tool to do the maths for me.',
+        'date': '2025-08-01'
+      },
+      {
         'title': 'Advanced Mortgage Planning Calculator',
         'description': 'A comprehensive mortgage calculator that allows you to explore different scenarios and see how different factors affect your mortgage repayments.',
         'url': 'https://themortgagetool.co.uk',
