@@ -144,6 +144,13 @@ module.exports = function (eleventyConfig) {
         'date': '2025-08-01'
       },
       {
+        'title': 'IR35 take-home pay calculator',
+        'description': 'A quick way to calculate take-home pay for different complex IR35 scenarios.',
+        'url': 'https://ir35.org',
+        'why': 'I needed a fast way to work out take-home pay across tricky IR35 scenarios, so I put this together.',
+        'date': '2025-07-01'
+      },
+      {
         'title': 'Advanced Mortgage Planning Calculator',
         'description': 'A comprehensive mortgage calculator that allows you to explore different scenarios and see how different factors affect your mortgage repayments.',
         'url': 'https://themortgagetool.co.uk',
