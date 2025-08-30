@@ -190,7 +190,7 @@ module.exports = function (eleventyConfig) {
         'description': 'A quick way to estimate your yearly energy costs based on your usage.',
         'url': 'https://energybillcalculator.sensecall.co.uk',
         'why': 'I wanted to see how different tariffs and usage would affect our energy bills, so I built a tool to crunch the numbers.',
-        'date': '2024-04-01'
+        'date': '2025-09-01'
       }
     ];
 
