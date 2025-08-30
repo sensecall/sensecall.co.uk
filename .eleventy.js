@@ -184,6 +184,13 @@ module.exports = function (eleventyConfig) {
         'url': 'https://times-tables-game.sensecall.co.uk',
         'why': 'While helping my son with his times tables, I couldn\'t find a game that was quick, fun and engaging so I built a simple one-page web app to do the job.',
         'date': '2022-11-01'
+      },
+      {
+        'title': 'Energy bill calculator',
+        'description': 'A quick way to estimate your yearly energy costs based on your usage.',
+        'url': 'https://energybillcalculator.sensecall.co.uk',
+        'why': 'I wanted to see how different tariffs and usage would affect our energy bills, so I built a tool to crunch the numbers.',
+        'date': '2024-04-01'
       }
     ];
 
