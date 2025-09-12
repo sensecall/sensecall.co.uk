@@ -15,7 +15,6 @@ description: A collection of experiments and side projects by Dan Sensecall, a f
     <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-y-6 gap-x-6 md:gap-x-10 md:gap-y-10 mt-8">
         {% for experiment in collections.experiments %}
             <div class="mb-4 bg-gray-50 dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-4 sm:p-6 flex flex-col h-full">
-                <p class="text-gray-500 dark:text-gray-400 mb-4 text-xs rounded-full bg-gray-100 dark:bg-gray-800 py-1 px-2 border border-gray-200 dark:border-gray-700 inline w-fit">Built in {{ experiment.date | customDate('MMMM yyyy') }}</p>
                 <h2 class="text-xl md:text-2xl mb-2 font-semibold">
                     <a href="{{ experiment.url }}"
                        class="text-gray-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 underline inline-flex items-center gap-1"
