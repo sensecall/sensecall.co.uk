@@ -140,57 +140,49 @@ module.exports = function (eleventyConfig) {
         'title': 'Drawdown calculator',
         'description': 'A quick way to model how different withdrawal rates and investment returns affect pension drawdown over time.',
         'url': 'https://drawdowncalculator.sensecall.co.uk',
-        'why': 'I wanted to see how long my pension might last under different scenarios, so I built a simple tool to do the maths for me.',
-        'date': '2025-08-01'
+        'why': 'I wanted to see how long my pension might last under different scenarios, so I built a simple tool to do the maths for me.'
       },
       {
         'title': 'IR35 take-home pay calculator',
         'description': 'A quick way to calculate take-home pay for different complex IR35 scenarios.',
         'url': 'https://ir35.org',
-        'why': 'I needed a fast way to work out take-home pay across tricky IR35 scenarios, so I put this together.',
-        'date': '2025-07-01'
+        'why': 'I needed a fast way to work out take-home pay across tricky IR35 scenarios, so I put this together.'
       },
       {
         'title': 'Advanced Mortgage Planning Calculator',
         'description': 'A comprehensive mortgage calculator that allows you to explore different scenarios and see how different factors affect your mortgage repayments.',
         'url': 'https://themortgagetool.co.uk',
-        'why': 'Another tool to scratch an itch. I was looking for a mortgage calculator that would allow me to explore different scenarios and see how future interest rates would affect my mortgage repayments. In the end I decided to spin it out into a proper website; I hope it\'s useful for others.',
-        'date': '2025-07-01'
+        'why': 'Another tool to scratch an itch. I was looking for a mortgage calculator that would allow me to explore different scenarios and see how future interest rates would affect my mortgage repayments. In the end I decided to spin it out into a proper website; I hope it\'s useful for others.'
       },
       {
         'title': 'Car cost comparison',
         'description': 'A tool to help compare the cost of buying a new car against the cost of keeping your current car.',
         'url': 'https://car.sensecall.co.uk',
-        'why': 'I couldn\'t find a tool or spreadsheet that did a decent job of helping me compare the cost of buying a new car against the cost of keeping my current car.',
-        'date': '2024-11-01'
+        'why': 'I couldn\'t find a tool or spreadsheet that did a decent job of helping me compare the cost of buying a new car against the cost of keeping my current car.'
       },
       {
         'title': 'Nursery EYFS ratio planning tool',
         'description': 'A tool to help nurseries and other early years providers plan their EYFS ratios.',
         'url': 'https://nursery.sensecall.co.uk',
-        'why': 'Honestly, I started this as a small tool as an alternative to using Excel, but it\'s grown into an almost fully-fledged service for early years providers. I might build a proper website for it one day.',
-        'date': '2025-06-01'
+        'why': 'Honestly, I started this as a small tool as an alternative to using Excel, but it\'s grown into an almost fully-fledged service for early years providers. I might build a proper website for it one day.'
       },
       {
         'title': 'Football score keeper',
         'description': 'A simple tool to help keep track of the score in a football match.',
         'url': 'https://football.sensecall.co.uk',
-        'why': 'I was stood at my son\'s football match and got fed up of keeping score using the Notes app on my phone, so I built a simple tool to do it for me.',
-        'date': '2023-12-01'
+        'why': 'I was stood at my son\'s football match and got fed up of keeping score using the Notes app on my phone, so I built a simple tool to do it for me.'
       },
       {
         'title': 'Times tables game',
         'description': 'A game to help children practice maths times tables.',
         'url': 'https://times-tables-game.sensecall.co.uk',
-        'why': 'While helping my son with his times tables, I couldn\'t find a game that was quick, fun and engaging so I built a simple one-page web app to do the job.',
-        'date': '2022-11-01'
+        'why': 'While helping my son with his times tables, I couldn\'t find a game that was quick, fun and engaging so I built a simple one-page web app to do the job.'
       },
       {
         'title': 'Energy bill calculator',
         'description': 'A quick way to estimate your yearly energy costs based on your usage.',
         'url': 'https://energybillcalculator.sensecall.co.uk',
-        'why': 'I wanted to see how different tariffs and usage would affect our energy bills, so I built a tool to crunch the numbers.',
-        'date': '2025-09-01'
+        'why': 'I wanted to see how different tariffs and usage would affect our energy bills, so I built a tool to crunch the numbers.'
       }
     ];
 
