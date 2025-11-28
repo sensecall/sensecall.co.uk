@@ -9,7 +9,7 @@ permalink: /
 
 <section id="introduction"
          aria-labelledby="introduction-title"
-         class="pt-4 pb-10 lg:py-16 border-b border-gray-200 dark:border-gray-800">
+         class="py-4 lg:py-16">
     <div class="max-w-4xl">
         <p class="text-xl md:text-3xl text-gray-500 dark:text-gray-400 mb-4 flex items-center">
             <img src="/assets/images/dan-sensecall.jpg"
@@ -17,7 +17,7 @@ permalink: /
                  class="rounded-full mr-2 lg:mr-3 shadow-sm w-10 h-10 md:w-12 md:h-12"
                  width="64"
                  height="64">
-            <span class="wave-animation">👋</span> <span class="ml-2 font-light">Hi! I'm Dan Sensecall.</span>
+            <span class="ml-2 font-light">Hi! I'm Dan Sensecall.</span>
         </p>
         <h1 id="introduction-title"
             class="text-2xl md:text-5xl mb-6 leading-tight text-gray-900 dark:text-white font-semibold lg:w-4/5 drop-shadow-sm">
@@ -34,29 +34,51 @@ permalink: /
             <li>accessibility</li>
             <li>content design</li>
         </ul>
-        <p class="mt-8 md:text-lg">
-            <a href="#services"
-               class="inline-flex items-center px-4 py-2 rounded-md bg-blue-50 hover:bg-blue-100 dark:bg-blue-900/20 dark:hover:bg-blue-900/30 text-blue-700 dark:text-indigo-200 transition-colors duration-200 group border border-blue-200 dark:border-blue-800 shadow-sm hover:shadow font-medium">
-                Learn more about how I can help
-                <svg xmlns="http://www.w3.org/2000/svg"
-                     class="h-4 w-4 ml-2 transform group-hover:translate-y-0.5 transition-transform duration-200"
-                     fill="none"
-                     viewBox="0 0 24 24"
-                     stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-            </a>
-        </p>
+    </div>
+</section>
+<section id="clients" class="py-8 lg:py-16">
+    <div class="flex flex-col-reverse md:flex-col gap-8 md:gap-12">
+        <div class="lg:w-2/3">
+            <h2 class="text-2xl md:text-4xl font-bold md:mb-4 text-dark dark:text-white sr-only md:not-sr-only">
+                Clients I've worked with
+            </h2>
+            <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
+                Over the past 15 years I've worked with a range of clients, from startups to government
+                departments, to improve their products and services. Since 2018, I've worked exclusively with Public Sector organisations to design services for
+                citizens and internal users.
+            </p>
+        </div>
+        <div class="lg:w-2/3 grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-x-2 gap-y-5 sm:gap-x-4 sm:gap-y-6 md:gap-y-8 py-4 md:py-0">
+            {% for logo in collections.logos %}
+                <div class="flex items-center justify-start"
+                     role="img"
+                     aria-label="{{ logo.name }}">
+                    <img src="/assets/images/clients/{{ logo.image | replace('.svg', '--dark.svg') if (logo.image.endsWith('.svg')) else logo.image }}"
+                         alt="{{ logo.name }} logo"
+                         width="100"
+                         height="50"
+                         class="hidden dark:block w-full max-w-[80px] sm:max-w-[100px] md:max-w-[120px] lg:max-w-[120px] xl:max-w-[140px] 2xl:max-w-[160px] h-auto object-contain" />
+                    <img src="/assets/images/clients/{{ logo.image }}"
+                         alt="{{ logo.name }} logo"
+                         width="100"
+                         height="50"
+                         class="dark:hidden w-full max-w-[80px] sm:max-w-[100px] md:max-w-[120px] lg:max-w-[120px] xl:max-w-[140px] 2xl:max-w-[160px] h-auto object-contain" />
+                </div>
+            {% endfor %}
+        </div>
     </div>
 </section>
 <section id="services" aria-labelledby="services-title" class="py-8 lg:py-16">
-    <div class="md:w-2/3">
+    <div class="lg:w-2/3">
         <h2 id="services-title"
             class="text-2xl md:text-4xl mb-4 font-semibold text-dark dark:text-white">
-            How I can help your organisation
+            What I do
         </h2>
         <p class="mb-10 text-lg md:text-2xl text-gray-700 dark:text-gray-300">
-            I offer a range of services, which can help <span class="font-medium text-gray-700 dark:text-white">improve your users' experience</span>, make your service and organisation <span class="font-medium text-gray-700 dark:text-white">more effective</span>, and deliver measurable <span class="font-medium text-gray-700 dark:text-white">return on investment</span>.
+            I help teams make their services more user-friendly, effective and accessible. I focus on putting humans first, understanding their needs and working with organisations to create services that really work for people who use them.
+        </p>
+        <p class="mb-10 text-lg md:text-2xl text-gray-700 dark:text-gray-300">
+            Alongside making things simpler for users, I also aim to deliver measurable results and value for the organisations I work with.
         </p>
     </div>
     {% set services = [
@@ -159,67 +181,15 @@ permalink: /
             </div>
         {% endfor %}
     </div>
-    <div class="mt-8 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-indigo-900 p-6 sm:p-8 rounded-lg border border-blue-200 dark:border-indigo-700 shadow-md w-fit">
-        <h3 class="text-xl md:text-2xl lg:text-3xl font-semibold mb-3 text-gray-800 dark:text-white">Let's transform your digital services</h3>
-        <p class="text-gray-600 dark:text-gray-300 text-base md:text-lg lg:text-xl mb-4 md:mb-6 w-full md:w-3/4 lg:w-2/3">I'll help you understand your users' needs and design services that deliver <span class="font-medium text-gray-700 dark:text-white">measurable improvements</span> and <span class="font-medium text-gray-700 dark:text-white">return on investment</span>.</p>
-        <a href="/contact/"
-           class="inline-flex items-center px-4 py-2 rounded-md bg-blue-200 hover:bg-blue-300 dark:bg-blue-700 dark:hover:bg-blue-600 text-blue-800 dark:text-white transition-colors duration-200 group border border-blue-300 dark:border-blue-600 shadow-sm hover:shadow font-medium">
-            Get in touch
-            <svg xmlns="http://www.w3.org/2000/svg" 
-                 class="h-4 w-4 ml-2 transform group-hover:translate-x-0.5 transition-transform duration-200" 
-                 fill="none" 
-                 viewBox="0 0 24 24" 
-                 stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-        </a>
-    </div>
-</section>
-<section id="clients" class="py-8 lg:py-16">
-    <div class="md:w-2/3">
-        <h2 class="text-2xl md:text-4xl font-bold mb-4 text-dark dark:text-white">Who I work with</h2>
-        <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
-            Over the past 15 years I've worked with a range of clients, from startups to government
-            departments, to improve their products and services.
-        </p>
-        <p class="mb-8 md:text-lg text-gray-700 dark:text-gray-300">
-            Since 2018, I've worked exclusively with Public Sector organisations to design services for
-            citizens and internal users.
-        </p>
-    </div>
-    <div class="lg:w-2/3 grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-x-2 gap-y-4 sm:gap-x-4 sm:gap-y-6 md:gap-y-8">
-        {% for logo in collections.logos %}
-            <div class="flex items-center justify-start"
-                 role="img"
-                 aria-label="{{ logo.name }}">
-                <img src="/assets/images/clients/{{ logo.image | replace('.svg', '--dark.svg') if (logo.image.endsWith('.svg')) else logo.image }}"
-                     alt="{{ logo.name }} logo"
-                     width="100"
-                     height="50"
-                     class="hidden dark:block w-full max-w-[80px] sm:max-w-[100px] md:max-w-[120px] h-auto object-contain" />
-                <img src="/assets/images/clients/{{ logo.image }}"
-                     alt="{{ logo.name }} logo"
-                     width="100"
-                     height="50"
-                     class="dark:hidden w-full max-w-[80px] sm:max-w-[90px] md:max-w-[100px] h-auto object-contain" />
-            </div>
-        {% endfor %}
-    </div>
 </section>
 <section id="things-ive-done" class="py-8 lg:py-16">
-    <div class="md:w-2/3">
+    <div class="lg:w-2/3">
         <h2 class="text-2xl md:text-4xl font-bold mb-4 text-dark dark:text-white">Things I've done</h2>
         <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
-            I've provided design services on a wide range of projects, from small websites to large-scale digital transformation programmes.
+            I've provided design services on a wide range of projects, from small websites to large-scale digital transformation programmes. Projects have ranged from greenfield projects to others that have involved replacing legacy systems with new services. Ideally, I'm involved from the very start, but I'm used to being parachuted in to help with a specific problem.
         </p>
         <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
-            Projects have ranged from greenfield projects to others that have involved replacing legacy systems with new services. Ideally, I'm involved from the very start, but I'm used to being parachuted in to help with a specific problem.
-        </p>
-        <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
-            Typically, the projects I work on are used by thousands of people every day, from members of the public completing a task online, to civil servants using a system to manage their work.
-        </p>
-        <p class="mb-4 md:text-lg text-gray-700 dark:text-gray-300">
-            There are too many to list here, but here are a few examples:
+            Typically, the projects I work on are used by thousands of people every day, from members of the public completing a task online, to civil servants using a system to manage their work. There are too many to list here, but here are a few examples:
         </p>
         <ul class="mb-4 md:text-lg text-gray-700 dark:text-gray-300 list-disc list-outside pl-5">
             <li class="mb-2">
