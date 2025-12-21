@@ -78,6 +78,9 @@ module.exports = function (eleventyConfig) {
     return collection.findIndex(item => item.url === page.url) + 1;
   });
 
+  // Ensure plain files like ads.txt are copied to the site root
+  eleventyConfig.addPassthroughCopy("src/ads.txt");
+
   let nunjucksEnvironment = new Nunjucks.Environment(
     new Nunjucks.FileSystemLoader("src/_includes")
   );
