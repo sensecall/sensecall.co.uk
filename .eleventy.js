@@ -152,6 +152,13 @@ module.exports = function (eleventyConfig) {
         'why': 'I needed a fast way to work out take-home pay across tricky IR35 scenarios, so I put this together.'
       },
       {
+        'title': 'IR35 contract checker',
+        'description': 'A quick way to check if a contract sits inside or outside IR35.',
+        'url': 'https://ir35.org',
+        'why': 'I needed a fast sanity check for IR35 without wading through HMRC guidance, so I put this together.',
+        'date': '2025-07-01'
+      },
+      {
         'title': 'Advanced Mortgage Planning Calculator',
         'description': 'A comprehensive mortgage calculator that allows you to explore different scenarios and see how different factors affect your mortgage repayments.',
         'url': 'https://themortgagetool.co.uk',
