@@ -7,8 +7,6 @@ status: draft
 layout: post
 ---
 
-# Building better person search interfaces
-
 *This is a work in progress but I thought it's worth sharing as it's something I've been working on recently.*
 
 ## The challenge

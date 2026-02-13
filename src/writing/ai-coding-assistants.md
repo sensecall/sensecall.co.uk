@@ -7,8 +7,6 @@ status: draft
 layout: post
 ---
 
-# Thoughts from a designer on AI Coding Assistants
-
 ## Being busy
 I'm busy a lot these days.
 
