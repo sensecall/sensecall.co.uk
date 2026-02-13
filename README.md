@@ -27,7 +27,7 @@ Static site built with Eleventy, Sass, and Tailwind CSS. This repo contains the 
 ## Typography Pattern
 - Use semantic typography classes from `src/scss/main.scss` instead of repeating color classes:
   - `heading-l`, `heading-m`, `heading-s`, `heading-xs`
-  - `body-l`, `body-m`, `body-s`, `body-text`, `list-body`
+  - `kicker`, `body-xl`, `body-l`, `body-m`, `body-s`, `body-text`, `list-body`
   - `inset-text` for highlighted/inset copy blocks
 - Long-form writing pages should continue to use Tailwind Typography via `.prose` (see `src/_includes/layouts/post.njk`).
 - `main` also has base typography defaults for heading/paragraph/list text colors in light and dark mode, so plain elements render sensibly without extra color utilities.
