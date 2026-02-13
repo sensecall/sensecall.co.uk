@@ -42,6 +42,18 @@ body {
   main :where(p, ul, ol, li) {
     @apply text-gray-700 dark:text-gray-300;
   }
+
+  main .prose :where(a):not(:where([class~='not-prose'] *)) {
+    @apply text-blue-600 dark:text-blue-400 underline underline-offset-2;
+    text-decoration-thickness: 1px;
+    transition: color 150ms ease, text-decoration-thickness 150ms ease;
+  }
+
+  main .prose :where(a):not(:where([class~='not-prose'] *)):hover,
+  main .prose :where(a):not(:where([class~='not-prose'] *)):focus-visible {
+    @apply text-blue-800 dark:text-blue-300;
+    text-decoration-thickness: 2px;
+  }
 }
 
 @layer components {
@@ -125,6 +137,18 @@ body {
     @apply border-l-4 border-blue-200 dark:border-blue-700 bg-blue-50 dark:bg-gray-900 px-4 py-3 rounded-r-lg italic text-gray-700 dark:text-gray-300;
     font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
     line-height: 1.65;
+  }
+
+  .text-link {
+    @apply text-blue-600 dark:text-blue-400 underline underline-offset-2;
+    text-decoration-thickness: 1px;
+    transition: color 150ms ease, text-decoration-thickness 150ms ease;
+
+    &:hover,
+    &:focus-visible {
+      @apply text-blue-800 dark:text-blue-300;
+      text-decoration-thickness: 2px;
+    }
   }
 }
 

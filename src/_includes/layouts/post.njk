@@ -5,7 +5,7 @@ layout: base.njk
 <div class="py-8 lg:py-12">
     <div class="max-w-4xl">
         <p class="body-s mb-8">
-            <a href="/writing" class="text-blue-500 hover:text-primary dark:text-blue-400 dark:hover:text-blue-300 inline-flex items-center underline">
+            <a href="/writing" class="text-link inline-flex items-center">
                 <svg aria-hidden="true" class="w-4 h-4 mr-1 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
                 </svg>
@@ -30,7 +30,7 @@ layout: base.njk
             <div class="flex-1">
                 {% if previousPost %}
                     <p class="body-s">Previous post</p>
-                    <a href="{{ previousPost.url }}" class="text-blue-500 hover:text-primary dark:text-blue-400 dark:hover:text-blue-300 inline-flex items-center underline">
+                    <a href="{{ previousPost.url }}" class="text-link inline-flex items-center">
                         <svg aria-hidden="true" class="w-4 h-4 mr-1 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
                         </svg>
@@ -42,7 +42,7 @@ layout: base.njk
             <div class="flex-1 text-right">
                 {% if nextPost %}
                     <p class="body-s">Next post</p>
-                    <a href="{{ nextPost.url }}" class="text-blue-500 hover:text-primary dark:text-blue-400 dark:hover:text-blue-300 inline-flex items-center justify-end underline">
+                    <a href="{{ nextPost.url }}" class="text-link inline-flex items-center justify-end">
                         {{ nextPost.data.title }}
                         <svg aria-hidden="true" class="w-4 h-4 ml-1 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />

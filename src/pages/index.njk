@@ -35,7 +35,7 @@ permalink: /
                 Clients I've worked with
             </h2>
             <p class="body-m mb-4">
-                Over the past 15 years I've worked with a range of clients, from startups to government
+                Over the past 15 years, I've worked with a range of clients, from startups to government
                 departments, to improve their products and services. Since 2018, I've worked exclusively with Public Sector organisations to design services for
                 citizens and internal users.
             </p>
@@ -138,16 +138,21 @@ permalink: /
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
         {% for service in services %}
             <div class="mb-5">
-                <h2 class="heading-xs mb-2 flex items-center gap-2 text-gray-900 dark:text-gray-100">
-                    <i data-lucide="{{ service.icon }}"
-                       class="h-5 w-5 {{ service.colour }}"
-                       aria-hidden="true"></i>
+                <h2 class="heading-xs mb-2 flex items-center gap-3 text-gray-900 dark:text-gray-100">
+                    <span 
+                        class="inline-flex items-center justify-center rounded-full bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 {{ service.colour }} shadow-sm h-10 w-10" 
+                        aria-hidden="true"
+                    >
+                        <i data-lucide="{{ service.icon }}"
+                           class="h-5 w-5"
+                           aria-hidden="true"></i>
+                    </span>
                     <span>{{ service.title }}</span>
                 </h2>
                 <p class="body-m">{{ service.description }}</p>
                 <p class="body-s mt-2">
                     <a href="{{ service.link.url }}"
-                       class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline inline-flex items-center gap-1"
+                       class="text-link inline-flex items-center gap-1"
                        target="_blank"
                        rel="noopener noreferrer">
                         {{ service.link.text }}
@@ -181,18 +186,18 @@ permalink: /
             </li>
             <li class="mb-2">
                 <a href="projects/home-office"
-                   class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline">Redesigned the Police National Computer (PNC)</a> to make it easier for police officers to manage stolen property records
+                   class="text-link">Redesigned the Police National Computer (PNC)</a> to make it easier for police officers to manage stolen property records
             </li>
             <li class="mb-2">
                 <a href="projects/hmpps"
-                   class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline">Designed a service to replace the National Offender Management Service (NOMIS)</a>, allowing prison staff to manage prisoner activities
+                   class="text-link">Designed a service to replace the National Offender Management Service (NOMIS)</a>, allowing prison staff to manage prisoner activities
             </li>
             <li class="mb-2">
                 Provided design support to the Apprenticeship Service, helping to improve the service for employers and training providers
             </li>
             <li class="mb-2">
                 <a href="projects/childrens-social-care"
-                   class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline">Collaborated with the Children's Social Care team at the Department for Education</a> to explore how digital tools could make social workers' day-to-day work easier
+                   class="text-link">Collaborated with the Children's Social Care team at the Department for Education</a> to explore how digital tools could make social workers' day-to-day work easier
             </li>
             <li class="mb-2">
                 Redesigned the main account home page for the Apprenticeship Service, making it easier for employers to manage their accounts and start taking on apprentices
@@ -200,7 +205,7 @@ permalink: /
         </ul>
         <p class="body-m">
             You can read more about <a href="/projects"
-    class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline">projects I've worked on</a> recently.
+               class="text-link">projects I've worked on</a> recently.
         </p>
     </div>
 </section>
