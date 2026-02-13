@@ -45,11 +45,18 @@ body {
 }
 
 @layer components {
-  .heading-l {
+  .heading-xl {
     @apply font-semibold text-gray-900 dark:text-white;
     font-size: clamp(1.875rem, 1.35rem + 2.6vw, 3.5rem);
     line-height: 1.1;
     letter-spacing: -0.02em;
+  }
+
+  .heading-l {
+    @apply font-semibold text-gray-900 dark:text-white;
+    font-size: clamp(1.9rem, 1.38rem + 2.3vw, 3.25rem);
+    line-height: 1.13;
+    letter-spacing: -0.017em;
   }
 
   .heading-m {
