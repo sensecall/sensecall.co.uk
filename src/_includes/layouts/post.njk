@@ -22,13 +22,18 @@ layout: base.njk
                     {{ postDate | niceDate }}
                 </time>
                 <meta itemprop="dateModified" content="{{ postDate | date }}">
-                <h1 class="heading-l mb-3" itemprop="headline">{{ title }}</h1>
+                <h1 class="heading-l mb-4" itemprop="headline">{{ title }}</h1>
+                {% if ai_assisted or (tags and ("ai-assisted" in tags)) %}
+                    <p class="body-xs text-gray-500 dark:text-gray-400 mb-3 pl-2 py-1 border-l-4 border-gray-300 dark:border-gray-700">
+                        Note: I used ChatGPT to help format and proofread this post.
+                    </p>
+                {% endif %}
                 {% if description %}
                     <meta itemprop="description" content="{{ description }}">
                 {% endif %}
                 {% if tags %}
                     {% for tag in tags %}
-                        {% if tag != "post" and tag != "all" and tag != "nav" %}
+                        {% if tag != "post" and tag != "all" and tag != "nav" and tag != "ai-assisted" %}
                             <meta itemprop="keywords" content="{{ tag }}">
                         {% endif %}
                     {% endfor %}

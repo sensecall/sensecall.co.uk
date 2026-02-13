@@ -2,9 +2,9 @@
 title: The most enjoyable learning I’ve done in years
 description: Pondering how I've been working on side projects instead of gaming, and how AI coding tools have changed that equation for me.
 date: 2026-02-13
-tags: ['Side Projects', 'Gaming', 'Thoughts', 'Design', 'AI', 'post']
-status: published
+tags: ['Side Projects', 'Gaming', 'Thoughts', 'Design', 'AI']
 layout: post
+ai_assisted: true
 ---
 
 For years my default evening routine was pretty simple. Kids go to bed, I get a few hours back, I play games, watch TV, scroll social media. Not every night, but often enough that it became the default.
@@ -27,7 +27,7 @@ AI tools have changed that equation for me.
 
 ## No stupid questions (and no shame)
 
-I’m no stranger to dev concepts. I work around tech all day, I’ve spent years solving problems alongside engineers, and I’ve got a decent feel for stacks, APIs, and how these systems tend to fit together.
+I’m no stranger to dev concepts. I work around tech all day, I’ve <a href="https://sensecall.co.uk/projects" target="_blank">spent years solving problems alongside engineers</a>, and I’ve got a decent feel for stacks, APIs, and how these systems tend to fit together.
 
 It’s just that there’s a difference between knowing the shape of something and being willing to take it on properly in your spare time. Stuff like React patterns, Stripe, paywalls, auth flows, database wiring, deployment, performance basics, logging, error handling, even the whole “how do you evaluate LLM output sensibly” rabbit hole. I’d always assumed that if I was going to do those properly, I’d need to clear the decks, carve out a month, and keep it all in my head long enough to make it real.
 

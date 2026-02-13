@@ -2,11 +2,44 @@ let Nunjucks = require("nunjucks");
 const execSync = require('child_process').execSync;
 
 module.exports = function (eleventyConfig) {
+  const includeDrafts = ["1", "true"].includes((process.env.SHOW_DRAFTS || "").toLowerCase());
+
+  const isDraft = (data = {}) => data.draft === true || data.status === "draft";
+
+  const isWritingMarkdown = (data = {}) => {
+    const inputPath = data.page && data.page.inputPath ? data.page.inputPath : "";
+    const isWritingPath =
+      inputPath.includes("/src/writing/") ||
+      inputPath.startsWith("./src/writing/") ||
+      inputPath.startsWith("src/writing/");
+    return isWritingPath && inputPath.endsWith(".md");
+  };
+
+  const shouldExcludeWritingDraft = (data = {}) =>
+    isWritingMarkdown(data) && isDraft(data) && !includeDrafts;
+
   // Set site URL for use in sitemap and other places
   eleventyConfig.addGlobalData("site", {
     url: "https://sensecall.co.uk",
     title: "Dan Sensecall",
     description: "Service Design & UX Consultant"
+  });
+
+  // Hide draft writing posts by default.
+  // In local dev, set SHOW_DRAFTS=1 to include drafts.
+  eleventyConfig.addGlobalData("eleventyComputed", {
+    permalink: (data) => {
+      if (shouldExcludeWritingDraft(data)) {
+        return false;
+      }
+      return data.permalink;
+    },
+    eleventyExcludeFromCollections: (data) => {
+      if (shouldExcludeWritingDraft(data)) {
+        return true;
+      }
+      return data.eleventyExcludeFromCollections;
+    }
   });
 
   // Watch CSS files for changes
@@ -86,6 +119,15 @@ module.exports = function (eleventyConfig) {
   );
 
   eleventyConfig.setLibrary("njk", nunjucksEnvironment);
+
+  // Writing posts are file-based, not tag-based.
+  // Keep chronological order (oldest to newest) to match Eleventy's default tagged collection behavior.
+  eleventyConfig.addCollection("post", function (collectionApi) {
+    return collectionApi
+      .getFilteredByGlob("src/writing/*.md")
+      .filter((item) => !(isDraft(item.data) && !includeDrafts))
+      .sort((a, b) => a.date - b.date);
+  });
 
   eleventyConfig.addCollection("logos", function (collectionApi) {
     let logos = [

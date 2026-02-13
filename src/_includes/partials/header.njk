@@ -33,14 +33,15 @@
                         { url: '/writing', text: 'Writing' },
                         { url: '/experiments', text: 'Experiments' }
                     ] %}
+                    {% set currentUrl = page.url or '' %}
 
                     {% for item in navItems %}
                         <li class="w-full pt-4 md:pt-0 md:w-auto">
                             <a href="{{ item.url }}" class="text-gray-700 dark:text-gray-300 hover:text-primary hover:text-opacity-80 dark:hover:text-primary-light dark:hover:text-opacity-80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-primary-light dark:focus:ring-offset-2 active:text-primary-dark dark:active:text-primary-light
-                                {{- ' text-primary dark:text-white font-bold border-b-2 border-blue-500 dark:border-blue-400 pb-1' if (item.exact and page.url == item.url) or 
-                                   (not item.exact and ((item.url in page.url) or (item.text == 'Writing' and tags and 'post' in tags))) -}}
+                                {{- ' text-primary dark:text-white font-bold border-b-2 border-blue-500 dark:border-blue-400 pb-1' if (item.exact and currentUrl == item.url) or 
+                                   (not item.exact and currentUrl and (item.url in currentUrl)) -}}
                                 {{- ' experiments-link' if item.text == 'Experiments' -}}
-                                {{- ' animate-bubbles' if item.text == 'Experiments' and page.url == '/experiments/' -}}">
+                                {{- ' animate-bubbles' if item.text == 'Experiments' and currentUrl == '/experiments/' -}}">
                                 {% if item.text == 'Experiments' %}
                                     <span class="bubble" aria-hidden="true"></span>
                                     <span class="bubble" aria-hidden="true"></span>

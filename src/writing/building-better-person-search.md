@@ -3,7 +3,7 @@ title: Building better person search interfaces
 description: A deep dive into creating flexible, user-friendly person search interfaces that work across different systems and handle real-world complexity.
 date: 2025-03-22
 tags: ['UX', 'Design Patterns', 'Accessibility', 'JavaScript']
-status: draft
+draft: true
 layout: post
 ---
 

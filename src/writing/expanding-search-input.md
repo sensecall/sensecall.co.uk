@@ -4,7 +4,7 @@ title: "Building an Accessible, Expanding Search Input Field"
 date: 2025-03-21
 tags: ["code", "javascript", "css"]
 description: "A modern implementation of an expanding search input field that grows as you type, perfect for search forms and message inputs."
-status: draft
+draft: true
 ---
 
 I recently worked with our design team to prototype an interesting solution: how to create a search box that works well for both simple and complex searches. You know, like when you're quickly looking up "weather" versus searching for "best Italian restaurants open late on Sunday in Manchester city centre".
