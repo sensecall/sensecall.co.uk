@@ -275,7 +275,7 @@
   },
   "scripts": {
     "start": "npm-run-all -p dev:*",
-    "dev:11ty": "eleventy --serve",
+    "dev:11ty": "SHOW_DRAFTS=1 eleventy --serve",
     "dev:css": "sass src/scss/main.scss:_site/css/styles.css --watch | npx tailwindcss -i _site/css/styles.css -o _site/css/styles.min.css --watch --content \"./src/**/*.{html,js,njk,md}\"",
     "build": "npm-run-all build:*",
     "build:11ty": "eleventy",

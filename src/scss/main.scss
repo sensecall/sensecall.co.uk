@@ -121,6 +121,12 @@ body {
     line-height: 1.55;
   }
 
+  .body-xs {
+    @apply text-gray-500 dark:text-gray-400;
+    font-size: clamp(0.75rem, 0.72rem + 0.15vw, 0.875rem);
+    line-height: 1.5;
+  }
+
   .body-text {
     @apply text-gray-700 dark:text-gray-300;
     font-size: clamp(1rem, 0.98rem + 0.2vw, 1.125rem);

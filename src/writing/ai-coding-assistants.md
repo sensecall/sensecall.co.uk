@@ -3,7 +3,7 @@ title: Thoughts on AI Coding Assistants
 description: Some brief thoughts on AI coding assistants and how I've been using them.
 date: 2026-02-13
 tags: ['AI', 'Coding', 'Assistants', 'Thoughts', 'Design']
-status: draft
+draft: true
 layout: post
 ---
 
