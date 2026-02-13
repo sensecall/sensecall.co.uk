@@ -4,6 +4,7 @@ layout: base.njk
 
 <div class="py-8 lg:py-12">
     <div class="max-w-4xl">
+        {% set postDate = date or page.date %}
         <p class="body-s mb-8">
             <a href="/writing" class="text-link inline-flex items-center">
                 <svg aria-hidden="true" class="w-4 h-4 mr-1 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -13,17 +14,60 @@ layout: base.njk
             </a>
         </p>
 
-        <p class="body-s mb-2">
-            {{ date | niceDate }}
-        </p>
+        <article itemscope itemtype="https://schema.org/BlogPosting" itemid="{{ site.url }}{{ page.url }}">
+            <meta itemprop="mainEntityOfPage" content="{{ site.url }}{{ page.url }}">
+            <meta itemprop="url" content="{{ site.url }}{{ page.url }}">
+            <header class="mb-6">
+                <time class="body-l font-semibold text-gray-700 dark:text-gray-300 block mb-2" datetime="{{ postDate | date }}" itemprop="datePublished">
+                    {{ postDate | niceDate }}
+                </time>
+                <meta itemprop="dateModified" content="{{ postDate | date }}">
+                <h1 class="heading-l mb-3" itemprop="headline">{{ title }}</h1>
+                {% if description %}
+                    <meta itemprop="description" content="{{ description }}">
+                {% endif %}
+                {% if tags %}
+                    {% for tag in tags %}
+                        {% if tag != "post" and tag != "all" and tag != "nav" %}
+                            <meta itemprop="keywords" content="{{ tag }}">
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </header>
 
-        <article class="prose dark:prose-invert md:prose-lg max-w-none">
-            {{ content | safe }}
+            <div class="prose dark:prose-invert md:prose-lg max-w-none" itemprop="articleBody">
+                {{ content | safe }}
+            </div>
+
+            <div class="sr-only" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                <span itemprop="name">Dan Sensecall</span>
+            </div>
         </article>
 
-        <hr class="my-8 border-gray-200 dark:border-gray-800">
+        <section aria-labelledby="about-author" class="mt-10 rounded-md border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 p-5 md:p-6">
+            <div class="flex flex-col sm:flex-row sm:items-start gap-4 md:gap-5">
+                <img src="/assets/images/dan-sensecall.jpg"
+                     class="w-20 h-20 sm:w-24 sm:h-24 rounded-lg shadow-md object-cover shrink-0 transform rotate-1"
+                     alt="A photo of Dan Sensecall"
+                     width="300"
+                     height="300"
+                     loading="lazy"
+                     decoding="async">
+                <div>
+                    <h2 id="about-author" class="body-s font-semibold text-gray-700 dark:text-gray-200 mb-2">About the author</h2>
+                    <p class="body-m mb-3">
+                        I'm Dan Sensecall, a UK-based freelance service designer and UX consultant. I help Public Sector teams
+                        make complex services simpler, clearer and easier to use.
+                    </p>
+                    <p class="body-m">
+                        I can support discovery, service redesign, interaction and content design, and accessibility
+                        improvements. If you need a service designer or UX consultant, <a href="/contact" class="text-link">get in touch</a>.
+                    </p>
+                </div>
+            </div>
+        </section>
 
-        <div class="flex justify-between items-center">
+        <div class="mt-8 flex justify-between items-center">
             {% set previousPost = collections.post | getPreviousCollectionItem(page) %}
             {% set nextPost = collections.post | getNextCollectionItem(page) %}
 

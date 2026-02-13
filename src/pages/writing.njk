@@ -13,46 +13,34 @@ description: A collection of articles, essays and thoughts about design, technol
         <p class="body-l mb-4">
             I sometimes write about things that interest me or what I'm working on.
         </p>
-        <p class="body-m mb-4">
-            At the moment I don't have enough time to write as much as I'd like to, but hopefully that will change in the future.
+        <p class="body-s mb-4">
+            (At the moment I don't have time to write as much as I'd like to, but when I do, I'll post here.)
         </p>
-        
-        <figure class="mt-4 w-2/3">
-            <img src="/assets/images/blank-page.jpg" alt="A photo of a blank notebook with a pencil and pencil sharpener." class="w-full h-auto mb-2 rounded-lg shadow-md" width="800" height="600">
-            <figcaption class="text-sm text-gray-500 dark:text-gray-400 text-right">
-                Photo by <a href="https://unsplash.com/@linalitvina?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" class="text-link">Angelina Litvin</a> on <a href="https://unsplash.com/photos/K3uOmmlQmOo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" class="text-link">Unsplash</a>
-            </figcaption>
-        </figure>
-        
-        {# {% if collections.post.length > 0 %}
-        <div class="mt-8 space-y-8">
-            {% for post in collections.post | reverse %}
-            <article class="border-b border-gray-200 dark:border-gray-800 pb-8">
-                <h2 class="text-xl md:text-2xl mb-2 font-semibold">
-                    <a href="{{ post.url }}" class="text-link">
-                        {{ post.data.title }}
-                    </a>
-                </h2>
-                <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                    {{ post.date | niceDate }}
-                </p>
-                <p class="text-gray-700 dark:text-gray-300">
-                    {{ post.data.description }}
-                </p>
-            </article>
-            {% endfor %}
-        </div>
+
+        {% if collections.post.length > 0 %}
+            <div class="mt-8 space-y-6">
+                {% for post in collections.post | reverse %}
+                    <article class="border-b border-gray-200 dark:border-gray-800 pb-6">
+                        <h2 class="heading-s mb-2">
+                            <a href="{{ post.url }}" class="text-link">
+                                {{ post.data.title }}
+                            </a>
+                        </h2>
+                        <p class="body-s text-gray-600 dark:text-gray-400 mb-2">
+                            {{ post.date | niceDate }}
+                        </p>
+                        {% if post.data.description %}
+                            <p class="body-m">
+                                {{ post.data.description }}
+                            </p>
+                        {% endif %}
+                    </article>
+                {% endfor %}
+            </div>
         {% else %}
-        <p class="mb-4 text-base md:text-lg text-gray-700 dark:text-gray-300">
-            At the moment I don't have enough time to write as much as I'd like to, but hopefully that will change in the future.
-        </p>
-        
-        <figure class="mt-4 w-2/3">
-            <img src="/assets/images/blank-page.jpg" alt="A photo of a blank notebook with a pencil and pencil sharpener." class="w-full h-auto mb-2 rounded-lg shadow-md" width="800" height="600">
-            <figcaption class="text-sm text-gray-500 dark:text-gray-400 text-right">
-                Photo by <a href="https://unsplash.com/@linalitvina?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" class="text-link">Angelina Litvin</a> on <a href="https://unsplash.com/photos/K3uOmmlQmOo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" class="text-link">Unsplash</a>
-            </figcaption>
-        </figure>
-        {% endif %} #}
+            <p class="body-m mt-8">
+                There are no published posts yet, but I’ll add new articles here soon.
+            </p>
+        {% endif %}
     </div>
 </div>
