@@ -17,10 +17,21 @@ layout: base.njk
             Case study {{ collections.project | getCollectionIndex(page) }} of {{ collections.project.length }}
         </p>
         <h1 class="heading-l mb-4">{{ title }}</h1>
-        
-        {% if client %}
-        <p class="body-s mb-4">Client: {{ client }}</p>
-        {% endif %}
+
+        <ul class="body-s mb-4 list-none pl-0 flex flex-wrap gap-4 text-gray-700 dark:text-gray-300">
+            {% if client %}
+                <li class="flex items-center">
+                    <span>Client:</span>
+                    <span class="ml-1">{{ client }}</span>
+                </li>
+            {% endif %}
+            {% if year %}
+                <li class="flex items-center">
+                    <span>Completed:</span>
+                    <span class="ml-1">{{ year }}</span>
+                </li>
+            {% endif %}
+        </ul>
 
         <h2 class="sr-only">Services provided:</h2>
         <ul class="flex flex-wrap gap-2 mb-8">
