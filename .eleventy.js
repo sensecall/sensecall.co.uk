@@ -1,5 +1,6 @@
 let Nunjucks = require("nunjucks");
 const execSync = require('child_process').execSync;
+const fs = require("fs");
 
 module.exports = function (eleventyConfig) {
   const includeDrafts = ["1", "true"].includes((process.env.SHOW_DRAFTS || "").toLowerCase());
@@ -46,7 +47,23 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.setBrowserSyncConfig({
     files: './_site/css/**/*.css',
     // Add ignore patterns
-    ignore: ['**/styles.css']
+    ignore: ['**/styles.css'],
+    callbacks: {
+      ready: function(err, bs) {
+        let content404 = "";
+        try {
+          content404 = fs.readFileSync("_site/404.html");
+        } catch (e) {
+          return;
+        }
+
+        bs.addMiddleware("*", (req, res) => {
+          res.writeHead(404, { "Content-Type": "text/html; charset=UTF-8" });
+          res.write(content404);
+          res.end();
+        });
+      }
+    }
   });
 
   // Add a before build step to compile SASS
