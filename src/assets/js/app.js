@@ -33,85 +33,185 @@ const darkMode = {
 };
 
 const fullscreenImage = {
-    init() {
-        this.createModal();
-        this.setupImageListeners();
-    },
+  focusableSelector: 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
 
-    createModal() {
-        // Create modal element programmatically
-        const modal = document.createElement('div');
-        modal.className = 'fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center z-50';
-        modal.setAttribute('role', 'dialog');
-        modal.setAttribute('aria-modal', 'true');
-        modal.setAttribute('aria-hidden', 'true');
-        modal.id = 'fullscreen-modal';
+  init() {
+    this.activeTrigger = null;
+    this.previousBodyOverflow = '';
+    this.createModal();
+    this.setupImageListeners();
+    this.setupModalListeners();
+  },
 
-        const modalContent = document.createElement('div');
-        modalContent.className = 'max-w-4xl mx-auto p-4';
+  isOpen() {
+    return this.modal.classList.contains('is-open');
+  },
 
-        const fullscreenImage = document.createElement('img');
-        fullscreenImage.id = 'fullscreen-image';
-        fullscreenImage.className = 'max-w-full max-h-[90vh] object-contain';
-        fullscreenImage.setAttribute('width', '800');
-        fullscreenImage.setAttribute('height', '450');
+  createModal() {
+    const modal = document.createElement('div');
+    modal.className = 'image-viewer-modal';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-hidden', 'true');
+    modal.setAttribute('aria-labelledby', 'fullscreen-modal-title');
+    modal.id = 'fullscreen-modal';
+    modal.tabIndex = -1;
 
-        modalContent.appendChild(fullscreenImage);
-        modal.appendChild(modalContent);
-        document.body.appendChild(modal);
+    const modalContent = document.createElement('div');
+    modalContent.className = 'image-viewer-content';
 
-        this.modal = modal;
-        this.fullscreenImage = fullscreenImage;
-    },
+    const modalTitle = document.createElement('h2');
+    modalTitle.id = 'fullscreen-modal-title';
+    modalTitle.className = 'image-viewer-visually-hidden';
+    modalTitle.textContent = 'Expanded image';
 
-    closeModal() {
-        this.modal.classList.add('hidden');
-        this.modal.classList.remove('flex');
-        this.modal.setAttribute('aria-hidden', 'true');
-    },
+    const closeButton = document.createElement('button');
+    closeButton.type = 'button';
+    closeButton.className = 'image-viewer-close';
+    closeButton.setAttribute('aria-label', 'Close image viewer');
+    closeButton.innerHTML = '<span aria-hidden="true" class="image-viewer-close-icon">&times;</span>';
+    closeButton.style.top = 'calc(env(safe-area-inset-top, 0px) + 0.75rem)';
+    closeButton.style.right = 'calc(env(safe-area-inset-right, 0px) + 0.75rem)';
 
-    setupImageListeners() {
-        const enlargeableImages = document.querySelectorAll('[data-enlargeable="true"]');
-        
-        enlargeableImages.forEach(img => {
-            // Remove the no-JS fallback link if it exists
-            const fallbackLink = img.querySelector('a');
-            if (fallbackLink) {
-                fallbackLink.replaceWith(fallbackLink.firstElementChild);
-            }
+    const fullscreenImage = document.createElement('img');
+    fullscreenImage.id = 'fullscreen-image';
+    fullscreenImage.className = 'image-viewer-image';
+    fullscreenImage.setAttribute('width', '800');
+    fullscreenImage.setAttribute('height', '450');
 
-            // Add proper ARIA attributes and role
-            img.setAttribute('role', 'button');
-            img.setAttribute('aria-haspopup', 'dialog');
-            img.setAttribute('tabindex', '0');
+    modalContent.appendChild(modalTitle);
+    modalContent.appendChild(closeButton);
+    modalContent.appendChild(fullscreenImage);
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
 
-            // Handle both click and keyboard events
-            const showModal = () => {
-                this.fullscreenImage.src = img.querySelector('img').src;
-                this.fullscreenImage.alt = img.querySelector('img').alt;
-                this.modal.classList.remove('hidden');
-                this.modal.classList.add('flex');
-                this.modal.setAttribute('aria-hidden', 'false');
-                
-                this.modal.focus();
-            };
+    this.modal = modal;
+    this.closeButton = closeButton;
+    this.fullscreenImage = fullscreenImage;
+  },
 
-            img.addEventListener('click', showModal);
-            img.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    showModal();
-                }
-            });
-        });
+  openModal(image, trigger) {
+    if (!image) return;
 
-        this.modal.addEventListener('click', () => this.closeModal());
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !this.modal.classList.contains('hidden')) {
-                this.closeModal();
-            }
-        });
+    this.fullscreenImage.src = image.currentSrc || image.src;
+    this.fullscreenImage.alt = image.alt;
+    this.activeTrigger = trigger || null;
+
+    if (this.activeTrigger) {
+      this.activeTrigger.setAttribute('aria-expanded', 'true');
     }
+
+    this.previousBodyOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    this.modal.classList.add('is-open');
+    this.modal.setAttribute('aria-hidden', 'false');
+    this.closeButton.focus();
+  },
+
+  closeModal() {
+    if (!this.isOpen()) return;
+
+    this.modal.classList.remove('is-open');
+    this.modal.setAttribute('aria-hidden', 'true');
+    this.fullscreenImage.removeAttribute('src');
+    this.fullscreenImage.alt = '';
+    document.body.style.overflow = this.previousBodyOverflow || '';
+
+    if (this.activeTrigger) {
+      this.activeTrigger.setAttribute('aria-expanded', 'false');
+      this.activeTrigger.focus();
+      this.activeTrigger = null;
+    }
+  },
+
+  trapFocus(event) {
+    if (event.key !== 'Tab' || !this.isOpen()) return;
+
+    const focusableElements = Array.from(
+      this.modal.querySelectorAll(this.focusableSelector)
+    ).filter((element) => !element.hasAttribute('disabled'));
+
+    if (focusableElements.length === 0) {
+      event.preventDefault();
+      this.closeButton.focus();
+      return;
+    }
+
+    const firstFocusable = focusableElements[0];
+    const lastFocusable = focusableElements[focusableElements.length - 1];
+    const isShiftTab = event.shiftKey;
+    const isOnFirst = document.activeElement === firstFocusable;
+    const isOnLast = document.activeElement === lastFocusable;
+
+    if (isShiftTab && isOnFirst) {
+      event.preventDefault();
+      lastFocusable.focus();
+    }
+
+    if (!isShiftTab && isOnLast) {
+      event.preventDefault();
+      firstFocusable.focus();
+    }
+  },
+
+  setupImageListeners() {
+    const enlargeableImages = document.querySelectorAll('[data-enlargeable="true"]');
+
+    enlargeableImages.forEach((container) => {
+      const fallbackLink = container.querySelector('a.no-js-fallback');
+      const image = container.querySelector('img');
+
+      if (fallbackLink && fallbackLink.firstElementChild) {
+        fallbackLink.replaceWith(fallbackLink.firstElementChild);
+      }
+
+      if (!image) return;
+
+      const imageDescription = image.alt ? `: ${image.alt}` : '';
+      container.setAttribute('role', 'button');
+      container.setAttribute('aria-haspopup', 'dialog');
+      container.setAttribute('aria-controls', 'fullscreen-modal');
+      container.setAttribute('aria-expanded', 'false');
+      container.setAttribute('aria-label', `Enlarge image${imageDescription}`);
+      container.setAttribute('tabindex', '0');
+      container.classList.add('image-viewer-trigger');
+
+      const showModal = () => this.openModal(image, container);
+
+      container.addEventListener('click', (event) => {
+        if (event.target.closest('a')) return;
+        showModal();
+      });
+
+      container.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          showModal();
+        }
+      });
+    });
+  },
+
+  setupModalListeners() {
+    this.modal.addEventListener('click', (event) => {
+      if (event.target === this.modal) {
+        this.closeModal();
+      }
+    });
+
+    this.closeButton.addEventListener('click', () => this.closeModal());
+
+    document.addEventListener('keydown', (event) => {
+      if (!this.isOpen()) return;
+
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        this.closeModal();
+      }
+
+      this.trapFocus(event);
+    });
+  }
 };
 
 const mobileMenu = {
@@ -121,25 +221,67 @@ const mobileMenu = {
         this.button = button;
         this.menu = menu;
         this.closeButton = closeButton;
+        this.mobileMediaQuery = window.matchMedia('(max-width: 767px)');
         this.setupListeners();
+        this.syncForViewport();
     },
 
-    toggleMenu(show) {
-        this.menu.classList.toggle('translate-x-full', !show);
-        this.menu.setAttribute('aria-hidden', !show);
-        this.button.setAttribute('aria-expanded', show);
-        document.body.style.overflow = show ? 'hidden' : '';
+    isMobileViewport() {
+        return this.mobileMediaQuery.matches;
+    },
+
+    openMenu() {
+        if (!this.isMobileViewport()) return;
+        this.menu.classList.remove('translate-x-full');
+        this.menu.removeAttribute('inert');
+        this.button.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+        this.closeButton.focus();
+    },
+
+    closeMenu(restoreFocus = false) {
+        if (!this.isMobileViewport()) return;
+        this.menu.classList.add('translate-x-full');
+        this.menu.setAttribute('inert', '');
+        this.button.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+        if (restoreFocus) {
+            this.button.focus();
+        }
+    },
+
+    syncForViewport() {
+        if (this.isMobileViewport()) {
+            this.closeMenu();
+            return;
+        }
+
+        this.menu.classList.remove('translate-x-full');
+        this.menu.removeAttribute('inert');
+        this.button.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
     },
 
     setupListeners() {
-        this.button.addEventListener('click', () => this.toggleMenu(true));
-        this.closeButton.addEventListener('click', () => this.toggleMenu(false));
-        
+        this.button.addEventListener('click', () => this.openMenu());
+        this.closeButton.addEventListener('click', () => this.closeMenu(true));
+
+        this.menu.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', () => this.closeMenu());
+        });
+
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.menu.getAttribute('aria-hidden') === 'false') {
-                this.toggleMenu(false);
+            if (e.key === 'Escape' && this.isMobileViewport() && !this.menu.hasAttribute('inert')) {
+                this.closeMenu(true);
             }
         });
+
+        const onViewportChange = () => this.syncForViewport();
+        if (typeof this.mobileMediaQuery.addEventListener === 'function') {
+            this.mobileMediaQuery.addEventListener('change', onViewportChange);
+        } else if (typeof this.mobileMediaQuery.addListener === 'function') {
+            this.mobileMediaQuery.addListener(onViewportChange);
+        }
     }
 };
 
@@ -177,7 +319,8 @@ const scrollToSection = {
             button.classList.toggle('opacity-100', isVisible);
             button.classList.toggle('translate-y-0', isVisible);
             button.setAttribute('data-visible', isVisible.toString());
-            button.setAttribute('aria-hidden', (!isVisible).toString());
+            button.tabIndex = isVisible ? 0 : -1;
+            button.style.pointerEvents = isVisible ? 'auto' : 'none';
         };
 
         // Add scroll listener with throttle
