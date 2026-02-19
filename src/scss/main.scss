@@ -173,6 +173,41 @@ body.homePage {
   background-attachment: scroll, fixed;
 }
 
+#things-done-cards:focus-visible {
+  @apply rounded-md outline-none ring-2 ring-blue-600 ring-offset-2 dark:ring-blue-400 dark:ring-offset-gray-950;
+}
+
+#things-done-progress .things-done-progress-pill {
+  width: clamp(1.25rem, 1.05rem + 0.7vw, 2rem);
+  height: clamp(0.25rem, 0.22rem + 0.15vw, 0.45rem);
+  border-radius: 9999px;
+  background-color: #d1d5db;
+}
+
+#things-done-progress .things-done-progress-pill.is-active-primary {
+  background-color: #2563eb;
+}
+
+#things-done-progress .things-done-progress-pill.is-active-secondary {
+  background-color: #60a5fa;
+}
+
+.dark #things-done-progress .things-done-progress-pill {
+  background-color: #4b5563;
+}
+
+.dark #things-done-progress .things-done-progress-pill.is-active-primary {
+  background-color: #60a5fa;
+}
+
+.dark #things-done-progress .things-done-progress-pill.is-active-secondary {
+  background-color: #93c5fd;
+}
+
+.things-done-card.is-secondary-visible {
+  opacity: 0.5;
+}
+
 // Navigation styles
 .nav-link {
   color: var(--body-color);

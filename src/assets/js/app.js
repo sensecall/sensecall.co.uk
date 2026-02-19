@@ -340,6 +340,234 @@ const scrollToSection = {
     }
 };
 
+const projectCards = {
+    init() {
+        this.track = document.getElementById('things-done-cards');
+        this.viewport = document.getElementById('things-done-viewport');
+        this.progress = document.getElementById('things-done-progress');
+        this.status = document.getElementById('things-done-status');
+        this.controls = document.getElementById('things-done-controls');
+        this.prevButton = document.getElementById('things-done-prev');
+        this.nextButton = document.getElementById('things-done-next');
+
+        if (!this.track || !this.viewport || !this.controls || !this.prevButton || !this.nextButton) return;
+
+        this.cards = Array.from(this.track.querySelectorAll('.things-done-card'));
+        if (this.cards.length === 0) return;
+
+        this.loopClone = null;
+        this.currentIndex = 0;
+        this.visibleCards = 1;
+        this.maxIndex = 0;
+
+        this.prevButton.addEventListener('click', () => this.moveBy(-1));
+        this.nextButton.addEventListener('click', () => this.moveBy(1));
+
+        this.track.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowRight') {
+                event.preventDefault();
+                this.moveBy(1);
+            }
+
+            if (event.key === 'ArrowLeft') {
+                event.preventDefault();
+                this.moveBy(-1);
+            }
+        });
+
+        window.addEventListener('resize', throttle(() => this.refreshLayout(), 100));
+
+        this.refreshLayout();
+    },
+
+    getVisibleCards() {
+        return window.matchMedia('(min-width: 1024px)').matches ? 2 : 1;
+    },
+
+    getStepWidth() {
+        const firstCard = this.cards[0];
+        if (firstCard) {
+            const trackStyles = window.getComputedStyle(this.track);
+            const parsedGap = parseFloat(trackStyles.columnGap || trackStyles.gap || '0');
+            const gap = Number.isFinite(parsedGap) ? parsedGap : 0;
+            return Math.round(firstCard.getBoundingClientRect().width + gap);
+        }
+
+        return 0;
+    },
+
+    applyPosition() {
+        const offset = this.getStepWidth() * this.currentIndex;
+        this.track.style.transform = `translate3d(${-offset}px, 0, 0)`;
+    },
+
+    syncLoopClone() {
+        if (this.loopClone) {
+            this.loopClone.remove();
+            this.loopClone = null;
+        }
+
+        if (this.visibleCards < 2 || this.cards.length < 2) return;
+
+        const firstCard = this.cards[0];
+        this.loopClone = firstCard.cloneNode(true);
+        this.loopClone.classList.add('things-done-card--clone');
+        this.loopClone.setAttribute('aria-hidden', 'true');
+        this.loopClone.setAttribute('inert', '');
+
+        this.loopClone.querySelectorAll('a').forEach((link) => {
+            link.setAttribute('tabindex', '-1');
+        });
+
+        this.track.appendChild(this.loopClone);
+    },
+
+    moveBy(delta) {
+        if (this.maxIndex <= 0) return;
+
+        let nextIndex = this.currentIndex + delta;
+        if (nextIndex > this.maxIndex) nextIndex = 0;
+        if (nextIndex < 0) nextIndex = this.maxIndex;
+        if (nextIndex === this.currentIndex) return;
+
+        this.currentIndex = nextIndex;
+        this.applyPosition();
+        this.updateProgress();
+        this.updateVisibleCards();
+        this.updateStatus();
+    },
+
+    renderProgress() {
+        if (!this.progress) return;
+
+        this.progress.innerHTML = '';
+        const totalIndicators = this.cards.length;
+        this.progress.hidden = totalIndicators <= 1;
+
+        for (let index = 0; index < totalIndicators; index += 1) {
+            const pill = document.createElement('li');
+            pill.className = 'things-done-progress-pill';
+            this.progress.appendChild(pill);
+        }
+    },
+
+    updateProgress() {
+        if (!this.progress) return;
+
+        const pills = this.progress.querySelectorAll('.things-done-progress-pill');
+        const totalPills = pills.length;
+        if (totalPills === 0) return;
+
+        const primaryIndex = this.currentIndex % totalPills;
+        const secondaryIndex = (this.currentIndex + 1) % totalPills;
+
+        pills.forEach((pill, index) => {
+            pill.classList.remove('is-active-primary', 'is-active-secondary');
+            pill.style.opacity = '';
+
+            if (index === primaryIndex) {
+                pill.classList.add('is-active-primary');
+                pill.setAttribute('aria-current', 'true');
+            } else {
+                pill.removeAttribute('aria-current');
+            }
+        });
+
+        if (this.visibleCards >= 2 && totalPills > 1) {
+            pills[secondaryIndex].classList.add('is-active-secondary');
+        }
+    },
+
+    updateVisibleCards() {
+        const totalCards = this.cards.length;
+        if (totalCards === 0) return;
+
+        const visibleIndices = new Set();
+        for (let offset = 0; offset < this.visibleCards; offset += 1) {
+            visibleIndices.add((this.currentIndex + offset) % totalCards);
+        }
+
+        const secondaryVisibleIndex = this.visibleCards >= 2 ? (this.currentIndex + 1) % totalCards : -1;
+
+        this.cards.forEach((card, index) => {
+            const isVisible = visibleIndices.has(index);
+            const isSecondaryVisible = index === secondaryVisibleIndex;
+            card.setAttribute('aria-hidden', (!isVisible).toString());
+            card.classList.toggle('is-secondary-visible', isSecondaryVisible);
+
+            if (isVisible) {
+                card.removeAttribute('inert');
+            } else {
+                card.setAttribute('inert', '');
+            }
+
+            card.querySelectorAll('a').forEach((link) => {
+                if (isVisible) {
+                    if (link.dataset.originalTabindex !== undefined) {
+                        if (link.dataset.originalTabindex === '') {
+                            link.removeAttribute('tabindex');
+                        } else {
+                            link.setAttribute('tabindex', link.dataset.originalTabindex);
+                        }
+                        delete link.dataset.originalTabindex;
+                    } else {
+                        link.removeAttribute('tabindex');
+                    }
+                } else {
+                    if (link.dataset.originalTabindex === undefined) {
+                        link.dataset.originalTabindex = link.getAttribute('tabindex') || '';
+                    }
+                    link.setAttribute('tabindex', '-1');
+                }
+            });
+        });
+    },
+
+    updateStatus() {
+        if (!this.status) return;
+
+        const totalCards = this.cards.length;
+        if (totalCards === 0) return;
+
+        const firstVisible = this.currentIndex + 1;
+        const secondVisible = ((this.currentIndex + 1) % totalCards) + 1;
+
+        if (this.visibleCards >= 2 && totalCards > 1) {
+            this.status.textContent = `Showing projects ${firstVisible} and ${secondVisible} of ${totalCards}.`;
+            return;
+        }
+
+        this.status.textContent = `Showing project ${firstVisible} of ${totalCards}.`;
+    },
+
+    refreshLayout() {
+        this.visibleCards = this.getVisibleCards();
+        this.maxIndex = Math.max(this.cards.length - 1, 0);
+        this.currentIndex = Math.min(this.currentIndex, this.maxIndex);
+
+        this.syncLoopClone();
+        this.renderProgress();
+        this.applyPosition();
+        this.updateControls();
+        this.updateProgress();
+        this.updateVisibleCards();
+        this.updateStatus();
+    },
+
+    updateControls() {
+        const hasMultipleSteps = this.cards.length > 1;
+
+        if (!hasMultipleSteps) {
+            this.controls.classList.add('hidden');
+            this.controls.classList.remove('flex');
+            return;
+        }
+
+        this.controls.classList.remove('hidden');
+        this.controls.classList.add('flex');
+    }
+};
+
 const lucideIcons = {
     init() {
         if (window.lucide && typeof window.lucide.createIcons === 'function') {
@@ -383,6 +611,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('mobile-menu')
         );
         scrollToSection.init();
+        projectCards.init();
         initCopyEmail();
     } catch (error) {
         console.error('Error initializing app:', error);
