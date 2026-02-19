@@ -11,20 +11,20 @@ permalink: /
          aria-labelledby="introduction-title"
          class="py-4 pt-8">
     <div class="max-w-4xl">
-        <p class="kicker mb-4 flex items-center">
+        <p class="mb-6 flex items-center heading-m">
             <img src="/assets/images/dan-sensecall.jpg"
                  alt="Dan Sensecall"
                  class="rounded-full mr-2 lg:mr-3 shadow-sm w-10 h-10 md:w-12 md:h-12"
                  width="64"
                  height="64">
-            <span class="ml-2 font-light">Hi! I'm Dan Sensecall.</span>
+            <span class="ml-2 font-bold text-gray-900 dark:text-gray-50">Hi! I'm Dan Sensecall.</span>
         </p>
         <h1 id="introduction-title"
-            class="heading-l mb-6 lg:w-4/5 drop-shadow-sm">
-            Freelance service designer and user experience consultant from the UK.
+            class="mb-6 lg:w-4/5 body-l">
+            I'm a freelance service designer and user experience consultant from the UK.
         </h1>
         <p class="body-l mb-4">
-            For almost 15 years, I’ve helped teams turn <b>messy policy, legacy constraints and operational reality</b> into services that work for citizens and the public sector workers who serve them.
+            I work with teams to turn <b>messy policy</b>, <b>legacy constraints</b> and <b>operational reality</b> into user-centred services that meet the needs of citizens, civil servants and public sector workers.
         </p>
     </div>
 </section>
@@ -35,8 +35,8 @@ permalink: /
                 Clients I've worked with
             </h2>
             <p class="body-m mb-4">
-                Over the past 15 years, I've worked with a range of clients, from startups to government
-                departments, to improve their products and services. Since 2018, I've worked exclusively with Public Sector organisations to design services for
+                Over the past 15 years, I've worked with startups, government
+                departments and FTSE 100 companies to improve their products and services. Since 2018, I've worked exclusively with Public Sector organisations to design services for
                 citizens and internal users.
             </p>
         </div>
@@ -59,8 +59,8 @@ permalink: /
             {% endfor %}
         </div>
         <div class="lg:w-2/3 order-3 md:order-1">
-            <p class="body-m mb-2">Typically, I help with things like:</p>
-            <ul class="list-disc pl-5 body-m">
+            <p class="body-l mb-2">Typically, I help with things like:</p>
+            <ul class="list-disc pl-5 body-l">
                 <li>service design</li>
                 <li>interaction design</li>
                 <li>user research</li>
@@ -172,37 +172,172 @@ permalink: /
     </div>
 </section>
 <section id="things-ive-done" class="py-8 md:py-10 lg:py-12 xl:py-14">
-    <div class="lg:w-2/3">
+    <div>
         <h2 class="heading-m mb-4">Things I've done</h2>
-        <p class="body-m mb-4">
-            I've provided design services on a wide range of projects, from small websites to large-scale digital transformation programmes. Projects have ranged from greenfield projects to others that have involved replacing legacy systems with new services. Ideally, I'm involved from the very start, but I'm used to being parachuted in to help with a specific problem.
-        </p>
-        <p class="body-m mb-4">
-            Typically, the projects I work on are used by thousands of people every day, from members of the public completing a task online, to civil servants using a system to manage their work. There are too many to list here, but here are a few examples:
-        </p>
-        <ul class="mb-4 list-disc list-outside pl-5 list-body">
-            <li class="mb-2">
-                Designed a new service to make it simpler for further education providers to provide learner data to the Education and Skills Funding Agency (ESFA)
-            </li>
-            <li class="mb-2">
-                <a href="projects/home-office"
-                   class="text-link">Redesigned the Police National Computer (PNC)</a> to make it easier for police officers to manage stolen property records
-            </li>
-            <li class="mb-2">
-                <a href="projects/hmpps"
-                   class="text-link">Designed a service to replace the National Offender Management Service (NOMIS)</a>, allowing prison staff to manage prisoner activities
-            </li>
-            <li class="mb-2">
-                Provided design support to the Apprenticeship Service, helping to improve the service for employers and training providers
-            </li>
-            <li class="mb-2">
-                <a href="projects/childrens-social-care"
-                   class="text-link">Collaborated with the Children's Social Care team at the Department for Education</a> to explore how digital tools could make social workers' day-to-day work easier
-            </li>
-            <li class="mb-2">
-                Redesigned the main account home page for the Apprenticeship Service, making it easier for employers to manage their accounts and start taking on apprentices
-            </li>
-        </ul>
+        <div class="lg:w-2/3">
+            <p class="body-m mb-4">
+                I've provided design services on a wide range of projects, from small websites to large-scale digital transformation programmes. Projects have ranged from greenfield projects to others that have involved replacing legacy systems with new services. Ideally, I'm involved from the very start, but I'm used to being parachuted in to help with a specific problem.
+            </p>
+            <p class="body-m mb-4">
+                Typically, the projects I work on are used by thousands of people every day, from members of the public completing a task online, to civil servants using a system to manage their work. There are too many to list here, but here are a few examples:
+            </p>
+        </div>
+        {% set projectExamples = [
+            {
+                "client": "Education and Skills Funding Agency",
+                "title": "Learner Data Service",
+                "logo": "education-and-skills-funding-agency-logo.svg",
+                "statement": "Designed a new service to make it simpler for further education providers to provide learner data to the Education and Skills Funding Agency (ESFA)",
+                "detail": "Reduced friction in complex data submission journeys so providers could complete tasks with less manual effort."
+            },
+            {
+                "client": "Home Office",
+                "title": "Police National Computer",
+                "logo": "home-office-logo.svg",
+                "link": {
+                    "url": "projects/home-office",
+                    "text": "Redesigned the Police National Computer (PNC)"
+                },
+                "suffix": "to make it easier for police officers to manage stolen property records",
+                "detail": "Focused on high-pressure operational workflows, helping officers find and update records more confidently."
+            },
+            {
+                "client": "HM Prison & Probation Service",
+                "title": "Prison Activities Management",
+                "logo": "hmpps-logo.svg",
+                "link": {
+                    "url": "projects/hmpps",
+                    "text": "Designed a service to replace the National Offender Management Service (NOMIS)"
+                },
+                "suffix": ", allowing prison staff to manage prisoner activities",
+                "detail": "Improved day-to-day task clarity for prison teams working across complex activity and schedule management."
+            },
+            {
+                "client": "Apprenticeships",
+                "title": "Apprenticeship Service",
+                "logo": "apprenticeships-logo.svg",
+                "statement": "Provided design support to the Apprenticeship Service, helping to improve the service for employers and training providers",
+                "detail": "Worked across design, content and delivery teams to improve usability and consistency across core journeys."
+            },
+            {
+                "client": "Department for Education",
+                "title": "Children's Social Care",
+                "logo": "department-for-education-logo.svg",
+                "link": {
+                    "url": "projects/childrens-social-care",
+                    "text": "Collaborated with the Children's Social Care team at the Department for Education"
+                },
+                "suffix": "to explore how digital tools could make social workers' day-to-day work easier",
+                "detail": "Translated frontline insights into practical service concepts that could support social workers in real settings."
+            },
+            {
+                "client": "Apprenticeships",
+                "title": "Account Management Dashboard",
+                "logo": "apprenticeships-logo.svg",
+                "statement": "Redesigned the main account home page for the Apprenticeship Service, making it easier for employers to manage their accounts and start taking on apprentices",
+                "detail": "Brought key actions together into a clearer dashboard so employers could manage accounts with less effort."
+            }
+        ] %}
+        <div class="mb-4 mt-8">
+            <div class="relative">
+                <div id="things-done-viewport"
+                     class="overflow-hidden"
+                     role="region"
+                     aria-label="Project examples carousel">
+                    <ul id="things-done-cards"
+                        class="flex gap-4 md:gap-5 lg:gap-6"
+                        aria-label="Example projects"
+                        tabindex="0"
+                        role="list">
+                        {% for project in projectExamples %}
+                            <li class="things-done-card w-full shrink-0 lg:w-[calc(50%-0.75rem)]" 
+                                role="group" 
+                                aria-labelledby="project-{{ loop.index }}-title">
+                                <div class="mb-3 flex h-16 items-center md:h-18 lg:h-20 xl:h-24">
+                                    <img src="/assets/images/clients/{{ project.logo | replace('.svg', '--dark.svg') if (project.logo.endsWith('.svg')) else project.logo }}"
+                                         alt="{{ project.client }} logo"
+                                         width="260"
+                                         height="88"
+                                         class="hidden h-auto max-h-12 w-auto max-w-[12rem] object-contain dark:block md:max-h-14 md:max-w-[15rem] lg:max-h-16 lg:max-w-[17rem] xl:max-h-18 xl:max-w-[19rem]" />
+                                    <img src="/assets/images/clients/{{ project.logo }}"
+                                         alt="{{ project.client }} logo"
+                                         width="260"
+                                         height="88"
+                                         class="block h-auto max-h-12 w-auto max-w-[12rem] object-contain dark:hidden md:max-h-14 md:max-w-[15rem] lg:max-h-16 lg:max-w-[17rem] xl:max-h-18 xl:max-w-[19rem]" />
+                                </div>
+                                <h3 id="project-{{ loop.index }}-title" 
+                                    class="heading-xs mb-3 text-gray-900 dark:text-gray-100">
+                                    {{ project.title }}
+                                </h3>
+                                <p class="body-m">
+                                    {% if project.statement %}
+                                        {{ project.statement }}
+                                    {% else %}
+                                        <a href="{{ project.link.url }}"
+                                           class="text-link">{{ project.link.text }}</a> {{ project.suffix }}
+                                    {% endif %}
+                                </p>
+                                <p class="body-m mt-3">{{ project.detail }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-3 flex flex-col items-start gap-3 sm:mt-4 sm:gap-4 lg:mt-5 lg:gap-5">
+                <div id="things-done-controls"
+                     class="hidden items-center gap-3 sm:gap-4"
+                     role="group"
+                     aria-label="Project carousel navigation">
+                    <button id="things-done-prev"
+                            type="button"
+                            class="group inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-300 bg-white text-gray-600 shadow-sm transition-all duration-200 hover:border-gray-400 hover:bg-gray-50 hover:text-gray-900 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-gray-300 disabled:hover:bg-white disabled:hover:shadow-sm dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-gray-500 dark:hover:bg-gray-700 dark:hover:text-gray-100 dark:focus-visible:ring-blue-400 dark:focus-visible:ring-offset-gray-950 dark:disabled:hover:border-gray-600 dark:disabled:hover:bg-gray-800 sm:h-11 sm:w-11"
+                            title="View previous project examples"
+                            aria-label="Go to previous project examples"
+                            aria-controls="things-done-cards"
+                            aria-describedby="things-done-status"
+                            data-carousel-direction="previous">
+                        <svg xmlns="http://www.w3.org/2000/svg" 
+                             class="h-5 w-5 transition-transform duration-200 group-hover:-translate-x-0.5" 
+                             fill="none" 
+                             viewBox="0 0 24 24" 
+                             stroke="currentColor" 
+                             stroke-width="2"
+                             aria-hidden="true"
+                             role="img"
+                             aria-labelledby="prev-icon-title">
+                            <title id="prev-icon-title">Previous arrow</title>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        <span class="sr-only">Previous project examples</span>
+                    </button>
+                    <button id="things-done-next"
+                            type="button"
+                            class="group inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-300 bg-white text-gray-600 shadow-sm transition-all duration-200 hover:border-gray-400 hover:bg-gray-50 hover:text-gray-900 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-gray-300 disabled:hover:bg-white disabled:hover:shadow-sm dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-gray-500 dark:hover:bg-gray-700 dark:hover:text-gray-100 dark:focus-visible:ring-blue-400 dark:focus-visible:ring-offset-gray-950 dark:disabled:hover:border-gray-600 dark:disabled:hover:bg-gray-800 sm:h-11 sm:w-11"
+                            title="View next project examples"
+                            aria-label="Go to next project examples"
+                            aria-controls="things-done-cards"
+                            aria-describedby="things-done-status"
+                            data-carousel-direction="next">
+                        <svg xmlns="http://www.w3.org/2000/svg" 
+                             class="h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5" 
+                             fill="none" 
+                             viewBox="0 0 24 24" 
+                             stroke="currentColor" 
+                             stroke-width="2"
+                             aria-hidden="true"
+                             role="img"
+                             aria-labelledby="next-icon-title">
+                            <title id="next-icon-title">Next arrow</title>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                        <span class="sr-only">Next project examples</span>
+                    </button>
+                </div>
+                <p id="things-done-status"
+                   class="sr-only"
+                   aria-live="polite"></p>
+            </div>
+        </div>
         <p class="body-m">
             You can read more about <a href="/projects"
                class="text-link">projects I've worked on</a> recently.
