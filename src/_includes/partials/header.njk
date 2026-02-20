@@ -62,19 +62,41 @@
                 </ul>
             </div>
 
-            <div class="relative inline-block">
-                <input type="checkbox" id="dark-mode-toggle" class="sr-only peer">
-                <label for="dark-mode-toggle" class="inline-flex rounded-sm cursor-pointer text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light peer-focus-visible:outline-none peer-focus-visible:ring-2 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2 dark:peer-focus-visible:ring-primary-light dark:peer-focus-visible:ring-offset-gray-950" title="Toggle dark mode">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <!-- Moon icon (shows in light mode) -->
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <!-- Sun icon (shows in dark mode) -->
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                    <span class="sr-only">Toggle dark mode</span>
-                </label>
+            <div class="flex items-center gap-2 sm:gap-3">
+                {% if isDevMode %}
+                    <div class="relative">
+                        <label for="font-switcher" class="sr-only">Development font switcher</label>
+                        <select id="font-switcher"
+                                class="h-8 sm:h-9 rounded-md border border-gray-300 bg-white px-2 text-xs sm:text-sm text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:focus-visible:ring-primary-light dark:focus-visible:ring-offset-gray-950"
+                                aria-label="Development font switcher"
+                                title="Development font switcher">
+                            <option value="rubik">Rubik</option>
+                            <option value="public-sans">Public Sans</option>
+                            <option value="manrope">Manrope</option>
+                            <option value="dm-sans">DM Sans</option>
+                            <option value="ibm-plex-sans">IBM Plex Sans</option>
+                            <option value="plus-jakarta-sans">Plus Jakarta Sans</option>
+                            <option value="atkinson-hyperlegible" selected>Atkinson Hyperlegible</option>
+                            <option value="noto-sans">Noto Sans</option>
+                            <option value="lato">Lato</option>
+                        </select>
+                    </div>
+                {% endif %}
+
+                <div class="relative inline-block">
+                    <input type="checkbox" id="dark-mode-toggle" class="sr-only peer">
+                    <label for="dark-mode-toggle" class="inline-flex rounded-sm cursor-pointer text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light peer-focus-visible:outline-none peer-focus-visible:ring-2 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2 dark:peer-focus-visible:ring-primary-light dark:peer-focus-visible:ring-offset-gray-950" title="Toggle dark mode">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <!-- Moon icon (shows in light mode) -->
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <!-- Sun icon (shows in dark mode) -->
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <span class="sr-only">Toggle dark mode</span>
+                    </label>
+                </div>
             </div>
         </div>
     </div>
