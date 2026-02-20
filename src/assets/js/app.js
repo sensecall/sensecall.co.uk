@@ -32,6 +32,88 @@ const darkMode = {
     }
 };
 
+const fontSwitcher = {
+    storageKey: 'devFontFamilyV2',
+
+    fonts: {
+        'rubik': {
+            cssFamily: "'Rubik', sans-serif",
+            query: 'family=Rubik:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700'
+        },
+        'public-sans': {
+            cssFamily: "'Public Sans', sans-serif",
+            query: 'family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700'
+        },
+        'manrope': {
+            cssFamily: "'Manrope', sans-serif",
+            query: 'family=Manrope:wght@400;500;600;700'
+        },
+        'dm-sans': {
+            cssFamily: "'DM Sans', sans-serif",
+            query: 'family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700'
+        },
+        'ibm-plex-sans': {
+            cssFamily: "'IBM Plex Sans', sans-serif",
+            query: 'family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700'
+        },
+        'plus-jakarta-sans': {
+            cssFamily: "'Plus Jakarta Sans', sans-serif",
+            query: 'family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700'
+        },
+        'atkinson-hyperlegible': {
+            cssFamily: "'Atkinson Hyperlegible', sans-serif",
+            query: 'family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700'
+        },
+        'noto-sans': {
+            cssFamily: "'Noto Sans', sans-serif",
+            query: 'family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700'
+        },
+        'lato': {
+            cssFamily: "'Lato', sans-serif",
+            query: 'family=Lato:ital,wght@0,400;0,700;1,400;1,700'
+        }
+    },
+
+    init() {
+        this.select = document.getElementById('font-switcher');
+        if (!this.select) return;
+
+        const savedFont = localStorage.getItem(this.storageKey);
+        const defaultFont = this.select.value || 'atkinson-hyperlegible';
+        const initialFont = savedFont && this.fonts[savedFont] ? savedFont : defaultFont;
+
+        this.select.value = initialFont;
+        this.applyFont(initialFont, false);
+
+        this.select.addEventListener('change', () => {
+            this.applyFont(this.select.value, true);
+        });
+    },
+
+    applyFont(fontKey, persist = true) {
+        const font = this.fonts[fontKey] || this.fonts['atkinson-hyperlegible'];
+        if (!font) return;
+
+        this.loadFont(fontKey, font.query);
+        document.documentElement.style.setProperty('--font-family-base', font.cssFamily);
+
+        if (persist) {
+            localStorage.setItem(this.storageKey, fontKey);
+        }
+    },
+
+    loadFont(fontKey, query) {
+        const linkId = `dev-font-${fontKey}`;
+        if (document.getElementById(linkId)) return;
+
+        const link = document.createElement('link');
+        link.id = linkId;
+        link.rel = 'stylesheet';
+        link.href = `https://fonts.googleapis.com/css2?${query}&display=swap`;
+        document.head.appendChild(link);
+    }
+};
+
 const fullscreenImage = {
   focusableSelector: 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
 
@@ -603,6 +685,7 @@ const initCopyEmail = () => {
 document.addEventListener('DOMContentLoaded', () => {
     try {
         lucideIcons.init();
+        fontSwitcher.init();
         darkMode.init(document.getElementById('dark-mode-toggle'));
         fullscreenImage.init();
         mobileMenu.init(

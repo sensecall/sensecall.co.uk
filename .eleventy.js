@@ -4,6 +4,11 @@ const fs = require("fs");
 
 module.exports = function (eleventyConfig) {
   const includeDrafts = ["1", "true"].includes((process.env.SHOW_DRAFTS || "").toLowerCase());
+  const isDevMode =
+    process.env.ELEVENTY_RUN_MODE === "serve" ||
+    process.env.ELEVENTY_ENV === "development" ||
+    includeDrafts ||
+    process.argv.includes("--serve");
 
   const isDraft = (data = {}) => data.draft === true || data.status === "draft";
 
@@ -25,6 +30,8 @@ module.exports = function (eleventyConfig) {
     title: "Dan Sensecall",
     description: "Service Design & UX Consultant"
   });
+
+  eleventyConfig.addGlobalData("isDevMode", isDevMode);
 
   // Hide draft writing posts by default.
   // In local dev, set SHOW_DRAFTS=1 to include drafts.
