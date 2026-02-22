@@ -206,6 +206,18 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addCollection("experiments", function (collectionApi) {
     let experiments = [
       {
+        'title': 'Spud',
+        'description': 'A quick way to find dinner ideas from leftovers and pantry ingredients you already have.',
+        'url': 'https://spud.recipes',
+        'why': 'I wanted an easier way to decide what to cook with what was already in the fridge and cupboards, so I built a leftovers-first recipe tool.'
+      },
+      {
+        'title': 'Cheap fuel finder',
+        'description': 'A quick way to compare nearby petrol and diesel prices, detour costs and real savings before you refuel.',
+        'url': 'https://find-cheap-fuel.sensecall.co.uk/',
+        'why': 'I got fed up guessing whether a cheaper station was actually worth the extra drive, so I built a tool that works out the real saving.'
+      },
+      {
         'title': 'Drawdown calculator',
         'description': 'A quick way to model how different withdrawal rates and investment returns affect pension drawdown over time.',
         'url': 'https://drawdowncalculator.sensecall.co.uk',
