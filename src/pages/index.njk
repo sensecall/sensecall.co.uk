@@ -266,7 +266,6 @@ permalink: /
                         role="list">
                         {% for project in projectExamples %}
                             <li class="things-done-card w-full shrink-0 lg:w-[calc(50%-0.75rem)]" 
-                                role="group" 
                                 aria-labelledby="project-{{ loop.index }}-title">
                                 <div class="mb-3 flex h-16 items-center md:h-18 lg:h-20 xl:h-24">
                                     <img src="/assets/images/clients/{{ project.logo | replace('.svg', '--dark.svg') if (project.logo.endsWith('.svg')) else project.logo }}"

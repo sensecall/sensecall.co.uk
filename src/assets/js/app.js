@@ -1,4 +1,4 @@
-// Dark mode initialization - keeps this outside as it needs to run immediately
+// Fallback dark mode initialization (primary early init runs inline in head.njk)
 const savedDarkMode = localStorage.getItem('darkMode');
 const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
