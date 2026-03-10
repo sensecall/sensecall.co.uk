@@ -1,13 +1,14 @@
 ---
 title: User sign-off is not product accountability
-description: This post is part of a short series on product ownership about accountability, decision making, and practical judgement in delivery teams.
+description: A practical argument against asking users to "sign off" solutions, and how product teams can use research without outsourcing accountability for go/no-go decisions.
 date: 2026-03-10
 tags: ["Product Ownership", "Product Management", "User Research"]
 layout: post
 series:
   key: product-ownership
   title: Product ownership
-  intro: "This post is part of a short series on product ownership: what good ownership looks like, where accountability sits, and how product decisions should be made in delivery teams. I will focus on practical patterns that improve judgement rather than dilute responsibility."
+  post_intro: "This post is part of a short series on product ownership. It explores how teams can stay user-centred while still taking responsibility for product decisions."
+  description: "A short series on product ownership, covering accountability, decision-making, and practical judgement in delivery teams. It focuses on clear ownership, evidence-based trade-offs, and avoiding decision-by-committee."
 ---
 
 Product owners need to stop using "user sign-off" as cover for product decisions.
