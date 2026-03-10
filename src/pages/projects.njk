@@ -9,7 +9,7 @@ description: A selection of projects by Dan Sensecall, a freelance UX designer a
 
 <div class="py-8 lg:py-12">
     <div class="max-w-4xl">
-        <h1 class="heading-l mb-4">
+        <h1 class="heading-l">
             Projects I've worked on
         </h1>
         <p class="body-m">
@@ -36,14 +36,14 @@ description: A selection of projects by Dan Sensecall, a freelance UX designer a
             </figure>
         </div>
         
-        <h2 class="heading-m mt-12 mb-2 sm:mb-4">Case studies</h2>
+        <h2 class="heading-m mt-12">Case studies</h2>
         <p class="body-m">
             These case studies are a <i>very</i> small selection of the work I've done &ndash; for a full list of my work, see my <a href="https://www.linkedin.com/in/sensecall/" class="text-link" target="_blank" rel="noopener">LinkedIn profile</a>. Anyway, if you're interested in the type of work I've done, have a look through:
         </p>
         <div class="space-y-6 md:space-y-8 divide-y divide-gray-200 dark:divide-gray-800 mb-8">
             {% for project in collections.project %}
                 <div class="pt-6 md:pt-8">
-                    <h3 class="heading-s mb-2 font-medium">
+                    <h3 class="heading-s">
                         <a href="{{ project.url }}" class="text-link">{{ project.data.title }}</a>
                     </h3>
                     {% if project.data.year %}
