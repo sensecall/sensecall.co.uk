@@ -135,6 +135,32 @@ module.exports = function (eleventyConfig) {
     return collection.findIndex(item => item.url === page.url) + 1;
   });
 
+  // Get all posts in a series (supports string or object front matter).
+  // Example front matter:
+  // series: "product-ownership"
+  // series:
+  //   key: "product-ownership"
+  //   title: "Product ownership"
+  eleventyConfig.addFilter("postsInSeries", function(collection = [], seriesValue) {
+    const seriesKey =
+      typeof seriesValue === "string"
+        ? seriesValue
+        : seriesValue && typeof seriesValue === "object"
+          ? seriesValue.key
+          : null;
+
+    if (!seriesKey) return [];
+
+    return collection
+      .filter((item) => {
+        const itemSeries = item?.data?.series;
+        if (!itemSeries) return false;
+        if (typeof itemSeries === "string") return itemSeries === seriesKey;
+        return itemSeries.key === seriesKey;
+      })
+      .sort((a, b) => a.date - b.date);
+  });
+
   // Ensure plain files like ads.txt are copied to the site root
   eleventyConfig.addPassthroughCopy("src/ads.txt");
 
@@ -206,62 +232,62 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addCollection("experiments", function (collectionApi) {
     let experiments = [
       {
-        'title': 'Spud',
-        'description': 'A quick way to find dinner ideas from leftovers and pantry ingredients you already have.',
+        'title': 'Recipe Generator',
+        'description': 'Find dinner ideas using leftovers and pantry ingredients you already have.',
         'url': 'https://spud.recipes',
         'why': 'I wanted an easier way to decide what to cook with what was already in the fridge and cupboards, so I built a leftovers-first recipe tool.'
       },
       {
         'title': 'Cheap fuel finder',
-        'description': 'A quick way to compare nearby petrol and diesel prices, detour costs and real savings before you refuel.',
+        'description': 'Compare nearby petrol and diesel prices, detour costs and real savings before you refuel.',
         'url': 'https://find-cheap-fuel.sensecall.co.uk/',
-        'why': 'I got fed up guessing whether a cheaper station was actually worth the extra drive, so I built a tool that works out the real saving.'
+        'why': 'I wanted to mess about with the newly published Fuel Price API, so I built a quick tool to compare prices at nearby petrol and diesel stations.'
       },
       {
         'title': 'Drawdown calculator',
-        'description': 'A quick way to model how different withdrawal rates and investment returns affect pension drawdown over time.',
+        'description': 'Model how different withdrawal rates and investment returns affect pension drawdown over time.',
         'url': 'https://drawdowncalculator.sensecall.co.uk',
         'why': 'I wanted to see how long my pension might last under different scenarios, so I built a simple tool to do the maths for me.'
       },
       {
         'title': 'IR35 take-home pay calculator',
-        'description': 'A quick way to calculate take-home pay for different complex IR35 scenarios.',
+        'description': 'Calculate take-home pay for a range of complex IR35 scenarios.',
         'url': 'https://ir35.org',
         'why': 'I needed a fast way to work out take-home pay across tricky IR35 scenarios, so I put this together.'
       },
       {
         'title': 'Advanced Mortgage Planning Calculator',
-        'description': 'A comprehensive mortgage calculator that allows you to explore different scenarios and see how different factors affect your mortgage repayments.',
+        'description': 'A comprehensive mortgage calculator to help you explore different scenarios and see how various factors affect your repayments.',
         'url': 'https://themortgagetool.co.uk',
         'why': 'Another tool to scratch an itch. I was looking for a mortgage calculator that would allow me to explore different scenarios and see how future interest rates would affect my mortgage repayments. In the end I decided to spin it out into a proper website; I hope it\'s useful for others.'
       },
       {
         'title': 'Car cost comparison',
-        'description': 'A tool to help compare the cost of buying a new car against the cost of keeping your current car.',
+        'description': 'Compare the cost of buying a new car versus keeping your current one.',
         'url': 'https://car.sensecall.co.uk',
         'why': 'I couldn\'t find a tool or spreadsheet that did a decent job of helping me compare the cost of buying a new car against the cost of keeping my current car.'
       },
       {
         'title': 'Nursery EYFS ratio planning tool',
-        'description': 'A tool to help nurseries and other early years providers plan their EYFS ratios.',
+        'description': 'Helps nurseries and other early years providers plan their EYFS ratios.',
         'url': 'https://nursery.sensecall.co.uk',
         'why': 'Honestly, I started this as a small tool as an alternative to using Excel, but it\'s grown into an almost fully-fledged service for early years providers. I might build a proper website for it one day.'
       },
       {
         'title': 'Football score keeper',
-        'description': 'A simple tool to help keep track of the score in a football match.',
+        'description': 'Keep track of the score in a football match, simply and easily.',
         'url': 'https://football.sensecall.co.uk',
         'why': 'I was stood at my son\'s football match and got fed up of keeping score using the Notes app on my phone, so I built a simple tool to do it for me.'
       },
       {
         'title': 'Times tables game',
-        'description': 'A game to help children practice maths times tables.',
+        'description': 'A game to help children practise their maths times tables.',
         'url': 'https://times-tables-game.sensecall.co.uk',
         'why': 'While helping my son with his times tables, I couldn\'t find a game that was quick, fun and engaging so I built a simple one-page web app to do the job.'
       },
       {
         'title': 'Energy bill calculator',
-        'description': 'A quick way to estimate your yearly energy costs based on your usage.',
+        'description': 'Estimate your yearly energy costs based on your usage.',
         'url': 'https://energybillcalculator.sensecall.co.uk',
         'why': 'I wanted to see how different tariffs and usage would affect our energy bills, so I built a tool to crunch the numbers.'
       }

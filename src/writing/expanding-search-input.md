@@ -81,7 +81,7 @@ Our solution combines the best of both approaches: an input that starts small bu
             </div>
         </div>
         <div class="mt-8 p-6 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm">
-            <h2 class="mt-0 mb-6 text-lg text-gray-900 dark:text-gray-100">Customise the demo</h2>
+            <h2 class="mt-0 mb-6 text-lg">Customise the demo</h2>
             <div class="space-y-4">
                 <label class="flex items-center justify-between gap-4">
                     Font size
