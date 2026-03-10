@@ -1,5 +1,5 @@
 <div class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
-    <footer class="container mx-auto px-4 py-8 flex flex-col md:flex-row justify-between items-center">
+    <footer class="container mx-auto px-4 py-8 flex flex-col md:flex-row justify-between items-center md:items-start gap-4">
         <img src="/assets/images/ccs-supplier-logo--dark.svg"
              alt="Crown Commercial Service Supplier Logo" 
              class="mb-4 md:mb-0 h-12 w-auto hidden dark:block"
@@ -10,9 +10,14 @@
              class="mb-4 md:mb-0 h-12 w-auto dark:hidden"
              height="48" 
              width="200">
-        <p class="text-center md:text-right text-gray-600 dark:text-gray-400 text-sm">
-            © Dan Sensecall 2008-{% year %}
-        </p>
+        <div class="text-center md:text-right">
+            <p class="body-s text-gray-600 dark:text-gray-300">
+                © Dan Sensecall 2008-{% year %}
+            </p>
+            <p class="body-xs text-gray-500 dark:text-gray-400 mt-1">
+                Trading as UI UX Ltd, a company registered in England and Wales. Company number 09513057.
+            </p>
+        </div>
     </footer>
 </div>
 
