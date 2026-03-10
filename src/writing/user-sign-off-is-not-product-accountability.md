@@ -15,7 +15,7 @@ series:
 
 Product owners need to stop using "user sign-off" as cover for product decisions.
 
-There is a real difference between being user-centred and being decision-avoidant, and I keep seeing teams fall into the same pattern. They do the research, uncover real user pain points, and shape a sensible solution. Then, right at the point where product judgement is required, someone goes back to users and asks: "Is this what you want?" or "Can you sign this off?"
+There is a real difference between being user-centred and being decision-avoidant, and I keep seeing teams fall into the same pattern. They do the research, uncover real user pain points, and shape a sensible solution. Then, right at the point where product judgement is required, the Product Owner goes back to users and asks: "Is this what you want?" or "Can you sign this off?"
 
 ![Product owner hiding behind a user sign-off form](/assets/images/product-owner-hiding.png)
 
