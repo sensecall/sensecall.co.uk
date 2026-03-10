@@ -2,7 +2,7 @@
   {% set seriesKey = series.key or series %}
   {% set seriesTitle = series.title or seriesKey %}
   {% set seriesIntro = series.intro %}
-  {% set seriesUrl = series.url %}
+  {% set seriesLink = series.url or (series | seriesUrl) %}
   {% set seriesPosts = collections.post | postsInSeries(series) %}
   {% set seriesPosition = seriesPosts | getCollectionIndex(page) %}
 
@@ -25,9 +25,9 @@
           </p>
       {% endif %}
 
-      {% if seriesUrl %}
+      {% if seriesLink %}
           <p class="body-xs mt-2">
-              <a href="{{ seriesUrl }}" class="text-link">View all posts in this series</a>
+              <a href="{{ seriesLink }}" class="text-link">View all posts in this series</a>
           </p>
       {% endif %}
   </section>

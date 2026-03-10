@@ -9,20 +9,20 @@ permalink: /
 
 <section id="introduction"
          aria-labelledby="introduction-title"
-         class="py-4 pt-8">
+         class="py-8 lg:py-12">
     <div class="max-w-4xl">
-        <p class="mb-6 flex items-center heading-m">
+        <h1 id="introduction-title"
+            class="heading-l flex items-center">
             <img src="/assets/images/dan-sensecall.jpg"
                  alt="Dan Sensecall"
                  class="rounded-full mr-2 lg:mr-3 shadow-sm w-10 h-10 md:w-12 md:h-12"
                  width="64"
                  height="64">
-            <span class="ml-2 font-bold text-gray-900 dark:text-gray-50">Hi! I'm Dan Sensecall.</span>
-        </p>
-        <h1 id="introduction-title"
-            class="mb-6 lg:w-4/5 body-m">
-            I'm a freelance UX designer and service designer from the UK.
+            <span class="ml-2">Hi! I'm Dan Sensecall.</span>
         </h1>
+        <p class="body-m lg:w-4/5">
+            I'm a freelance UX designer and service designer from the UK.
+        </p>
         <p class="body-m">
             I work with teams to turn <b>messy policy</b>, <b>legacy constraints</b> and <b>operational reality</b> into user-centred services that meet the needs of citizens, civil servants and public sector workers.
         </p>
@@ -31,7 +31,7 @@ permalink: /
 <section id="clients">
     <div class="flex flex-col gap-6 md:gap-12">
         <div class="lg:w-2/3 order-2 md:order-2">
-            <h2 class="md:mb-4 heading-m sr-only md:not-sr-only">
+            <h2 class="heading-m sr-only md:not-sr-only">
                 Clients I've worked with
             </h2>
             <p class="body-m">
@@ -73,7 +73,7 @@ permalink: /
 <section id="services" aria-labelledby="services-title" class="py-8 md:py-10 lg:py-12 xl:py-14 mt-10">
     <div class="lg:w-2/3">
         <h2 id="services-title"
-            class="heading-m mb-4">
+            class="heading-m">
             What I do
         </h2>
         <p class="body-m">
@@ -151,7 +151,7 @@ permalink: /
                          class="w-1/2 md:w-2/3 rounded-lg mb-3"
                          loading="lazy">
                 {% endif %}
-                <h2 class="heading-xs mb-2 flex items-center gap-3">
+                <h2 class="heading-xs flex items-center gap-3">
                     {% if not service.image %}
                         <span 
                             class="inline-flex items-center justify-center rounded-full bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 {{ service.colour }} shadow-sm h-10 w-10" 
@@ -188,7 +188,7 @@ permalink: /
 </section>
 <section id="things-ive-done" class="py-8 md:py-10 lg:py-12 xl:py-14">
     <div>
-        <h2 class="heading-m mb-4">Things I've done</h2>
+        <h2 class="heading-m">Things I've done</h2>
         <div class="lg:w-2/3">
             <p class="body-m">
                 I've provided design services on a wide range of projects, from small websites to large-scale digital transformation programmes. Projects have ranged from greenfield projects to others that have involved replacing legacy systems with new services. Ideally, I'm involved from the very start, but I'm used to being parachuted in to help with a specific problem.
@@ -281,7 +281,7 @@ permalink: /
                                          class="block h-auto max-h-12 w-auto max-w-[12rem] object-contain dark:hidden md:max-h-14 md:max-w-[15rem] lg:max-h-16 lg:max-w-[17rem] xl:max-h-18 xl:max-w-[19rem]" />
                                 </div>
                                 <h3 id="project-{{ loop.index }}-title" 
-                                    class="heading-xs mb-3">
+                                    class="heading-xs">
                                     {{ project.title }}
                                 </h3>
                                 <p class="body-m">
@@ -361,7 +361,7 @@ permalink: /
 </section>
 <section id="work-with-me" class="py-8 md:py-10 lg:py-12 xl:py-14">
     <div class="md:w-2/3">
-        <h2 class="heading-m mb-4">Work with me</h2>
+        <h2 class="heading-m">Work with me</h2>
         <p class="body-m">
             I'm willing to work with clients in a number of ways, depending on their needs. This can include working:
         </p>
@@ -380,7 +380,7 @@ permalink: /
     </div>
 
     <div class="mt-8 rounded-md border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 p-5 md:p-6">
-        <h3 class="heading-s mb-2">Let's discuss your project</h3>
+        <h3 class="heading-s">Let's discuss your project</h3>
         <p class="body-m w-full md:w-3/4 lg:w-2/3">I'll help you understand your users' needs and design services that deliver <span class="font-medium">measurable improvements</span> and <span class="font-medium">return on investment</span>.</p>
         <p class="body-m">
             <a href="/contact" class="text-link">
