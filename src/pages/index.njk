@@ -91,7 +91,7 @@ permalink: /
                 "url": "https://www.gov.uk/guidance/service-designer",
                 "text": "Read more about service design"
             },
-            "image": "/assets/images/illustrations/service-design-blueprint.png",
+            "image": "/assets/images/illustration-sketches/service-blueprint.webp",
             "imageAlt": "A diagram showing a service design blueprint with connected flow steps",
             "colour": "text-emerald-600 dark:text-emerald-400"
             },
@@ -102,7 +102,7 @@ permalink: /
                     "url": "https://www.usability.gov/what-and-why/interaction-design.html",
                     "text": "Read more about interaction design"
                 },
-                "image": "/assets/images/illustrations/interaction-design.png",
+                "image": "/assets/images/illustration-sketches/interaction-design.webp",
                 "imageAlt": "A diagram showing a user interaction flow with connected steps",
                 "icon": "sparkles",
                 "colour": "text-stone-600 dark:text-stone-400"
@@ -114,7 +114,7 @@ permalink: /
                     "url": "https://www.gov.uk/service-manual/user-research/how-user-research-improves-service-design",
                     "text": "Read more about user research"
                 },
-                "image": "/assets/images/illustrations/user-research-conversation-illustration.png",
+                "image": "/assets/images/illustration-sketches/user-research.webp",
                 "imageAlt": "A diagram showing a user research process with connected steps",
                 "icon": "user",
                 "colour": "text-violet-600 dark:text-violet-400"
@@ -126,7 +126,7 @@ permalink: /
                     "url": "https://accessibility.blog.gov.uk/2016/05/16/what-we-mean-when-we-talk-about-accessibility-2/",
                     "text": "Read more about accessibility"
                 },
-                "image": "/assets/images/illustrations/accessibility-illustration.png",
+                "image": "/assets/images/illustration-sketches/accessibility.webp",
                 "imageAlt": "A diagram showing a user with a screen reader and a keyboard",
                 "colour": "text-amber-600 dark:text-amber-400"
             },
@@ -137,19 +137,22 @@ permalink: /
                     "url": "https://www.gov.uk/guidance/content-design/what-is-content-design",
                     "text": "Read more about content design"
                 },
-                "image": "/assets/images/illustrations/content-design-illustration.png",
+                "image": "/assets/images/illustration-sketches/content-design.webp",
                 "imageAlt": "A diagram showing a user with a screen reader and a keyboard",
                 "colour": "text-rose-600 dark:text-rose-400"
             }
         ] %}
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+    <div class="mt-4 md:mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
         {% for service in services %}
-            <div class="mb-5">
+            <div class="mb-5 flex h-full flex-col">
                 {% if service.image %}
-                    <img src="{{ service.image }}"
-                         alt="{{ service.imageAlt }}"
-                         class="w-1/2 md:w-2/3 rounded-lg mb-3"
-                         loading="lazy">
+                    <div class="mb-3 flex h-36 w-full items-end md:h-40">
+                        <img src="{{ service.image }}"
+                             alt="{{ service.imageAlt }}"
+                             class="h-full w-auto rounded-lg object-contain"
+                             loading="lazy"
+                             decoding="async">
+                    </div>
                 {% endif %}
                 <h2 class="heading-xs flex items-center gap-3">
                     {% if not service.image %}
