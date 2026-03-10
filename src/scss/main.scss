@@ -26,8 +26,6 @@ body {
   color: var(--body-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, rgba(36, 62, 100, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
-  background-attachment: fixed;
   min-height: 100vh;
 }
 
@@ -235,15 +233,6 @@ body {
 ::selection {
   background: #ffb3007c;
   color: black;
-}
-
-// Homepage specific styles
-body.homePage {
-  background-image: url('../images/path.svg'), linear-gradient(135deg, rgba(36, 62, 100, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
-  background-repeat: no-repeat, no-repeat;
-  background-position: top right, center;
-  background-size: 50%, 100%;
-  background-attachment: scroll, fixed;
 }
 
 #things-done-cards:focus-visible {
