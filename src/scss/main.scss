@@ -282,6 +282,10 @@ body.homePage {
 }
 
 // Navigation styles
+.site-nav {
+  font-family: var(--font-family-heading);
+}
+
 .nav-link {
   color: var(--body-color);
   text-decoration: none;
