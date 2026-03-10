@@ -2,12 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-// Import base typeface with display swap for better performance
-@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+// Import body and heading typefaces with display swap for better performance
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 
 // Custom variables
 :root {
   --font-family-base: 'Atkinson Hyperlegible', sans-serif;
+  --font-family-heading: 'DM Sans', sans-serif;
   --primary: #243e64;
   --body-color: #292c2d;
   --dark: #1e2223;
@@ -28,12 +29,13 @@ body {
 }
 
 @layer base {
-  main :where(h1, h2, h3, h4, h5, h6) {
+  :where(h1, h2, h3, h4, h5, h6) {
+    font-family: var(--font-family-heading);
     @apply text-gray-900 dark:text-white;
   }
 
   main :where(p, ul, ol, li) {
-    @apply text-gray-700 dark:text-gray-300;
+    @apply text-gray-700 dark:text-gray-200;
   }
 
   main .prose :where(a):not(:where([class~='not-prose'] *)) {
@@ -50,90 +52,122 @@ body {
 }
 
 @layer components {
+  .heading-xl,
+  .heading-l,
+  .heading-m,
+  .heading-s,
+  .heading-xs {
+    font-family: var(--font-family-heading);
+    @apply text-gray-900 dark:text-white;
+  }
+
   .heading-xl {
-    @apply font-semibold text-gray-900 dark:text-white;
-    font-size: clamp(1.875rem, 1.35rem + 2.6vw, 3.5rem);
+    @apply font-semibold;
+    font-size: clamp(2rem, 1.45rem + 2.75vw, 3.65rem);
     line-height: 1.1;
     letter-spacing: -0.02em;
   }
 
   .heading-l {
-    @apply font-semibold text-gray-900 dark:text-white;
-    font-size: clamp(1.9rem, 1.38rem + 2.3vw, 3.25rem);
+    @apply font-semibold;
+    font-size: clamp(2.025rem, 1.46rem + 2.45vw, 3.4rem);
     line-height: 1.13;
     letter-spacing: -0.017em;
   }
 
   .heading-m {
-    @apply font-semibold text-gray-900 dark:text-white;
-    font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);
+    @apply font-semibold;
+    font-size: clamp(1.625rem, 1.3rem + 1.6vw, 2.65rem);
     line-height: 1.15;
     letter-spacing: -0.015em;
   }
 
   .heading-s {
-    @apply font-semibold text-gray-900 dark:text-white;
-    font-size: clamp(1.25rem, 1.1rem + 0.95vw, 2rem);
+    @apply font-semibold;
+    font-size: clamp(1.35rem, 1.17rem + 1.05vw, 2.125rem);
     line-height: 1.2;
     letter-spacing: -0.01em;
   }
 
   .heading-xs {
-    @apply font-semibold text-gray-900 dark:text-white;
-    font-size: clamp(1.125rem, 1rem + 0.55vw, 1.5rem);
+    @apply font-semibold;
+    font-size: clamp(1.2rem, 1.05rem + 0.65vw, 1.6rem);
     line-height: 1.3;
   }
 
   .kicker {
-    @apply text-gray-500 dark:text-gray-400 font-light;
+    @apply text-gray-500 dark:text-gray-300 font-light;
     font-size: clamp(1.25rem, 1.05rem + 1vw, 1.875rem);
     line-height: 1.35;
   }
 
   .body-xl {
-    @apply text-gray-700 dark:text-gray-300;
+    @apply text-gray-700 dark:text-gray-200;
     font-size: clamp(1.25rem, 1.03rem + 1.1vw, 2rem);
     line-height: 1.45;
   }
 
   .body-l {
-    @apply text-gray-700 dark:text-gray-300;
+    @apply text-gray-700 dark:text-gray-200;
     font-size: clamp(1.125rem, 1.02rem + 0.55vw, 1.5rem);
     line-height: 1.6;
   }
 
   .body-m {
-    @apply text-gray-700 dark:text-gray-300;
-    font-size: clamp(1rem, 0.98rem + 0.2vw, 1.125rem);
-    line-height: 1.65;
+    @apply text-gray-700 dark:text-gray-200;
+    font-size: clamp(1.125rem, 1.02rem + 0.55vw, 1.5rem);
+    line-height: 1.6;
   }
 
   .body-s {
-    @apply text-gray-600 dark:text-gray-400;
+    @apply text-gray-600 dark:text-gray-300;
     font-size: clamp(0.875rem, 0.84rem + 0.2vw, 1rem);
     line-height: 1.55;
   }
 
   .body-xs {
-    @apply text-gray-500 dark:text-gray-400;
+    @apply text-gray-500 dark:text-gray-300;
     font-size: clamp(0.75rem, 0.72rem + 0.15vw, 0.875rem);
     line-height: 1.5;
   }
 
   .body-text {
-    @apply text-gray-700 dark:text-gray-300;
-    font-size: clamp(1rem, 0.98rem + 0.2vw, 1.125rem);
-    line-height: 1.65;
+    @apply text-gray-700 dark:text-gray-200;
+    font-size: clamp(1.125rem, 1.02rem + 0.55vw, 1.5rem);
+    line-height: 1.6;
   }
 
   .list-body {
-    @apply text-gray-700 dark:text-gray-300;
-    font-size: clamp(1rem, 0.98rem + 0.2vw, 1.125rem);
-    line-height: 1.65;
+    @apply text-gray-700 dark:text-gray-200;
+    font-size: clamp(1.125rem, 1.02rem + 0.55vw, 1.5rem);
+    line-height: 1.6;
+  }
+
+  :is(p, ul, ol).body-xl,
+  :is(p, ul, ol).body-l,
+  :is(p, ul, ol).body-m,
+  :is(p, ul, ol).body-text,
+  :is(p, ul, ol).list-body {
+    margin-bottom: 1.25rem;
+  }
+
+  :is(p, ul, ol).body-s,
+  :is(p, ul, ol).body-xs {
+    margin-bottom: 1rem;
+  }
+
+  :is(p, ul, ol).body-xl:last-child,
+  :is(p, ul, ol).body-l:last-child,
+  :is(p, ul, ol).body-m:last-child,
+  :is(p, ul, ol).body-s:last-child,
+  :is(p, ul, ol).body-xs:last-child,
+  :is(p, ul, ol).body-text:last-child,
+  :is(p, ul, ol).list-body:last-child {
+    margin-bottom: 0;
   }
 
   .inset-text {
-    @apply border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 px-4 py-3 rounded-md text-gray-700 dark:text-gray-300;
+    @apply border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 px-4 py-3 rounded-md text-gray-700 dark:text-gray-200;
     font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
     line-height: 1.65;
   }
