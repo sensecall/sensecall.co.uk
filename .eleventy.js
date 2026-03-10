@@ -135,6 +135,27 @@ module.exports = function (eleventyConfig) {
     return collection.findIndex(item => item.url === page.url) + 1;
   });
 
+  const getSeriesKey = (seriesValue) =>
+    typeof seriesValue === "string"
+      ? seriesValue
+      : seriesValue && typeof seriesValue === "object"
+        ? seriesValue.key
+        : null;
+
+  const getSeriesMeta = (seriesValue) => {
+    const key = getSeriesKey(seriesValue);
+    if (!key) return null;
+
+    const isSeriesObject = seriesValue && typeof seriesValue === "object";
+
+    return {
+      key,
+      title: isSeriesObject && seriesValue.title ? seriesValue.title : key,
+      intro: isSeriesObject ? seriesValue.intro : null,
+      url: isSeriesObject && seriesValue.url ? seriesValue.url : `/writing/series/${key}/`
+    };
+  };
+
   // Get all posts in a series (supports string or object front matter).
   // Example front matter:
   // series: "product-ownership"
@@ -142,12 +163,7 @@ module.exports = function (eleventyConfig) {
   //   key: "product-ownership"
   //   title: "Product ownership"
   eleventyConfig.addFilter("postsInSeries", function(collection = [], seriesValue) {
-    const seriesKey =
-      typeof seriesValue === "string"
-        ? seriesValue
-        : seriesValue && typeof seriesValue === "object"
-          ? seriesValue.key
-          : null;
+    const seriesKey = getSeriesKey(seriesValue);
 
     if (!seriesKey) return [];
 
@@ -159,6 +175,11 @@ module.exports = function (eleventyConfig) {
         return itemSeries.key === seriesKey;
       })
       .sort((a, b) => a.date - b.date);
+  });
+
+  eleventyConfig.addFilter("seriesUrl", function(seriesValue) {
+    const seriesMeta = getSeriesMeta(seriesValue);
+    return seriesMeta ? seriesMeta.url : null;
   });
 
   // Ensure plain files like ads.txt are copied to the site root
@@ -177,6 +198,50 @@ module.exports = function (eleventyConfig) {
       .getFilteredByGlob("src/writing/*.md")
       .filter((item) => !(isDraft(item.data) && !includeDrafts))
       .sort((a, b) => a.date - b.date);
+  });
+
+  eleventyConfig.addCollection("series", function (collectionApi) {
+    const writingPosts = collectionApi
+      .getFilteredByGlob("src/writing/*.md")
+      .filter((item) => !(isDraft(item.data) && !includeDrafts))
+      .sort((a, b) => a.date - b.date);
+
+    const seriesMap = new Map();
+
+    for (const post of writingPosts) {
+      const seriesMeta = getSeriesMeta(post?.data?.series);
+      if (!seriesMeta) continue;
+
+      const existingSeries = seriesMap.get(seriesMeta.key) || {
+        key: seriesMeta.key,
+        title: seriesMeta.title,
+        intro: seriesMeta.intro,
+        url: seriesMeta.url,
+        posts: []
+      };
+
+      if ((!existingSeries.title || existingSeries.title === existingSeries.key) && seriesMeta.title) {
+        existingSeries.title = seriesMeta.title;
+      }
+
+      if (!existingSeries.intro && seriesMeta.intro) {
+        existingSeries.intro = seriesMeta.intro;
+      }
+
+      if (seriesMeta.url && !existingSeries.url) {
+        existingSeries.url = seriesMeta.url;
+      }
+
+      existingSeries.posts.push(post);
+      seriesMap.set(seriesMeta.key, existingSeries);
+    }
+
+    return Array.from(seriesMap.values())
+      .map((series) => ({
+        ...series,
+        posts: series.posts.sort((a, b) => b.date - a.date)
+      }))
+      .sort((a, b) => a.title.localeCompare(b.title));
   });
 
   eleventyConfig.addCollection("logos", function (collectionApi) {

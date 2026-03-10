@@ -22,7 +22,7 @@ layout: base.njk
                     {{ postDate | niceDate }}
                 </time>
                 <meta itemprop="dateModified" content="{{ postDate | date }}">
-                <h1 class="heading-l mb-4" itemprop="headline">{{ title }}</h1>
+                <h1 class="heading-l" itemprop="headline">{{ title }}</h1>
                 {% if ai_assisted or (tags and ("ai-assisted" in tags)) %}
                     <p class="body-xs text-gray-500 dark:text-gray-400 pl-2 py-1 border-l-4 border-gray-300 dark:border-gray-700">
                         Note: I used ChatGPT to help format and proofread this post.
@@ -42,7 +42,7 @@ layout: base.njk
 
             {% include "partials/post-series.njk" %}
 
-            <div class="prose prose-lg dark:prose-invert md:prose-xl max-w-none" itemprop="articleBody">
+            <div class="prose post-prose prose-lg dark:prose-invert md:prose-xl max-w-none" itemprop="articleBody">
                 {{ content | safe }}
             </div>
 
@@ -62,11 +62,11 @@ layout: base.njk
                      decoding="async">
                 <div>
                     <h2 id="about-author" class="body-s font-semibold mb-2">About the author</h2>
-                    <p class="body-m">
+                    <p class="body-s">
                         I'm Dan Sensecall, a UK-based freelance UX designer and service designer. I help Public Sector teams
                         make complex services simpler, clearer and easier to use.
                     </p>
-                    <p class="body-m">
+                    <p class="body-s">
                         I can support discovery, service redesign, interaction and content design, and accessibility
                         improvements. If you need a UX designer or service designer, <a href="/contact" class="text-link">get in touch</a>.
                     </p>
@@ -81,7 +81,7 @@ layout: base.njk
             <div class="flex-1">
                 {% if previousPost %}
                     <p class="body-s">Previous post</p>
-                    <a href="{{ previousPost.url }}" class="text-link inline-flex items-center">
+                    <a href="{{ previousPost.url }}" class="text-link body-s inline-flex items-center">
                         <svg aria-hidden="true" class="w-4 h-4 mr-1 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
                         </svg>
@@ -93,7 +93,7 @@ layout: base.njk
             <div class="flex-1 text-right">
                 {% if nextPost %}
                     <p class="body-s">Next post</p>
-                    <a href="{{ nextPost.url }}" class="text-link inline-flex items-center justify-end">
+                    <a href="{{ nextPost.url }}" class="text-link body-s inline-flex items-center justify-end">
                         {{ nextPost.data.title }}
                         <svg aria-hidden="true" class="w-4 h-4 ml-1 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />

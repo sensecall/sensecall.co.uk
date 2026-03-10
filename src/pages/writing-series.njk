@@ -1,0 +1,58 @@
+---
+layout: page.njk
+pagination:
+  data: collections.series
+  size: 1
+  alias: seriesPage
+permalink: "/writing/series/{{ seriesPage.key }}/"
+eleventyComputed:
+  title: "{{ seriesPage.title }} series – Writing – Dan Sensecall"
+  description: "{{ seriesPage.intro or ('Posts in the ' ~ seriesPage.title ~ ' series.') }}"
+---
+
+<div class="py-8 lg:py-12">
+    <div class="max-w-4xl">
+        <p class="body-s">
+            <a href="/writing" class="text-link inline-flex items-center">
+                <svg aria-hidden="true" class="w-4 h-4 mr-1 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Back to writing
+            </a>
+        </p>
+
+        <h1 class="heading-l">{{ seriesPage.title }}</h1>
+
+        {% if seriesPage.intro %}
+            <p class="body-m">{{ seriesPage.intro }}</p>
+        {% else %}
+            <p class="body-m">Posts in the {{ seriesPage.title | lower }} series.</p>
+        {% endif %}
+
+        {% if seriesPage.posts and seriesPage.posts.length > 0 %}
+            <div class="mt-8 space-y-6">
+                {% for post in seriesPage.posts %}
+                    <article class="border-b border-gray-200 dark:border-gray-800 pb-6">
+                        <h2 class="heading-s">
+                            <a href="{{ post.url }}" class="text-link">
+                                {{ post.data.title }}
+                            </a>
+                        </h2>
+                        <p class="body-s text-gray-600 dark:text-gray-400">
+                            {{ post.date | niceDate }}
+                        </p>
+                        {% if post.data.description %}
+                            <p class="body-m">
+                                {{ post.data.description }}
+                            </p>
+                        {% endif %}
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="body-m mt-8">
+                No posts have been published in this series yet.
+            </p>
+        {% endif %}
+    </div>
+</div>
