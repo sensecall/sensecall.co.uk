@@ -90,6 +90,11 @@ module.exports = function (eleventyConfig) {
     return new Date(date).toISOString().split('T')[0];
   });
 
+  eleventyConfig.addFilter('isoDateTime', function(dateValue) {
+    if (!dateValue) return '';
+    return new Date(dateValue).toISOString();
+  });
+
   eleventyConfig.addPassthroughCopy({ "src/assets/js": "assets/js" });
   eleventyConfig.addPassthroughCopy("fonts");
   eleventyConfig.addPassthroughCopy({ "src/assets/images": "assets/images" });

@@ -1,10 +1,12 @@
 ---
 layout: base.njk
+isPostPage: true
 ---
 
 <div class="py-8 lg:py-12">
     <div class="max-w-4xl">
         {% set postDate = date or page.date %}
+        {% set postModifiedDate = updated or postDate %}
         <p class="body-s">
             <a href="/writing" class="text-link inline-flex items-center">
                 <svg aria-hidden="true" class="w-4 h-4 mr-1 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -21,7 +23,7 @@ layout: base.njk
                 <time class="body-m text-gray-700 dark:text-gray-300 block mb-2" datetime="{{ postDate | date }}" itemprop="datePublished">
                     {{ postDate | niceDate }}
                 </time>
-                <meta itemprop="dateModified" content="{{ postDate | date }}">
+                <meta itemprop="dateModified" content="{{ postModifiedDate | date }}">
                 <h1 class="heading-l" itemprop="headline">{{ title }}</h1>
                 {% if ai_assisted or (tags and ("ai-assisted" in tags)) %}
                     <p class="body-xs text-gray-500 dark:text-gray-400 pl-2 py-1 border-l-4 border-gray-300 dark:border-gray-700">

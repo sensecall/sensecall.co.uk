@@ -1,10 +1,36 @@
 <head>
+      {% set metaTitle = title or site.title %}
+      {% if site and site.title and metaTitle and (site.title not in metaTitle) %}
+          {% set metaTitle = metaTitle ~ " | " ~ site.title %}
+      {% endif %}
+      {% set metaDescription = description or site.description %}
+      {% set canonicalUrl = site.url ~ page.url %}
+      {% set socialImagePath = socialImage or "/assets/images/workshop.jpeg" %}
+      {% set socialImageUrl = site.url ~ socialImagePath %}
+      {% set socialImageAltText = socialImageAlt or title or site.title %}
+      {% set articlePublishedDate = date or page.date %}
+      {% set articleModifiedDate = updated or articlePublishedDate %}
+      {% set articleSection = "Writing" %}
+      {% if series %}
+          {% if series.title %}
+              {% set articleSection = series.title %}
+          {% elif series.key %}
+              {% set articleSection = series.key %}
+          {% else %}
+              {% set articleSection = series %}
+          {% endif %}
+      {% endif %}
       <meta charset="UTF-8">
       <meta name="viewport"
             content="width=device-width, initial-scale=1">
-      <title>{{ title }}</title>
+      <title>{{ metaTitle }}</title>
       <meta name="description"
-            content="{{ description }}">
+            content="{{ metaDescription }}">
+      {% if noindex %}
+          <meta name="robots" content="noindex, nofollow">
+      {% else %}
+          <meta name="robots" content="index, follow, max-image-preview:large">
+      {% endif %}
       <meta name="format-detection" content="telephone=no">
       <meta name="theme-color"
             content="rgb(243,244,246)"
@@ -12,6 +38,31 @@
       <meta name="theme-color"
             content="rgb(17,24,39)"
             media="(prefers-color-scheme: dark)">
+      <meta property="og:locale" content="en_GB">
+      <meta property="og:type" content="{{ 'article' if isPostPage else 'website' }}">
+      <meta property="og:title" content="{{ metaTitle }}">
+      <meta property="og:description" content="{{ metaDescription }}">
+      <meta property="og:url" content="{{ canonicalUrl }}">
+      <meta property="og:site_name" content="{{ site.title }}">
+      <meta property="og:image" content="{{ socialImageUrl }}">
+      <meta property="og:image:alt" content="{{ socialImageAltText }}">
+      <meta name="twitter:card" content="summary_large_image">
+      <meta name="twitter:title" content="{{ metaTitle }}">
+      <meta name="twitter:description" content="{{ metaDescription }}">
+      <meta name="twitter:image" content="{{ socialImageUrl }}">
+      <meta name="twitter:image:alt" content="{{ socialImageAltText }}">
+      {% if isPostPage %}
+          <meta property="article:published_time" content="{{ articlePublishedDate | isoDateTime }}">
+          <meta property="article:modified_time" content="{{ articleModifiedDate | isoDateTime }}">
+          <meta property="article:section" content="{{ articleSection }}">
+          {% if tags %}
+              {% for tag in tags %}
+                  {% if tag != "post" and tag != "all" and tag != "nav" and tag != "ai-assisted" %}
+                      <meta property="article:tag" content="{{ tag }}">
+                  {% endif %}
+              {% endfor %}
+          {% endif %}
+      {% endif %}
       <script>
           try {
               const savedDarkMode = localStorage.getItem('darkMode');
@@ -41,7 +92,7 @@
 
           gtag('config', 'G-GHPFLMRQ3T');
       </script>
-      <link rel="canonical" href="https://sensecall.co.uk{{ page.url }}">
+      <link rel="canonical" href="{{ canonicalUrl }}">
       <link rel="preload"
             href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
             as="style"
@@ -82,4 +133,34 @@
               ]
           }
       </script>
+      {% if isPostPage %}
+          <script type="application/ld+json">
+              {
+                  "@context": "https://schema.org",
+                  "@type": "BlogPosting",
+                  "mainEntityOfPage": {
+                      "@type": "WebPage",
+                      "@id": "{{ canonicalUrl }}"
+                  },
+                  "headline": {{ title | dump | safe }},
+                  "description": {{ metaDescription | dump | safe }},
+                  "datePublished": "{{ articlePublishedDate | isoDateTime }}",
+                  "dateModified": "{{ articleModifiedDate | isoDateTime }}",
+                  "url": "{{ canonicalUrl }}",
+                  "author": {
+                      "@type": "Person",
+                      "name": "Dan Sensecall",
+                      "url": "{{ site.url }}/about/"
+                  },
+                  "publisher": {
+                      "@type": "Organization",
+                      "name": "UI UX Ltd",
+                      "url": "{{ site.url }}"
+                  },
+                  "image": [
+                      "{{ socialImageUrl }}"
+                  ]
+              }
+          </script>
+      {% endif %}
 </head>
