@@ -147,11 +147,18 @@ module.exports = function (eleventyConfig) {
     if (!key) return null;
 
     const isSeriesObject = seriesValue && typeof seriesValue === "object";
+    const postIntro = isSeriesObject
+      ? (seriesValue.postIntro || seriesValue.post_intro || seriesValue.intro || null)
+      : null;
+    const description = isSeriesObject
+      ? (seriesValue.description || seriesValue.listDescription || seriesValue.list_description || null)
+      : null;
 
     return {
       key,
       title: isSeriesObject && seriesValue.title ? seriesValue.title : key,
-      intro: isSeriesObject ? seriesValue.intro : null,
+      postIntro,
+      description,
       url: isSeriesObject && seriesValue.url ? seriesValue.url : `/writing/series/${key}/`
     };
   };
@@ -215,7 +222,8 @@ module.exports = function (eleventyConfig) {
       const existingSeries = seriesMap.get(seriesMeta.key) || {
         key: seriesMeta.key,
         title: seriesMeta.title,
-        intro: seriesMeta.intro,
+        postIntro: seriesMeta.postIntro,
+        description: seriesMeta.description,
         url: seriesMeta.url,
         posts: []
       };
@@ -224,8 +232,12 @@ module.exports = function (eleventyConfig) {
         existingSeries.title = seriesMeta.title;
       }
 
-      if (!existingSeries.intro && seriesMeta.intro) {
-        existingSeries.intro = seriesMeta.intro;
+      if (!existingSeries.postIntro && seriesMeta.postIntro) {
+        existingSeries.postIntro = seriesMeta.postIntro;
+      }
+
+      if (!existingSeries.description && seriesMeta.description) {
+        existingSeries.description = seriesMeta.description;
       }
 
       if (seriesMeta.url && !existingSeries.url) {

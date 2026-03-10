@@ -1,7 +1,7 @@
 {% if series %}
   {% set seriesKey = series.key or series %}
   {% set seriesTitle = series.title or seriesKey %}
-  {% set seriesIntro = series.intro %}
+  {% set seriesPostIntro = series.postIntro or series.post_intro or series.intro %}
   {% set seriesLink = series.url or (series | seriesUrl) %}
   {% set seriesPosts = collections.post | postsInSeries(series) %}
   {% set seriesPosition = seriesPosts | getCollectionIndex(page) %}
@@ -12,8 +12,8 @@
       </h2>
 
       <p class="body-s text-slate-700 dark:text-slate-300">
-          {% if seriesIntro %}
-              {{ seriesIntro }}
+          {% if seriesPostIntro %}
+              {{ seriesPostIntro }}
           {% else %}
               This post is part of a short series{% if seriesTitle %} on {{ seriesTitle | lower }}{% endif %}.
           {% endif %}

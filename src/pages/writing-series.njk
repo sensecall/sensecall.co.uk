@@ -7,7 +7,7 @@ pagination:
 permalink: "/writing/series/{{ seriesPage.key }}/"
 eleventyComputed:
   title: "{{ seriesPage.title }} series – Writing – Dan Sensecall"
-  description: "{{ seriesPage.intro or ('Posts in the ' ~ seriesPage.title ~ ' series.') }}"
+  description: "{{ seriesPage.description or ('Posts in the ' ~ seriesPage.title ~ ' series.') }}"
 ---
 
 <div class="py-8 lg:py-12">
@@ -23,8 +23,8 @@ eleventyComputed:
 
         <h1 class="heading-l">{{ seriesPage.title }}</h1>
 
-        {% if seriesPage.intro %}
-            <p class="body-m">{{ seriesPage.intro }}</p>
+        {% if seriesPage.description %}
+            <p class="body-m">{{ seriesPage.description }}</p>
         {% else %}
             <p class="body-m">Posts in the {{ seriesPage.title | lower }} series.</p>
         {% endif %}
