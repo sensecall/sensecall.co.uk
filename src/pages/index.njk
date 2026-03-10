@@ -20,10 +20,10 @@ permalink: /
             <span class="ml-2 font-bold text-gray-900 dark:text-gray-50">Hi! I'm Dan Sensecall.</span>
         </p>
         <h1 id="introduction-title"
-            class="mb-6 lg:w-4/5 body-l">
+            class="mb-6 lg:w-4/5 body-m">
             I'm a freelance UX designer and service designer from the UK.
         </h1>
-        <p class="body-l mb-4">
+        <p class="body-m">
             I work with teams to turn <b>messy policy</b>, <b>legacy constraints</b> and <b>operational reality</b> into user-centred services that meet the needs of citizens, civil servants and public sector workers.
         </p>
     </div>
@@ -34,7 +34,7 @@ permalink: /
             <h2 class="md:mb-4 heading-m sr-only md:not-sr-only">
                 Clients I've worked with
             </h2>
-            <p class="body-m mb-4">
+            <p class="body-m">
                 Over the past 15 years, I've worked with startups, government
                 departments and FTSE 100 companies to improve their products and services. Since 2018, I've worked exclusively with Public Sector organisations to design services for
                 citizens and internal users.
@@ -59,8 +59,8 @@ permalink: /
             {% endfor %}
         </div>
         <div class="lg:w-2/3 order-3 md:order-1">
-            <p class="body-l mb-2">Typically, I help with things like:</p>
-            <ul class="list-disc pl-5 body-l">
+            <p class="body-m">Typically, I help with things like:</p>
+            <ul class="list-disc pl-5 body-m">
                 <li>service design</li>
                 <li>interaction design</li>
                 <li>user research</li>
@@ -76,10 +76,10 @@ permalink: /
             class="heading-m mb-4">
             What I do
         </h2>
-        <p class="body-l mb-10">
+        <p class="body-m">
             I help teams make their services more user-friendly, effective and accessible. I focus on putting humans first, understanding their needs and working with organisations to create services that really work for people who use them.
         </p>
-        <p class="body-l mb-10">
+        <p class="body-m">
             Alongside making things simpler for users, I also aim to deliver measurable results and value for the organisations I work with.
         </p>
     </div>
@@ -87,12 +87,13 @@ permalink: /
             {
                 "title": "Service design",
                 "description": "This means looking at users' end-to-end journeys, and thinking about how the different services, or parts of a service, work together.",
-                "link": {
-                    "url": "https://www.gov.uk/guidance/service-designer",
-                    "text": "Read more about service design"
-                },
-                "icon": "map",
-                "colour": "text-emerald-600 dark:text-emerald-400"
+            "link": {
+                "url": "https://www.gov.uk/guidance/service-designer",
+                "text": "Read more about service design"
+            },
+            "image": "/assets/images/illustrations/service-design-blueprint.png",
+            "imageAlt": "A diagram showing a service design blueprint with connected flow steps",
+            "colour": "text-emerald-600 dark:text-emerald-400"
             },
             {
                 "title": "Interaction design",
@@ -101,6 +102,8 @@ permalink: /
                     "url": "https://www.usability.gov/what-and-why/interaction-design.html",
                     "text": "Read more about interaction design"
                 },
+                "image": "/assets/images/illustrations/interaction-design.png",
+                "imageAlt": "A diagram showing a user interaction flow with connected steps",
                 "icon": "sparkles",
                 "colour": "text-stone-600 dark:text-stone-400"
             },
@@ -111,6 +114,8 @@ permalink: /
                     "url": "https://www.gov.uk/service-manual/user-research/how-user-research-improves-service-design",
                     "text": "Read more about user research"
                 },
+                "image": "/assets/images/illustrations/user-research-conversation-illustration.png",
+                "imageAlt": "A diagram showing a user research process with connected steps",
                 "icon": "user",
                 "colour": "text-violet-600 dark:text-violet-400"
             },
@@ -121,7 +126,8 @@ permalink: /
                     "url": "https://accessibility.blog.gov.uk/2016/05/16/what-we-mean-when-we-talk-about-accessibility-2/",
                     "text": "Read more about accessibility"
                 },
-                "icon": "eye",
+                "image": "/assets/images/illustrations/accessibility-illustration.png",
+                "imageAlt": "A diagram showing a user with a screen reader and a keyboard",
                 "colour": "text-amber-600 dark:text-amber-400"
             },
             {
@@ -131,22 +137,31 @@ permalink: /
                     "url": "https://www.gov.uk/guidance/content-design/what-is-content-design",
                     "text": "Read more about content design"
                 },
-                "icon": "square-pen",
+                "image": "/assets/images/illustrations/content-design-illustration.png",
+                "imageAlt": "A diagram showing a user with a screen reader and a keyboard",
                 "colour": "text-rose-600 dark:text-rose-400"
             }
         ] %}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
         {% for service in services %}
             <div class="mb-5">
-                <h2 class="heading-xs mb-2 flex items-center gap-3 text-gray-900 dark:text-gray-100">
-                    <span 
-                        class="inline-flex items-center justify-center rounded-full bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 {{ service.colour }} shadow-sm h-10 w-10" 
-                        aria-hidden="true"
-                    >
-                        <i data-lucide="{{ service.icon }}"
-                           class="h-5 w-5"
-                           aria-hidden="true"></i>
-                    </span>
+                {% if service.image %}
+                    <img src="{{ service.image }}"
+                         alt="{{ service.imageAlt }}"
+                         class="w-1/2 md:w-2/3 rounded-lg mb-3"
+                         loading="lazy">
+                {% endif %}
+                <h2 class="heading-xs mb-2 flex items-center gap-3">
+                    {% if not service.image %}
+                        <span 
+                            class="inline-flex items-center justify-center rounded-full bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 {{ service.colour }} shadow-sm h-10 w-10" 
+                            aria-hidden="true"
+                        >
+                            <i data-lucide="{{ service.icon }}"
+                               class="h-5 w-5"
+                               aria-hidden="true"></i>
+                        </span>
+                    {% endif %}
                     <span>{{ service.title }}</span>
                 </h2>
                 <p class="body-m">{{ service.description }}</p>
@@ -175,10 +190,10 @@ permalink: /
     <div>
         <h2 class="heading-m mb-4">Things I've done</h2>
         <div class="lg:w-2/3">
-            <p class="body-m mb-4">
+            <p class="body-m">
                 I've provided design services on a wide range of projects, from small websites to large-scale digital transformation programmes. Projects have ranged from greenfield projects to others that have involved replacing legacy systems with new services. Ideally, I'm involved from the very start, but I'm used to being parachuted in to help with a specific problem.
             </p>
-            <p class="body-m mb-4">
+            <p class="body-m">
                 Typically, the projects I work on are used by thousands of people every day, from members of the public completing a task online, to civil servants using a system to manage their work. There are too many to list here, but here are a few examples:
             </p>
         </div>
@@ -266,7 +281,7 @@ permalink: /
                                          class="block h-auto max-h-12 w-auto max-w-[12rem] object-contain dark:hidden md:max-h-14 md:max-w-[15rem] lg:max-h-16 lg:max-w-[17rem] xl:max-h-18 xl:max-w-[19rem]" />
                                 </div>
                                 <h3 id="project-{{ loop.index }}-title" 
-                                    class="heading-xs mb-3 text-gray-900 dark:text-gray-100">
+                                    class="heading-xs mb-3">
                                     {{ project.title }}
                                 </h3>
                                 <p class="body-m">
@@ -347,30 +362,37 @@ permalink: /
 <section id="work-with-me" class="py-8 md:py-10 lg:py-12 xl:py-14">
     <div class="md:w-2/3">
         <h2 class="heading-m mb-4">Work with me</h2>
-        <p class="body-m mb-4">
+        <p class="body-m">
             I'm willing to work with clients in a number of ways, depending on their needs. This can include working:
         </p>
-        <ul class="mb-4 list-disc list-outside pl-5 list-body">
+        <ul class="mb-4 list-disc list-outside pl-5 body-m">
             <li class="mb-2">as part of an existing team</li>
             <li class="mb-2">with a team of associates</li>
             <li class="mb-2">with a partner agency</li>
             <li class="mb-2">directly with the client</li>
         </ul>
-        <p class="body-m mb-4">
+        <p class="body-m">
             Although I prefer to work remotely, I can travel to meet clients if needed. I'm conveniently based in the centre of the UK, and can easily travel to London, Birmingham, Manchester, and other major cities.
         </p>
-        <p class="body-m mb-4">
+        <p class="body-m">
             I'm used to working with clients' existing tools and processes, particularly in the Public Sector where security is a priority.
         </p>
     </div>
 
     <div class="mt-8 rounded-md border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 p-5 md:p-6">
         <h3 class="heading-s mb-2">Let's discuss your project</h3>
-        <p class="body-m mb-3 w-full md:w-3/4 lg:w-2/3">I'll help you understand your users' needs and design services that deliver <span class="font-medium">measurable improvements</span> and <span class="font-medium">return on investment</span>.</p>
+        <p class="body-m w-full md:w-3/4 lg:w-2/3">I'll help you understand your users' needs and design services that deliver <span class="font-medium">measurable improvements</span> and <span class="font-medium">return on investment</span>.</p>
         <p class="body-m">
             <a href="/contact" class="text-link">
                 Get in touch
             </a>
+        </p>
+    </div>
+</section>
+<section id="continue-your-journey" class="pb-8 md:pb-10 lg:pb-12 xl:pb-14">
+    <div class="md:w-2/3">
+        <p class="body-m">
+            If you'd like to keep exploring, you can browse <a href="/projects" class="text-link">project case studies</a>, read my <a href="/writing" class="text-link">writing</a>, see <a href="/service-design" class="text-link">how I approach service design</a>, learn more <a href="/about" class="text-link">about me</a>, or <a href="/contact" class="text-link">get in touch</a> about your project.
         </p>
     </div>
 </section>

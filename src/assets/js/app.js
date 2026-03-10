@@ -494,14 +494,55 @@ const projectCards = {
         const firstCard = this.cards[0];
         this.loopClone = firstCard.cloneNode(true);
         this.loopClone.classList.add('things-done-card--clone');
+        this.loopClone.removeAttribute('aria-labelledby');
+
+        const clonedHeading = this.loopClone.querySelector('h3[id]');
+        if (clonedHeading) {
+            const clonedHeadingText = clonedHeading.textContent ? clonedHeading.textContent.trim() : '';
+            this.loopClone.setAttribute('aria-label', clonedHeadingText || 'Project example');
+            clonedHeading.removeAttribute('id');
+        }
+
         this.loopClone.setAttribute('aria-hidden', 'true');
         this.loopClone.setAttribute('inert', '');
 
         this.loopClone.querySelectorAll('a').forEach((link) => {
+            link.dataset.originalTabindex = link.getAttribute('tabindex') || '';
             link.setAttribute('tabindex', '-1');
         });
 
         this.track.appendChild(this.loopClone);
+    },
+
+    setCardVisibility(card, isVisible, isSecondaryVisible) {
+        card.setAttribute('aria-hidden', (!isVisible).toString());
+        card.classList.toggle('is-secondary-visible', isSecondaryVisible);
+
+        if (isVisible) {
+            card.removeAttribute('inert');
+        } else {
+            card.setAttribute('inert', '');
+        }
+
+        card.querySelectorAll('a').forEach((link) => {
+            if (isVisible) {
+                if (link.dataset.originalTabindex !== undefined) {
+                    if (link.dataset.originalTabindex === '') {
+                        link.removeAttribute('tabindex');
+                    } else {
+                        link.setAttribute('tabindex', link.dataset.originalTabindex);
+                    }
+                    delete link.dataset.originalTabindex;
+                } else {
+                    link.removeAttribute('tabindex');
+                }
+            } else {
+                if (link.dataset.originalTabindex === undefined) {
+                    link.dataset.originalTabindex = link.getAttribute('tabindex') || '';
+                }
+                link.setAttribute('tabindex', '-1');
+            }
+        });
     },
 
     moveBy(delta) {
@@ -564,45 +605,28 @@ const projectCards = {
         const totalCards = this.cards.length;
         if (totalCards === 0) return;
 
-        const visibleIndices = new Set();
-        for (let offset = 0; offset < this.visibleCards; offset += 1) {
-            visibleIndices.add((this.currentIndex + offset) % totalCards);
+        const showsCloneAsSecondary = this.visibleCards >= 2
+            && Boolean(this.loopClone)
+            && this.currentIndex === this.maxIndex;
+
+        const visibleIndices = new Set([this.currentIndex]);
+        if (this.visibleCards >= 2 && !showsCloneAsSecondary) {
+            visibleIndices.add((this.currentIndex + 1) % totalCards);
         }
 
-        const secondaryVisibleIndex = this.visibleCards >= 2 ? (this.currentIndex + 1) % totalCards : -1;
+        const secondaryVisibleIndex = this.visibleCards >= 2 && !showsCloneAsSecondary
+            ? (this.currentIndex + 1) % totalCards
+            : -1;
 
         this.cards.forEach((card, index) => {
             const isVisible = visibleIndices.has(index);
             const isSecondaryVisible = index === secondaryVisibleIndex;
-            card.setAttribute('aria-hidden', (!isVisible).toString());
-            card.classList.toggle('is-secondary-visible', isSecondaryVisible);
-
-            if (isVisible) {
-                card.removeAttribute('inert');
-            } else {
-                card.setAttribute('inert', '');
-            }
-
-            card.querySelectorAll('a').forEach((link) => {
-                if (isVisible) {
-                    if (link.dataset.originalTabindex !== undefined) {
-                        if (link.dataset.originalTabindex === '') {
-                            link.removeAttribute('tabindex');
-                        } else {
-                            link.setAttribute('tabindex', link.dataset.originalTabindex);
-                        }
-                        delete link.dataset.originalTabindex;
-                    } else {
-                        link.removeAttribute('tabindex');
-                    }
-                } else {
-                    if (link.dataset.originalTabindex === undefined) {
-                        link.dataset.originalTabindex = link.getAttribute('tabindex') || '';
-                    }
-                    link.setAttribute('tabindex', '-1');
-                }
-            });
+            this.setCardVisibility(card, isVisible, isSecondaryVisible);
         });
+
+        if (this.loopClone) {
+            this.setCardVisibility(this.loopClone, showsCloneAsSecondary, showsCloneAsSecondary);
+        }
     },
 
     updateStatus() {
