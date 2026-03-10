@@ -12,15 +12,15 @@ description: A selection of projects by Dan Sensecall, a freelance UX designer a
         <h1 class="heading-l mb-4">
             Projects I've worked on
         </h1>
-        <p class="body-l mb-4">
+        <p class="body-m">
             For the past 15 years, I've enjoyed working with a wide range of clients, from small local businesses to large international companies.
         </p>
         <div class="flex flex-col md:flex-row md:gap-8">
             <div class="flex-1">
-                <p class="body-m mb-4">
+                <p class="body-m">
                     The most rewarding work I've done has been within the Public Sector, where I've been able to make a measurable difference to people's lives, and the important jobs done by the people who serve them.
                 </p>
-                <p class="body-m mb-4">
+                <p class="body-m">
                     I have also worked in the private sector, where I've helped businesses including Sainsbury's and npower to meet organisational goals by improving customer experience and increasing conversion rates.
                 </p>
             </div>
@@ -37,7 +37,7 @@ description: A selection of projects by Dan Sensecall, a freelance UX designer a
         </div>
         
         <h2 class="heading-m mt-12 mb-2 sm:mb-4">Case studies</h2>
-        <p class="body-m mb-4 sm:mb-4">
+        <p class="body-m">
             These case studies are a <i>very</i> small selection of the work I've done &ndash; for a full list of my work, see my <a href="https://www.linkedin.com/in/sensecall/" class="text-link" target="_blank" rel="noopener">LinkedIn profile</a>. Anyway, if you're interested in the type of work I've done, have a look through:
         </p>
         <div class="space-y-6 md:space-y-8 divide-y divide-gray-200 dark:divide-gray-800 mb-8">
@@ -47,7 +47,7 @@ description: A selection of projects by Dan Sensecall, a freelance UX designer a
                         <a href="{{ project.url }}" class="text-link">{{ project.data.title }}</a>
                     </h3>
                     {% if project.data.year %}
-                        <p class="body-s text-gray-500 dark:text-gray-400 mb-3">Completed {{ project.data.year }}</p>
+                        <p class="body-s text-gray-500 dark:text-gray-400">Completed {{ project.data.year }}</p>
                     {% endif %}
                     {% if project.data.services %}
                         <ul class="flex flex-wrap gap-2 mb-3">
@@ -58,7 +58,7 @@ description: A selection of projects by Dan Sensecall, a freelance UX designer a
                             {% endfor %}
                         </ul>
                     {% endif %}
-                    <p class="body-text text-base text-gray-600 dark:text-gray-300 mb-4">{{ project.data.description }}</p>
+                    <p class="body-m text-gray-600 dark:text-gray-300">{{ project.data.description }}</p>
                     <a href="{{ project.url }}" class="text-link inline-flex items-center">
                         Read case study
                         <svg class="ml-2 w-4 h-4"
