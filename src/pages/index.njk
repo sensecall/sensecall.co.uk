@@ -156,16 +156,16 @@ permalink: /
                 {% endif %}
                 <h2 class="heading-xs flex items-center gap-3">
                     {% if not service.image %}
-                        <span 
+                        <div 
                             class="inline-flex items-center justify-center rounded-full bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 {{ service.colour }} shadow-sm h-10 w-10" 
                             aria-hidden="true"
                         >
                             <i data-lucide="{{ service.icon }}"
                                class="h-5 w-5"
                                aria-hidden="true"></i>
-                        </span>
+                        </div>
                     {% endif %}
-                    <span>{{ service.title }}</span>
+                    {{ service.title }}
                 </h2>
                 <p class="body-m">{{ service.description }}</p>
                 <p class="body-s mt-2">
@@ -381,7 +381,7 @@ permalink: /
         </p>
     </div>
 
-    <div class="mt-8 rounded-md border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 p-5 md:p-6">
+    <div class="mt-8 callout-rail callout-rail-default">
         <h3 class="heading-s">Let's discuss your project</h3>
         <p class="body-m w-full md:w-3/4 lg:w-2/3">I'll help you understand your users' needs and design services that deliver <span class="font-medium">measurable improvements</span> and <span class="font-medium">return on investment</span>.</p>
         <p class="body-m">

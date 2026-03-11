@@ -6,8 +6,8 @@
   {% set seriesPosts = collections.post | postsInSeries(series) %}
   {% set seriesPosition = seriesPosts | getCollectionIndex(page) %}
 
-  <section aria-labelledby="post-series" class="mb-8 rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 p-4 md:p-5">
-      <h2 id="post-series" class="body-s font-semibold mb-2">
+  <section aria-labelledby="post-series" class="mb-8 callout-rail callout-rail-series">
+      <h2 id="post-series" class="heading-xxs mb-2">
           Series{% if seriesTitle %}: {{ seriesTitle }}{% endif %}
       </h2>
 

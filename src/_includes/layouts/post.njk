@@ -4,9 +4,24 @@ isPostPage: true
 ---
 
 <div class="py-8 lg:py-12">
-    <div class="max-w-4xl">
-        {% set postDate = date or page.date %}
-        {% set postModifiedDate = updated or postDate %}
+    {% set postDate = date or page.date %}
+    {% set postModifiedDate = updated or postDate %}
+    {% set seriesPosts = [] %}
+    {% set seriesLink = null %}
+    {% set seriesTitle = "" %}
+    {% set seriesPostIntro = null %}
+    {% set seriesPosition = 0 %}
+    {% if series %}
+        {% set seriesPosts = collections.post | postsInSeries(series) %}
+        {% set seriesLink = series.url or (series | seriesUrl) %}
+        {% set seriesTitle = series.title or series.key or series %}
+        {% set seriesPostIntro = series.postIntro or series.post_intro or series.intro %}
+        {% if seriesPosts.length > 0 %}
+            {% set seriesPosition = seriesPosts | getCollectionIndex(page) %}
+        {% endif %}
+    {% endif %}
+    {% set hasSeriesSidebar = series and seriesPosts.length > 0 %}
+    <div class="{% if hasSeriesSidebar %}max-w-7xl{% else %}max-w-4xl{% endif %}">
         <p class="body-s">
             <a href="/writing" class="text-link inline-flex items-center">
                 <svg aria-hidden="true" class="w-4 h-4 mr-1 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -16,54 +31,96 @@ isPostPage: true
             </a>
         </p>
 
-        <article itemscope itemtype="https://schema.org/BlogPosting" itemid="{{ site.url }}{{ page.url }}">
-            <meta itemprop="mainEntityOfPage" content="{{ site.url }}{{ page.url }}">
-            <meta itemprop="url" content="{{ site.url }}{{ page.url }}">
-            <header class="mb-6">
-                <time class="body-m text-gray-700 dark:text-gray-300 block mb-2" datetime="{{ postDate | date }}" itemprop="datePublished">
-                    {{ postDate | niceDate }}
-                </time>
-                <meta itemprop="dateModified" content="{{ postModifiedDate | date }}">
-                <h1 class="heading-l" itemprop="headline">{{ title }}</h1>
-                {% if ai_assisted or (tags and ("ai-assisted" in tags)) %}
-                    <p class="body-xs text-gray-500 dark:text-gray-400 pl-2 py-1 border-l-4 border-gray-300 dark:border-gray-700">
-                        Note: I used ChatGPT to help format and proofread this post.
-                    </p>
-                {% endif %}
-                {% if description %}
-                    <meta itemprop="description" content="{{ description }}">
-                {% endif %}
-                {% if tags %}
-                    {% for tag in tags %}
-                        {% if tag != "post" and tag != "all" and tag != "nav" and tag != "ai-assisted" %}
-                            <meta itemprop="keywords" content="{{ tag }}">
+        <div class="{% if hasSeriesSidebar %}lg:grid lg:grid-cols-[minmax(0,1fr)_16rem] xl:grid-cols-[minmax(0,56rem)_18rem] lg:gap-8 xl:gap-10{% endif %}">
+            <article class="{% if hasSeriesSidebar %}min-w-0 lg:col-start-1 lg:row-start-1{% endif %}" itemscope itemtype="https://schema.org/BlogPosting" itemid="{{ site.url }}{{ page.url }}">
+                <meta itemprop="mainEntityOfPage" content="{{ site.url }}{{ page.url }}">
+                <meta itemprop="url" content="{{ site.url }}{{ page.url }}">
+                <header class="mb-6">
+                    <time class="body-m text-gray-700 dark:text-gray-300 block mb-2" datetime="{{ postDate | date }}" itemprop="datePublished">
+                        {{ postDate | niceDate }}
+                    </time>
+                    <meta itemprop="dateModified" content="{{ postModifiedDate | date }}">
+                    <h1 class="heading-l" itemprop="headline">{{ title }}</h1>
+                    {% if ai_assisted or (tags and ("ai-assisted" in tags)) %}
+                        <p class="body-xs text-gray-500 dark:text-gray-400 pl-2 py-1 border-l-4 border-gray-300 dark:border-gray-700">
+                            Note: I used ChatGPT to help format and proofread this post.
+                        </p>
+                    {% endif %}
+                    {% if description %}
+                        <meta itemprop="description" content="{{ description }}">
+                    {% endif %}
+                    {% if seriesLink %}
+                        <meta itemprop="isPartOf" content="{{ site.url }}{{ seriesLink }}">
+                    {% endif %}
+                    {% if tags %}
+                        {% for tag in tags %}
+                            {% if tag != "post" and tag != "all" and tag != "nav" and tag != "ai-assisted" %}
+                                <meta itemprop="keywords" content="{{ tag }}">
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </header>
+
+                <div class="prose post-prose prose-lg dark:prose-invert md:prose-xl max-w-none" itemprop="articleBody">
+                    {{ content | safe }}
+                </div>
+
+                <div class="sr-only" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <span itemprop="name">Dan Sensecall</span>
+                </div>
+            </article>
+
+            {% if hasSeriesSidebar %}
+                <aside class="mt-8 lg:mt-0" aria-labelledby="series-sidebar-heading">
+                    <nav class="callout-top callout-top-series callout-surface-series lg:sticky lg:top-24" aria-label="Posts in this series">
+                        <h2 id="series-sidebar-heading" class="heading-xxs mb-2">
+                            Series{% if seriesTitle %}: {{ seriesTitle }}{% endif %}
+                        </h2>
+                        <p class="body-s text-slate-700 dark:text-slate-300">
+                            {% if seriesPostIntro %}
+                                {{ seriesPostIntro }}
+                            {% else %}
+                                This post is part of a short series{% if seriesTitle %} on {{ seriesTitle | lower }}{% endif %}.
+                            {% endif %}
+                        </p>
+                        {% if seriesPosts.length > 1 %}
+                            <p class="body-xs text-slate-600 dark:text-slate-400 mb-2">
+                                Post {{ seriesPosition }} of {{ seriesPosts.length }}
+                            </p>
+                            <h3 class="body-xs font-semibold text-slate-700 dark:text-slate-300 mb-2">Other posts</h3>
+                            <ol class="body-s space-y-2">
+                                {% for seriesPost in seriesPosts %}
+                                    {% if seriesPost.url != page.url %}
+                                        <li>
+                                            <a href="{{ seriesPost.url }}" class="text-link">{{ seriesPost.data.title }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ol>
+                        {% else %}
+                            <p class="body-s text-slate-700 dark:text-slate-300 mb-0">
+                                I haven't published any other posts in this series yet.
+                            </p>
                         {% endif %}
-                    {% endfor %}
-                {% endif %}
-            </header>
+                        {% if seriesLink %}
+                            <p class="body-xs mt-3">
+                                <a href="{{ seriesLink }}" class="text-link">Browse all posts in this series</a>
+                            </p>
+                        {% endif %}
+                    </nav>
+                </aside>
+            {% endif %}
 
-            {% include "partials/post-series.njk" %}
-
-            <div class="prose post-prose prose-lg dark:prose-invert md:prose-xl max-w-none" itemprop="articleBody">
-                {{ content | safe }}
-            </div>
-
-            <div class="sr-only" itemprop="author" itemscope itemtype="https://schema.org/Person">
-                <span itemprop="name">Dan Sensecall</span>
-            </div>
-        </article>
-
-        <section aria-labelledby="about-author" class="mt-10 rounded-md border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 p-5 md:p-6">
-            <div class="flex flex-col sm:flex-row sm:items-start gap-4 md:gap-5">
-                <img src="/assets/images/dan-sensecall.jpg"
-                     class="w-20 h-20 sm:w-24 sm:h-24 rounded-lg shadow-md object-cover shrink-0 transform rotate-1"
-                     alt="A photo of Dan Sensecall"
-                     width="300"
-                     height="300"
-                     loading="lazy"
-                     decoding="async">
-                <div>
-                    <h2 id="about-author" class="body-s font-semibold mb-2">About the author</h2>
+            <div class="{% if hasSeriesSidebar %}lg:col-start-1 lg:row-start-2{% endif %}">
+                <section aria-labelledby="about-author" class="mt-6 mb-12 callout-rail callout-rail-default callout-surface-muted">
+                    <h2 id="about-author" class="heading-xxs mb-2">About the author</h2>
+                    <img src="/assets/images/dan-sensecall.jpg"
+                         class="float-left mr-4 mb-2 mt-1 h-16 w-16 sm:h-20 sm:w-20 rounded-full shadow-md object-cover"
+                         alt="A photo of Dan Sensecall"
+                         width="300"
+                         height="300"
+                         loading="lazy"
+                         decoding="async">
                     <p class="body-s">
                         I'm Dan Sensecall, a UK-based freelance UX designer and service designer. I help Public Sector teams
                         make complex services simpler, clearer and easier to use.
@@ -72,37 +129,39 @@ isPostPage: true
                         I can support discovery, service redesign, interaction and content design, and accessibility
                         improvements. If you need a UX designer or service designer, <a href="/contact" class="text-link">get in touch</a>.
                     </p>
+                    <div class="clear-both"></div>
+                </section>
+
+                <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8">
+                    {% set previousPost = collections.post | getPreviousCollectionItem(page) %}
+                    {% set nextPost = collections.post | getNextCollectionItem(page) %}
+
+                    <div class="flex-1">
+                        {% if previousPost %}
+                            <p class="body-s">Previous post</p>
+                            <a href="{{ previousPost.url }}" class="text-link body-m inline-flex w-full items-baseline gap-2">
+                                <svg aria-hidden="true" class="h-[0.95em] w-[0.95em] shrink-0 self-baseline pt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12.5 4.5L7 10l5.5 5.5" />
+                                </svg>
+                                <span class="min-w-0 leading-snug">{{ previousPost.data.title }}</span>
+                            </a>
+                        {% endif %}
+                    </div>
+
+                    <div class="flex-1 sm:text-right">
+                        {% if nextPost %}
+                            <p class="body-s">Next post</p>
+                            <a href="{{ nextPost.url }}" class="text-link body-m inline-flex w-full items-baseline gap-2 sm:justify-end">
+                                <span class="min-w-0 leading-snug sm:text-right">{{ nextPost.data.title }}</span>
+                                <svg aria-hidden="true" class="h-[0.95em] w-[0.95em] shrink-0 self-baseline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M7.5 4.5L13 10l-5.5 5.5" />
+                                </svg>
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
-        </section>
-
-        <div class="mt-8 flex justify-between items-center">
-            {% set previousPost = collections.post | getPreviousCollectionItem(page) %}
-            {% set nextPost = collections.post | getNextCollectionItem(page) %}
-
-            <div class="flex-1">
-                {% if previousPost %}
-                    <p class="body-s">Previous post</p>
-                    <a href="{{ previousPost.url }}" class="text-link body-s inline-flex items-center">
-                        <svg aria-hidden="true" class="w-4 h-4 mr-1 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-                        </svg>
-                        {{ previousPost.data.title }}
-                    </a>
-                {% endif %}
-            </div>
-
-            <div class="flex-1 text-right">
-                {% if nextPost %}
-                    <p class="body-s">Next post</p>
-                    <a href="{{ nextPost.url }}" class="text-link body-s inline-flex items-center justify-end">
-                        {{ nextPost.data.title }}
-                        <svg aria-hidden="true" class="w-4 h-4 ml-1 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                        </svg>
-                    </a>
-                {% endif %}
-            </div>
         </div>
+
     </div>
 </div>
