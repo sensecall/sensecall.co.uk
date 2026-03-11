@@ -1,3 +1,13 @@
 [build]
 	publish = "_site"
 	command = "npm run build"
+
+[[redirects]]
+	from = "/portfolio"
+	to = "/projects"
+	status = 301
+
+[[redirects]]
+	from = "/portfolio/"
+	to = "/projects"
+	status = 301
