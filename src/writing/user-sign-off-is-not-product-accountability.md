@@ -15,15 +15,15 @@ series:
 
 Product owners need to stop using "user sign-off" as cover for product decisions.
 
-There is a real difference between being user-centred and being decision-avoidant, and I keep seeing teams fall into the same pattern. They do the research, uncover real user pain points, and shape a sensible solution. Then, right at the point where product judgement is required, the Product Owner goes back to users and asks: "Is this what you want?" or "Can you sign this off?"
+There is a real difference between being user-centred and being decision-avoidant, and I keep seeing teams fall into the same pattern. They do the research, uncover real user pain points, and shape a sensible solution. Then, right at the point where product judgement is required, the Product Owner goes back to users and asks: *"Is this what you want?"* or *"Can you sign this off?"*
 
 ![Product owner hiding behind a user sign-off form](/assets/images/product-owner-hiding.png)
 
 That is the wrong question.
 
-Users are experts in their problems. They are not your design authority, your scope committee, or your insurance policy. Asking them to approve a solution is not collaboration; it is risk transfer. It gives a team cover: if the feature underperforms, they can point back and say, "Users said they liked it."
+Users are experts in their problems. They are not your design authority, your scope committee, or your insurance policy. Asking them to approve a solution is not collaboration; it is risk transfer. It gives a team cover: if the feature underperforms, the Product Owner can point back and say, *"Users said they liked it"*.
 
-That is not user-centred product thinking. It is weak product judgement.
+That is not user-centred product thinking. It is _weak product judgement_.
 
 The product owner's job is not to build exactly what users ask for. The job is to make sound decisions based on evidence, constraints, trade-offs, and a clear understanding of the problem. User input is critical, but accountability still sits with the product team.
 
