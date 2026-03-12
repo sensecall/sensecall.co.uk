@@ -4,7 +4,7 @@ description: A practical argument against asking users to "sign off" solutions, 
 date: 2026-03-10
 tags: ["Product Ownership", "Product Management", "User Research"]
 layout: post
-socialImage: /assets/images/product-owner-hiding.png
+socialImage: /assets/images/product-owner-hiding.jpg
 socialImageAlt: Product owner hiding behind a user sign-off form
 series:
   key: product-ownership
