@@ -1,51 +1,44 @@
 ---
-title: Your users don't care about your Scrum
-description: Expert users need stakeholder conversations in the language of the service, not delivery jargon.
+title: Your users don't care about your backlog
+description: Your Scrum process is boring your users to death. Why you should stop telling your users about how you're building the thing and start talking about how you're making their lives easier.
 date: 2026-03-12
-tags: ["Product Ownership", "Service Design", "Stakeholders"]
+tags: ["Product Ownership", "Stakeholders", "Expert Users", "Show and Tell"]
 layout: post
-draft: true
 series:
   key: product-ownership
   title: Product ownership
-  post_intro: "This post is part of a short series on product ownership. It explores how teams can stay user-centred while still taking responsibility for product decisions."
+  post_intro: "This post is part of a short series on product ownership. It explores how teams can stay user-centred while still taking responsibility for product decisions. In this post, I argue that users don't care about your backlog, and you should stop telling them about how you're building the thing and start talking about how you're making their lives easier."
   description: "A short series on product ownership, covering accountability, decision-making, and practical judgement in delivery teams. It focuses on clear ownership, evidence-based trade-offs, and avoiding decision-by-committee."
+  illustration: /assets/images/product-owner-illustration.webp
+  illustration_alt: Illustration of a product owner balancing user insight with product decision-making
 ---
 
-If your stakeholder session sounds like backlog refinement, you have already lost the room.
+If you're a Product Owner spending your stakeholder engagement sessions explaining user stories, epics, or how a feature "sits" in your hierarchy, you are wasting their time.
 
-Most of my career has been spent designing and delivering services for expert users: civil servants, police officers, caseworkers, and operational staff who spend 40 hours a week using the things we build.
+Users don't give a damn about your backlog.
 
-If those people come into a meeting, they should not need a glossary of your delivery process to take part. They have a job to do.
+![Product owner explaining a complex scrum board to confused expert users during a stakeholder session, illustrating common agile communication issues between delivery teams and end users](/assets/images/product-owner-stakeholder-session-illustration.jpg)
 
-![Stakeholder session illustration](/assets/images/product-owner-stakeholder-session-illustration.jpg)
+I've spent my career building services for expert users: police officers, caseworkers, and civil servants who spend 40 hours a week using the services we've built for them. These people have high-stakes roles and they do not have the mental bandwidth to navigate your delivery team's internal admin.
 
-They do not care about sprint velocity, epics, user stories, or how neatly something fits your backlog.
+Expert users care about whether the service you're building helps them get through their day without a headache. They do not care about sprint velocity, "ready" criteria, or the elegant way you've organised your tickets and prioritised the backlog.
 
-They care about whether the service helps them do their work.
+When you pull users into the machinery of how software gets built, you are not being "transparent", you are being lazy. You are forcing them to do the translation work that you should be doing. The second you pivot to delivery language, you remove those experts from the conversation, because you've moved the discussion out of their world and into your own.
 
-I still see teams framing stakeholder conversations around how software gets built rather than how the service works.
+When you get time with people who use your product every day, stop talking about your delivery processes and start talking about the challenges your users face:
 
-The moment the conversation turns into delivery language, people switch off, because you have taken the conversation out of their world and into yours.
+- Where does the work get stuck?
+- Which handovers cause the most confusion or delay?
+- What workarounds have people created to get the job done?
+- What risks do people face when the software does not support the task properly?
 
-When you have access to people who use the service every day, talk about their work:
+When you demo a change, shut up about the "user story" and answer the only four things they actually want to know:
 
-- the points in the day where work gets stuck
-- the handoffs that create delays or confusion
-- the workarounds people rely on to get outcomes
-- the risks they carry when the system does not support the task
+1. What does this let me do differently?
+2. When can I actually use it?
+3. How do I start using it?
+4. What's going to change, disappear, or get harder?
 
-When you show something new, most people only care about four things:
+If you cannot describe a product change using the nouns and verbs your users use, you do not understand the service well enough to be directing it.
 
-1. What will this let me do differently?
-2. When can I use it?
-3. How do I get access?
-4. What is going to change, disappear, or get harder?
-
-That is usually enough to get useful feedback quickly.
-
-If your session sounds like backlog refinement, people are being asked to engage in your process instead of telling you about their reality.
-
-If people need to understand your delivery framework before they can explain their work, you are asking the wrong thing in the wrong language.
-
-And if you cannot describe a change using their nouns and verbs, you probably do not understand the work well enough yet.
+Keep the "how" in your team room. Bring the "what" and "why" to your users.
