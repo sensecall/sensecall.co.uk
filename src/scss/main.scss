@@ -148,6 +148,10 @@ body {
     margin-block-end: 0;
   }
 
+  main .post-prose :where(img):not(:where([class~='not-prose'] *)) {
+    @apply rounded-lg;
+  }
+
   .kicker {
     @apply text-gray-500 dark:text-gray-300 font-light;
     font-size: clamp(1.25rem, 1.05rem + 1vw, 1.875rem);
