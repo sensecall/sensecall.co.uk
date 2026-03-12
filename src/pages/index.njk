@@ -146,7 +146,7 @@ permalink: /
         {% for service in services %}
             <div class="mb-5 flex h-full flex-col">
                 {% if service.image %}
-                    <div class="mb-3 flex h-36 w-full items-end md:h-40">
+                    <div class="mb-3 flex h-36 w-full items-end rounded-lg dark:items-center dark:justify-center dark:border dark:border-zinc-300/30 dark:bg-white/95 dark:p-3 md:h-40">
                         <img src="{{ service.image }}"
                              alt="{{ service.imageAlt }}"
                              class="h-full w-auto rounded-lg object-contain"
