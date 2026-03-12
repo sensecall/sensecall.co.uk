@@ -12,7 +12,6 @@ isPostPage: true
     {% set seriesPostIntro = null %}
     {% set seriesIllustration = null %}
     {% set seriesIllustrationAlt = "" %}
-    {% set seriesPosition = 0 %}
     {% if series %}
         {% set seriesPosts = collections.post | postsInSeries(series) %}
         {% set seriesLink = series.url or (series | seriesUrl) %}
@@ -20,9 +19,6 @@ isPostPage: true
         {% set seriesPostIntro = series.postIntro or series.post_intro or series.intro %}
         {% set seriesIllustration = series.illustration or series.image %}
         {% set seriesIllustrationAlt = series.illustrationAlt or series.illustration_alt or series.imageAlt or series.image_alt or "" %}
-        {% if seriesPosts.length > 0 %}
-            {% set seriesPosition = seriesPosts | getCollectionIndex(page) %}
-        {% endif %}
     {% endif %}
     {% set hasSeriesSidebar = series and seriesPosts.length > 0 %}
     <div class="{% if hasSeriesSidebar %}max-w-7xl{% else %}max-w-4xl{% endif %}">
@@ -78,11 +74,21 @@ isPostPage: true
                 <aside class="mt-8 lg:mt-0" aria-labelledby="series-sidebar-heading">
                     <nav class="callout-top callout-top-series callout-surface-series lg:sticky lg:top-24" aria-label="Posts in this series">
                         {% if seriesIllustration %}
-                            <img src="{{ seriesIllustration }}"
-                                 alt="{{ seriesIllustrationAlt }}"
-                                 class="mb-4 w-full rounded-xl dark:bg-white dark:p-1 dark:border dark:border-sky-800/70"
-                                 loading="lazy"
-                                 decoding="async">
+                            {% if seriesLink %}
+                                <a href="{{ seriesLink }}" class="block">
+                                    <img src="{{ seriesIllustration }}"
+                                         alt="{{ seriesIllustrationAlt }}"
+                                         class="mb-4 block w-44 sm:w-52 lg:w-full rounded-xl dark:bg-white dark:p-1 dark:border dark:border-sky-800/70"
+                                         loading="lazy"
+                                         decoding="async">
+                                </a>
+                            {% else %}
+                                <img src="{{ seriesIllustration }}"
+                                     alt="{{ seriesIllustrationAlt }}"
+                                     class="mb-4 block w-44 sm:w-52 lg:w-full rounded-xl dark:bg-white dark:p-1 dark:border dark:border-sky-800/70"
+                                     loading="lazy"
+                                     decoding="async">
+                            {% endif %}
                         {% endif %}
                         <h2 id="series-sidebar-heading" class="heading-xxs mb-2">
                             Series{% if seriesTitle %}: {{ seriesTitle }}{% endif %}
@@ -95,10 +101,7 @@ isPostPage: true
                             {% endif %}
                         </p>
                         {% if seriesPosts.length > 1 %}
-                            <p class="body-xs text-slate-600 dark:text-slate-400 mb-2">
-                                Post {{ seriesPosition }} of {{ seriesPosts.length }}
-                            </p>
-                            <h3 class="body-xs font-semibold text-slate-700 dark:text-slate-300 mb-2">Other posts</h3>
+                            <h3 class="body-xs font-semibold text-slate-700 dark:text-slate-300 mb-2">More in this series</h3>
                             <ol class="body-s space-y-2">
                                 {% for seriesPost in seriesPosts %}
                                     {% if seriesPost.url != page.url %}
@@ -114,8 +117,8 @@ isPostPage: true
                             </p>
                         {% endif %}
                         {% if seriesLink %}
-                            <p class="body-xs mt-3">
-                                <a href="{{ seriesLink }}" class="text-link">Browse all posts in this series</a>
+                            <p class="body-xs mt-6">
+                                <a href="{{ seriesLink }}" class="text-link">Browse all <span class="sr-only">posts in this series</span></a>
                             </p>
                         {% endif %}
                     </nav>

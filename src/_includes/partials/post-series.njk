@@ -5,16 +5,24 @@
   {% set seriesIllustration = series.illustration or series.image %}
   {% set seriesIllustrationAlt = series.illustrationAlt or series.illustration_alt or series.imageAlt or series.image_alt or "" %}
   {% set seriesLink = series.url or (series | seriesUrl) %}
-  {% set seriesPosts = collections.post | postsInSeries(series) %}
-  {% set seriesPosition = seriesPosts | getCollectionIndex(page) %}
 
   <section aria-labelledby="post-series" class="mb-8 callout-rail callout-rail-series">
       {% if seriesIllustration %}
-          <img src="{{ seriesIllustration }}"
-               alt="{{ seriesIllustrationAlt }}"
-               class="mb-3 w-full rounded-xl dark:bg-white dark:p-1 dark:border dark:border-slate-700/70"
-               loading="lazy"
-               decoding="async">
+          {% if seriesLink %}
+              <a href="{{ seriesLink }}" class="block">
+                  <img src="{{ seriesIllustration }}"
+                       alt="{{ seriesIllustrationAlt }}"
+                       class="mb-3 block w-44 sm:w-52 lg:w-full rounded-xl dark:bg-white dark:p-1 dark:border dark:border-slate-700/70"
+                       loading="lazy"
+                       decoding="async">
+              </a>
+          {% else %}
+              <img src="{{ seriesIllustration }}"
+                   alt="{{ seriesIllustrationAlt }}"
+                   class="mb-3 block w-44 sm:w-52 lg:w-full rounded-xl dark:bg-white dark:p-1 dark:border dark:border-slate-700/70"
+                   loading="lazy"
+                   decoding="async">
+          {% endif %}
       {% endif %}
       <h2 id="post-series" class="heading-xxs mb-2">
           Series{% if seriesTitle %}: {{ seriesTitle }}{% endif %}
@@ -28,15 +36,9 @@
           {% endif %}
       </p>
 
-      {% if seriesPosts.length > 1 %}
-          <p class="body-xs text-slate-600 dark:text-slate-400">
-              Post {{ seriesPosition }} of {{ seriesPosts.length }}
-          </p>
-      {% endif %}
-
       {% if seriesLink %}
-          <p class="body-xs mt-2">
-              <a href="{{ seriesLink }}" class="text-link">View all posts in this series</a>
+          <p class="body-xs mt-6">
+              <a href="{{ seriesLink }}" class="text-link">Browse all posts in this series</a>
           </p>
       {% endif %}
   </section>

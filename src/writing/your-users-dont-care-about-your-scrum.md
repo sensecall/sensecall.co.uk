@@ -7,7 +7,7 @@ layout: post
 series:
   key: product-ownership
   title: Product ownership
-  post_intro: "This post is part of a short series on product ownership. It explores how teams can stay user-centred while still taking responsibility for product decisions. In this post, I argue that users don't care about your backlog, and you should stop telling them about how you're building the thing and start talking about how you're making their lives easier."
+  post_intro: "This post is part of a short series on product ownership. It explores how teams can stay user-centred while still taking responsibility for product decisions."
   description: "A short series on product ownership, covering accountability, decision-making, and practical judgement in delivery teams. It focuses on clear ownership, evidence-based trade-offs, and avoiding decision-by-committee."
   illustration: /assets/images/product-owner-illustration.webp
   illustration_alt: Illustration of a product owner balancing user insight with product decision-making
