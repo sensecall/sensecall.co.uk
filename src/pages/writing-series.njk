@@ -23,6 +23,16 @@ eleventyComputed:
 
         <h1 class="heading-l">{{ seriesPage.title }}</h1>
 
+        {% if seriesPage.illustration %}
+            <div class="mt-2 mb-6 flex h-28 w-2/3 items-end rounded-lg sm:h-32 md:h-36 md:w-56 dark:items-center dark:justify-center dark:border dark:border-zinc-300/30 dark:bg-white/95 dark:p-2">
+                <img src="{{ seriesPage.illustration }}"
+                     alt="{{ seriesPage.illustrationAlt or ('Illustration for the ' ~ seriesPage.title ~ ' series') }}"
+                     class="h-full w-auto rounded-lg object-contain"
+                     loading="lazy"
+                     decoding="async">
+            </div>
+        {% endif %}
+
         {% if seriesPage.description %}
             <p class="body-m">{{ seriesPage.description }}</p>
         {% else %}
