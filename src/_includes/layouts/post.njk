@@ -10,12 +10,16 @@ isPostPage: true
     {% set seriesLink = null %}
     {% set seriesTitle = "" %}
     {% set seriesPostIntro = null %}
+    {% set seriesIllustration = null %}
+    {% set seriesIllustrationAlt = "" %}
     {% set seriesPosition = 0 %}
     {% if series %}
         {% set seriesPosts = collections.post | postsInSeries(series) %}
         {% set seriesLink = series.url or (series | seriesUrl) %}
         {% set seriesTitle = series.title or series.key or series %}
         {% set seriesPostIntro = series.postIntro or series.post_intro or series.intro %}
+        {% set seriesIllustration = series.illustration or series.image %}
+        {% set seriesIllustrationAlt = series.illustrationAlt or series.illustration_alt or series.imageAlt or series.image_alt or "" %}
         {% if seriesPosts.length > 0 %}
             {% set seriesPosition = seriesPosts | getCollectionIndex(page) %}
         {% endif %}
@@ -73,6 +77,13 @@ isPostPage: true
             {% if hasSeriesSidebar %}
                 <aside class="mt-8 lg:mt-0" aria-labelledby="series-sidebar-heading">
                     <nav class="callout-top callout-top-series callout-surface-series lg:sticky lg:top-24" aria-label="Posts in this series">
+                        {% if seriesIllustration %}
+                            <img src="{{ seriesIllustration }}"
+                                 alt="{{ seriesIllustrationAlt }}"
+                                 class="mb-4 w-full rounded-xl dark:bg-white dark:p-1 dark:border dark:border-sky-800/70"
+                                 loading="lazy"
+                                 decoding="async">
+                        {% endif %}
                         <h2 id="series-sidebar-heading" class="heading-xxs mb-2">
                             Series{% if seriesTitle %}: {{ seriesTitle }}{% endif %}
                         </h2>
@@ -122,7 +133,7 @@ isPostPage: true
                          loading="lazy"
                          decoding="async">
                     <p class="body-s">
-                        I'm Dan Sensecall, a UK-based freelance UX designer and service designer. I help Public Sector teams
+                        I'm Dan Sensecall, a UK-based <a href="/" class="text-current underline underline-offset-2 decoration-current hover:decoration-2 focus-visible:decoration-2">freelance UX designer</a> and service designer. I help Public Sector teams
                         make complex services simpler, clearer and easier to use.
                     </p>
                     <p class="body-s">

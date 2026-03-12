@@ -158,12 +158,20 @@ module.exports = function (eleventyConfig) {
     const description = isSeriesObject
       ? (seriesValue.description || seriesValue.listDescription || seriesValue.list_description || null)
       : null;
+    const illustration = isSeriesObject
+      ? (seriesValue.illustration || seriesValue.image || null)
+      : null;
+    const illustrationAlt = isSeriesObject
+      ? (seriesValue.illustrationAlt || seriesValue.illustration_alt || seriesValue.imageAlt || seriesValue.image_alt || null)
+      : null;
 
     return {
       key,
       title: isSeriesObject && seriesValue.title ? seriesValue.title : key,
       postIntro,
       description,
+      illustration,
+      illustrationAlt,
       url: isSeriesObject && seriesValue.url ? seriesValue.url : `/writing/series/${key}/`
     };
   };
@@ -229,6 +237,8 @@ module.exports = function (eleventyConfig) {
         title: seriesMeta.title,
         postIntro: seriesMeta.postIntro,
         description: seriesMeta.description,
+        illustration: seriesMeta.illustration,
+        illustrationAlt: seriesMeta.illustrationAlt,
         url: seriesMeta.url,
         posts: []
       };
@@ -243,6 +253,14 @@ module.exports = function (eleventyConfig) {
 
       if (!existingSeries.description && seriesMeta.description) {
         existingSeries.description = seriesMeta.description;
+      }
+
+      if (!existingSeries.illustration && seriesMeta.illustration) {
+        existingSeries.illustration = seriesMeta.illustration;
+      }
+
+      if (!existingSeries.illustrationAlt && seriesMeta.illustrationAlt) {
+        existingSeries.illustrationAlt = seriesMeta.illustrationAlt;
       }
 
       if (seriesMeta.url && !existingSeries.url) {

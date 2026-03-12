@@ -1,7 +1,7 @@
 ---
 title: User sign-off is not product accountability
 description: A practical argument against asking users to "sign off" solutions, and how product teams can use research without outsourcing accountability for go/no-go decisions.
-date: 2026-03-10
+date: 2026-03-09
 tags: ["Product Ownership", "Product Management", "User Research"]
 layout: post
 socialImage: /assets/images/product-owner-hiding.jpg
@@ -11,13 +11,15 @@ series:
   title: Product ownership
   post_intro: "This post is part of a short series on product ownership. It explores how teams can stay user-centred while still taking responsibility for product decisions."
   description: "A short series on product ownership, covering accountability, decision-making, and practical judgement in delivery teams. It focuses on clear ownership, evidence-based trade-offs, and avoiding decision-by-committee."
+  illustration: /assets/images/product-owner-illustration.webp
+  illustration_alt: Illustration of a product owner balancing user insight with product decision-making
 ---
 
 Product owners need to stop using "user sign-off" as cover for product decisions.
 
 There is a real difference between being user-centred and being decision-avoidant, and I keep seeing teams fall into the same pattern. They do the research, uncover real user pain points, and shape a sensible solution. Then, right at the point where product judgement is required, the Product Owner goes back to users and asks: *"Is this what you want?"* or *"Can you sign this off?"*
 
-![Product owner hiding behind a user sign-off form](/assets/images/product-owner-hiding.jpg)
+![Cartoon of a worried product owner using a group of users as a human shield from incoming arrows, representing the risks of outsourcing product accountability to user sign-off](/assets/images/product-owner-hiding.jpg)
 
 That is the wrong question.
 

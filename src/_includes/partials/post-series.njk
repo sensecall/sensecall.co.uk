@@ -2,11 +2,20 @@
   {% set seriesKey = series.key or series %}
   {% set seriesTitle = series.title or seriesKey %}
   {% set seriesPostIntro = series.postIntro or series.post_intro or series.intro %}
+  {% set seriesIllustration = series.illustration or series.image %}
+  {% set seriesIllustrationAlt = series.illustrationAlt or series.illustration_alt or series.imageAlt or series.image_alt or "" %}
   {% set seriesLink = series.url or (series | seriesUrl) %}
   {% set seriesPosts = collections.post | postsInSeries(series) %}
   {% set seriesPosition = seriesPosts | getCollectionIndex(page) %}
 
   <section aria-labelledby="post-series" class="mb-8 callout-rail callout-rail-series">
+      {% if seriesIllustration %}
+          <img src="{{ seriesIllustration }}"
+               alt="{{ seriesIllustrationAlt }}"
+               class="mb-3 w-full rounded-xl dark:bg-white dark:p-1 dark:border dark:border-slate-700/70"
+               loading="lazy"
+               decoding="async">
+      {% endif %}
       <h2 id="post-series" class="heading-xxs mb-2">
           Series{% if seriesTitle %}: {{ seriesTitle }}{% endif %}
       </h2>
