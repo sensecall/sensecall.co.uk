@@ -276,6 +276,77 @@ body {
       text-decoration-thickness: 2px;
     }
   }
+
+  .link-button {
+    --link-button-bg: #dbeafe;
+    --link-button-bg-hover: #bfdbfe;
+    --link-button-border: #93c5fd;
+    --link-button-text: #1d4ed8;
+    --link-button-text-hover: #1e40af;
+    --link-button-focus: #3b82f6;
+    @apply inline-flex items-center justify-center rounded-lg border border-b-4 px-4 py-2 font-semibold no-underline;
+    background-color: var(--link-button-bg);
+    border-color: var(--link-button-border);
+    color: var(--link-button-text);
+    transform: translateY(0);
+    transition: background-color 150ms ease, color 150ms ease, transform 120ms ease, border-bottom-width 120ms ease;
+
+    &:visited {
+      color: var(--link-button-text);
+    }
+
+    &:hover {
+      background-color: var(--link-button-bg-hover);
+      color: var(--link-button-text-hover);
+    }
+
+    &:focus-visible {
+      @apply outline-none;
+      outline: 2px solid var(--link-button-focus);
+      outline-offset: 2px;
+    }
+
+    &:active {
+      transform: translateY(2px);
+      border-bottom-width: 2px;
+    }
+  }
+
+  .link-button-brand {
+    --link-button-bg: #dbeafe;
+    --link-button-bg-hover: #bfdbfe;
+    --link-button-border: #93c5fd;
+    --link-button-text: #1d4ed8;
+    --link-button-text-hover: #1e40af;
+    --link-button-focus: #3b82f6;
+  }
+
+  .dark .link-button-brand {
+    --link-button-bg: #1e3a8a;
+    --link-button-bg-hover: #1d4ed8;
+    --link-button-border: #60a5fa;
+    --link-button-text: #dbeafe;
+    --link-button-text-hover: #ffffff;
+    --link-button-focus: #93c5fd;
+  }
+
+  .link-button-slate {
+    --link-button-bg: #e2e8f0;
+    --link-button-bg-hover: #cbd5e1;
+    --link-button-border: #94a3b8;
+    --link-button-text: #1e293b;
+    --link-button-text-hover: #0f172a;
+    --link-button-focus: #475569;
+  }
+
+  .dark .link-button-slate {
+    --link-button-bg: #334155;
+    --link-button-bg-hover: #475569;
+    --link-button-border: #64748b;
+    --link-button-text: #e2e8f0;
+    --link-button-text-hover: #f8fafc;
+    --link-button-focus: #cbd5e1;
+  }
 }
 
 // Selection styles
