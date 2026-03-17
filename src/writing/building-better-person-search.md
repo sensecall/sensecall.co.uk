@@ -14,59 +14,62 @@ How do we search a complex dataset to find a person?
 
 Seems fairly simple at first glance. Just give the user a search field, send the query to the backend, and get the results back.
 
-<!-- example of a simple single field person search interface -->
-<div class="bg-white dark:bg-stone-900 shadow-md p-8 rounded-lg">
-    <div class="space-y-2">
-        <label class="text-lg font-medium block" for="person-search-example-1">Search for a person</label>
-        <div class="flex gap-4">
-            <input type="text" id="person-search-example-1" class="flex-1 p-2 border border-stone-300 dark:border-stone-600 rounded-md" placeholder="Enter a name" value="David Smith 1980-07-30">
-            <button class="bg-blue-600 dark:bg-blue-400 text-white px-4 py-2 rounded-md">Search</button>
-        </div>
+<!-- Example: simple single-field search -->
+<div class="post-code-example">
+  <div class="post-code-example__stack">
+    <label class="post-code-example__label" for="person-search-example-1">Search for a person</label>
+    <div class="post-code-example__search-row">
+      <input
+        type="text"
+        id="person-search-example-1"
+        class="post-code-example__input"
+        placeholder="Enter a name"
+        value="David Smith 1980-07-30"
+      >
+      <button type="button" class="post-code-example__button">Search</button>
     </div>
+  </div>
 
-   <div class="mt-6">
-        <h2 class="text-lg font-medium mb-2">Results</h2>
-        <div class="text-stone-600 dark:text-stone-400">
-            Found 20,000 documents matching "David Smith 1980-07-30".
-        </div>
-    </div>
+  <div class="post-code-example__results">
+    <h3 class="post-code-example__results-title">Results</h3>
+    <p class="post-code-example__result-text">Found 20,000 documents matching "David Smith 1980-07-30".</p>
+  </div>
 </div>
 
 Or, another example:
 
-<!-- example of a simple single field person search interface -->
-<div class="bg-white dark:bg-stone-900 shadow-md p-8 rounded-lg">
-    <div class="space-y-2">
-        <label class="text-lg font-medium block" for="person-search-example-2">Search for a person</label>
-        <div class="flex gap-4">
-            <input type="text" id="person-search-example-2" class="flex-1 p-2 border border-stone-300 dark:border-stone-600 rounded-md" placeholder="Enter a name" value="Yaroslav D Petrovic 1980-07-30">
-            <button class="bg-blue-600 dark:bg-blue-400 text-white px-4 py-2 rounded-md">Search</button>
-        </div>
+<!-- Example: simple single-field search with a more specific query -->
+<div class="post-code-example">
+  <div class="post-code-example__stack">
+    <label class="post-code-example__label" for="person-search-example-2">Search for a person</label>
+    <div class="post-code-example__search-row">
+      <input
+        type="text"
+        id="person-search-example-2"
+        class="post-code-example__input"
+        placeholder="Enter a name"
+        value="Yaroslav D Petrovic 1980-07-30"
+      >
+      <button type="button" class="post-code-example__button">Search</button>
     </div>
-    <div class="mt-6">
-        <h2 class="text-lg font-medium mb-2">Results</h2>
-        <div class="text-stone-600 dark:text-stone-400">
-            Found 300 documents matching "Yaroslav D Petrovic 1980-07-30".
-        </div>
-    </div>
+  </div>
+  <div class="post-code-example__results">
+    <h3 class="post-code-example__results-title">Results</h3>
+    <p class="post-code-example__result-text">Found 300 documents matching "Yaroslav D Petrovic 1980-07-30".</p>
+  </div>
 </div>
 
 ## Except it's not that simple
 On the face of it, the two examples look ok – we did a search for a person and got some results back. 
 
-But, in reality, we'd almost certainly find that the results returned don't actually contain the person we were looking for.
+But, in reality, we'd almost certainly find that the results returned **don't actually contain the person we were looking for**.
 
 ### Why not?
-#### Data quality
-Data quality in large, complex datasets is often poor:
-- Names get recorded in different ways (e.g. "Yaroslav Petrovic" vs "Yaroslav Dmytro Petrovic")
-- Dates of birth might be entered in various formats (e.g. "1980-07-30" vs "30 July 1980")
-- Data may be recorded in different fields, or embedded within long-form free-text fields.
+Data quality in large, complex datasets is often poor, which means:
 
-#### Name variations
-Very often, subjects may choose to go by a nickname or alias, or they may have a middle name that they prefer to be called by. For example, "Yaroslav D Petrovic" might be known to their friends as "Dima", and their official records may list their full name as "Yaroslav Dmytro Petrovic".
-
-International families may also have different name orders, or use initials instead of a full name. There's a great article on [W3C Personal Names Around the World](https://www.w3.org/International/questions/qa-personal-names) that covers some of these variations.
+- names often get recorded in different ways, for example "Yaroslav Petrovic" vs "Yaroslav Dmytro Petrovic".
+- dates of birth might be entered or included in multiple formats, for example "1980-07-30" vs "30 July 1980".
+- structured data may be recorded in different fields, or embedded within long-form free-text fields.
 
 
 ## How do users deal with these problems?
@@ -108,30 +111,46 @@ The main problems we've identified with searching for people in a dataset are:
 
 If we allow users to enter the information they know in a structured format, we can transform it into useful variations for searching:
 
-<div class="bg-white dark:bg-stone-900 shadow-md p-8 rounded-lg">
-<div class="grid grid-cols-3 gap-4 mb-6">
-<div>
-<label class="block text-sm font-medium mb-2">First name</label>
-<input type="text" class="w-full p-2 border-2 border-stone-200 rounded" value="David">
-</div>
-<div>
-<label class="block text-sm font-medium mb-2">Middle name</label>
-<input type="text" class="w-full p-2 border-2 border-stone-200 rounded" value="James">
-</div>
-<div>
-<label class="block text-sm font-medium mb-2">Last name</label>
-<input type="text" class="w-full p-2 border-2 border-stone-200 rounded" value="Smith">
-</div>
-</div>
-<pre class="font-mono text-sm p-4 rounded border-2 border-stone-200">
-David James Smith      # full names
-Smith, David James    # full names, reversed
-D J Smith            # initials
-Smith, D J          # initials, reversed
-James David Smith   # middle name first
-Smith, James David # middle name first, reversed
-D Smith            # first initial only
-Smith, D          # first initial only, reversed</pre>
+<div class="post-code-example" data-name-variation-demo>
+  <div class="post-code-example__field-grid post-code-example__field-grid--3">
+    <div class="post-code-example__field">
+      <label class="post-code-example__label" for="structured-first-name">First name</label>
+      <input
+        type="text"
+        id="structured-first-name"
+        class="post-code-example__input"
+        data-name-first
+        value="David"
+      >
+    </div>
+    <div class="post-code-example__field">
+      <label class="post-code-example__label" for="structured-middle-name">Middle name</label>
+      <input
+        type="text"
+        id="structured-middle-name"
+        class="post-code-example__input"
+        data-name-middle
+        value="James"
+      >
+    </div>
+    <div class="post-code-example__field">
+      <label class="post-code-example__label" for="structured-last-name">Last name</label>
+      <input
+        type="text"
+        id="structured-last-name"
+        class="post-code-example__input"
+        data-name-last
+        value="Smith"
+      >
+    </div>
+  </div>
+  <div class="post-code-example__output-wrap">
+    <h3 id="structured-name-variations-title" class="post-code-example__output-title">Search variations generated from this input</h3>
+    <pre class="post-code-example__output" aria-live="polite" aria-labelledby="structured-name-variations-title"><code data-name-output>David James Smith
+Smith, David James
+D J Smith
+Smith, D J</code></pre>
+  </div>
 </div>
 
 This structured approach allows us to:
@@ -143,29 +162,49 @@ This structured approach allows us to:
 
 ## We can also take a similar approach to dates
 
-<div class="bg-white dark:bg-stone-900 shadow-md p-8 rounded-lg">
-<div class="grid grid-cols-3 gap-4 mb-6">
-<div>
-<label class="block text-sm font-medium mb-2">Day</label>
-<input type="text" class="w-full p-2 border-2 border-stone-200 rounded" value="30">
-</div>
-<div>
-<label class="block text-sm font-medium mb-2">Month</label>
-<input type="text" class="w-full p-2 border-2 border-stone-200 rounded" value="7">
-</div>
-<div>
-<label class="block text-sm font-medium mb-2">Year</label>
-<input type="text" class="w-full p-2 border-2 border-stone-200 rounded" value="1980">
-</div>
-</div>
-<pre class="font-mono text-sm p-4 rounded border-2 border-stone-200">
-30 July 1980
+<div class="post-code-example" data-date-variation-demo>
+  <div class="post-code-example__field-grid post-code-example__field-grid--3">
+    <div class="post-code-example__field">
+      <label class="post-code-example__label" for="structured-dob-day">Day</label>
+      <input
+        type="text"
+        inputmode="numeric"
+        id="structured-dob-day"
+        class="post-code-example__input"
+        data-date-day
+        value="30"
+      >
+    </div>
+    <div class="post-code-example__field">
+      <label class="post-code-example__label" for="structured-dob-month">Month</label>
+      <input
+        type="text"
+        inputmode="numeric"
+        id="structured-dob-month"
+        class="post-code-example__input"
+        data-date-month
+        value="7"
+      >
+    </div>
+    <div class="post-code-example__field">
+      <label class="post-code-example__label" for="structured-dob-year">Year</label>
+      <input
+        type="text"
+        inputmode="numeric"
+        id="structured-dob-year"
+        class="post-code-example__input"
+        data-date-year
+        value="1980"
+      >
+    </div>
+  </div>
+  <div class="post-code-example__output-wrap">
+    <h3 id="structured-date-variations-title" class="post-code-example__output-title">Date formats generated from this input</h3>
+    <pre class="post-code-example__output" aria-live="polite" aria-labelledby="structured-date-variations-title"><code data-date-output>1980-07-30
 30/07/1980
-1980-07-30
-30th July 1980
-July 30th, 1980
-... and so on.
-</pre>
+07/30/1980
+30 July 1980</code></pre>
+  </div>
 </div>
 
 
@@ -196,29 +235,53 @@ The interface has three main parts:
 
 How it might look in practice:
 
-<div class="bg-white dark:bg-stone-900 shadow-md p-8 rounded-lg flex flex-row gap-4">
-    <div class="flex-1">
-        <label class="text-lg font-medium mb-2" for="person-search-example-2-first-name">First name</label>
-        <input type="text" id="person-search-example-2-first-name" class="w-full p-2 border border-stone-300 dark:border-stone-600 rounded-md" placeholder="Enter a name" value="David">
+<div class="post-code-example" data-name-variation-demo>
+  <div class="post-code-example__field-grid post-code-example__field-grid--3">
+    <div class="post-code-example__field">
+      <label class="post-code-example__label" for="name-handling-first-name">First name</label>
+      <input
+        type="text"
+        id="name-handling-first-name"
+        class="post-code-example__input"
+        data-name-first
+        value="David"
+      >
     </div>
-    <div class="flex-1">
-        <label class="text-lg font-medium mb-2" for="person-search-example-2-last-name">Last name</label>
-        <input type="text" id="person-search-example-2-last-name" class="w-full p-2 border border-stone-300 dark:border-stone-600 rounded-md" placeholder="Enter a name" value="Smith">
+    <div class="post-code-example__field">
+      <label class="post-code-example__label" for="name-handling-middle-name">Middle name</label>
+      <input
+        type="text"
+        id="name-handling-middle-name"
+        class="post-code-example__input"
+        data-name-middle
+        value="James"
+      >
     </div>
-</div>
-
-The pattern generates several types of name variations:
-
-```
-David James Smith
+    <div class="post-code-example__field">
+      <label class="post-code-example__label" for="name-handling-last-name">Last name</label>
+      <input
+        type="text"
+        id="name-handling-last-name"
+        class="post-code-example__input"
+        data-name-last
+        value="Smith"
+      >
+    </div>
+  </div>
+  <div class="post-code-example__output-wrap">
+    <h3 id="name-handling-variations-title" class="post-code-example__output-title">Generated name variations</h3>
+    <pre class="post-code-example__output" aria-live="polite" aria-labelledby="name-handling-variations-title"><code data-name-output>David James Smith
 Smith, David James
 James David Smith
 Smith, James David
 D J Smith
 Smith, D J
 J D Smith
-Smith, J D
-```
+Smith, J D</code></pre>
+  </div>
+</div>
+
+The pattern generates several types of name variations as you type.
 
 This helps match records where:
 - Names are stored in different orders
@@ -301,3 +364,5 @@ I'd love to hear your thoughts on this pattern. How could it be improved? What o
 - [GOV.UK Design System - Names](https://design-system.service.gov.uk/patterns/names/)
 - [W3C Personal Names Around the World](https://www.w3.org/International/questions/qa-personal-names)
 - [Falsehoods Programmers Believe About Names](https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/) 
+
+<script src="/assets/js/writing/person-search-variations.js" defer></script>
