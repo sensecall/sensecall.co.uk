@@ -1,5 +1,5 @@
 ---
-title: 'Stop Taking Orders: Why Your "User Research" Might Not Be User Research'
+title: 'Stop taking orders: why your "user research" might not be user research'
 description: Why teams often mistake conversations with users for research, and how to avoid building products that address a symptom while leaving the root problem untouched.
 date: 2026-03-17
 tags: ["Product Ownership", "User Research", "Service Design"]
