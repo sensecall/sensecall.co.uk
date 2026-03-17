@@ -19,26 +19,28 @@ Users don't give a damn about your backlog.
 
 ![Product owner explaining a complex scrum board to confused expert users during a stakeholder session, illustrating common agile communication issues between delivery teams and end users](/assets/images/product-owner-stakeholder-session-illustration.jpg)
 
-I've spent my career building services for expert users: police officers, caseworkers, and civil servants who spend 40 hours a week using the services we've built for them. These people have high-stakes roles and they do not have the mental bandwidth to navigate your delivery team's internal admin.
+I've spent my career building services for expert users: police officers, caseworkers, and civil servants who spend 40 hours a week using the services we've built for them. These people often have high-stakes roles and they don't have the mental bandwidth to wonder about your delivery team's internal admin. They just want to get on with their job.
 
-Expert users care about whether the service you're building helps them get through their day without a headache. They do not care about sprint velocity, "ready" criteria, or the elegant way you've organised your tickets and prioritised the backlog.
+Expert users care about whether the service you're building helps them get through their day without a headache.
 
-When you pull users into the machinery of how software gets built, you are not being "transparent", you are being lazy. You are forcing them to do the translation work that you should be doing. The second you pivot to delivery language, you remove those experts from the conversation, because you've moved the discussion out of their world and into your own.
+They do not care about sprint velocity, "ready" criteria, or the elegant way you've organised your tickets and prioritised the backlog.
 
-When you get time with people who use your product every day, stop talking about your delivery processes and start talking about the challenges your users face:
+When you pull users into the machinery of how software gets built, you might think you're being "transparent", but you're actually being lazy. You are forcing them to do the translation work that you should be doing. The second you pivot to delivery language, you effectively remove those experts from the conversation, because you've moved the discussion out of their world and into your own.
+
+When you get time with people who use your service or product every day, stop talking about your delivery processes and start talking about the challenges your users face:
 
 - Where does the work get stuck?
 - Which handovers cause the most confusion or delay?
 - What workarounds have people created to get the job done?
 - What risks do people face when the software does not support the task properly?
 
-When you demo a change, shut up about the "user story" and answer the only four things they actually want to know:
+When you demo a change, stop talking about "user stories" and answer the only four things they actually want to know:
 
 1. What does this let me do differently?
 2. When can I actually use it?
 3. How do I start using it?
 4. What's going to change, disappear, or get harder?
 
-If you cannot describe a product change using the nouns and verbs your users use, you do not understand the service well enough to be directing it.
+If you can't describe a product change using the nouns and verbs your users use, you don't understand the service well enough to be directing it.
 
-Keep the "how" in your team room. Bring the "what" and "why" to your users.
+Keep the "how" in your delivery team. Bring the "what" and "why" to your users. It's their service, after all.
