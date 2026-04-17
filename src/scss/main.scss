@@ -236,6 +236,45 @@ body {
     line-height: 1.65;
   }
 
+  .tag-list {
+    @apply m-0 mb-3 flex list-none flex-wrap gap-2 p-0;
+  }
+
+  .tag-pill {
+    @apply inline-flex rounded border border-gray-200 bg-gray-50 px-2 py-1 text-sm text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400;
+  }
+
+  .role-org {
+    @apply text-gray-500 dark:text-gray-400;
+  }
+
+  p.body-s.role-org {
+    margin-bottom: 0.125rem;
+  }
+
+  .role-org + .role-title {
+    margin-block-start: 0;
+  }
+
+  h3.heading-s.role-title {
+    margin-block-start: 0;
+    margin-block-end: 0.35rem;
+  }
+
+  .role-meta {
+    @apply inline-flex items-center gap-1.5 text-gray-500 dark:text-gray-400;
+  }
+
+  p.body-s.role-meta {
+    margin-bottom: 0.6rem;
+  }
+
+  .role-meta-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+  }
+
   .callout-rail {
     @apply border-l-8 pl-5 py-4 md:pl-6 md:py-5;
   }
@@ -679,4 +718,89 @@ body {
             }
         }
     }
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  body {
+    min-height: auto;
+  }
+
+  .site-nav,
+  .site-footer-wrap,
+  #back-to-top,
+  #mobile-menu-button,
+  #mobile-menu-close,
+  #dark-mode-toggle,
+  #font-switcher,
+  .image-viewer-modal,
+  .image-viewer-close,
+  .js-only {
+    display: none !important;
+  }
+
+  main.container {
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  li,
+  a,
+  span {
+    color: #000 !important;
+  }
+
+  a,
+  a:visited {
+    color: #000 !important;
+    text-decoration: underline !important;
+    text-decoration-thickness: 1px !important;
+  }
+
+  .callout-rail,
+  .callout-top,
+  .callout-surface-muted,
+  .callout-surface-series {
+    background: transparent !important;
+    border-color: #999 !important;
+  }
+
+  h1,
+  h2,
+  h3 {
+    break-after: avoid-page;
+    page-break-after: avoid;
+  }
+
+  section,
+  article,
+  li {
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
 }
