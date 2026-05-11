@@ -1,6 +1,6 @@
 ---
-title: Building a kitchen
-description: A builder who says yes to a flawed plan and a delivery team that only softens bad news have something in common—the cost usually lands on the people who have to live with the result.
+title: Why delivery teams must challenge flawed briefs
+description: On digital transformation projects, saying yes to a weak brief passes the cost to users. What good delivery teams do instead—and why awkward conversations beat expensive mistakes.
 date: 2026-05-05
 tags: ["Digital Transformation", "Service Design", "Consulting"]
 layout: post

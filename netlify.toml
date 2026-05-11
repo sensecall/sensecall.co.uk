@@ -11,3 +11,14 @@
 	from = "/portfolio/"
 	to = "/projects"
 	status = 301
+
+# Post renamed for clearer SEO (May 2026); preserve inbound links.
+[[redirects]]
+	from = "/writing/building-a-kitchen"
+	to = "/writing/why-delivery-teams-must-challenge-flawed-briefs/"
+	status = 301
+
+[[redirects]]
+	from = "/writing/building-a-kitchen/"
+	to = "/writing/why-delivery-teams-must-challenge-flawed-briefs/"
+	status = 301
