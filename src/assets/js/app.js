@@ -118,6 +118,8 @@ const fullscreenImage = {
   focusableSelector: 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
 
   init() {
+    if (!document.querySelector('[data-enlargeable="true"]')) return;
+
     this.activeTrigger = null;
     this.previousBodyOverflow = '';
     this.createModal();
@@ -674,14 +676,6 @@ const projectCards = {
     }
 };
 
-const lucideIcons = {
-    init() {
-        if (window.lucide && typeof window.lucide.createIcons === 'function') {
-            window.lucide.createIcons();
-        }
-    }
-};
-
 const copyEmail = () => {
     navigator.clipboard.writeText('dan@sensecall.co.uk').then(() => {
         const btn = document.getElementById('copyEmailBtn');
@@ -708,7 +702,6 @@ const initCopyEmail = () => {
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     try {
-        lucideIcons.init();
         fontSwitcher.init();
         darkMode.init(document.getElementById('dark-mode-toggle'));
         fullscreenImage.init();
