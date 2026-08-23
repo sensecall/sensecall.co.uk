@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 - Source lives in `src/` with Nunjucks templates under `src/pages`, shared partials in `src/_includes`, and long-form content in `src/writing` and `src/projects`.
-- Static assets are in `src/assets` and client scripts in `src/js`; styles come from `src/scss/main.scss`, compiled into `_site/css/`.
+- Static assets and client scripts are in `src/assets`; styles come from `src/scss/main.scss`, compiled into `_site/css/`.
 - The production build outputs to `_site/`; avoid editing files there directly because they are generated.
 - Global configuration sits at the repo root (`package.json`, `netlify.toml`, `tailwind.config.js`).
 
@@ -17,13 +17,21 @@
 - Use 2-space indentation for Nunjucks, HTML, JS, and SCSS.
 - Favor semantic HTML with Tailwind utility classes for layout/spacing; keep custom SCSS scoped and minimal.
 - Name assets and includes descriptively in lowercase with hyphens (e.g., `case-studies.njk`, `service-design.jpg`).
-- Keep inline scripts lightweight; prefer `src/js` modules when behavior grows.
+- Keep inline scripts lightweight; prefer modules under `src/assets/js` when behavior grows.
 - Match the existing tone of voice: concise, plain English, and user-centred; reuse established headings and CTA patterns to stay consistent across pages.
 
 ## Testing Guidelines
 - No automated test suite exists; use `npm run build` as the pre-PR smoke test and confirm `_site/` renders correctly.
 - Before pushing UI changes, spot-check key pages (`/`, `/writing/`, `/projects/`) in light/dark themes and on mobile widths.
 - Always verify accessibility basics: heading order, focus states, color contrast, and ARIA labels for interactive elements introduced or changed.
+
+## Performance Guidelines
+- Treat mobile performance as the default constraint: preserve a fast first render and re-check the homepage with Lighthouse/PageSpeed after changing global layout, CSS, fonts, images, analytics, or third-party scripts.
+- Use LCP at or below 2.5 seconds, CLS at or below 0.1, and a mobile Lighthouse performance score of at least 90 as review targets; compare the median of repeated runs because lab scores vary.
+- Do not serve source-size raster images directly in cards, avatars, or thumbnails. Generate appropriately sized variants, use modern formats where practical, and provide `srcset`/`sizes` when the rendered size varies by breakpoint.
+- Give every `<img>` intrinsic `width` and `height` attributes. Keep below-the-fold images lazy-loaded, but do not lazy-load the likely LCP asset.
+- Avoid site-wide third-party JavaScript when a page-local script, inline SVG, or native browser feature will do. Defer non-essential analytics and enhancements until after critical content has rendered.
+- Keep font requests and weights minimal. Prefer self-hosted subsets or a single non-blocking font-loading path; do not request the same font stylesheet from both HTML and CSS.
 
 ## Commit & Pull Request Guidelines
 - Follow the existing Git history: short, present-tense commit subjects (e.g., `adjust hero spacing`, `fix nav contrast`).

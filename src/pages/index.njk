@@ -13,11 +13,14 @@ permalink: /
     <div class="max-w-4xl">
         <p class="heading-l flex items-center mb-[clamp(1rem,0.9rem+0.5vw,1.375rem)] max-[480px]:text-[clamp(1.35rem,1.1rem+1.8vw,1.64rem)]">
             <span class="mr-2 flex size-16 shrink-0 overflow-hidden rounded-full border-0 max-[480px]:mr-1 md:size-28 lg:mr-3 dark:border dark:border-zinc-400/90 dark:bg-white">
-                <img src="/assets/images/dan-sensecall-avatar-line-art.png"
+                <img src="/assets/images/dan-sensecall-avatar-line-art-128.webp"
+                     srcset="/assets/images/dan-sensecall-avatar-line-art-128.webp 128w,
+                             /assets/images/dan-sensecall-avatar-line-art-224.webp 224w"
+                     sizes="(min-width: 768px) 112px, 64px"
                      alt="Dan Sensecall"
                      class="h-full min-h-0 w-full min-w-0 object-contain"
-                     width="1024"
-                     height="1024">
+                     width="112"
+                     height="112">
             </span>
             <span class="ml-2 max-[480px]:ml-1">Hi! I'm Dan Sensecall.</span>
         </p>
@@ -47,15 +50,19 @@ permalink: /
                 <div class="flex items-center justify-start"
                      role="img"
                      aria-label="{{ logo.name }}">
-                    <img src="/assets/images/clients/{{ logo.image | replace('.svg', '--dark.svg') if (logo.image.endsWith('.svg')) else logo.image }}"
+                    <img src="/assets/images/clients/{{ logo.image | replace('.svg', '--dark-320.webp') if (logo.image.endsWith('.svg')) else logo.image }}"
                          alt="{{ logo.name }} logo"
                          width="100"
                          height="50"
+                         loading="lazy"
+                         decoding="async"
                          class="hidden dark:block w-full max-w-[90px] sm:max-w-[100px] md:max-w-[120px] lg:max-w-[120px] xl:max-w-[140px] 2xl:max-w-[160px] h-auto object-contain" />
-                    <img src="/assets/images/clients/{{ logo.image }}"
+                    <img src="/assets/images/clients/{{ logo.image | replace('.svg', '-320.webp') if (logo.image.endsWith('.svg')) else logo.image }}"
                          alt="{{ logo.name }} logo"
                          width="100"
                          height="50"
+                         loading="lazy"
+                         decoding="async"
                          class="dark:hidden w-full max-w-[90px] sm:max-w-[100px] md:max-w-[120px] lg:max-w-[120px] xl:max-w-[140px] 2xl:max-w-[160px] h-auto object-contain" />
                 </div>
             {% endfor %}
@@ -94,6 +101,10 @@ permalink: /
                 "text": "Read more about service design"
             },
             "image": "/assets/images/illustration-sketches/service-blueprint.webp",
+            "imageWidth": 1611,
+            "imageHeight": 984,
+            "imageMobileWidth": 236,
+            "imageDesktopWidth": 262,
             "imageAlt": "A diagram showing a service design blueprint with connected flow steps",
             "colour": "text-emerald-600 dark:text-emerald-400"
             },
@@ -105,6 +116,10 @@ permalink: /
                     "text": "Read more about interaction design"
                 },
                 "image": "/assets/images/illustration-sketches/interaction-design.webp",
+                "imageWidth": 1302,
+                "imageHeight": 816,
+                "imageMobileWidth": 230,
+                "imageDesktopWidth": 255,
                 "imageAlt": "A diagram showing a user interaction flow with connected steps",
                 "icon": "sparkles",
                 "colour": "text-stone-600 dark:text-stone-400"
@@ -117,6 +132,10 @@ permalink: /
                     "text": "Read more about user research"
                 },
                 "image": "/assets/images/illustration-sketches/user-research.webp",
+                "imageWidth": 1493,
+                "imageHeight": 704,
+                "imageMobileWidth": 305,
+                "imageDesktopWidth": 339,
                 "imageAlt": "A diagram showing a user research process with connected steps",
                 "icon": "user",
                 "colour": "text-violet-600 dark:text-violet-400"
@@ -129,6 +148,10 @@ permalink: /
                     "text": "Read more about accessibility"
                 },
                 "image": "/assets/images/illustration-sketches/accessibility.webp",
+                "imageWidth": 1335,
+                "imageHeight": 895,
+                "imageMobileWidth": 215,
+                "imageDesktopWidth": 239,
                 "imageAlt": "A diagram showing a user with a screen reader and a keyboard",
                 "colour": "text-amber-600 dark:text-amber-400"
             },
@@ -140,6 +163,10 @@ permalink: /
                     "text": "Read more about content design"
                 },
                 "image": "/assets/images/illustration-sketches/content-design.webp",
+                "imageWidth": 1482,
+                "imageHeight": 982,
+                "imageMobileWidth": 217,
+                "imageDesktopWidth": 241,
                 "imageAlt": "A diagram showing a user with a screen reader and a keyboard",
                 "colour": "text-rose-600 dark:text-rose-400"
             }
@@ -149,22 +176,42 @@ permalink: /
             <div class="mb-5 flex h-full flex-col">
                 {% if service.image %}
                     <div class="mb-3 flex h-36 w-full items-end rounded-lg dark:items-center dark:justify-center dark:border dark:border-zinc-300/30 dark:bg-white/95 dark:p-3 md:h-40">
-                        <img src="{{ service.image }}"
+                        <img src="{{ service.image | replace('.webp', '-320.webp') }}"
+                             srcset="{{ service.image | replace('.webp', '-320.webp') }} 320w,
+                                     {{ service.image | replace('.webp', '-480.webp') }} 480w,
+                                     {{ service.image | replace('.webp', '-640.webp') }} 640w"
+                             sizes="(min-width: 768px) {{ service.imageDesktopWidth }}px, {{ service.imageMobileWidth }}px"
                              alt="{{ service.imageAlt }}"
                              class="h-full w-auto rounded-lg object-contain"
+                             width="{{ service.imageWidth }}"
+                             height="{{ service.imageHeight }}"
                              loading="lazy"
                              decoding="async">
                     </div>
                 {% endif %}
                 <h2 class="heading-xs flex items-center gap-3">
                     {% if not service.image %}
-                        <div 
-                            class="inline-flex items-center justify-center rounded-full bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 {{ service.colour }} shadow-sm h-10 w-10" 
+                        <div
+                            class="inline-flex items-center justify-center rounded-full bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 {{ service.colour }} shadow-sm h-8 w-8"
                             aria-hidden="true"
                         >
-                            <i data-lucide="{{ service.icon }}"
-                               class="h-5 w-5"
-                               aria-hidden="true"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="h-4 w-4"
+                                 viewBox="0 0 24 24"
+                                 fill="none"
+                                 stroke="currentColor"
+                                 stroke-width="2"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round"
+                                 aria-hidden="true">
+                                {% if service.icon == "sparkles" %}
+                                    <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L4 12l5.8 1.9a2 2 0 0 1 1.3 1.3L13 21l1.9-5.8a2 2 0 0 1 1.3-1.3L22 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L13 3Z" />
+                                    <path d="M5 3v4M3 5h4M19 17v4M17 19h4" />
+                                {% elif service.icon == "user" %}
+                                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                {% endif %}
+                            </svg>
                         </div>
                     {% endif %}
                     {{ service.title }}
@@ -277,11 +324,15 @@ permalink: /
                                          alt="{{ project.client }} logo"
                                          width="260"
                                          height="88"
+                                         loading="lazy"
+                                         decoding="async"
                                          class="hidden h-auto max-h-12 w-auto max-w-[12rem] object-contain dark:block md:max-h-14 md:max-w-[15rem] lg:max-h-16 lg:max-w-[17rem] xl:max-h-18 xl:max-w-[19rem]" />
                                     <img src="/assets/images/clients/{{ project.logo }}"
                                          alt="{{ project.client }} logo"
                                          width="260"
                                          height="88"
+                                         loading="lazy"
+                                         decoding="async"
                                          class="block h-auto max-h-12 w-auto max-w-[12rem] object-contain dark:hidden md:max-h-14 md:max-w-[15rem] lg:max-h-16 lg:max-w-[17rem] xl:max-h-18 xl:max-w-[19rem]" />
                                 </div>
                                 <h3 id="project-{{ loop.index }}-title" 
@@ -400,9 +451,11 @@ permalink: /
             <div class="order-1 flex h-36 w-36 max-w-full items-end self-start rounded-lg dark:items-center dark:justify-center dark:border dark:border-zinc-300/30 dark:bg-white/95 dark:p-3 md:h-40 md:w-60 lg:order-2 lg:h-44 lg:w-72">
                 <img src="/assets/images/friendly-chat-illustration.webp"
                      alt="Two people discussing a project"
+                     width="522"
+                     height="316"
                      loading="lazy"
                      decoding="async"
-                     class="h-full w-auto rounded-lg object-contain">
+                     class="h-full w-full rounded-lg object-contain">
             </div>
         </div>
     </div>
