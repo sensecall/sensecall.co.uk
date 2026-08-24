@@ -103,6 +103,8 @@ const fontSwitcher = {
     },
 
     loadFont(fontKey, query) {
+        if (fontKey === 'atkinson-hyperlegible' || fontKey === 'dm-sans') return;
+
         const linkId = `dev-font-${fontKey}`;
         if (document.getElementById(linkId)) return;
 
@@ -408,7 +410,7 @@ const scrollToSection = {
         };
 
         // Add scroll listener with throttle
-        window.addEventListener('scroll', throttle(() => toggleVisibility(), 100));
+        window.addEventListener('scroll', throttle(() => toggleVisibility(), 100), { passive: true });
         
         // Add click listener
         button.addEventListener('click', (e) => {
@@ -419,8 +421,6 @@ const scrollToSection = {
             });
         });
 
-        // Set initial state
-        toggleVisibility();
     }
 };
 
@@ -480,8 +480,8 @@ const projectCards = {
         return 0;
     },
 
-    applyPosition() {
-        const offset = this.getStepWidth() * this.currentIndex;
+    applyPosition(stepWidth = this.getStepWidth()) {
+        const offset = stepWidth * this.currentIndex;
         this.track.style.transform = `translate3d(${-offset}px, 0, 0)`;
     },
 
@@ -652,10 +652,11 @@ const projectCards = {
         this.visibleCards = this.getVisibleCards();
         this.maxIndex = Math.max(this.cards.length - 1, 0);
         this.currentIndex = Math.min(this.currentIndex, this.maxIndex);
+        const stepWidth = this.getStepWidth();
 
         this.syncLoopClone();
         this.renderProgress();
-        this.applyPosition();
+        this.applyPosition(stepWidth);
         this.updateControls();
         this.updateProgress();
         this.updateVisibleCards();
@@ -711,7 +712,12 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('mobile-menu')
         );
         scrollToSection.init();
-        projectCards.init();
+        const initialiseProjectCards = () => projectCards.init();
+        if ('requestIdleCallback' in window) {
+            window.requestIdleCallback(initialiseProjectCards, { timeout: 2000 });
+        } else {
+            window.setTimeout(initialiseProjectCards, 0);
+        }
         initCopyEmail();
     } catch (error) {
         console.error('Error initializing app:', error);
