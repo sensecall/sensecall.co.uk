@@ -65,8 +65,9 @@ isPostPage: true
                     {{ content | safe }}
                 </div>
 
-                <div class="sr-only" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                <div class="sr-only" itemprop="author" itemscope itemtype="https://schema.org/Person" itemid="{{ site.url }}/#dan-sensecall">
                     <span itemprop="name">Dan Sensecall</span>
+                    <meta itemprop="url" content="{{ site.url }}/about/">
                 </div>
             </article>
 

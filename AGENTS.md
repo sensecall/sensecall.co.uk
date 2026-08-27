@@ -18,7 +18,16 @@
 - Favor semantic HTML with Tailwind utility classes for layout/spacing; keep custom SCSS scoped and minimal.
 - Name assets and includes descriptively in lowercase with hyphens (e.g., `case-studies.njk`, `service-design.jpg`).
 - Keep inline scripts lightweight; prefer modules under `src/assets/js` when behavior grows.
-- Match the existing tone of voice: concise, plain English, and user-centred; reuse established headings and CTA patterns to stay consistent across pages.
+
+## Content and Tone of Voice
+- Treat the published site as the source of truth for Dan's voice. Before drafting or substantially rewriting copy, read the surrounding page and at least one relevant published article, such as `your-users-dont-care-about-your-scrum.md`, `why-delivery-teams-must-challenge-flawed-briefs.md`, or `side-projects-instead.md`.
+- Use UK English, plain language, first person, contractions, and concrete examples. Keep the writing concise, direct, candid, and user-centred.
+- Preserve Dan's natural humour, blunt phrasing, opinions, and intentional sentence fragments. Do not smooth everything into polished corporate prose.
+- Reuse established heading and CTA patterns where they fit, but do not force every page into the same rhythm or structure.
+- Avoid generic scene-setting, corporate filler, inflated claims, keyword stuffing, forced three-part lists, repetitive conclusions, and stock AI constructions such as "in today's landscape", "it's not just X, it's Y", "whether you're...", "delve", or "unlock".
+- Never invent outcomes, client details, quotations, dates, opinions, credentials, or personal anecdotes. Ask for missing facts rather than hiding the gap with vague copy.
+- Write for people first. Treat SEO and LLM discoverability as a consequence of useful, specific, well-structured content, not a reason to repeat search phrases.
+- Edit AI-assisted drafts until they sound recognisably like Dan, not merely grammatically polished. If the draft still reads like generic AI copy, rewrite or remove it.
 
 ## Testing Guidelines
 - No automated test suite exists; use `npm run build` as the pre-PR smoke test and confirm `_site/` renders correctly.
