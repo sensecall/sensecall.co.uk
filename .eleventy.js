@@ -136,6 +136,28 @@ module.exports = function (eleventyConfig) {
     }
   });
 
+  // Count words in rendered post content, ignoring markup
+  const countWords = (content) => {
+    if (!content) return 0;
+    const text = String(content)
+      .replace(/<(script|style)[\s\S]*?<\/\1>/gi, ' ')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/&[a-z]+;|&#\d+;/gi, ' ');
+    const words = text.match(/[\p{L}\p{N}'’-]+/gu);
+    return words ? words.length : 0;
+  };
+
+  eleventyConfig.addFilter("wordCount", countWords);
+
+  eleventyConfig.addFilter("thousands", (value) => Number(value).toLocaleString('en-GB'));
+
+  // Rough reading time in whole minutes, based on 200 words per minute
+  eleventyConfig.addFilter("readingTime", function (content) {
+    const words = countWords(content);
+    if (words === 0) return 0;
+    return Math.max(1, Math.round(words / 200));
+  });
+
   // Add a filter to get the index of the current item in a collection
   eleventyConfig.addFilter("getCollectionIndex", function(collection, page) {
     return collection.findIndex(item => item.url === page.url) + 1;
@@ -339,10 +361,16 @@ module.exports = function (eleventyConfig) {
         'why': 'I wanted an easier way to decide what to cook with what was already in the fridge and cupboards, so I built a leftovers-first recipe tool.'
       },
       {
-        'title': 'Cheap fuel finder',
-        'description': 'Compare nearby petrol and diesel prices, detour costs and real savings before you refuel.',
-        'url': 'https://find-cheap-fuel.sensecall.co.uk/',
-        'why': 'I wanted to mess about with the newly published Fuel Price API, so I built a quick tool to compare prices at nearby petrol and diesel stations.'
+        'title': 'Energy bill calculator',
+        'description': 'Estimate your yearly energy costs based on your usage.',
+        'url': 'https://energybillcalculator.sensecall.co.uk',
+        'why': 'I wanted to see how different tariffs and usage would affect our energy bills, so I built a tool to crunch the numbers.'
+      },
+      {
+        'title': 'Meal Planner Tool',
+        'description': 'A flexible weekly meal planner for saving regular meals, scheduling them and printing the finished plan.',
+        'url': 'https://mealplannertool.com/',
+        'why': 'I wanted an easier way to plan meals for the week and keep track of the ingredients needed.'
       },
       {
         'title': 'Drawdown calculator',
@@ -386,12 +414,6 @@ module.exports = function (eleventyConfig) {
         'url': 'https://times-tables-game.sensecall.co.uk',
         'why': 'While helping my son with his times tables, I couldn\'t find a game that was quick, fun and engaging so I built a simple one-page web app to do the job.'
       },
-      {
-        'title': 'Energy bill calculator',
-        'description': 'Estimate your yearly energy costs based on your usage.',
-        'url': 'https://energybillcalculator.sensecall.co.uk',
-        'why': 'I wanted to see how different tariffs and usage would affect our energy bills, so I built a tool to crunch the numbers.'
-      }
     ];
 
     return experiments;

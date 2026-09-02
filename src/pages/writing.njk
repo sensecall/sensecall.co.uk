@@ -24,6 +24,13 @@ description: A collection of articles, essays and thoughts about design, technol
                         </h2>
                         <p class="body-s text-gray-600 dark:text-gray-400 flex flex-wrap items-center gap-2">
                             <span>{{ post.date | niceDate }}</span>
+                            {% set words = post.templateContent | wordCount %}
+                            {% if words > 0 %}
+                                <span aria-hidden="true">&middot;</span>
+                                <span>{{ words | thousands }} words</span>
+                                <span aria-hidden="true">&middot;</span>
+                                <span>{{ post.templateContent | readingTime }} min read</span>
+                            {% endif %}
                             {% if post.data.draft or post.data.status == "draft" %}
                                 <span class="body-xs inline-flex items-center rounded border border-amber-300 dark:border-amber-700 px-1.5 py-0.5 font-medium text-amber-700 dark:text-amber-300">Draft</span>
                             {% endif %}
