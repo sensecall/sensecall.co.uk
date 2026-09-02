@@ -82,6 +82,7 @@
       <script src="/assets/js/analytics.js" async fetchpriority="low"></script>
       <script>document.documentElement.classList.replace('no-js', 'js');</script>
       <link rel="canonical" href="{{ canonicalUrl }}">
+      <link rel="describedby" href="/llms.txt" type="text/markdown">
       <link rel="preload"
             href="/assets/fonts/atkinson-hyperlegible-latin-400.woff2"
             as="font"
@@ -91,13 +92,20 @@
           {
               "@context": "https://schema.org",
               "@type": "Person",
+              "@id": "{{ site.url }}/#dan-sensecall",
               "name": "Dan Sensecall",
               "jobTitle": "UX Designer & Service Design Consultant",
               "description": "Freelance UX designer and service designer helping organisations solve complex problems through user-centred design.",
               "url": "https://sensecall.co.uk",
+              "image": "{{ site.url }}/assets/images/dan-sensecall.jpg",
+              "sameAs": [
+                  "https://www.linkedin.com/in/sensecall/"
+              ],
               "worksFor": {
                   "@type": "Organization",
-                  "name": "UI UX Ltd"
+                  "@id": "https://uiux.ltd/#organization",
+                  "name": "UI UX Ltd",
+                  "url": "https://uiux.ltd/"
               },
               "makesOffer": {
                   "@type": "Offer",
@@ -119,6 +127,20 @@
               ]
           }
       </script>
+      {% if isProfilePage %}
+          <script type="application/ld+json">
+              {
+                  "@context": "https://schema.org",
+                  "@type": "ProfilePage",
+                  "@id": "{{ canonicalUrl }}#profile-page",
+                  "url": "{{ canonicalUrl }}",
+                  "name": {{ metaTitle | dump | safe }},
+                  "mainEntity": {
+                      "@id": "{{ site.url }}/#dan-sensecall"
+                  }
+              }
+          </script>
+      {% endif %}
       {% if isPostPage %}
           <script type="application/ld+json">
               {
@@ -135,13 +157,15 @@
                   "url": "{{ canonicalUrl }}",
                   "author": {
                       "@type": "Person",
+                      "@id": "{{ site.url }}/#dan-sensecall",
                       "name": "Dan Sensecall",
                       "url": "{{ site.url }}/about/"
                   },
                   "publisher": {
                       "@type": "Organization",
+                      "@id": "https://uiux.ltd/#organization",
                       "name": "UI UX Ltd",
-                      "url": "{{ site.url }}"
+                      "url": "https://uiux.ltd/"
                   },
                   "image": [
                       "{{ socialImageUrl }}"
