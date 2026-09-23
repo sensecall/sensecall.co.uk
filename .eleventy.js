@@ -33,6 +33,52 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addGlobalData("isDevMode", isDevMode);
 
+  // Typeface pairings offered on the /settings/ page. Each sets the heading and body fonts.
+  // Pairings with a null query are self-hosted; the rest load from Google Fonts only when
+  // a visitor picks them. className is added to <html> so main.scss can tune spacing and
+  // rhythm for that pairing.
+  eleventyConfig.addGlobalData("fonts", {
+    default: "default",
+    options: [
+      {
+        key: "default",
+        name: "Default",
+        hint: "DM Sans headings with Atkinson Hyperlegible text",
+        cssFamily: "'Atkinson Hyperlegible', sans-serif",
+        headingFamily: "'DM Sans', sans-serif",
+        className: null,
+        query: null
+      },
+      {
+        key: "serif",
+        name: "Editorial",
+        hint: "Playfair Display headings with Lora text, and more generous spacing",
+        cssFamily: "'Lora', Georgia, serif",
+        headingFamily: "'Playfair Display', Georgia, serif",
+        className: "type-serif",
+        query: "family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,400..800;1,400..800"
+      },
+      {
+        key: "classic",
+        name: "Classic",
+        hint: "Source Serif 4 headings with Source Sans 3 text",
+        cssFamily: "'Source Sans 3', sans-serif",
+        headingFamily: "'Source Serif 4', Georgia, serif",
+        className: "type-classic",
+        query: "family=Source+Sans+3:ital,wght@0,400..700;1,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700"
+      },
+      {
+        key: "modern",
+        name: "Modern",
+        hint: "Inter for headings and text, with tighter headings",
+        cssFamily: "'Inter', sans-serif",
+        headingFamily: "'Inter', sans-serif",
+        className: "type-modern",
+        query: "family=Inter:ital,opsz,wght@0,14..32,400..700;1,14..32,400..700"
+      }
+    ]
+  });
+
   // Hide draft writing posts by default.
   // In local dev, set SHOW_DRAFTS=1 to include drafts.
   eleventyConfig.addGlobalData("eleventyComputed", {

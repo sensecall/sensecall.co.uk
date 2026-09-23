@@ -1,0 +1,293 @@
+---
+layout: page.njk
+title: Public Sector Service Design Consultant | Dan Sensecall
+permalink: /public-sector-service-design-consultant/
+description: Senior public-sector service design and UX consultant supporting government programmes, bids, frameworks, technical-assistance assignments and delivery consortia.
+socialImageAlt: Dan Sensecall, public sector service design consultant
+serviceSchema:
+    name: Public sector service design consultancy
+    serviceType:
+        - Service design
+        - User-centred design
+        - UX design
+        - Service architecture
+        - Design assurance
+        - Bid and proposal support
+    audience: Public-sector organisations, prime contractors, consultancies and delivery consortia
+breadcrumbName: Public sector service design consultant
+---
+
+{% set contactUrl = "/contact/" %}
+
+{% macro ctaButton(url) %}
+    <a href="{{ url }}"
+       class="inline-flex min-h-[44px] items-center gap-2 rounded-md bg-primary px-5 py-2.5 font-semibold text-white no-underline shadow-sm transition-colors hover:bg-[#1b2f4c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:bg-blue-300 dark:text-gray-950 dark:hover:bg-blue-200 dark:focus-visible:ring-blue-300 dark:focus-visible:ring-offset-gray-950">
+        Discuss an opportunity
+        <svg aria-hidden="true" class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+        </svg>
+    </a>
+{% endmacro %}
+
+<section aria-labelledby="page-title" class="py-8 lg:py-12">
+    <div class="grid gap-8 lg:grid-cols-5 lg:items-center lg:gap-12">
+        <div class="lg:col-span-3">
+            <h1 id="page-title" class="heading-l">Service design for public-sector programmes, bids and advisory teams</h1>
+            <p class="body-m">
+                I work with government organisations, consultancies and delivery partners on complex public-sector services.
+            </p>
+            <p class="body-m">
+                Sometimes that means joining an existing delivery team. Sometimes it means providing the service design or UX expertise needed for a bid, framework call-off or advisory assignment. I also take on shorter pieces of work where a programme needs help making sense of a service, its users and how the different parts fit together.
+            </p>
+            <p class="body-m">
+                My background covers service design, UX and user-centred design across central government, justice, law enforcement and education.
+            </p>
+            <p class="body-m mt-6">{{ ctaButton(contactUrl) }}</p>
+            <p class="body-s text-gray-600 dark:text-gray-400">
+                Available for specialist subcontracting, named expert roles, technical-assistance assignments and short-term advisory work.
+            </p>
+        </div>
+        <figure class="mx-auto w-full max-w-md lg:col-span-2 lg:max-w-none">
+            <img src="/assets/images/public-sector-multidisciplinary-team-480.webp"
+                 srcset="/assets/images/public-sector-multidisciplinary-team-480.webp 480w,
+                         /assets/images/public-sector-multidisciplinary-team-1024.webp 1024w"
+                 sizes="(min-width: 1024px) 40vw, min(28rem, calc(100vw - 2rem))"
+                 alt="A team gathered around a table mapping a service, with documents, screens, data and a government building connected above them"
+                 width="1024"
+                 height="576"
+                 fetchpriority="high"
+                 decoding="async"
+                 class="h-auto w-full rounded-lg">
+        </figure>
+    </div>
+</section>
+
+<section aria-labelledby="ways-to-support" class="py-8 md:py-10 lg:py-12">
+    <div class="lg:w-2/3">
+        <h2 id="ways-to-support" class="heading-m">Where I tend to get involved</h2>
+        <p class="body-m">
+            I'm often brought in where there is already a wider team in place, but a particular piece of service design or UCD expertise is missing.
+        </p>
+    </div>
+    {% set engagementTypes = [
+        {
+            title: "Bids and tenders",
+            description: "I can join a proposal as the named or proposed service design, UX or UCD specialist, and provide the CV, evidence and methodology needed for the bid."
+        },
+        {
+            title: "Framework and call-off work",
+            description: "I can work within an existing supplier, consultancy or consortium team where senior service design capability is needed for a particular work package or phase."
+        },
+        {
+            title: "Advisory and technical-assistance assignments",
+            description: "For larger advisory programmes, I can help with service architecture, user journeys, stakeholder engagement, research and the design of user-centred services."
+        },
+        {
+            title: "Discovery and mobilisation",
+            description: "I can help a team understand the service, its users, the organisations involved and the main dependencies before a larger piece of delivery begins."
+        },
+        {
+            title: "Design review and assurance",
+            description: "I can review an existing approach, service model or proposed solution and give an independent service design and UCD view."
+        },
+        {
+            title: "Short, focused pieces of work",
+            description: "Not every engagement needs someone embedded for months. I'm also happy to take on a defined piece of work where specialist input is needed."
+        }
+    ] %}
+    <ul class="mt-8 grid list-none grid-cols-1 gap-8 p-0 md:grid-cols-2 md:gap-x-12 md:gap-y-8" role="list">
+        {% for item in engagementTypes %}
+            <li>
+                <h3 class="heading-xs mt-0">{{ item.title }}</h3>
+                <p class="body-m">{{ item.description }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+
+<section aria-labelledby="problems-i-untangle" class="my-8 rounded-2xl bg-slate-50 px-4 py-8 dark:bg-gray-900 md:my-10 md:px-8 md:py-10 lg:px-10 lg:py-12">
+    <div class="grid gap-8 lg:grid-cols-5 lg:items-start lg:gap-12">
+        <div class="lg:col-span-3">
+            <h2 id="problems-i-untangle" class="heading-m">Problems I'm often brought in to untangle</h2>
+            <p class="body-m">
+                A lot of the work I'm brought into involves services that span several user groups, organisations, systems or delivery teams.
+            </p>
+            <p class="body-m">
+                I help teams get a clearer view of how those pieces fit together, where the gaps and hand-offs are, and what needs to change.
+            </p>
+            {% set expertise = [
+                { title: "Service architecture", description: "Understanding how users, journeys, capabilities, organisations and systems relate to one another." },
+                { title: "User journeys and access routes", description: "Working out how different groups find, enter and move through a service, especially where there are several routes or organisations involved." },
+                { title: "Research and needs analysis", description: "Finding the differences between user groups, the barriers they encounter and the evidence that should shape the service." },
+                { title: "Co-design and stakeholder work", description: "Working with policy, operational, technical and subject-matter specialists to develop something that works across the whole service." },
+                { title: "Prototyping and testing", description: "Making ideas tangible early enough to test them before bigger implementation decisions are made." }
+            ] %}
+            <dl class="mt-6">
+                {% for item in expertise %}
+                    <div class="border-t border-gray-200 py-3 dark:border-gray-700">
+                        <dt class="body-m mb-1 font-semibold">{{ item.title }}</dt>
+                        <dd class="body-m m-0">{{ item.description }}</dd>
+                    </div>
+                {% endfor %}
+            </dl>
+        </div>
+        <figure class="mx-auto w-full max-w-sm lg:col-span-2 lg:max-w-none lg:mt-16">
+            <img src="/assets/images/public-sector-service-ecosystem-480.webp"
+                 srcset="/assets/images/public-sector-service-ecosystem-480.webp 480w,
+                         /assets/images/public-sector-service-ecosystem-1024.webp 1024w"
+                 sizes="(min-width: 1024px) 40vw, min(24rem, calc(100vw - 2rem))"
+                 alt="People, organisations, documents, screens, data and a government building joined across one service"
+                 width="1024"
+                 height="576"
+                 loading="lazy"
+                 decoding="async"
+                 class="h-auto w-full rounded-lg">
+            <figcaption class="body-s mt-3 text-gray-600 dark:text-gray-400">
+                An illustration of a simplified service ecosystem with people, organisations, documents, screens and data joined across one service
+            </figcaption>
+        </figure>
+    </div>
+</section>
+
+<section aria-labelledby="experience" class="py-8 md:py-10 lg:py-12">
+    <div class="lg:w-2/3">
+        <h2 id="experience" class="heading-m">Public-sector experience</h2>
+        <p class="body-m">
+            I've spent nearly a decade working on UK public-sector services, following an earlier career in commercial UX and digital product design.
+        </p>
+    </div>
+    {% set trustLogos = [
+        { name: "National Crime Agency", image: "nca-logo" },
+        { name: "Home Office", image: "home-office-logo" },
+        { name: "Ministry of Justice", image: "ministry-of-justice-logo" },
+        { name: "HM Courts & Tribunals Service", image: "hmcts-logo" },
+        { name: "HM Prison & Probation Service", image: "hmpps-logo" },
+        { name: "Department for Education", image: "department-for-education-logo" },
+        { name: "Defra", image: "defra-logo" },
+        { name: "Education and Skills Funding Agency", image: "education-and-skills-funding-agency-logo" }
+    ] %}
+    <ul class="mt-6 grid list-none grid-cols-3 gap-x-4 gap-y-6 p-0 sm:grid-cols-4 md:gap-y-8 lg:w-5/6" aria-label="Public-sector organisations I've worked with">
+        {% for logo in trustLogos %}
+            <li class="flex items-center">
+                <img src="/assets/images/clients/{{ logo.image }}--dark-320.webp"
+                     alt="{{ logo.name }}"
+                     width="100"
+                     height="50"
+                     loading="lazy"
+                     decoding="async"
+                     class="hidden h-auto w-full max-w-[100px] object-contain dark:block md:max-w-[130px]" />
+                <img src="/assets/images/clients/{{ logo.image }}-320.webp"
+                     alt="{{ logo.name }}"
+                     width="100"
+                     height="50"
+                     loading="lazy"
+                     decoding="async"
+                     class="h-auto w-full max-w-[100px] object-contain dark:hidden md:max-w-[130px]" />
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h3 class="heading-s mt-24">Some of the problems I've worked on</h3>
+    <div class="mt-4 grid gap-6 md:grid-cols-3">
+        <div>
+            <h4 class="heading-xs mt-0">Legacy transformation</h4>
+            <p class="body-m">
+                At the National Crime Agency, I've worked on the consolidation of six existing systems into a single service used by internal users, civil servants and external law-enforcement partners.
+            </p>
+        </div>
+        <div>
+            <h4 class="heading-xs mt-0">Complex operational services</h4>
+            <p class="body-m">
+                I've designed services for specialist users working in operational environments, including <a href="/projects/home-office/" class="text-link">police officers using the Police National Computer</a> and <a href="/projects/hmpps/" class="text-link">prison staff managing activities</a>.
+            </p>
+        </div>
+        <div>
+            <h4 class="heading-xs mt-0">Policy, funding and public administration</h4>
+            <p class="body-m">
+                I've also worked on services shaped heavily by policy, funding rules and complex data, including learner data submissions for the Education and Skills Funding Agency and parts of the Apprenticeship Service.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section aria-labelledby="bid-team" class="py-8 md:py-10 lg:py-12">
+    <div class="grid gap-8 lg:grid-cols-5 lg:items-start lg:gap-12">
+        <div class="lg:col-span-3">
+            <h2 id="bid-team" class="heading-m">Working with consultancies, primes and delivery partners</h2>
+            <p class="body-m">
+                I'm comfortable working under a prime contractor, as part of a consortium, or alongside an established delivery partner. I don't need to own the client relationship.
+            </p>
+            <p class="body-m">Before a bid, I can:</p>
+            <ul class="body-m list-disc pl-5">
+                <li>provide a tailored CV and evidence against the role criteria</li>
+                <li>contribute to the service design or UCD approach</li>
+                <li>help shape the proposed methodology</li>
+                <li>join discussions where specialist input is useful</li>
+            </ul>
+            <p class="body-m">
+                If the work is won, I can then deliver the relevant work package or join the wider team.
+            </p>
+            <p class="body-m">
+                I'm equally happy to come in after award where a programme has identified a gap in its existing service design or UX capability.
+            </p>
+        </div>
+        <figure class="mx-auto w-full max-w-sm lg:col-span-2 lg:max-w-none">
+            <img src="/assets/images/public-sector-delivery-team-480.webp"
+                 srcset="/assets/images/public-sector-delivery-team-480.webp 480w,
+                         /assets/images/public-sector-delivery-team-1024.webp 1024w"
+                 sizes="(min-width: 1024px) 40vw, min(24rem, calc(100vw - 2rem))"
+                 alt="Specialists in policy, finance, technology and data joining a team mapping a service together"
+                 width="1024"
+                 height="768"
+                 loading="lazy"
+                 decoding="async"
+                 class="h-auto w-full rounded-lg">
+        </figure>
+    </div>
+</section>
+
+<section aria-labelledby="terminology" class="py-8 md:py-10 lg:py-12">
+    <div class="lg:w-2/3">
+        <h2 id="terminology" class="heading-m">Other titles for the same work</h2>
+        <p class="body-m">
+            Different organisations, frameworks and procurement routes use different titles for broadly similar work. If the requirement is to help make sense of users, journeys, services and how the different parts fit together, it's likely to be relevant.
+        </p>
+        <p class="body-m">I've seen roles described as:</p>
+        {% set roleTitles = [
+            "Service Design Expert",
+            "UX Expert",
+            "UCD Lead",
+            "Technical Assistance Expert",
+            "Non-Key Expert (NKE)",
+            "Named Expert",
+            "Consortium Expert",
+            "Specialist Subcontractor"
+        ] %}
+        <ul class="body-m list-disc pl-5">
+            {% for title in roleTitles %}
+                <li>{{ title }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+
+<section aria-labelledby="discuss" class="pb-8 md:pb-10 lg:pb-12">
+    <div class="rounded-2xl border border-blue-100 bg-blue-50 px-5 py-8 dark:border-gray-700 dark:bg-gray-900 md:px-8 md:py-10 lg:w-5/6">
+        <h2 id="discuss" class="heading-m mt-0">Discuss an opportunity</h2>
+        <p class="body-m max-w-2xl">
+            If you have a programme, bid or work package that looks relevant, send me the details and I'll tell you quickly whether it looks like a good fit.
+        </p>
+        <p class="body-m max-w-2xl">
+            Useful things to include are the client, role description, procurement route, likely timescales and when you need a CV or supporting evidence.
+        </p>
+        <p class="body-m mt-6">{{ ctaButton(contactUrl) }}</p>
+    </div>
+</section>
+
+<section aria-label="Further reading" class="pb-8 md:pb-10 lg:pb-12 xl:pb-14">
+    <div class="md:w-2/3">
+        <p class="body-m">
+            You can also browse <a href="/projects/" class="text-link">project case studies</a>, read my <a href="/cv/" class="text-link">CV</a>, or see <a href="/service-design/" class="text-link">how I approach service design</a>.
+        </p>
+    </div>
+</section>

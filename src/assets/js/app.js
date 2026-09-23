@@ -19,100 +19,129 @@ const throttle = (func, limit) => {
 };
 
 // Feature modules
-const darkMode = {
-    init(darkModeToggle) {
-        if (!darkModeToggle) return;
-        
-        darkModeToggle.checked = document.documentElement.classList.contains('dark');
-        darkModeToggle.addEventListener('change', () => {
-            const isDarkMode = darkModeToggle.checked;
-            document.documentElement.classList.toggle('dark', isDarkMode);
-            localStorage.setItem('darkMode', isDarkMode.toString());
-        });
-    }
-};
-
-const fontSwitcher = {
-    storageKey: 'devFontFamilyV2',
-
-    fonts: {
-        'rubik': {
-            cssFamily: "'Rubik', sans-serif",
-            query: 'family=Rubik:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700'
-        },
-        'public-sans': {
-            cssFamily: "'Public Sans', sans-serif",
-            query: 'family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700'
-        },
-        'manrope': {
-            cssFamily: "'Manrope', sans-serif",
-            query: 'family=Manrope:wght@400;500;600;700'
-        },
-        'dm-sans': {
-            cssFamily: "'DM Sans', sans-serif",
-            query: 'family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700'
-        },
-        'ibm-plex-sans': {
-            cssFamily: "'IBM Plex Sans', sans-serif",
-            query: 'family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700'
-        },
-        'plus-jakarta-sans': {
-            cssFamily: "'Plus Jakarta Sans', sans-serif",
-            query: 'family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700'
-        },
-        'atkinson-hyperlegible': {
-            cssFamily: "'Atkinson Hyperlegible', sans-serif",
-            query: 'family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700'
-        },
-        'noto-sans': {
-            cssFamily: "'Noto Sans', sans-serif",
-            query: 'family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700'
-        },
-        'lato': {
-            cssFamily: "'Lato', sans-serif",
-            query: 'family=Lato:ital,wght@0,400;0,700;1,400;1,700'
-        }
-    },
+// Theme and typeface preferences. Saved choices are applied early by the inline script
+// in head.njk; this module keeps "device" mode in sync and drives the /settings/ page.
+const sitePreferences = {
+    themeKey: 'darkMode',
+    fontKey: 'fontFamily',
 
     init() {
-        this.select = document.getElementById('font-switcher');
-        if (!this.select) return;
+        this.fonts = window.siteFonts || { default: 'atkinson-hyperlegible', options: [] };
+        this.darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        this.darkQuery.addEventListener('change', () => {
+            if (this.getTheme() === 'device') this.applyTheme('device');
+        });
 
-        const savedFont = localStorage.getItem(this.storageKey);
-        const defaultFont = this.select.value || 'atkinson-hyperlegible';
-        const initialFont = savedFont && this.fonts[savedFont] ? savedFont : defaultFont;
+        this.form = document.getElementById('site-settings');
+        if (!this.form) return;
 
-        this.select.value = initialFont;
-        this.applyFont(initialFont, false);
+        this.status = document.getElementById('site-settings-status');
+        this.form.hidden = false;
+        this.setFormValue('theme', this.getTheme());
+        this.setFormValue('font', this.getFont());
 
-        this.select.addEventListener('change', () => {
-            this.applyFont(this.select.value, true);
+        this.form.addEventListener('change', (event) => {
+            if (event.target.name === 'theme') {
+                this.saveTheme(event.target.value);
+                this.announce(`Theme set to ${event.target.labels[0].dataset.label}.`);
+            }
+            if (event.target.name === 'font') {
+                this.saveFont(event.target.value);
+                this.announce(`Typeface set to ${event.target.labels[0].dataset.label}.`);
+            }
+        });
+
+        this.form.addEventListener('reset', (event) => {
+            event.preventDefault();
+            this.saveTheme('device');
+            this.saveFont(this.fonts.default);
+            this.setFormValue('theme', 'device');
+            this.setFormValue('font', this.fonts.default);
+            this.announce('Settings reset to the defaults.');
         });
     },
 
-    applyFont(fontKey, persist = true) {
-        const font = this.fonts[fontKey] || this.fonts['atkinson-hyperlegible'];
-        if (!font) return;
-
-        this.loadFont(fontKey, font.query);
-        document.documentElement.style.setProperty('--font-family-base', font.cssFamily);
-
-        if (persist) {
-            localStorage.setItem(this.storageKey, fontKey);
+    storage(action, key, value) {
+        try {
+            if (action === 'get') return localStorage.getItem(key);
+            if (action === 'set') localStorage.setItem(key, value);
+            if (action === 'remove') localStorage.removeItem(key);
+        } catch (error) {
+            // Storage can be blocked; preferences then last for this page view only.
         }
+        return null;
     },
 
-    loadFont(fontKey, query) {
-        if (fontKey === 'atkinson-hyperlegible' || fontKey === 'dm-sans') return;
+    getTheme() {
+        const saved = this.storage('get', this.themeKey);
+        if (saved === 'true') return 'dark';
+        if (saved === 'false') return 'light';
+        return 'device';
+    },
 
-        const linkId = `dev-font-${fontKey}`;
-        if (document.getElementById(linkId)) return;
+    saveTheme(theme) {
+        if (theme === 'device') {
+            this.storage('remove', this.themeKey);
+        } else {
+            this.storage('set', this.themeKey, (theme === 'dark').toString());
+        }
+        this.applyTheme(theme);
+    },
+
+    applyTheme(theme) {
+        const isDark = theme === 'dark' || (theme === 'device' && this.darkQuery.matches);
+        document.documentElement.classList.toggle('dark', isDark);
+    },
+
+    getFont() {
+        const saved = this.storage('get', this.fontKey);
+        return this.findFont(saved) ? saved : this.fonts.default;
+    },
+
+    findFont(key) {
+        return this.fonts.options.find((font) => font.key === key);
+    },
+
+    saveFont(key) {
+        const font = this.findFont(key) || this.findFont(this.fonts.default);
+        if (!font) return;
+
+        const root = document.documentElement;
+        root.style.removeProperty('--font-family-base');
+        root.style.removeProperty('--font-family-heading');
+        this.fonts.options.forEach((option) => {
+            if (option.className) root.classList.remove(option.className);
+        });
+
+        if (font.key === this.fonts.default) {
+            this.storage('remove', this.fontKey);
+            return;
+        }
+
+        this.storage('set', this.fontKey, font.key);
+        this.loadFont(font);
+        root.style.setProperty('--font-family-base', font.cssFamily);
+        if (font.headingFamily) root.style.setProperty('--font-family-heading', font.headingFamily);
+        if (font.className) root.classList.add(font.className);
+    },
+
+    loadFont(font) {
+        if (!font.query || document.getElementById(`font-${font.key}`)) return;
 
         const link = document.createElement('link');
-        link.id = linkId;
+        link.id = `font-${font.key}`;
         link.rel = 'stylesheet';
-        link.href = `https://fonts.googleapis.com/css2?${query}&display=swap`;
+        link.href = `https://fonts.googleapis.com/css2?${font.query}&display=swap`;
         document.head.appendChild(link);
+    },
+
+    setFormValue(name, value) {
+        const input = this.form.querySelector(`input[name="${name}"][value="${value}"]`);
+        if (input) input.checked = true;
+    },
+
+    announce(message) {
+        if (this.status) this.status.textContent = message;
     }
 };
 
@@ -703,8 +732,7 @@ const initCopyEmail = () => {
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     try {
-        fontSwitcher.init();
-        darkMode.init(document.getElementById('dark-mode-toggle'));
+        sitePreferences.init();
         fullscreenImage.init();
         mobileMenu.init(
             document.getElementById('mobile-menu-button'),

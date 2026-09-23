@@ -30,6 +30,7 @@
                         { url: '/about', text: 'About', srOnly: 'Dan Sensecall' },
                         { url: '/cv', text: 'CV' },
                         { url: '/projects', text: 'Projects' },
+                        { url: '/public-sector-service-design-consultant', text: 'Consultancy' },
                         { url: '/contact', text: 'Contact' },
                         { url: '/writing', text: 'Writing' },
                         { url: '/experiments', text: 'Experiments' }
@@ -64,42 +65,16 @@
                 </ul>
             </div>
 
-            <div class="flex items-center gap-2 sm:gap-3">
-                {% if isDevMode %}
-                    <div class="relative">
-                        <label for="font-switcher" class="sr-only">Development font switcher</label>
-                        <select id="font-switcher"
-                                class="h-8 sm:h-9 rounded-md border border-gray-300 bg-white px-2 text-xs sm:text-sm text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:focus-visible:ring-primary-light dark:focus-visible:ring-offset-gray-950"
-                                aria-label="Development font switcher"
-                                title="Development font switcher">
-                            <option value="rubik">Rubik</option>
-                            <option value="public-sans">Public Sans</option>
-                            <option value="manrope">Manrope</option>
-                            <option value="dm-sans">DM Sans</option>
-                            <option value="ibm-plex-sans">IBM Plex Sans</option>
-                            <option value="plus-jakarta-sans">Plus Jakarta Sans</option>
-                            <option value="atkinson-hyperlegible" selected>Atkinson Hyperlegible</option>
-                            <option value="noto-sans">Noto Sans</option>
-                            <option value="lato">Lato</option>
-                        </select>
-                    </div>
-                {% endif %}
-
-                <div class="relative inline-block">
-                    <input type="checkbox" id="dark-mode-toggle" class="sr-only peer">
-                    <label for="dark-mode-toggle" class="inline-flex rounded-sm cursor-pointer text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light peer-focus-visible:outline-none peer-focus-visible:ring-2 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2 dark:peer-focus-visible:ring-primary-light dark:peer-focus-visible:ring-offset-gray-950" title="Toggle dark mode">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <!-- Moon icon (shows in light mode) -->
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <!-- Sun icon (shows in dark mode) -->
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>
-                        <span class="sr-only">Toggle dark mode</span>
-                    </label>
-                </div>
-            </div>
+            <a href="/settings/"
+               class="settings-link inline-flex rounded-sm p-1 hover:text-primary dark:hover:text-primary-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:focus-visible:ring-primary-light dark:focus-visible:ring-offset-gray-950 {{ 'text-primary dark:text-white' if page.url == '/settings/' else 'text-gray-700 dark:text-gray-300' }}"
+               title="Settings: theme and typeface"
+               {% if page.url == '/settings/' %}aria-current="page"{% endif %}>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span class="sr-only">Settings</span>
+            </a>
         </div>
     </div>
 </nav>

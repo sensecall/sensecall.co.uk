@@ -1,0 +1,98 @@
+---
+layout: page.njk
+title: Settings | Dan Sensecall
+permalink: /settings/
+description: Choose a light, dark or device theme and the typefaces used on this site.
+noindex: true
+eleventyExcludeFromCollections: true
+---
+
+{% set themeOptions = [
+    { value: "device", label: "Match my device", hint: "Follows your operating system's light or dark setting" },
+    { value: "light", label: "Light" },
+    { value: "dark", label: "Dark" }
+] %}
+
+<div class="py-8 lg:py-12">
+    <div class="max-w-2xl">
+        <h1 class="heading-l">Settings</h1>
+        <p class="body-m">
+            Change how this site looks for you. Your choices are saved in this browser, and nowhere else.
+        </p>
+
+        <noscript>
+            <div class="inset-text body-m">
+                <p class="body-m">These settings need JavaScript, which is turned off or blocked in your browser.</p>
+                <p class="body-m">Without it, the site follows your device's light or dark setting. To change the typeface, you can set your own default fonts in your browser's settings.</p>
+            </div>
+        </noscript>
+
+        <form id="site-settings" class="mt-8" hidden>
+            <fieldset class="mb-10">
+                <legend class="heading-s mb-4">Theme</legend>
+                <div class="grid gap-3">
+                    {% for option in themeOptions %}
+                        <label for="theme-{{ option.value }}"
+                               data-label="{{ option.label | lower if option.value != 'device' else 'match my device' }}"
+                               class="flex cursor-pointer items-start gap-3 rounded-lg border border-gray-300 p-4 transition-colors hover:border-gray-400 has-[:checked]:border-primary has-[:checked]:bg-blue-50 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary has-[:focus-visible]:ring-offset-2 dark:border-gray-600 dark:hover:border-gray-500 dark:has-[:checked]:border-blue-300 dark:has-[:checked]:bg-gray-800 dark:has-[:focus-visible]:ring-blue-300 dark:has-[:focus-visible]:ring-offset-gray-950">
+                            <input type="radio"
+                                   id="theme-{{ option.value }}"
+                                   name="theme"
+                                   value="{{ option.value }}"
+                                   class="mt-1 h-4 w-4 shrink-0 accent-[#243e64] focus:outline-none dark:accent-blue-300"
+                                   {% if option.hint %}aria-describedby="theme-{{ option.value }}-hint"{% endif %}>
+                            <span>
+                                <span class="body-m block font-semibold">{{ option.label }}</span>
+                                {% if option.hint %}
+                                    <span id="theme-{{ option.value }}-hint" class="body-s block text-gray-600 dark:text-gray-400">{{ option.hint }}</span>
+                                {% endif %}
+                            </span>
+                        </label>
+                    {% endfor %}
+                </div>
+            </fieldset>
+
+            <fieldset class="mb-10" aria-describedby="font-hint">
+                <legend class="heading-s mb-2">Typeface</legend>
+                <p id="font-hint" class="body-s text-gray-600 dark:text-gray-400">
+                    Each option sets the headings and body text together. The default fonts are hosted on this site. The others load from Google Fonts when you pick them.
+                </p>
+                <div class="mt-4 grid gap-3">
+                    {% for font in fonts.options %}
+                        <label for="font-{{ font.key }}-option"
+                               data-label="{{ font.name }}"
+                               class="flex cursor-pointer items-start gap-3 rounded-lg border border-gray-300 p-4 transition-colors hover:border-gray-400 has-[:checked]:border-primary has-[:checked]:bg-blue-50 has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary has-[:focus-visible]:ring-offset-2 dark:border-gray-600 dark:hover:border-gray-500 dark:has-[:checked]:border-blue-300 dark:has-[:checked]:bg-gray-800 dark:has-[:focus-visible]:ring-blue-300 dark:has-[:focus-visible]:ring-offset-gray-950">
+                            <input type="radio"
+                                   id="font-{{ font.key }}-option"
+                                   name="font"
+                                   value="{{ font.key }}"
+                                   class="mt-1 h-4 w-4 shrink-0 accent-[#243e64] focus:outline-none dark:accent-blue-300"
+                                   {% if font.hint %}aria-describedby="font-{{ font.key }}-hint"{% endif %}>
+                            <span>
+                                <span class="body-m block font-semibold">{{ font.name }}</span>
+                                {% if font.hint %}
+                                    <span id="font-{{ font.key }}-hint" class="body-s block text-gray-600 dark:text-gray-400">{{ font.hint }}</span>
+                                {% endif %}
+                            </span>
+                        </label>
+                    {% endfor %}
+                </div>
+            </fieldset>
+
+            <div class="mb-10 rounded-lg border border-gray-200 bg-gray-50 p-5 dark:border-gray-700 dark:bg-gray-900" aria-label="Typeface preview" role="region">
+                <p class="body-s mb-2 font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Preview</p>
+                <p class="heading-s">A heading looks like this</p>
+                <p class="body-m">
+                    This is how body text will look across the site. Pick whichever one you find easiest to read. There's no wrong answer.
+                </p>
+                <p class="body-s">0123456789 · Il1 O0 · rn m · “Quotes” &amp; ampersands</p>
+            </div>
+
+            <button type="reset"
+                    class="inline-flex min-h-[44px] items-center rounded-md border border-gray-300 bg-white px-4 py-2 font-semibold text-gray-800 shadow-sm transition-colors hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-800 dark:focus-visible:ring-blue-300 dark:focus-visible:ring-offset-gray-950">
+                Reset to defaults
+            </button>
+            <p id="site-settings-status" class="body-s mt-3 min-h-[1.5em] text-gray-600 dark:text-gray-400" role="status" aria-live="polite"></p>
+        </form>
+    </div>
+</div>

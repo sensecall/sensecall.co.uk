@@ -64,6 +64,7 @@
           {% endif %}
       {% endif %}
       <script>
+          window.siteFonts = {{ fonts | dump | safe }};
           try {
               const savedDarkMode = localStorage.getItem('darkMode');
               const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -72,8 +73,26 @@
               } else {
                   document.documentElement.classList.remove('dark');
               }
+
+              const savedFont = window.siteFonts.options.find((font) => font.key === localStorage.getItem('fontFamily'));
+              if (savedFont && savedFont.key !== window.siteFonts.default) {
+                  document.documentElement.style.setProperty('--font-family-base', savedFont.cssFamily);
+                  if (savedFont.headingFamily) {
+                      document.documentElement.style.setProperty('--font-family-heading', savedFont.headingFamily);
+                  }
+                  if (savedFont.className) {
+                      document.documentElement.classList.add(savedFont.className);
+                  }
+                  if (savedFont.query) {
+                      const fontLink = document.createElement('link');
+                      fontLink.id = 'font-' + savedFont.key;
+                      fontLink.rel = 'stylesheet';
+                      fontLink.href = 'https://fonts.googleapis.com/css2?' + savedFont.query + '&display=swap';
+                      document.head.appendChild(fontLink);
+                  }
+              }
           } catch (error) {
-              // Ignore storage or matchMedia failures and fall back to default theme.
+              // Ignore storage or matchMedia failures and fall back to default theme and font.
           }
       </script>
       <link rel="stylesheet" href="/css/styles.min.css">
@@ -138,6 +157,48 @@
                   "mainEntity": {
                       "@id": "{{ site.url }}/#dan-sensecall"
                   }
+              }
+          </script>
+      {% endif %}
+      {% if serviceSchema %}
+          <script type="application/ld+json">
+              {
+                  "@context": "https://schema.org",
+                  "@graph": [
+                      {
+                          "@type": "Service",
+                          "@id": "{{ canonicalUrl }}#service",
+                          "name": {{ serviceSchema.name | dump | safe }},
+                          "description": {{ metaDescription | dump | safe }},
+                          "url": "{{ canonicalUrl }}",
+                          "serviceType": {{ serviceSchema.serviceType | dump | safe }},
+                          "areaServed": "United Kingdom",
+                          "audience": {
+                              "@type": "Audience",
+                              "audienceType": {{ serviceSchema.audience | dump | safe }}
+                          },
+                          "provider": {
+                              "@id": "{{ site.url }}/#dan-sensecall"
+                          }
+                      },
+                      {
+                          "@type": "BreadcrumbList",
+                          "itemListElement": [
+                              {
+                                  "@type": "ListItem",
+                                  "position": 1,
+                                  "name": "Home",
+                                  "item": "{{ site.url }}/"
+                              },
+                              {
+                                  "@type": "ListItem",
+                                  "position": 2,
+                                  "name": {{ (breadcrumbName or title) | dump | safe }},
+                                  "item": "{{ canonicalUrl }}"
+                              }
+                          ]
+                      }
+                  ]
               }
           </script>
       {% endif %}
