@@ -28,19 +28,19 @@
                     {% set navItems = [
                         { url: '/', text: 'Home', exact: true },
                         { url: '/about', text: 'About', srOnly: 'Dan Sensecall' },
-                        { url: '/cv', text: 'CV' },
+                        { url: '/cv', text: 'CV', tabletHide: true },
                         { url: '/projects', text: 'Projects' },
                         { url: '/public-sector-service-design-consultant', text: 'Consultancy' },
                         { url: '/contact', text: 'Contact' },
                         { url: '/writing', text: 'Writing' },
-                        { url: '/experiments', text: 'Experiments' }
+                        { url: '/experiments', text: 'Experiments', tabletHide: true }
                     ] %}
                     {% set currentUrl = page.url or '' %}
 
                     {% for item in navItems %}
                         {% set isCurrent = (item.exact and currentUrl == item.url) or 
                            (not item.exact and currentUrl and (item.url in currentUrl)) %}
-                        <li class="w-full pt-4 md:pt-0 md:w-auto">
+                        <li class="w-full pt-4 md:pt-0 md:w-auto{{ ' md:hidden lg:block' if item.tabletHide }}">
                             <a href="{{ item.url }}"
                                class="block w-full md:inline-flex md:w-auto md:items-center min-h-[44px] md:min-h-0 px-2 py-2.5 md:px-0 md:py-0 border-l-4 md:border-l-0 md:border-b-2 md:pb-1 touch-manipulation text-gray-700 dark:text-gray-300 transition-colors duration-150 md:hover:text-primary md:hover:text-opacity-80 md:dark:hover:text-blue-300 md:dark:hover:text-opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:focus-visible:ring-primary-light dark:focus-visible:ring-offset-gray-900 active:text-primary dark:active:text-blue-300
                                 {{- ' border-l-transparent md:border-b-transparent' if not isCurrent -}}
