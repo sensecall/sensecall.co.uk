@@ -15,7 +15,9 @@ module.exports = {
           ochre: 'var(--palette-ochre)',
           terracotta: 'var(--palette-terracotta)',
           slate: 'var(--palette-slate)',
-          stone: 'var(--palette-stone)'
+          stone: 'var(--palette-stone)',
+          lilac: 'var(--palette-lilac)',
+          teal: 'var(--palette-teal)'
         },
         // Add other custom colors if needed
       },

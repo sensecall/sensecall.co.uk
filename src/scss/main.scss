@@ -60,13 +60,13 @@
 
 // Custom variables
 :root {
-  --font-family-base: 'Atkinson Hyperlegible', sans-serif;
-  --font-family-heading: 'DM Sans', sans-serif;
+  --font-family-base: 'Source Sans 3', sans-serif;
+  --font-family-heading: 'Source Serif 4', Georgia, serif;
   --primary: #243e64;
   --body-color: #292c2d;
-  --type-body-m-size: clamp(1.125rem, 1.02rem + 0.55vw, 1.1875rem);
-  --type-body-m-line-height: 1.6;
-  --type-body-m-space: 1.25rem;
+  --type-body-m-size: clamp(1.1875rem, 1.08rem + 0.55vw, 1.25rem);
+  --type-body-m-line-height: 1.65;
+  --type-body-m-space: 1.35rem;
   --dark: #1e2223;
   --secondary: whitesmoke;
   --white: #ffffff;
@@ -79,6 +79,8 @@
   --palette-terracotta: #c87b73;
   --palette-slate: #6786a5;
   --palette-stone: #b2aea9;
+  --palette-lilac: #b39bc7;
+  --palette-teal: #7faba3;
 
   // Text links: a muted navy rather than Tailwind's bright blue.
   --link-color: #25599a;
@@ -93,6 +95,7 @@
 // Base styles
 body {
   font-family: var(--font-family-base);
+  font-optical-sizing: auto;
   color: var(--body-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -131,52 +134,66 @@ body {
   .heading-xs,
   .heading-xxs {
     font-family: var(--font-family-heading);
+    text-wrap: balance;
     @apply text-gray-900 dark:text-white;
   }
 
   .heading-xl {
     @apply font-semibold;
     font-size: clamp(2rem, 1.45rem + 2.75vw, 3rem);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    line-height: 1.12;
+    letter-spacing: -0.012em;
   }
 
   .heading-l {
     @apply font-semibold;
     font-size: clamp(2.025rem, 1.46rem + 2.45vw, 3rem);
-    line-height: 1.13;
-    letter-spacing: -0.017em;
+    line-height: 1.12;
+    letter-spacing: -0.012em;
   }
 
   .heading-m {
     @apply font-semibold;
     font-size: clamp(1.625rem, 1.3rem + 1.6vw, 2.65rem);
-    line-height: 1.15;
-    letter-spacing: -0.015em;
+    line-height: 1.18;
+    letter-spacing: -0.008em;
   }
 
   .heading-s {
     @apply font-semibold;
     font-size: clamp(1.35rem, 1.17rem + 1.05vw, 2.125rem);
-    line-height: 1.2;
-    letter-spacing: -0.01em;
+    line-height: 1.22;
+    letter-spacing: 0;
   }
 
   .heading-xs {
     @apply font-semibold;
     font-size: clamp(1.2rem, 1.05rem + 0.65vw, 1.6rem);
+    font-weight: 700;
     line-height: 1.3;
   }
 
   .heading-xxs {
     @apply font-semibold;
     font-size: clamp(1.05rem, 0.98rem + 0.35vw, 1.25rem);
+    font-weight: 700;
     line-height: 1.4;
   }
 
   :is(h1, h2, h3, h4, h5, h6).heading-xl,
   :is(h1, h2, h3, h4, h5, h6).heading-l {
     margin-block-end: clamp(1rem, 0.9rem + 0.5vw, 1.375rem);
+  }
+
+  // Fixed-width rule under each page title, in the current section's nav border colour.
+  // Not on the homepage greeting, which sits under the portrait.
+  main h1.heading-l::after {
+    content: "";
+    display: block;
+    width: 2.75rem;
+    height: 0.25rem;
+    margin-top: 0.75rem;
+    background-color: var(--nav-accent, var(--primary));
   }
 
   :is(h1, h2, h3, h4, h5, h6).heading-m {
@@ -237,8 +254,8 @@ body {
 
   .body-l {
     @apply text-gray-700 dark:text-gray-200;
-    font-size: var(--type-body-m-size);
-    line-height: var(--type-body-m-line-height);
+    font-size: clamp(1.25rem, 1.12rem + 0.65vw, 1.375rem);
+    line-height: 1.5;
   }
 
   .body-m {
@@ -869,13 +886,15 @@ body {
   }
 }
 
-// Serif typeface theme (chosen on /settings/). Playfair Display headings with Lora body text.
-// Lora has a smaller x-height than Atkinson Hyperlegible, so body text is nudged up with more
-// leading, and Playfair's high contrast needs looser tracking than the sans headings.
+// Editorial typeface theme (chosen on /settings/): Fraunces headings with Literata text.
+// Literata is built for long-form screen reading and has a generous x-height, so body size
+// stays close to the default; the extra leading and paragraph space give the slower rhythm.
+// Fraunces' optical size axis handles tracking at display sizes, and a little SOFT rounds
+// its sharper corners so it sits more comfortably next to Literata.
 html.type-serif {
-  --type-body-m-size: clamp(1.1875rem, 1.08rem + 0.55vw, 1.3125rem);
+  --type-body-m-size: clamp(1.125rem, 1.03rem + 0.5vw, 1.1875rem);
   --type-body-m-line-height: 1.72;
-  --type-body-m-space: 1.5rem;
+  --type-body-m-space: 1.45rem;
   font-optical-sizing: auto;
 
   .site-nav {
@@ -889,32 +908,28 @@ html.type-serif {
   .heading-s,
   .heading-xs,
   .heading-xxs {
+    font-variation-settings: "SOFT" 50, "WONK" 0;
     text-wrap: balance;
   }
 
-  .heading-xl {
-    line-height: 1.12;
-    letter-spacing: -0.005em;
-  }
-
+  .heading-xl,
   .heading-l {
-    line-height: 1.15;
-    letter-spacing: -0.005em;
+    line-height: 1.1;
+    letter-spacing: -0.012em;
   }
 
   .heading-m {
-    line-height: 1.2;
-    letter-spacing: 0;
+    line-height: 1.15;
+    letter-spacing: -0.008em;
   }
 
   .heading-s {
-    line-height: 1.25;
+    line-height: 1.22;
     letter-spacing: 0;
   }
 
   .heading-xs,
   .heading-xxs {
-    font-weight: 700;
     line-height: 1.3;
   }
 
@@ -935,43 +950,37 @@ html.type-serif {
   }
 }
 
-// Classic typeface theme: Source Serif 4 headings with Source Sans 3 text.
-// Source Sans 3 runs small next to Atkinson Hyperlegible, so body text is nudged up a little.
-html.type-classic {
-  --type-body-m-size: clamp(1.1875rem, 1.08rem + 0.55vw, 1.25rem);
-  --type-body-m-line-height: 1.65;
-  --type-body-m-space: 1.35rem;
-  font-optical-sizing: auto;
+// Original pairing, chosen on /settings/: DM Sans headings with Atkinson Hyperlegible text.
+html.type-atkinson {
+  --font-family-base: 'Atkinson Hyperlegible', sans-serif;
+  --font-family-heading: 'DM Sans', sans-serif;
+  --type-body-m-size: clamp(1.125rem, 1.02rem + 0.55vw, 1.1875rem);
+  --type-body-m-line-height: 1.6;
+  --type-body-m-space: 1.25rem;
 
-  :where(h1, h2, h3, h4, h5, h6),
-  .heading-xl,
-  .heading-l,
-  .heading-m,
-  .heading-s,
-  .heading-xs,
-  .heading-xxs {
-    text-wrap: balance;
+  .heading-xl {
+    line-height: 1.1;
+    letter-spacing: -0.02em;
   }
 
-  .heading-xl,
   .heading-l {
-    line-height: 1.12;
-    letter-spacing: -0.012em;
+    line-height: 1.13;
+    letter-spacing: -0.017em;
   }
 
   .heading-m {
-    line-height: 1.18;
-    letter-spacing: -0.008em;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
   }
 
   .heading-s {
-    line-height: 1.22;
-    letter-spacing: 0;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
   }
 
   .heading-xs,
   .heading-xxs {
-    font-weight: 700;
+    font-weight: 600;
   }
 }
 

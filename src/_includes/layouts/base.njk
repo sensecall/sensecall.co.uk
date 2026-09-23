@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full">
     {% include "partials/head.njk" %}
-    <body class="bg-white dark:bg-gray-950 min-h-full flex flex-col {{ bodyClasses }}">
+    {% set navAccent = page.url | currentNavAccent %}
+    <body class="bg-white dark:bg-gray-950 min-h-full flex flex-col {{ bodyClasses }}"{% if navAccent %} style="--nav-accent: var(--palette-{{ navAccent }})"{% endif %}>
         {% block header %}
             {% include "partials/header.njk" %}
         {% endblock %}

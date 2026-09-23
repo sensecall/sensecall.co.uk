@@ -33,30 +33,48 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addGlobalData("isDevMode", isDevMode);
 
-  // Typeface pairings offered on the /settings/ page. Each sets the heading and body fonts.
-  // Pairings with a null query are self-hosted; the rest load from Google Fonts only when
-  // a visitor picks them. className is added to <html> so main.scss can tune spacing and
-  // rhythm for that pairing.
+  // Section colours for the main nav. The current item's border and the page-title
+  // rule both use the matching --palette-* token.
+  const navItems = [
+    { url: "/", text: "Home", exact: true, accent: "sage" },
+    { url: "/about", text: "About", srOnly: "Dan Sensecall", accent: "ochre" },
+    { url: "/cv", text: "CV", tabletHide: true, accent: "stone" },
+    { url: "/projects", text: "Projects", accent: "sky" },
+    { url: "/public-sector-service-design-consultant", text: "Consultancy", accent: "slate" },
+    { url: "/contact", text: "Contact", accent: "terracotta" },
+    { url: "/writing", text: "Writing", accent: "lilac" },
+    { url: "/experiments", text: "Experiments", tabletHide: true, accent: "teal" }
+  ];
+  eleventyConfig.addGlobalData("navItems", navItems);
+  eleventyConfig.addFilter("currentNavAccent", (url = "") => {
+    const match = navItems.find((item) => item.exact ? url === item.url : Boolean(url) && url.includes(item.url));
+    return match ? match.accent : "";
+  });
+
+  // Typeface pairings offered on the /settings/ page. Classic is the default and is
+  // loaded from the document head. The original pairing is self-hosted. The others
+  // load from Google Fonts only when a visitor picks them. className is added to
+  // <html> so main.scss can tune spacing and rhythm for that pairing.
   eleventyConfig.addGlobalData("fonts", {
-    default: "default",
+    default: "classic",
     options: [
       {
         key: "default",
-        name: "Default",
+        name: "Original",
         hint: "DM Sans headings with Atkinson Hyperlegible text",
         cssFamily: "'Atkinson Hyperlegible', sans-serif",
         headingFamily: "'DM Sans', sans-serif",
-        className: null,
+        className: "type-atkinson",
         query: null
       },
       {
         key: "serif",
         name: "Editorial",
-        hint: "Playfair Display headings with Lora text, and more generous spacing",
-        cssFamily: "'Lora', Georgia, serif",
-        headingFamily: "'Playfair Display', Georgia, serif",
+        hint: "Fraunces headings with Literata text, and more generous spacing",
+        cssFamily: "'Literata', Georgia, serif",
+        headingFamily: "'Fraunces', Georgia, serif",
         className: "type-serif",
-        query: "family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,400..800;1,400..800"
+        query: "family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..700,0..100,0..1;1,9..144,400..700,0..100,0..1&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700"
       },
       {
         key: "classic",
@@ -64,7 +82,7 @@ module.exports = function (eleventyConfig) {
         hint: "Source Serif 4 headings with Source Sans 3 text",
         cssFamily: "'Source Sans 3', sans-serif",
         headingFamily: "'Source Serif 4', Georgia, serif",
-        className: "type-classic",
+        className: null,
         query: "family=Source+Sans+3:ital,wght@0,400..700;1,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700"
       },
       {
