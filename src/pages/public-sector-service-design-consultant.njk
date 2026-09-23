@@ -30,24 +30,14 @@ breadcrumbName: Public sector service design consultant
 {% endmacro %}
 
 <section aria-labelledby="page-title" class="py-8 lg:py-12">
-    <div class="grid gap-8 lg:grid-cols-5 lg:items-center lg:gap-12">
-        <div class="lg:col-span-3">
+    <div class="flex flex-col gap-8 lg:grid lg:grid-cols-5 lg:items-center lg:gap-x-12 lg:gap-y-5">
+        <div class="lg:col-span-3 lg:col-start-1 lg:row-start-1">
             <h1 id="page-title" class="heading-l">Service design for public-sector programmes, bids and advisory teams</h1>
             <p class="body-m">
                 I work with government organisations, consultancies and delivery partners on complex public-sector services.
             </p>
-            <p class="body-m">
-                Sometimes that means joining an existing delivery team. Sometimes it means providing the service design or UX expertise needed for a bid, framework call-off or advisory assignment. I also take on shorter pieces of work where a programme needs help making sense of a service, its users and how the different parts fit together.
-            </p>
-            <p class="body-m">
-                My background covers service design, UX and user-centred design across central government, justice, law enforcement and education.
-            </p>
-            <p class="body-m mt-6">{{ ctaButton(contactUrl) }}</p>
-            <p class="body-s text-gray-600 dark:text-gray-400">
-                Available for specialist subcontracting, named expert roles, technical-assistance assignments and short-term advisory work.
-            </p>
         </div>
-        <figure class="mx-auto w-full max-w-md lg:col-span-2 lg:max-w-none">
+        <figure class="mx-auto w-full max-w-md lg:col-span-2 lg:col-start-4 lg:row-span-2 lg:row-start-1 lg:max-w-none">
             <img src="/assets/images/public-sector-multidisciplinary-team-480.webp"
                  srcset="/assets/images/public-sector-multidisciplinary-team-480.webp 480w,
                          /assets/images/public-sector-multidisciplinary-team-1024.webp 1024w"
@@ -59,6 +49,18 @@ breadcrumbName: Public sector service design consultant
                  decoding="async"
                  class="h-auto w-full rounded-lg">
         </figure>
+        <div class="lg:col-span-3 lg:col-start-1 lg:row-start-2">
+            <p class="body-m">
+                Sometimes that means joining an existing delivery team. Sometimes it means providing the service design or UX expertise needed for a bid, framework call-off or advisory assignment. I also take on shorter pieces of work where a programme needs help making sense of a service, its users and how the different parts fit together.
+            </p>
+            <p class="body-m">
+                My background covers service design, UX and user-centred design across central government, justice, law enforcement and education.
+            </p>
+            <p class="body-m mt-6">{{ ctaButton(contactUrl) }}</p>
+            <p class="body-s text-gray-600 dark:text-gray-400">
+                Available for specialist subcontracting, named expert roles, technical-assistance assignments and short-term advisory work.
+            </p>
+        </div>
     </div>
 </section>
 

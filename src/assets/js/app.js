@@ -32,8 +32,12 @@ const sitePreferences = {
             if (this.getTheme() === 'device') this.applyTheme('device');
         });
 
+        this.rememberReturnPath();
+
         this.form = document.getElementById('site-settings');
         if (!this.form) return;
+
+        this.showReturnLink();
 
         this.status = document.getElementById('site-settings-status');
         this.form.hidden = false;
@@ -142,6 +146,58 @@ const sitePreferences = {
 
     announce(message) {
         if (this.status) this.status.textContent = message;
+    },
+
+    rememberReturnPath() {
+        const path = (location.pathname === '/settings' || location.pathname === '/settings/')
+            ? this.returnPath()
+            : location.pathname + location.search + location.hash;
+        if (!path) return;
+
+        const href = `/settings/?from=${encodeURIComponent(path)}`;
+        document.querySelectorAll('a.settings-link').forEach((link) => {
+            link.href = href;
+        });
+    },
+
+    showReturnLink() {
+        const path = this.returnPath();
+        const wrap = document.getElementById('settings-return');
+        const link = wrap && wrap.querySelector('a');
+        if (!path || !link) return;
+
+        link.href = path;
+        wrap.hidden = false;
+    },
+
+    returnPath() {
+        const from = new URLSearchParams(location.search).get('from');
+        return this.safePath(from) || this.safePath(this.referrerPath());
+    },
+
+    referrerPath() {
+        if (!document.referrer) return null;
+
+        try {
+            const url = new URL(document.referrer);
+            if (url.origin !== location.origin) return null;
+            return url.pathname + url.search + url.hash;
+        } catch (error) {
+            return null;
+        }
+    },
+
+    safePath(value) {
+        if (!value || !value.startsWith('/') || value.startsWith('//') || value.includes('\\')) return null;
+
+        try {
+            const url = new URL(value, location.origin);
+            if (url.origin !== location.origin) return null;
+            if (url.pathname === '/settings' || url.pathname === '/settings/') return null;
+            return url.pathname + url.search + url.hash;
+        } catch (error) {
+            return null;
+        }
     }
 };
 

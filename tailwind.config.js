@@ -9,6 +9,14 @@ module.exports = {
     extend: {
       colors: {
         primary: '#243e64',
+        palette: {
+          sage: 'var(--palette-sage)',
+          sky: 'var(--palette-sky)',
+          ochre: 'var(--palette-ochre)',
+          terracotta: 'var(--palette-terracotta)',
+          slate: 'var(--palette-slate)',
+          stone: 'var(--palette-stone)'
+        },
         // Add other custom colors if needed
       },
       typography: {

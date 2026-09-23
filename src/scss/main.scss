@@ -71,6 +71,23 @@
   --secondary: whitesmoke;
   --white: #ffffff;
   --black: #000000;
+
+  // Soft palette sampled from the fills in the site's hand-drawn illustrations.
+  --palette-sage: #8da688;
+  --palette-sky: #88a8bf;
+  --palette-ochre: #e5b974;
+  --palette-terracotta: #c87b73;
+  --palette-slate: #6786a5;
+  --palette-stone: #b2aea9;
+
+  // Text links: a muted navy rather than Tailwind's bright blue.
+  --link-color: #25599a;
+  --link-hover-color: #1a3f6e;
+}
+
+.dark {
+  --link-color: #96b8e3;
+  --link-hover-color: #bfd4f2;
 }
 
 // Base styles
@@ -93,14 +110,15 @@ body {
   }
 
   main .prose :where(a):not(:where([class~='not-prose'] *)) {
-    @apply text-blue-600 dark:text-blue-400 underline underline-offset-2;
+    @apply underline underline-offset-2;
+    color: var(--link-color);
     text-decoration-thickness: 1px;
     transition: color 150ms ease, text-decoration-thickness 150ms ease;
   }
 
   main .prose :where(a):not(:where([class~='not-prose'] *)):hover,
   main .prose :where(a):not(:where([class~='not-prose'] *)):focus-visible {
-    @apply text-blue-800 dark:text-blue-300;
+    color: var(--link-hover-color);
     text-decoration-thickness: 2px;
   }
 }
@@ -358,13 +376,14 @@ body {
   }
 
   .text-link {
-    @apply text-blue-600 dark:text-blue-400 underline underline-offset-2;
+    @apply underline underline-offset-2;
+    color: var(--link-color);
     text-decoration-thickness: 1px;
     transition: color 150ms ease, text-decoration-thickness 150ms ease;
 
     &:hover,
     &:focus-visible {
-      @apply text-blue-800 dark:text-blue-300;
+      color: var(--link-hover-color);
       text-decoration-thickness: 2px;
     }
   }
