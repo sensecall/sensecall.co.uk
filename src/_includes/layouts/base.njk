@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="en" class="h-full no-js">
     {% include "partials/head.njk" %}
     {% set navAccent = page.url | currentNavAccent %}
     <body class="bg-white dark:bg-gray-950 min-h-full flex flex-col {{ bodyClasses }}"{% if navAccent %} style="--nav-accent: var(--palette-{{ navAccent }})"{% endif %}>

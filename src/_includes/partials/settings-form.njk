@@ -1,0 +1,73 @@
+{% set idPrefix = idPrefix | default('') %}
+{% set settingsFormId = settingsFormId | default('site-settings') %}
+{% set themeOptions = [
+    { value: "device", label: "Match my device", hint: "Follows your operating system's light or dark setting" },
+    { value: "light", label: "Light" },
+    { value: "dark", label: "Dark" }
+] %}
+
+<form id="{{ settingsFormId }}" class="site-settings-form mt-5" data-site-settings {% if settingsFormHidden %}hidden{% endif %}>
+    <fieldset class="mb-6">
+        <legend class="heading-xxs mb-2">Theme</legend>
+        <div class="grid gap-2">
+            {% for option in themeOptions %}
+                <label for="{{ idPrefix }}theme-{{ option.value }}"
+                       data-label="{{ option.label | lower if option.value != 'device' else 'match my device' }}"
+                       class="settings-choice">
+                    <input type="radio"
+                           id="{{ idPrefix }}theme-{{ option.value }}"
+                           name="theme"
+                           value="{{ option.value }}"
+                           class="mt-0.5 h-4 w-4 shrink-0 accent-[#243e64] focus:outline-none dark:accent-blue-300"
+                           {% if option.hint %}aria-describedby="{{ idPrefix }}theme-{{ option.value }}-hint"{% endif %}>
+                    <span>
+                        <span class="settings-choice__label">{{ option.label }}</span>
+                        {% if option.hint %}
+                            <span id="{{ idPrefix }}theme-{{ option.value }}-hint" class="settings-choice__hint">{{ option.hint }}</span>
+                        {% endif %}
+                    </span>
+                </label>
+            {% endfor %}
+        </div>
+    </fieldset>
+
+    <fieldset class="mb-6" aria-describedby="{{ idPrefix }}font-hint">
+        <legend class="heading-xxs mb-2">Typeface</legend>
+        <p id="{{ idPrefix }}font-hint" class="body-xs text-gray-600 dark:text-gray-400">
+            Each option sets the headings and body text together. Classic is the default, and loads from Google Fonts. Original is hosted on this site. The others load from Google Fonts when you pick them.
+        </p>
+        <div class="mt-3 grid gap-2">
+            {% for font in fonts.options %}
+                <label for="{{ idPrefix }}font-{{ font.key }}"
+                       data-label="{{ font.name }}"
+                       class="settings-choice">
+                    <input type="radio"
+                           id="{{ idPrefix }}font-{{ font.key }}"
+                           name="font"
+                           value="{{ font.key }}"
+                           class="mt-0.5 h-4 w-4 shrink-0 accent-[#243e64] focus:outline-none dark:accent-blue-300"
+                           {% if font.hint %}aria-describedby="{{ idPrefix }}font-{{ font.key }}-hint"{% endif %}>
+                    <span>
+                        <span class="settings-choice__label">{{ font.name }}</span>
+                        {% if font.hint %}
+                            <span id="{{ idPrefix }}font-{{ font.key }}-hint" class="settings-choice__hint">{{ font.hint }}</span>
+                        {% endif %}
+                    </span>
+                </label>
+            {% endfor %}
+        </div>
+    </fieldset>
+
+    <div class="settings-preview mb-6" aria-label="Typeface preview" role="region">
+        <p class="settings-preview__kicker">Preview</p>
+        <p class="settings-preview__heading">A heading looks like this</p>
+        <p class="settings-preview__body">This is how body text will look across the site. Pick whichever one you find easiest to read.</p>
+        <p class="settings-preview__meta">0123456789 · Il1 O0 · rn m · “Quotes” &amp; ampersands</p>
+    </div>
+
+    <button type="reset"
+            class="inline-flex min-h-[44px] items-center rounded-md border border-gray-300 bg-white px-4 py-2 font-semibold text-gray-800 shadow-sm transition-colors hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-800 dark:focus-visible:ring-blue-300 dark:focus-visible:ring-offset-gray-950">
+        Reset to defaults
+    </button>
+    <p id="{{ idPrefix }}settings-status" class="body-s mt-3 min-h-[1.5em] text-gray-600 dark:text-gray-400" data-settings-status role="status" aria-live="polite"></p>
+</form>

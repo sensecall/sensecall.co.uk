@@ -33,35 +33,47 @@ const sitePreferences = {
         });
 
         this.rememberReturnPath();
-
-        this.form = document.getElementById('site-settings');
-        if (!this.form) return;
-
         this.showReturnLink();
 
-        this.status = document.getElementById('site-settings-status');
-        this.form.hidden = false;
-        this.setFormValue('theme', this.getTheme());
-        this.setFormValue('font', this.getFont());
+        this.forms = Array.from(document.querySelectorAll('[data-site-settings]'));
+        this.forms.forEach((form) => this.bindForm(form));
+    },
 
-        this.form.addEventListener('change', (event) => {
+    bindForm(form) {
+        form.hidden = false;
+        this.setFormValue(form, 'theme', this.getTheme());
+        this.setFormValue(form, 'font', this.getFont());
+
+        form.addEventListener('change', (event) => {
+            const label = event.target.labels && event.target.labels[0]
+                ? event.target.labels[0].dataset.label
+                : event.target.value;
+
             if (event.target.name === 'theme') {
                 this.saveTheme(event.target.value);
-                this.announce(`Theme set to ${event.target.labels[0].dataset.label}.`);
+                this.syncForms();
+                this.announce(form, `Theme set to ${label}.`);
             }
             if (event.target.name === 'font') {
                 this.saveFont(event.target.value);
-                this.announce(`Typeface set to ${event.target.labels[0].dataset.label}.`);
+                this.syncForms();
+                this.announce(form, `Typeface set to ${label}.`);
             }
         });
 
-        this.form.addEventListener('reset', (event) => {
+        form.addEventListener('reset', (event) => {
             event.preventDefault();
             this.saveTheme('device');
             this.saveFont(this.fonts.default);
-            this.setFormValue('theme', 'device');
-            this.setFormValue('font', this.fonts.default);
-            this.announce('Settings reset to the defaults.');
+            this.syncForms();
+            this.announce(form, 'Settings reset to the defaults.');
+        });
+    },
+
+    syncForms() {
+        this.forms.forEach((form) => {
+            this.setFormValue(form, 'theme', this.getTheme());
+            this.setFormValue(form, 'font', this.getFont());
         });
     },
 
@@ -139,13 +151,14 @@ const sitePreferences = {
         document.head.appendChild(link);
     },
 
-    setFormValue(name, value) {
-        const input = this.form.querySelector(`input[name="${name}"][value="${value}"]`);
+    setFormValue(form, name, value) {
+        const input = form.querySelector(`input[name="${name}"][value="${value}"]`);
         if (input) input.checked = true;
     },
 
-    announce(message) {
-        if (this.status) this.status.textContent = message;
+    announce(form, message) {
+        const status = form.querySelector('[data-settings-status]');
+        if (status) status.textContent = message;
     },
 
     rememberReturnPath() {
@@ -453,6 +466,101 @@ const mobileMenu = {
         } else if (typeof this.mobileMediaQuery.addListener === 'function') {
             this.mobileMediaQuery.addListener(onViewportChange);
         }
+    }
+};
+
+const settingsMenu = {
+    focusableSelector: 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+
+    init(button, closeButton, menu) {
+        if (!button || !menu || !closeButton) return;
+
+        this.button = button;
+        this.menu = menu;
+        this.closeButton = closeButton;
+        this.panel = menu.querySelector('.settings-menu__panel');
+        this.previousBodyOverflow = '';
+        this.menu.hidden = false;
+        this.setupListeners();
+    },
+
+    isOpen() {
+        return this.menu.classList.contains('is-open');
+    },
+
+    openMenu() {
+        if (this.isOpen()) return;
+
+        if (mobileMenu.menu && mobileMenu.isMobileViewport && mobileMenu.isMobileViewport() && !mobileMenu.menu.hasAttribute('inert')) {
+            mobileMenu.closeMenu();
+        }
+
+        this.previousBodyOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+        this.menu.classList.add('is-open');
+        this.menu.removeAttribute('inert');
+        this.menu.setAttribute('aria-hidden', 'false');
+        this.button.setAttribute('aria-expanded', 'true');
+        this.closeButton.focus();
+    },
+
+    closeMenu(restoreFocus = false) {
+        if (!this.isOpen()) return;
+
+        this.menu.classList.remove('is-open');
+        this.menu.setAttribute('inert', '');
+        this.menu.setAttribute('aria-hidden', 'true');
+        this.button.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = this.previousBodyOverflow || '';
+
+        if (restoreFocus) this.button.focus();
+    },
+
+    trapFocus(event) {
+        if (event.key !== 'Tab' || !this.isOpen()) return;
+
+        const focusableElements = Array.from(
+            this.menu.querySelectorAll(this.focusableSelector)
+        ).filter((element) => !element.hasAttribute('disabled') && element.offsetParent !== null);
+
+        if (focusableElements.length === 0) {
+            event.preventDefault();
+            this.closeButton.focus();
+            return;
+        }
+
+        const firstFocusable = focusableElements[0];
+        const lastFocusable = focusableElements[focusableElements.length - 1];
+
+        if (event.shiftKey && document.activeElement === firstFocusable) {
+            event.preventDefault();
+            lastFocusable.focus();
+        }
+
+        if (!event.shiftKey && document.activeElement === lastFocusable) {
+            event.preventDefault();
+            firstFocusable.focus();
+        }
+    },
+
+    setupListeners() {
+        this.button.addEventListener('click', () => this.openMenu());
+        this.closeButton.addEventListener('click', () => this.closeMenu(true));
+
+        this.menu.querySelectorAll('[data-settings-dismiss]').forEach((dismiss) => {
+            dismiss.addEventListener('click', () => this.closeMenu(true));
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (!this.isOpen()) return;
+
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                this.closeMenu(true);
+            }
+
+            this.trapFocus(event);
+        });
     }
 };
 
@@ -794,6 +902,11 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('mobile-menu-button'),
             document.getElementById('mobile-menu-close'),
             document.getElementById('mobile-menu')
+        );
+        settingsMenu.init(
+            document.getElementById('settings-menu-button'),
+            document.getElementById('settings-menu-close'),
+            document.getElementById('settings-menu')
         );
         scrollToSection.init();
         const initialiseProjectCards = () => projectCards.init();
