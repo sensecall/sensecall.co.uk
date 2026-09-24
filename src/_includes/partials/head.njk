@@ -96,10 +96,10 @@
           }
       </script>
       {% for font in fonts.options %}
-          {% if font.key == fonts.default and font.query %}
-              <link rel="preconnect" href="https://fonts.googleapis.com">
-              <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-              <link rel="stylesheet" href="https://fonts.googleapis.com/css2?{{ font.query }}&display=swap">
+          {% if font.key == fonts.default and font.preload %}
+              {% for file in font.preload %}
+                  <link rel="preload" href="{{ file }}" as="font" type="font/woff2" crossorigin>
+              {% endfor %}
           {% endif %}
       {% endfor %}
       <link rel="stylesheet" href="/css/styles.min.css">

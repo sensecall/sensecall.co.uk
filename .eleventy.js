@@ -51,10 +51,10 @@ module.exports = function (eleventyConfig) {
     return match ? match.accent : "";
   });
 
-  // Typeface pairings offered on the /settings/ page. Classic is the default and is
-  // loaded from the document head. The original pairing is self-hosted. The others
-  // load from Google Fonts only when a visitor picks them. className is added to
-  // <html> so main.scss can tune spacing and rhythm for that pairing.
+  // Typeface pairings offered on the /settings/ page. Classic (the default) and Original
+  // are self-hosted, and Classic's upright files are preloaded from the document head.
+  // The others load from Google Fonts only when a visitor picks them.
+  // className is added to <html> so main.scss can tune spacing and rhythm for that pairing.
   eleventyConfig.addGlobalData("fonts", {
     default: "classic",
     options: [
@@ -83,7 +83,11 @@ module.exports = function (eleventyConfig) {
         cssFamily: "'Source Sans 3', sans-serif",
         headingFamily: "'Source Serif 4', Georgia, serif",
         className: null,
-        query: "family=Source+Sans+3:ital,wght@0,400..700;1,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700"
+        query: null,
+        preload: [
+          "/assets/fonts/source-sans-3-latin-variable.woff2",
+          "/assets/fonts/source-serif-4-latin-variable.woff2"
+        ]
       },
       {
         key: "modern",
