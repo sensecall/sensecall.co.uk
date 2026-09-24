@@ -449,12 +449,6 @@ module.exports = function (eleventyConfig) {
         'why': 'I needed a fast way to work out take-home pay across tricky IR35 scenarios, so I put this together.'
       },
       {
-        'title': 'Advanced Mortgage Planning Calculator',
-        'description': 'A comprehensive mortgage calculator to help you explore different scenarios and see how various factors affect your repayments.',
-        'url': 'https://themortgagetool.co.uk',
-        'why': 'Another tool to scratch an itch. I was looking for a mortgage calculator that would allow me to explore different scenarios and see how future interest rates would affect my mortgage repayments. In the end I decided to spin it out into a proper website; I hope it\'s useful for others.'
-      },
-      {
         'title': 'Car cost comparison',
         'description': 'Compare the cost of buying a new car versus keeping your current one.',
         'url': 'https://car.sensecall.co.uk',
