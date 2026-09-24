@@ -186,7 +186,7 @@ body {
   }
 
   // Fixed-width rule under each page title, in the current section's nav border colour.
-  // On the homepage the title is the greeting under the portrait, not the h1.
+  // On the homepage the greeting is a paragraph, so the rule sits under that text.
   main h1.heading-l::after,
   #introduction .heading-l > span:last-child::after {
     content: "";
