@@ -1,7 +1,28 @@
 <nav class="site-nav py-3 my-3" aria-label="Main navigation">
     <div class="container mx-auto px-4 md:px-8">
-        <div class="flex justify-between items-center">
-            <button id="mobile-menu-button" 
+        <div class="relative flex justify-between items-center">
+            {% if page.url != '/' %}
+                <a href="/"
+                   class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 block h-11 w-11 overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:focus-visible:ring-primary-light dark:focus-visible:ring-offset-gray-950 md:hidden"
+                   aria-label="Dan Sensecall, home">
+                    <img src="/assets/images/dan-sensecall-portrait-light-160.webp"
+                         alt=""
+                         width="160"
+                         height="127"
+                         decoding="async"
+                         class="h-full w-full object-cover object-top dark:hidden">
+                    <img src="/assets/images/dan-sensecall-portrait-dark-160.webp"
+                         alt=""
+                         width="160"
+                         height="143"
+                         decoding="async"
+                         class="hidden h-full w-full object-cover object-top dark:block">
+                </a>
+           
+           
+           
+            {% endif %}
+            <button id="mobile-menu-button"
                     class="md:hidden p-2 text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light flex items-center"
                     aria-expanded="false"
                     aria-controls="mobile-menu"
@@ -103,7 +124,6 @@
         </button>
         <div class="px-4 pb-8">
             <h2 id="settings-menu-title" class="heading-xs mt-3">Settings</h2>
-            <p class="body-s text-gray-600 dark:text-gray-400">Saved in this browser only.</p>
             {% set idPrefix = 'menu-' %}
             {% set settingsFormId = 'settings-menu-form' %}
             {% set settingsFormHidden = false %}

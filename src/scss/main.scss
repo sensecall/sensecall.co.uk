@@ -205,14 +205,12 @@ body {
   .heading-xs {
     @apply font-semibold;
     font-size: clamp(1.2rem, 1.05rem + 0.65vw, 1.6rem);
-    font-weight: 700;
     line-height: 1.3;
   }
 
   .heading-xxs {
     @apply font-semibold;
     font-size: clamp(1.05rem, 0.98rem + 0.35vw, 1.25rem);
-    font-weight: 700;
     line-height: 1.4;
   }
 
@@ -1204,11 +1202,6 @@ html.type-atkinson {
   .heading-s {
     line-height: 1.2;
     letter-spacing: -0.01em;
-  }
-
-  .heading-xs,
-  .heading-xxs {
-    font-weight: 600;
   }
 }
 

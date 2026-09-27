@@ -102,7 +102,3 @@ A request tells you where frustration has built up enough for somebody to name a
 If the main output from your sessions is a list of things people asked for, you may have learned something useful about demand, frustration, or expectations. But you may still be some distance from understanding the problem properly.
 
 Good research gives a team a clearer view of the work, the constraints around it, and the reasons people have ended up asking for what they ask for.
-
-That is when you can move from “what should we add?” to “what is making this work harder than it needs to be?”
-
-And that is usually where the better decisions start.

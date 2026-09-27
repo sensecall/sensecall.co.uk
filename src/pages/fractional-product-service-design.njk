@@ -1,0 +1,146 @@
+---
+layout: page.njk
+title: Fractional Product and Service Designer | Dan Sensecall
+permalink: /fractional-product-service-design/
+description: Senior product and service design support for a few days a month or week. Help setting priorities, seeing the whole service and supporting your designers.
+socialImageAlt: Dan Sensecall, fractional product and service designer
+serviceSchema:
+    name: Fractional product and service design
+    serviceType:
+        - Fractional product design
+        - Fractional service design
+        - Design leadership
+        - User research
+        - Prototyping
+    audience: Heads of product and design, programme leads, founders and consultancies
+breadcrumbName: Fractional product and service design
+---
+
+{% set contactUrl = "/contact/" %}
+
+{% macro ctaButton(url, label) %}
+    <a href="{{ url }}"
+       class="inline-flex min-h-[44px] items-center gap-2 rounded-md bg-primary px-5 py-2.5 font-semibold text-white no-underline shadow-sm transition-colors hover:bg-[#1b2f4c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:bg-blue-300 dark:text-gray-950 dark:hover:bg-blue-200 dark:focus-visible:ring-blue-300 dark:focus-visible:ring-offset-gray-950">
+        {{ label }}
+        <svg aria-hidden="true" class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+        </svg>
+    </a>
+{% endmacro %}
+
+<section aria-labelledby="page-title" class="py-8 lg:py-12">
+    <div class="flex flex-col gap-8 lg:grid lg:grid-cols-5 lg:items-center lg:gap-x-12 lg:gap-y-5">
+        <div class="lg:col-span-3 lg:col-start-1 lg:row-start-1">
+            <h1 id="page-title" class="heading-l">Fractional product and service design</h1>
+            <p class="body-l">
+                Senior design expertise, a few days each week or month.
+            </p>
+        </div>
+        <figure class="mx-auto w-full max-w-md lg:col-span-2 lg:col-start-4 lg:row-span-2 lg:row-start-1 lg:max-w-none">
+            <img src="/assets/images/fractional-design-team-480.webp"
+                 srcset="/assets/images/fractional-design-team-480.webp 480w,
+                         /assets/images/fractional-design-team-1024.webp 1024w"
+                 sizes="(min-width: 1024px) 40vw, min(28rem, calc(100vw - 2rem))"
+                 alt="Five people around a table, looking at a laptop and sketches of a service"
+                 width="1024"
+                 height="621"
+                 fetchpriority="high"
+                 decoding="async"
+                 class="h-auto w-full rounded-lg">
+        </figure>
+        <div class="lg:col-span-3 lg:col-start-1 lg:row-start-2">
+            <p class="body-m">
+                Your team may have the capacity to deliver, but need help deciding where to focus, understanding how a service fits together or working through a difficult design problem.
+            </p>
+            <p class="body-m">
+                I work alongside product and delivery teams to provide that experience on a part-time basis. Sometimes I help set direction. Sometimes I get into the detail, make something and test it. Often, the most useful thing is helping the people already there do their best work.
+            </p>
+            <p class="body-m mt-6">{{ ctaButton(contactUrl, "Discuss fractional support") }}</p>
+        </div>
+    </div>
+</section>
+
+<section aria-labelledby="when-it-works" class="my-8 rounded-2xl bg-slate-50 px-4 py-8 dark:bg-gray-900 md:my-10 md:px-8 md:py-10 lg:px-10 lg:py-12">
+    <h2 id="when-it-works" class="heading-m mt-0">When fractional support works best</h2>
+    {% set situations = [
+        {
+            title: "Delivery is moving, but the direction is unclear",
+            description: "There is plenty on the roadmap, but it is hard to agree what matters most. I help the team examine the evidence, question planned work and decide what to tackle first."
+        },
+        {
+            title: "Nobody sees the whole service",
+            description: "Different teams own different parts of it. I look across the user journey, operations and systems to find where things break down or fail to join up."
+        },
+        {
+            title: "Your designers need senior support",
+            description: "I review work in progress, help with difficult decisions and give designers someone experienced to work through problems with."
+        },
+        {
+            title: "You’re about to commit to a new direction",
+            description: "I help the team make ideas tangible and test the important assumptions before committing more time and money to a product or service change."
+        }
+    ] %}
+    <ul class="mt-6 grid list-none grid-cols-1 gap-8 p-0 md:grid-cols-2 md:gap-x-12 md:gap-y-8" role="list">
+        {% for item in situations %}
+            <li class="border-t border-gray-200 pt-4 dark:border-gray-700">
+                <h3 class="heading-xs mt-0">{{ item.title }}</h3>
+                <p class="body-m mb-0">{{ item.description }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+
+<section aria-labelledby="working-together" class="py-8 md:py-10 lg:py-12">
+    <div class="lg:w-2/3">
+        <h2 id="working-together" class="heading-m">How we work together</h2>
+        <p class="body-m">
+            We start with the problem you want help with, the decisions coming up and the people involved. I look at what the team has already learned and agree where my time would be most useful.
+        </p>
+        <p class="body-m">
+            That could mean mapping a service, working through priorities, reviewing research or prototyping a proposed change. I can take on focused design work and stay involved as the team tests and delivers it.
+        </p>
+        <ul class="body-m list-disc pl-5">
+            <li>A few days a month can work well for reviews, advice and support with key decisions.</li>
+            <li>A day or two a week gives me time to work more closely with the team on design, prototyping and coaching.</li>
+        </ul>
+        <p class="body-m">
+            We agree the priorities, time commitment and fee before starting, then review the arrangement after an initial period.
+        </p>
+    </div>
+</section>
+
+<section aria-labelledby="experience" class="py-8 md:py-10 lg:py-12">
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-10 lg:w-5/6">
+        <div>
+            <h2 id="experience" class="heading-m">Experience I bring</h2>
+            <p class="body-m">
+                My background spans <a href="/service-design/" class="text-link">service design</a>, interaction design, research and prototyping. Much of my recent work has been on UK public-sector services where people need to complete important tasks within complicated operational settings.
+            </p>
+            <p class="body-m">
+                On the <a href="/projects/home-office/" class="text-link">replacement for the Police National Computer</a>, I helped understand how different police forces worked and prototyped a service for recording stolen and recovered property. At <a href="/projects/hmpps/" class="text-link">HM Prison and Probation Service</a>, I designed and tested ways for staff to manage activities and mark attendance more efficiently.
+            </p>
+            <p class="body-m">
+                You can read more in my <a href="/projects/" class="text-link">project case studies</a> and about my work with <a href="/public-sector-service-design-consultant/" class="text-link">public-sector programmes and delivery partners</a>.
+            </p>
+        </div>
+        <figure class="w-32 shrink-0 sm:mt-14 md:w-44">
+            <img src="/assets/images/dan-sensecall.jpg"
+                 alt="A photo of Dan Sensecall"
+                 width="512"
+                 height="512"
+                 loading="lazy"
+                 decoding="async"
+                 class="aspect-square w-full rounded-full object-cover">
+        </figure>
+    </div>
+</section>
+
+<section aria-labelledby="discuss" class="pb-8 md:pb-10 lg:pb-12 xl:pb-14">
+    <div class="rounded-2xl border border-blue-100 bg-blue-50 px-5 py-8 dark:border-gray-700 dark:bg-gray-900 md:px-8 md:py-10 lg:w-5/6">
+        <h2 id="discuss" class="heading-m mt-0">Let’s talk about what your team needs</h2>
+        <p class="body-m max-w-2xl">
+            You do not need a formal brief or a fixed number of days in mind. Tell me what the team is working on, where you need help and what decisions are coming up. I’ll give you a straightforward view on whether fractional support makes sense and how we could start.
+        </p>
+        <p class="body-m mt-6">{{ ctaButton(contactUrl, "Contact me about fractional support") }}</p>
+    </div>
+</section>

@@ -37,10 +37,10 @@ module.exports = function (eleventyConfig) {
   // rule both use the matching --palette-* token.
   const navItems = [
     { url: "/", text: "Home", exact: true, accent: "sage" },
+    { url: "/services", text: "Services", accent: "slate" },
     { url: "/about", text: "About", srOnly: "Dan Sensecall", accent: "ochre" },
     { url: "/cv", text: "CV", tabletHide: true, accent: "stone" },
     { url: "/projects", text: "Projects", accent: "sky" },
-    { url: "/public-sector-service-design-consultant", text: "Consultancy", accent: "slate" },
     { url: "/contact", text: "Contact", accent: "terracotta" },
     { url: "/writing", text: "Writing", accent: "lilac" },
     { url: "/experiments", text: "Experiments", tabletHide: true, accent: "teal" }
@@ -70,7 +70,7 @@ module.exports = function (eleventyConfig) {
       {
         key: "serif",
         name: "Editorial",
-        hint: "Fraunces headings with Literata text, and more generous spacing",
+        hint: "Fraunces headings with Literata text",
         cssFamily: "'Literata', Georgia, serif",
         headingFamily: "'Fraunces', Georgia, serif",
         className: "type-serif",
