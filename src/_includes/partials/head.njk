@@ -128,14 +128,25 @@
                   "name": "UI UX Ltd",
                   "url": "https://uiux.ltd/"
               },
-              "makesOffer": {
-                  "@type": "Offer",
-                  "itemOffered": {
-                      "@type": "Service",
-                      "name": "UX Design & Service Design Consultancy",
-                      "areaServed": "United Kingdom"
-                  }
-              },
+              "makesOffer": [
+                  {% for offer in [
+                      { name: "UX Design & Service Design Consultancy" },
+                      { name: "Senior service and interaction design on a contract basis", url: "/services/#delivery-team" },
+                      { name: "Fractional product and service design", url: "/fractional-product-service-design/" },
+                      { name: "Service design and UX support for public-sector bids and delivery partners", url: "/public-sector-service-design-consultant/" },
+                      { name: "Independent product and service reviews", url: "/product-service-review/" }
+                  ] %}
+                  {
+                      "@type": "Offer",
+                      "itemOffered": {
+                          "@type": "Service",
+                          "name": {{ offer.name | dump | safe }},{% if offer.url %}
+                          "url": "{{ site.url }}{{ offer.url }}",{% endif %}
+                          "areaServed": "United Kingdom"
+                      }
+                  }{{ "," if not loop.last }}
+                  {% endfor %}
+              ],
               "knowsAbout": [
                   "Service Design",
                   "User Experience Design",
@@ -143,6 +154,8 @@
                   "User Research",
                   "Accessibility",
                   "Content Design",
+                  "Product Design",
+                  "Prototyping",
                   "Public Sector",
                   "Government"
               ]
@@ -181,7 +194,23 @@
                           },
                           "provider": {
                               "@id": "{{ site.url }}/#dan-sensecall"
-                          }
+                          }{% if serviceSchema.catalog %},
+                          "hasOfferCatalog": {
+                              "@type": "OfferCatalog",
+                              "name": {{ serviceSchema.name | dump | safe }},
+                              "itemListElement": [
+                                  {% for item in serviceSchema.catalog %}
+                                  {
+                                      "@type": "Offer",
+                                      "itemOffered": {
+                                          "@type": "Service",
+                                          "name": {{ item.name | dump | safe }},
+                                          "url": "{{ site.url }}{{ item.url }}"
+                                      }
+                                  }{{ "," if not loop.last }}
+                                  {% endfor %}
+                              ]
+                          }{% endif %}
                       },
                       {
                           "@type": "BreadcrumbList",
@@ -192,9 +221,17 @@
                                   "name": "Home",
                                   "item": "{{ site.url }}/"
                               },
+                              {% if breadcrumbParent %}
                               {
                                   "@type": "ListItem",
                                   "position": 2,
+                                  "name": {{ breadcrumbParent.name | dump | safe }},
+                                  "item": "{{ site.url }}{{ breadcrumbParent.url }}"
+                              },
+                              {% endif %}
+                              {
+                                  "@type": "ListItem",
+                                  "position": {{ 3 if breadcrumbParent else 2 }},
                                   "name": {{ (breadcrumbName or title) | dump | safe }},
                                   "item": "{{ canonicalUrl }}"
                               }
