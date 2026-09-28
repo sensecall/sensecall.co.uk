@@ -7,8 +7,8 @@
 ] %}
 
 <form id="{{ settingsFormId }}" class="site-settings-form mt-5" data-site-settings {% if settingsFormHidden %}hidden{% endif %}>
-    <fieldset class="mb-6">
-        <legend class="heading-xxs mb-2">Theme</legend>
+    <fieldset class="mb-8">
+        <legend class="heading-xxs mb-3">Theme</legend>
         <div class="grid gap-2">
             {% for option in themeOptions %}
                 <label for="{{ idPrefix }}theme-{{ option.value }}"
@@ -31,9 +31,9 @@
         </div>
     </fieldset>
 
-    <fieldset class="mb-6" aria-describedby="{{ idPrefix }}font-hint">
-        <legend class="heading-xxs mb-2">Style</legend>
-        <div class="mt-3 grid gap-2">
+    <fieldset class="mb-8">
+        <legend class="heading-xxs mb-3">Style</legend>
+        <div class="grid gap-2">
             {% for font in fonts.options %}
                 <label for="{{ idPrefix }}font-{{ font.key }}"
                        data-label="{{ font.name }}"

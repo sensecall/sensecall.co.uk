@@ -1,23 +1,21 @@
 <div class="site-footer-wrap bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
-    <footer class="container mx-auto px-4 py-8 flex flex-col md:flex-row justify-between items-center md:items-start gap-4">
+    <footer class="container mx-auto grid grid-cols-[auto_1fr] items-center gap-x-4 gap-y-3 px-4 py-8 md:items-start md:gap-y-1">
         <img src="/assets/images/ccs-supplier-logo--dark.svg"
-             alt="Crown Commercial Service Supplier Logo" 
-             class="mb-4 md:mb-0 h-12 w-auto hidden dark:block lg:h-14 xl:h-16"
+             alt="Crown Commercial Service Supplier Logo"
+             class="col-start-1 row-start-1 hidden h-9 w-auto dark:block md:row-span-2 md:h-12 lg:h-14 xl:h-16"
              height="64"
              width="260">
         <img src="/assets/images/ccs-supplier-logo.svg"
              alt="Crown Commercial Service Supplier Logo"
-             class="mb-4 md:mb-0 h-12 w-auto dark:hidden lg:h-14 xl:h-16"
-             height="64" 
+             class="col-start-1 row-start-1 h-9 w-auto dark:hidden md:row-span-2 md:h-12 lg:h-14 xl:h-16"
+             height="64"
              width="260">
-        <div class="text-center md:text-right">
-            <p class="body-s text-gray-600 dark:text-gray-300">
-                © Dan Sensecall 2008-{% year %}
-            </p>
-            <p class="body-xs text-gray-600 dark:text-gray-400 mt-1">
-                Trading as <a href="https://uiux.ltd" target="_blank" rel="noopener" class="text-link">UI UX Ltd</a>, a company registered in England and Wales. Company number 09513057.
-            </p>
-        </div>
+        <p class="body-s col-start-2 row-start-1 mb-0 text-right text-gray-600 dark:text-gray-300">
+            © Dan Sensecall 2008-{% year %}
+        </p>
+        <p class="body-xs col-span-2 row-start-2 mb-0 text-center text-gray-600 dark:text-gray-400 md:col-span-1 md:col-start-2 md:text-right">
+            Trading as <a href="https://uiux.ltd" target="_blank" rel="noopener" class="text-link">UI UX Ltd</a>, a company registered in England and Wales. Company number 09513057.
+        </p>
     </footer>
 </div>
 

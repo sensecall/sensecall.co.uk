@@ -554,7 +554,8 @@ body {
 }
 
 // Navigation styles
-.site-nav {
+.site-nav,
+#settings-menu-close {
   font-family: var(--font-family-heading);
 }
 
@@ -813,17 +814,21 @@ body {
   display: none;
 }
 
+// Keep the drawer visible until its slide-out transition has finished, so it closes
+// the same way as the mobile nav menu instead of vanishing.
 .settings-menu {
   position: fixed;
   inset: 0;
   z-index: 60;
   visibility: hidden;
   pointer-events: none;
+  transition: visibility 0s linear 200ms;
 }
 
 .settings-menu.is-open {
   visibility: visible;
   pointer-events: auto;
+  transition-delay: 0s;
 }
 
 .settings-menu[hidden] {
@@ -853,7 +858,7 @@ body {
 }
 
 .dark .settings-menu__panel {
-  background: rgb(3 7 18);
+  background: rgb(17 24 39);
 }
 
 .settings-menu.is-open .settings-menu__backdrop {
@@ -865,6 +870,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .settings-menu,
   .settings-menu__backdrop,
   .settings-menu__panel {
     transition: none;
@@ -1123,7 +1129,8 @@ html.type-serif {
   --type-body-m-space: 1.45rem;
   font-optical-sizing: auto;
 
-  .site-nav {
+  .site-nav,
+  #settings-menu-close {
     font-family: var(--font-family-base);
   }
 
