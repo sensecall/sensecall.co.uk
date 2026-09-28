@@ -23,6 +23,8 @@ serviceSchema:
 breadcrumbName: Services
 ---
 
+{% from "macros/cta-button.njk" import ctaButton %}
+
 <section aria-labelledby="page-title" class="py-8 lg:py-12">
     <div class="max-w-3xl">
         <h1 id="page-title" class="heading-l">Ways to work with me</h1>
@@ -100,19 +102,11 @@ breadcrumbName: Services
 </section>
 
 <section aria-labelledby="which-fits" class="pb-8 md:pb-10 lg:pb-12 xl:pb-14">
-    <div class="max-w-3xl rounded-2xl border border-blue-100 bg-blue-50 px-5 py-8 dark:border-gray-700 dark:bg-gray-900 md:px-8 md:py-10">
+    <div class="cta-card max-w-3xl">
         <h2 id="which-fits" class="heading-m mt-0">Not sure which fits?</h2>
         <p class="body-m">
             Tell me what you're working on, what help you think you need and any timescales you have in mind. I'll suggest a sensible way to start.
         </p>
-        <p class="body-m mt-6">
-            <a href="/contact/"
-               class="inline-flex min-h-[44px] items-center gap-2 rounded-md bg-primary px-5 py-2.5 font-semibold text-white no-underline shadow-sm transition-colors hover:bg-[#1b2f4c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:bg-blue-300 dark:text-gray-950 dark:hover:bg-blue-200 dark:focus-visible:ring-blue-300 dark:focus-visible:ring-offset-gray-950">
-                Get in touch
-                <svg aria-hidden="true" class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                </svg>
-            </a>
-        </p>
+        <p class="body-m mt-6">{{ ctaButton("/contact/", "Get in touch") }}</p>
     </div>
 </section>

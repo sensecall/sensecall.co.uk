@@ -1,0 +1,13 @@
+@layer components {
+  // Full-width tinted section that breaks up a long page.
+  .panel {
+    @apply my-8 rounded-2xl bg-slate-50 px-4 py-8 md:my-10 md:px-8 md:py-10 lg:px-10 lg:py-12;
+    @apply dark:bg-gray-900;
+  }
+
+  // Bordered blue box holding a page's closing call to action.
+  .cta-card {
+    @apply rounded-2xl border border-blue-100 bg-blue-50 px-5 py-8 md:px-8 md:py-10;
+    @apply dark:border-gray-700 dark:bg-gray-900;
+  }
+}

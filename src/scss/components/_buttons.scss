@@ -1,0 +1,17 @@
+@layer components {
+  // Solid call-to-action button, e.g. "Get in touch" on the services pages.
+  .button-primary {
+    @apply inline-flex min-h-[44px] items-center gap-2 rounded-md bg-primary px-5 py-2.5 font-semibold text-white no-underline shadow-sm transition-colors;
+    @apply focus-ring hover:bg-[#1b2f4c];
+    @apply dark:bg-blue-300 dark:text-gray-950 dark:hover:bg-blue-200;
+  }
+
+  // Round icon-only button, e.g. the homepage carousel's previous and next.
+  // Hover styles only apply while enabled, so disabled buttons don't react.
+  .icon-button {
+    @apply inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-300 bg-white text-gray-600 shadow-sm transition-all duration-200 focus-ring sm:h-11 sm:w-11;
+    @apply enabled:hover:border-gray-400 enabled:hover:bg-gray-50 enabled:hover:text-gray-900 enabled:hover:shadow-md;
+    @apply disabled:cursor-not-allowed disabled:opacity-50;
+    @apply dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:enabled:hover:border-gray-500 dark:enabled:hover:bg-gray-700 dark:enabled:hover:text-gray-100;
+  }
+}

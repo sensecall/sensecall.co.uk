@@ -22,25 +22,17 @@ breadcrumbParent:
 
 {% set contactUrl = "/contact/" %}
 
-{% macro ctaButton(url, label) %}
-    <a href="{{ url }}"
-       class="inline-flex min-h-[44px] items-center gap-2 rounded-md bg-primary px-5 py-2.5 font-semibold text-white no-underline shadow-sm transition-colors hover:bg-[#1b2f4c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:bg-blue-300 dark:text-gray-950 dark:hover:bg-blue-200 dark:focus-visible:ring-blue-300 dark:focus-visible:ring-offset-gray-950">
-        {{ label }}
-        <svg aria-hidden="true" class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-        </svg>
-    </a>
-{% endmacro %}
+{% from "macros/cta-button.njk" import ctaButton %}
 
 <section aria-labelledby="page-title" class="py-8 lg:py-12">
-    <div class="flex flex-col gap-8 lg:grid lg:grid-cols-5 lg:items-center lg:gap-x-12 lg:gap-y-5">
-        <div class="lg:col-span-3 lg:col-start-1 lg:row-start-1">
+    <div class="page-hero">
+        <div class="page-hero__intro">
             <h1 id="page-title" class="heading-l">Fractional product and service design</h1>
             <p class="body-l">
                 Senior design expertise, a few days each week or month.
             </p>
         </div>
-        <figure class="mx-auto w-full max-w-md lg:col-span-2 lg:col-start-4 lg:row-span-2 lg:row-start-1 lg:max-w-none">
+        <figure class="page-hero__image">
             <img src="/assets/images/fractional-design-team-480.webp"
                  srcset="/assets/images/fractional-design-team-480.webp 480w,
                          /assets/images/fractional-design-team-1024.webp 1024w"
@@ -52,7 +44,7 @@ breadcrumbParent:
                  decoding="async"
                  class="h-auto w-full rounded-lg">
         </figure>
-        <div class="lg:col-span-3 lg:col-start-1 lg:row-start-2">
+        <div class="page-hero__body">
             <p class="body-m">
                 Your team may have the capacity to deliver, but need help deciding where to focus, understanding how a service fits together or working through a difficult design problem.
             </p>
@@ -64,7 +56,7 @@ breadcrumbParent:
     </div>
 </section>
 
-<section aria-labelledby="when-it-works" class="my-8 rounded-2xl bg-slate-50 px-4 py-8 dark:bg-gray-900 md:my-10 md:px-8 md:py-10 lg:px-10 lg:py-12">
+<section aria-labelledby="when-it-works" class="panel">
     <h2 id="when-it-works" class="heading-m mt-0">When fractional support works best</h2>
     {% set situations = [
         {
@@ -138,7 +130,7 @@ breadcrumbParent:
 </section>
 
 <section aria-labelledby="discuss" class="pb-8 md:pb-10 lg:pb-12 xl:pb-14">
-    <div class="rounded-2xl border border-blue-100 bg-blue-50 px-5 py-8 dark:border-gray-700 dark:bg-gray-900 md:px-8 md:py-10 lg:w-5/6">
+    <div class="cta-card lg:w-5/6">
         <h2 id="discuss" class="heading-m mt-0">Let’s talk about what your team needs</h2>
         <p class="body-m max-w-2xl">
             You do not need a formal brief or a fixed number of days in mind. Tell me what the team is working on, where you need help and what decisions are coming up. I’ll give you a straightforward view on whether fractional support makes sense and how we could start.

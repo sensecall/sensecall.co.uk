@@ -3,7 +3,7 @@
         <div class="relative flex justify-between items-center">
             {% if page.url != '/' %}
                 <a href="/"
-                   class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex min-h-11 min-w-11 items-center justify-center rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:focus-visible:ring-primary-light dark:focus-visible:ring-offset-gray-950 md:hidden"
+                   class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex min-h-11 min-w-11 items-center justify-center rounded-sm focus-ring md:hidden"
                    aria-label="Dan Sensecall, home">
                     <img src="/assets/images/dan-sensecall-portrait-light-160.webp"
                          alt=""
@@ -20,7 +20,7 @@
                 </a>
             {% endif %}
             <button id="mobile-menu-button"
-                    class="md:hidden p-2 text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-light flex items-center"
+                    class="nav-text-button md:hidden"
                     aria-expanded="false"
                     aria-controls="mobile-menu"
                     aria-label="Open menu">
@@ -30,11 +30,9 @@
                 <span>Menu</span>
             </button>
 
-            <div id="mobile-menu" 
-                 class="fixed md:relative top-0 left-0 w-full h-full md:h-auto bg-white md:bg-transparent dark:bg-gray-900 md:dark:bg-transparent transform translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out md:transition-none z-50 md:z-auto"
-                 >
-                <button id="mobile-menu-close" 
-                        class="md:hidden mt-6 ml-4 inline-flex self-start items-center p-2 text-gray-700 dark:text-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:focus-visible:ring-primary-light dark:focus-visible:ring-offset-gray-900"
+            <div id="mobile-menu" class="mobile-menu">
+                <button id="mobile-menu-close"
+                        class="nav-text-button mt-6 ml-4 self-start md:hidden"
                         aria-label="Close menu">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -42,17 +40,15 @@
                     <span>Close</span>
                 </button>
 
-                <ul class="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6 text-base md:text-lg p-4 md:p-0 divide-y divide-gray-200 dark:divide-gray-800 md:divide-y-0 w-full">
+                <ul class="nav-list">
                     {% set currentUrl = page.url or '' %}
 
                     {% for item in navItems %}
                         {% set isCurrent = (item.exact and currentUrl == item.url) or 
                            (not item.exact and currentUrl and (item.url in currentUrl)) %}
-                        <li class="w-full pt-4 md:pt-0 md:w-auto{{ ' md:hidden lg:block' if item.tabletHide }}">
+                        <li class="nav-item{{ ' md:hidden lg:block' if item.tabletHide }}">
                             <a href="{{ item.url }}"
-                               class="block w-full md:inline-flex md:w-auto md:items-center min-h-[44px] md:min-h-0 px-2 py-2.5 md:px-0 md:py-0 border-l-4 md:border-l-0 md:border-b-2 md:pb-1 touch-manipulation text-gray-700 dark:text-gray-300 transition-colors duration-150 md:hover:text-primary md:hover:text-opacity-80 md:dark:hover:text-blue-300 md:dark:hover:text-opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:focus-visible:ring-primary-light dark:focus-visible:ring-offset-gray-900 active:text-primary dark:active:text-blue-300
-                                {{- ' border-l-transparent md:border-b-transparent' if not isCurrent -}}
-                                {{- ' text-primary dark:text-white font-bold border-l-[color:var(--nav-accent)] md:border-b-[color:var(--nav-accent)]' if isCurrent -}}
+                               class="nav-link
                                 {{- ' experiments-link' if item.text == 'Experiments' -}}
                                 {{- ' animate-bubbles' if item.text == 'Experiments' and currentUrl == '/experiments/' -}}"
                                style="--nav-accent: var(--palette-{{ item.accent }})"
@@ -75,7 +71,7 @@
             </div>
 
             <a href="/settings/"
-               class="settings-link settings-page-link inline-flex min-h-11 min-w-11 items-center justify-center rounded-sm p-2 hover:text-primary dark:hover:text-primary-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:focus-visible:ring-primary-light dark:focus-visible:ring-offset-gray-950 {{ 'text-primary dark:text-white' if page.url == '/settings/' else 'text-gray-500 dark:text-gray-300' }}"
+               class="settings-link settings-page-link header-icon-button"
                title="Settings: theme and typeface"
                {% if page.url == '/settings/' %}aria-current="page"{% endif %}>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -86,7 +82,7 @@
             </a>
             <button type="button"
                     id="settings-menu-button"
-                    class="settings-menu-button inline-flex min-h-11 min-w-11 items-center justify-center rounded-sm p-2 text-gray-500 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:text-gray-300 dark:hover:text-primary-light dark:focus-visible:ring-primary-light dark:focus-visible:ring-offset-gray-950"
+                    class="settings-menu-button header-icon-button"
                     aria-expanded="false"
                     aria-controls="settings-menu"
                     aria-haspopup="dialog">
@@ -112,7 +108,7 @@
     <div class="settings-menu__panel">
         <button type="button"
                 id="settings-menu-close"
-                class="mt-6 ml-4 inline-flex self-start items-center p-2 text-gray-700 dark:text-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:focus-visible:ring-primary-light dark:focus-visible:ring-offset-gray-900"
+                class="nav-text-button mt-6 ml-4 self-start"
                 aria-label="Close settings">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />

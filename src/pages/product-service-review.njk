@@ -21,25 +21,17 @@ breadcrumbParent:
 
 {% set reviewEmail = "mailto:dan@sensecall.co.uk?subject=Product%20and%20service%20review" %}
 
-{% macro ctaButton(url, label) %}
-    <a href="{{ url }}"
-       class="inline-flex min-h-[44px] items-center gap-2 rounded-md bg-primary px-5 py-2.5 font-semibold text-white no-underline shadow-sm transition-colors hover:bg-[#1b2f4c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:bg-blue-300 dark:text-gray-950 dark:hover:bg-blue-200 dark:focus-visible:ring-blue-300 dark:focus-visible:ring-offset-gray-950">
-        {{ label }}
-        <svg aria-hidden="true" class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-        </svg>
-    </a>
-{% endmacro %}
+{% from "macros/cta-button.njk" import ctaButton %}
 
 <section aria-labelledby="page-title" class="py-8 lg:py-12">
-    <div class="flex flex-col gap-8 lg:grid lg:grid-cols-5 lg:items-center lg:gap-x-12 lg:gap-y-5">
-        <div class="lg:col-span-3 lg:col-start-1 lg:row-start-1">
+    <div class="page-hero">
+        <div class="page-hero__intro">
             <h1 id="page-title" class="heading-l">Independent product and service reviews</h1>
             <p class="body-l">
                 A clear outside view of what is working, what is getting in the way and what to do next.
             </p>
         </div>
-        <figure class="mx-auto w-full max-w-md lg:col-span-2 lg:col-start-4 lg:row-span-2 lg:row-start-1 lg:max-w-none">
+        <figure class="page-hero__image">
             <img src="/assets/images/product-service-review-480.webp"
                  srcset="/assets/images/product-service-review-480.webp 480w,
                          /assets/images/product-service-review-1024.webp 1024w"
@@ -51,7 +43,7 @@ breadcrumbParent:
                  decoding="async"
                  class="h-auto w-full rounded-lg">
         </figure>
-        <div class="lg:col-span-3 lg:col-start-1 lg:row-start-2">
+        <div class="page-hero__body">
             <p class="body-m">
                 When you are close to a product or service, it can be difficult to see which problems matter most. You may have concerns about the experience, a proposed direction or the way a programme is approaching delivery, but need someone experienced to examine the evidence and give you a considered view.
             </p>
@@ -63,7 +55,7 @@ breadcrumbParent:
     </div>
 </section>
 
-<section aria-labelledby="what-i-can-review" class="my-8 rounded-2xl bg-slate-50 px-4 py-8 dark:bg-gray-900 md:my-10 md:px-8 md:py-10 lg:px-10 lg:py-12">
+<section aria-labelledby="what-i-can-review" class="panel">
     <h2 id="what-i-can-review" class="heading-m mt-0">What I can review</h2>
     {% set situations = [
         {
@@ -126,7 +118,7 @@ breadcrumbParent:
 </section>
 
 <section aria-labelledby="request-review" class="pb-8 md:pb-10 lg:pb-12 xl:pb-14">
-    <div class="max-w-3xl rounded-2xl border border-blue-100 bg-blue-50 px-5 py-8 dark:border-gray-700 dark:bg-gray-900 md:px-8 md:py-10">
+    <div class="cta-card max-w-3xl">
         <h2 id="request-review" class="heading-m mt-0">Tell me what you would like reviewed</h2>
         <p class="body-m">
             You do not need to know exactly what the answer should look like. Tell me what concerns you, what you have already learned and what decision the review needs to inform. I'll suggest a useful scope and let you know if a review is the right way to help.

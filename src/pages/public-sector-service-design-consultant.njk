@@ -23,25 +23,17 @@ breadcrumbParent:
 
 {% set contactUrl = "/contact/" %}
 
-{% macro ctaButton(url) %}
-    <a href="{{ url }}"
-       class="inline-flex min-h-[44px] items-center gap-2 rounded-md bg-primary px-5 py-2.5 font-semibold text-white no-underline shadow-sm transition-colors hover:bg-[#1b2f4c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:bg-blue-300 dark:text-gray-950 dark:hover:bg-blue-200 dark:focus-visible:ring-blue-300 dark:focus-visible:ring-offset-gray-950">
-        Discuss an opportunity
-        <svg aria-hidden="true" class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-        </svg>
-    </a>
-{% endmacro %}
+{% from "macros/cta-button.njk" import ctaButton %}
 
 <section aria-labelledby="page-title" class="py-8 lg:py-12">
-    <div class="flex flex-col gap-8 lg:grid lg:grid-cols-5 lg:items-center lg:gap-x-12 lg:gap-y-5">
-        <div class="lg:col-span-3 lg:col-start-1 lg:row-start-1">
+    <div class="page-hero">
+        <div class="page-hero__intro">
             <h1 id="page-title" class="heading-l">Service design for public-sector programmes, bids and advisory teams</h1>
             <p class="body-m">
                 I work with government organisations, consultancies and delivery partners on complex public-sector services.
             </p>
         </div>
-        <figure class="mx-auto w-full max-w-md lg:col-span-2 lg:col-start-4 lg:row-span-2 lg:row-start-1 lg:max-w-none">
+        <figure class="page-hero__image">
             <img src="/assets/images/public-sector-multidisciplinary-team-480.webp"
                  srcset="/assets/images/public-sector-multidisciplinary-team-480.webp 480w,
                          /assets/images/public-sector-multidisciplinary-team-1024.webp 1024w"
@@ -53,14 +45,14 @@ breadcrumbParent:
                  decoding="async"
                  class="h-auto w-full rounded-lg">
         </figure>
-        <div class="lg:col-span-3 lg:col-start-1 lg:row-start-2">
+        <div class="page-hero__body">
             <p class="body-m">
                 Sometimes that means joining an existing delivery team. Sometimes it means providing the service design or UX expertise needed for a bid, framework call-off or advisory assignment. I also take on shorter pieces of work where a programme needs help making sense of a service, its users and how the different parts fit together.
             </p>
             <p class="body-m">
                 My background covers service design, UX and user-centred design across central government, justice, law enforcement and education.
             </p>
-            <p class="body-m mt-6">{{ ctaButton(contactUrl) }}</p>
+            <p class="body-m mt-6">{{ ctaButton(contactUrl, "Discuss an opportunity") }}</p>
             <p class="body-s text-gray-600 dark:text-gray-400">
                 Available for specialist subcontracting, named expert roles, technical-assistance assignments and short-term advisory work.
             </p>
@@ -111,7 +103,7 @@ breadcrumbParent:
     </ul>
 </section>
 
-<section aria-labelledby="problems-i-untangle" class="my-8 rounded-2xl bg-slate-50 px-4 py-8 dark:bg-gray-900 md:my-10 md:px-8 md:py-10 lg:px-10 lg:py-12">
+<section aria-labelledby="problems-i-untangle" class="panel">
     <div class="grid gap-8 lg:grid-cols-5 lg:items-start lg:gap-12">
         <div class="lg:col-span-3">
             <h2 id="problems-i-untangle" class="heading-m">Problems I'm often brought in to untangle</h2>
@@ -278,7 +270,7 @@ breadcrumbParent:
 </section>
 
 <section aria-labelledby="discuss" class="pb-8 md:pb-10 lg:pb-12">
-    <div class="rounded-2xl border border-blue-100 bg-blue-50 px-5 py-8 dark:border-gray-700 dark:bg-gray-900 md:px-8 md:py-10 lg:w-5/6">
+    <div class="cta-card lg:w-5/6">
         <h2 id="discuss" class="heading-m mt-0">Discuss an opportunity</h2>
         <p class="body-m max-w-2xl">
             If you have a programme, bid or work package that looks relevant, send me the details and I'll tell you quickly whether it looks like a good fit.
@@ -286,7 +278,7 @@ breadcrumbParent:
         <p class="body-m max-w-2xl">
             Useful things to include are the client, role description, procurement route, likely timescales and when you need a CV or supporting evidence.
         </p>
-        <p class="body-m mt-6">{{ ctaButton(contactUrl) }}</p>
+        <p class="body-m mt-6">{{ ctaButton(contactUrl, "Discuss an opportunity") }}</p>
     </div>
 </section>
 

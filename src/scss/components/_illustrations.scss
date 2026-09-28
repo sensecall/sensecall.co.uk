@@ -1,0 +1,13 @@
+@layer components {
+  // The illustrations are drawn on transparent backgrounds for a light page,
+  // so in dark mode they sit on a white card.
+  .illustration-frame {
+    @apply rounded-lg dark:border dark:border-zinc-300/30 dark:bg-white/95 dark:p-2;
+  }
+
+  // Wrapper for an illustration in a fixed-height slot: sits on the baseline in light mode
+  // and is centred on the card in dark mode. Size it with utilities.
+  .illustration-box {
+    @apply illustration-frame flex items-end dark:items-center dark:justify-center;
+  }
+}

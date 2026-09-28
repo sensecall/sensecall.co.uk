@@ -92,6 +92,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@import 'components/focus';
+@import 'components/buttons';
+@import 'components/page-hero';
+@import 'components/site-nav';
+@import 'components/illustrations';
+@import 'components/panels';
 @import 'components/post-code-examples';
 
 // Custom variables
@@ -146,6 +152,11 @@ body {
 
   main :where(p, ul, ol, li) {
     @apply text-gray-700 dark:text-gray-200;
+  }
+
+  // Emphasis outside prose. Inside a link it keeps the link colour.
+  main :where(strong:not(a *)) {
+    @apply font-semibold text-gray-900 dark:text-gray-100;
   }
 
   main .prose :where(a):not(:where([class~='not-prose'] *)) {
@@ -559,17 +570,6 @@ body {
   font-family: var(--font-family-heading);
 }
 
-.nav-link {
-  color: var(--body-color);
-  text-decoration: none;
-
-  &:hover,
-  &:focus,
-  &.active {
-    color: var(--primary);
-  }
-}
-
 // Bubbles animation
 @keyframes bubble {
   0% {
@@ -858,6 +858,7 @@ body {
 }
 
 .dark .settings-menu__panel {
+  --focus-ring-offset: rgb(17 24 39);
   background: rgb(17 24 39);
 }
 
@@ -1005,31 +1006,6 @@ body {
 /* Show no-JS elements when JS is disabled */
 .js .no-js-fallback {
   cursor: pointer;
-}
-
-// Add to your existing styles
-.no-js {
-    #mobile-menu-button,
-    #mobile-menu-close {
-        display: none;
-    }
-
-    #mobile-menu {
-        position: static;
-        transform: none;
-        background: transparent;
-        display: block;
-        height: auto;
-        
-        ul {
-            display: flex;
-            flex-direction: column;
-            
-            @screen md {
-                flex-direction: row;
-            }
-        }
-    }
 }
 
 @media print {

@@ -416,7 +416,7 @@ const mobileMenu = {
 
     openMenu() {
         if (!this.isMobileViewport()) return;
-        this.menu.classList.remove('translate-x-full');
+        this.menu.classList.add('is-open');
         this.menu.removeAttribute('inert');
         this.button.setAttribute('aria-expanded', 'true');
         document.body.style.overflow = 'hidden';
@@ -425,7 +425,7 @@ const mobileMenu = {
 
     closeMenu(restoreFocus = false) {
         if (!this.isMobileViewport()) return;
-        this.menu.classList.add('translate-x-full');
+        this.menu.classList.remove('is-open');
         this.menu.setAttribute('inert', '');
         this.button.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
@@ -440,7 +440,7 @@ const mobileMenu = {
             return;
         }
 
-        this.menu.classList.remove('translate-x-full');
+        this.menu.classList.remove('is-open');
         this.menu.removeAttribute('inert');
         this.button.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';

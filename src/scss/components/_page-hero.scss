@@ -1,0 +1,28 @@
+@layer components {
+  // Service page hero: intro and body text on the left, illustration on the right
+  // spanning both. Below lg it stacks in source order: intro, image, body.
+  .page-hero {
+    @apply flex flex-col gap-8;
+
+    @screen lg {
+      @apply grid items-center gap-x-12 gap-y-5;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-areas:
+        "intro intro intro image image"
+        "body  body  body  image image";
+    }
+  }
+
+  .page-hero__intro {
+    grid-area: intro;
+  }
+
+  .page-hero__body {
+    grid-area: body;
+  }
+
+  .page-hero__image {
+    @apply mx-auto w-full max-w-md lg:max-w-none;
+    grid-area: image;
+  }
+}

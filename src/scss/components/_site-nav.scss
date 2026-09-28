@@ -1,0 +1,97 @@
+@layer components {
+  // Below md the nav list lives in a full-screen drawer that app.js opens by adding .is-open.
+  // From md up it's an ordinary inline list.
+  .mobile-menu {
+    @apply fixed left-0 top-0 z-50 h-full w-full translate-x-full bg-white transition-transform duration-200 ease-in-out dark:bg-gray-900;
+
+    &.is-open {
+      @apply translate-x-0;
+    }
+
+    @screen md {
+      @apply relative z-auto h-auto translate-x-0 bg-transparent transition-none dark:bg-transparent;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .dark .mobile-menu {
+      --focus-ring-offset: theme('colors.gray.900');
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-menu {
+      @apply transition-none;
+    }
+  }
+
+  // Without JS the drawer can't open, so show the list in the page instead.
+  .no-js {
+    #mobile-menu-button,
+    #mobile-menu-close {
+      display: none;
+    }
+
+    .mobile-menu {
+      position: static;
+      transform: none;
+      background: transparent;
+      display: block;
+      height: auto;
+    }
+  }
+
+  .nav-list {
+    @apply flex w-full flex-col items-start space-y-4 divide-y divide-gray-200 p-4 text-base dark:divide-gray-800;
+
+    @screen md {
+      @apply flex-row items-center space-x-6 space-y-0 divide-y-0 p-0 text-lg;
+    }
+  }
+
+  .nav-item {
+    @apply w-full pt-4 md:w-auto md:pt-0;
+  }
+
+  // Stacked links with a left accent bar in the drawer; inline links with an underline from md.
+  // The current page is marked by aria-current, and --nav-accent is set per link.
+  // Rule order matters: active and hover come after the current-page colour so they still show on it.
+  .nav-link {
+    @apply block min-h-[44px] w-full touch-manipulation border-l-4 border-transparent px-2 py-2.5 text-gray-700 transition-colors duration-150 focus-ring dark:text-gray-300;
+
+    @screen md {
+      @apply inline-flex min-h-0 w-auto items-center border-b-2 border-l-0 px-0 pb-1 pt-0;
+    }
+  }
+
+  .nav-link[aria-current="page"] {
+    @apply font-bold text-primary dark:text-white;
+    border-color: var(--nav-accent);
+  }
+
+  .nav-link {
+    @apply active:text-primary dark:active:text-blue-300;
+
+    @screen md {
+      @apply hover:text-primary hover:text-opacity-80 dark:hover:text-blue-300 dark:hover:text-opacity-80;
+    }
+  }
+
+  // Text-and-icon buttons that open and close the drawers.
+  .nav-text-button {
+    @apply inline-flex items-center p-2 text-gray-700 hover:text-primary focus-ring dark:text-gray-300 dark:hover:text-blue-300;
+  }
+
+  // Square icon-only buttons in the header, such as settings.
+  .header-icon-button {
+    @apply inline-flex min-h-11 min-w-11 items-center justify-center rounded-sm p-2 text-gray-500 focus-ring dark:text-gray-300;
+  }
+
+  .header-icon-button[aria-current="page"] {
+    @apply text-primary dark:text-white;
+  }
+
+  .header-icon-button {
+    @apply hover:text-primary dark:hover:text-blue-300;
+  }
+}

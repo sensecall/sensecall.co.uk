@@ -1,0 +1,17 @@
+// The ring's offset gap should match whatever surface the element sits on. Surfaces that
+// differ from the page background (the mobile menu and settings drawers) set --focus-ring-offset.
+.dark {
+  --focus-ring-offset: theme('colors.gray.950');
+}
+
+@layer components {
+  // Keyboard focus ring for links and buttons.
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+    @apply dark:focus-visible:ring-blue-300;
+
+    &:focus-visible {
+      --tw-ring-offset-color: var(--focus-ring-offset, #fff);
+    }
+  }
+}
